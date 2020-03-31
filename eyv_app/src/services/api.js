@@ -20,7 +20,7 @@ const m = require('mithril')
 const _ = require('lodash')
 
 const API_PATH = 'api/'
-const STORAGE_KEY = 'eyv.authorization'
+const STORAGE_KEY = 'curator.authorization'
 let authToken = null
 
 /**
