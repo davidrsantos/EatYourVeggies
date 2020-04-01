@@ -18,16 +18,13 @@ version: '2.1'
 services:
 
 
-  eyv_app_vue:
-    container_name: eyv_app_vue
+  eyv-app-vue:
+    container_name: eyv-app-vue
     build:
-      context: .
+      context: . 
       dockerfile: ./eyv_app_vue/Dockerfile
     volumes:
-      - '.:/project'
-     
-    expose:
-      - 80
+      - './eyv_app_vue:/eyv_app_vue' 
     ports:
       - '8081:8080'
     depends_on:
@@ -47,9 +44,6 @@ services:
     command: |
       bash -c "
         eyv-protogen
-        cd eyv_app_vue/
-        npm run serve
-        cd ..
         cd eyv_app/
         npm run build
         cd ../

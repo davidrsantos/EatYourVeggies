@@ -23,8 +23,8 @@ ServerName eyv_app\n\
 AddDefaultCharset utf-8\n\
 LoadModule proxy_module modules/mod_proxy.so\n\
 LoadModule proxy_http_module modules/mod_proxy_http.so\n\
-ProxyPass /api http://simple-supply-rest-api:8000\n\
-ProxyPassReverse /api http://simple-supply-rest-api:8000\n\
+ProxyPass /api http://eyv-rest-api:8000\n\
+ProxyPassReverse /api http://eyv-rest-api:8000\n\
 \n\
 " >>/usr/local/apache2/conf/httpd.conf
 
