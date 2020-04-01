@@ -15,7 +15,7 @@
 
 FROM httpd:2.4
 
-ENV PATH $PATH:/project/eyv/bin
+ENV PATH $PATH:/project/sawtooth-simple-supply/bin
 
 RUN echo "\
 \n\

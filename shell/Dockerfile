@@ -29,8 +29,8 @@ RUN apt-get install -y --allow-unauthenticated -q \
     python3-sawtooth-sdk \
     python3-sawtooth-rest-api
 
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get install -y nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get install -y nodejs
 
 RUN pip3 install \
     aiohttp \
@@ -48,6 +48,8 @@ WORKDIR /project/eyv
 
 COPY eyv_app/package.json /project/eyv/eyv_app/
 
-RUN cd eyv_app/ && npm install
+RUN cd eyv_app/ && npm install 
+
+
 
 ENV PATH $PATH:/project/eyv/bin
