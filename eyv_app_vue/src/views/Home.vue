@@ -1,8 +1,5 @@
 <template>
-  <div class="home">
-    {{items}}
-
-  </div>
+  <div class="home">{{items}}</div>
 </template>
 
 <script>
@@ -15,10 +12,12 @@ export default {
   }),
   methods: {
     getItems() {
-    axios.get('/agents').then(response => {
+      axios
+        .get("/agents")
+        .then(response => {
           this.items = response.data[0].name;
           console.log("já fiz a chamada da api");
-          console.log(response)
+          console.log(response);
         })
         .catch(function(error) {
           console.log(error);
