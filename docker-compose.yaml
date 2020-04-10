@@ -1,0 +1,199 @@
+# Copyright 2018 Intel Corporation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ------------------------------------------------------------------------------
+
+version: '2.1'
+
+services:
+
+
+  eyv-app-vue:
+    container_name: eyv-app-vue
+    build:
+      context: . 
+      dockerfile: ./eyv_app_vue/Dockerfile
+    volumes:
+      - './eyv_app_vue:/eyv_app_vue' 
+    ports:
+      - '8081:8080'
+    depends_on:
+      - eyv-shell
+      - eyv-rest-api
+
+
+  eyv-shell:
+    build:
+      context: .
+      dockerfile: ./shell/Dockerfile
+    image: eyv-shell
+    container_name: eyv-shell
+    volumes:
+      - .:/project/eyv
+      - /project/eyv/eyv_app/node_modules
+    command: |
+      bash -c "
+        eyv-protogen
+        cd eyv_app/
+        npm run build
+        cd ../
+        tail -f /dev/null
+        
+      "
+
+  eyv-tp:
+    build:
+        context: .
+        dockerfile: ./processor/Dockerfile
+    image: eyv-tp
+    container_name: eyv-tp
+    volumes:
+      - '.:/project/eyv'
+    depends_on:
+      - eyv-shell
+    command: |
+      bash -c "
+        sleep 1
+        eyv-tp -v -C tcp://validator:4004
+      "
+
+  eyv-rest-api:
+    build:
+      context: .
+      dockerfile: ./rest_api/Dockerfile
+    image: eyv-rest-api
+    container_name: eyv-rest-api
+    volumes:
+      - .:/project/eyv
+    ports:
+      - '8000:8000'
+    depends_on:
+      - eyv-shell
+    command: |
+      bash -c "
+        eyv-rest-api \
+          -B eyv-rest-api:8000 \
+          -C validator:4004 \
+          --db-host postgres \
+          -vv
+      "
+
+  eyv-subscriber:
+    build:
+      context: .
+      dockerfile: ./subscriber/Dockerfile
+    image: eyv-subscriber
+    container_name: eyv-subscriber
+    volumes:
+      - '.:/project/eyv'
+    depends_on:
+      - eyv-shell
+      - postgres
+    command: |
+      bash -c "
+        eyv-subscriber init \
+          --db-host postgres \
+          -vv
+        sleep 3
+        eyv-subscriber subscribe \
+          --db-host postgres \
+          -C tcp://validator:4004 \
+          -vv
+      "
+
+  settings-tp:
+    image: hyperledger/sawtooth-settings-tp:1.2
+    container_name: sawtooth-settings-tp
+    depends_on:
+      - validator
+    entrypoint: settings-tp -vv -C tcp://validator:4004
+
+  rest-api:
+    image: hyperledger/sawtooth-rest-api:1.2
+    container_name: sawtooth-rest-api
+    expose:
+      - 8008
+    ports:
+      - '8008:8008'
+    depends_on:
+      - validator
+    entrypoint: sawtooth-rest-api -vv -C tcp://validator:4004 --bind rest-api:8008
+
+  validator:
+    image: hyperledger/sawtooth-validator:1.2
+    container_name: sawtooth-validator
+    expose:
+      - 4004
+    ports:
+      - '4004:4004'
+    command: |
+      bash -c "
+        if [ ! -f /etc/sawtooth/keys/validator.priv ]; then
+          sawadm keygen
+          sawtooth keygen my_key
+          sawset genesis -k /root/.sawtooth/keys/my_key.priv
+          sawset proposal create -k /root/.sawtooth/keys/my_key.priv \
+            sawtooth.consensus.algorithm.name=Devmode \
+            sawtooth.consensus.algorithm.version=0.1 \
+            -o config.batch
+          sawadm genesis config-genesis.batch config.batch
+        fi;
+        sawtooth-validator -vv \
+          --endpoint tcp://validator:8800 \
+          --bind component:tcp://eth0:4004 \
+          --bind network:tcp://eth0:8800 \
+          --bind consensus:tcp://eth0:5050
+      "
+
+  devmode-engine:
+    image: hyperledger/sawtooth-devmode-engine-rust:1.2
+    expose:
+      - 5050
+    ports:
+      - '5050:5050'
+    container_name: sawtooth-devmode-engine-rust-default
+    depends_on:
+      - validator
+    entrypoint: devmode-engine-rust --connect tcp://validator:5050
+
+  postgres:
+    image: postgres:alpine
+    container_name: eyv-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: sawtooth
+      POSTGRES_PASSWORD: sawtooth
+      POSTGRES_DB: eyv
+    ports:
+      - '5432:5432'
+
+  adminer:
+    image: adminer
+    container_name: eyv-adminer
+    restart: always
+    ports:
+      - '8080:8080'
+
+  eyv-app:
+    build: ./eyv_app
+    image: eyv-app
+    container_name: eyv-app
+    volumes:
+      - ./eyv_app/public/:/usr/local/apache2/htdocs/
+    expose:
+      - 80
+    ports:
+      - '8040:80'
+    depends_on:
+      - eyv-shell
+      - eyv-rest-api
