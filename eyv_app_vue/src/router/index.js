@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Drawer from '../components/Drawer.vue'
+
+Vue.component('drawer', Drawer)
 
 Vue.use(VueRouter)
 

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     {{items}}
+
   </div>
 </template>
 
@@ -16,8 +16,9 @@ export default {
   methods: {
     getItems() {
     axios.get('/agents').then(response => {
-          this.items = response.data;
+          this.items = response.data[0].name;
           console.log("já fiz a chamada da api");
+          console.log(response)
         })
         .catch(function(error) {
           console.log(error);
