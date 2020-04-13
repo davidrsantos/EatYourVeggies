@@ -31,6 +31,7 @@ const authorizableProperties = [
   ['weight', 'Weight'],
   ['location', 'Location'],
   ['temperature', 'Temperature'],
+  ['co2', 'Co2'],
   ['shock', 'Shock']
 ]
 

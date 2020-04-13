@@ -169,6 +169,15 @@ const typedInput = state => {
     ])
   }
 
+  if (name === 'co2') {//TODO foi alterado para ter CO2
+    return m('.col-md-8', [
+      m('input.form-control', {
+        placeholder: 'Enter Co2...',
+        oninput: withIntVal(value => { state.update = value })
+      })
+    ])
+  }
+
   return null
 }
 
