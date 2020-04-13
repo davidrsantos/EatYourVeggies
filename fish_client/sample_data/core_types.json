@@ -30,6 +30,11 @@
           "numberExponent": -6
         },
         {
+          "name": "humidade",
+          "dataType": 3,
+          "numberExponent": -6
+        },
+        {
           "name": "tilt",
           "dataType": 4
         },

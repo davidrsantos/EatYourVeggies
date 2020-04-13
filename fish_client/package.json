@@ -1,6 +1,6 @@
 {
   "name": "fish_net",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A Sawtooth Supply Chain client web app for trading fish",
   "main": "",
   "scripts": {

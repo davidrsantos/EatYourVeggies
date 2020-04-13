@@ -587,22 +587,22 @@ const FishDetail = {
             })
            : null)),
            ////TODO foi alterado para ter humidade
-           _row(
-            _labelProperty(
-              'Humidade',
-              _propLink(record, 'humidade', _formatHumid(getPropertyValue(record, 'humidade')))),
-            (isReporter(record, 'humidade', publicKey) && !record.final
-            ? m(ReportValue,
-              {
-                name: 'humidade',
-                label: 'Humidade (C°)',
-                record,
-                typeField: 'numberValue',
-                type: payloads.updateProperties.enum.NUMBER,
-                xform: (x) => parsing.toInt(x),
-                onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-              })
-             : null)),
+        _row(
+        _labelProperty(
+          'Humidade',
+          _propLink(record, 'humidade', _formatHumid(getPropertyValue(record, 'humidade')))),
+        (isReporter(record, 'humidade', publicKey) && !record.final
+        ? m(ReportValue,
+          {
+            name: 'humidade',
+            label: 'Humidade (C°)',
+            record,
+            typeField: 'numberValue',
+            type: payloads.updateProperties.enum.NUMBER,
+            xform: (x) => parsing.toInt(x),
+            onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+          })
+          : null)),
 
         _row(
           _labelProperty(
