@@ -44,7 +44,7 @@
       return {
         drawer: true,
         items: [
-          { title: 'Home', icon: 'mdi-home-city' , link: '/home'},
+          { title: 'Dashboard', icon: 'mdi-home-city' , link: '/dashboard'},
           { title: 'My Account', icon: 'mdi-account' },
           { title: 'Singup', icon: 'mdi-account-group-outline', link:'/singup'},
         ],

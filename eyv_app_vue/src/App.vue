@@ -7,7 +7,8 @@
     <v-navigation-drawer app>
       <drawer />
     </v-navigation-drawer>
-    <v-content>
+    <v-content
+    app>
       <v-container>
         <router-view/>
       </v-container>

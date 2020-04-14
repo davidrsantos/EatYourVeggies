@@ -1,6 +1,6 @@
 <template>
   <div>
-  
+
    <li v-for="item in items" :key="item.recordId" >
       {{item.recordId}}
 
