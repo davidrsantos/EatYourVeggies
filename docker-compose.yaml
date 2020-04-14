@@ -47,7 +47,7 @@ services:
       bash -c "
         cd asset_client/ && npm run build && cd - &&
         cd fish_client/ && npm run build && cd - &&
-        cd eyv_app_vue/ && npm run serve && cd - &&
+        cd eyv_app_vue/ && npm install && npm run serve && cd - &&
         if [ ! -f /root/.sawtooth/keys/root.priv ]; then
           sawtooth keygen &&
           cd server/ &&

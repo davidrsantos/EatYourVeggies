@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Dashboard from '../views/Dashboard.vue'
 import drawer from '../components/Drawer.vue'
-import singup from '../views/Singup_form.vue'
+import singup from '../components/Singup_form.vue'
 
 Vue.component('drawer', drawer);
 
@@ -10,9 +10,9 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/singup',

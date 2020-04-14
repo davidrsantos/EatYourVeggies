@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <div>
     
       <v-list-item class="px-2">
         <v-list-item-avatar>
@@ -8,17 +8,13 @@
 
         <v-list-item-title>John Leider</v-list-item-title>
 
-        <v-btn
-          icon
-          @click.stop="mini = !mini"
-        >
-          <v-icon>mdi-chevron-left</v-icon>
-        </v-btn>
+
       </v-list-item>
 
       <v-divider></v-divider>
 
-      <v-list dense>
+      <v-list
+               rounded>
         <v-list-item
           v-for="item in items"
           :key="item.title"
@@ -35,7 +31,7 @@
         </v-list-item>
       </v-list>
   
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -44,7 +40,7 @@
       return {
         drawer: true,
         items: [
-          { title: 'Home', icon: 'mdi-home-city' , link: '/home'},
+          { title: 'Dashboard', icon: 'mdi-home-city' , link: '/dashboard'},
           { title: 'My Account', icon: 'mdi-account' },
           { title: 'Singup', icon: 'mdi-account-group-outline', link:'/singup'},
         ],

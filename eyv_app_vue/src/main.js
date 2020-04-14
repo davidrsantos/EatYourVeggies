@@ -1,12 +1,12 @@
 require('./bootstrap');
-const api = require('./services/api')
-const transactions =require('./services/transactions')
+import api from './services/api'
+import transactions from './services/transactions'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/index'
 import vuetify from './plugins/vuetify';
-import Vuelidate from 'vuelidate'
+import vuelidate from 'vuelidate'
 
 
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -14,9 +14,10 @@ import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 
-Vue.use(Vuelidate)
+Vue.use(vuelidate)
 
 new Vue({
+  vuelidate,
   api,
   transactions,
   router,
