@@ -12,7 +12,7 @@
           {
             "name": "length",
             "dataType": 3,
-            "numberValue": 2257000
+            "numberValue": 3257000
           },
           {
             "name": "weight",
@@ -31,7 +31,7 @@
       "ownerIndex": 0,
       "custodianIndex": 2,
       "reporterIndex": 1,
-      "reportableProperties": ["temperature", "location", "tilt", "shock"]
+      "reportableProperties": ["temperature","humidade", "location", "tilt", "shock"]
     },
 
     {

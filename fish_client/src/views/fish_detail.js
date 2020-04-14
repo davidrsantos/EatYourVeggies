@@ -623,7 +623,6 @@ const FishDetail = {
                 onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
               })
             : null)),
-        
         _row(
           _labelProperty(
             'Tilt',
