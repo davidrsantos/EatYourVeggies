@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import drawer from '../components/Drawer.vue'
+import singup from '../views/Singup_form.vue'
+
+Vue.component('drawer', drawer);
 
 Vue.use(VueRouter)
 
@@ -9,6 +13,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/singup',
+    name: 'Singup',
+    component: singup
   },
   {
     path: '/about',
