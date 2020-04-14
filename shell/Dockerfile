@@ -21,27 +21,27 @@ RUN echo "deb http://repo.sawtooth.me/ubuntu/1.0/stable xenial universe" >> /etc
   || apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 44FC67F19B2466EA) \
   && apt-get update \
   && apt-get install -y -q \
-    apt-transport-https \
-    build-essential \
-    ca-certificates \
-    curl \
-    libzmq3-dev \
-    pkg-config \
-    python3 \
-    python3-colorlog \
-    python3-dev \
-    python3-grpcio-tools \
-    python3-grpcio \
-    python3-nose2 \
-    python3-pip \
-    python3-protobuf \
-    python3-pytest-runner \
-    python3-pytest \
-    python3-sawtooth-sdk \
-    python3-sawtooth-signing \
-    python3-setuptools-scm \
-    python3-yaml \
-    software-properties-common \
+  apt-transport-https \
+  build-essential \
+  ca-certificates \
+  curl \
+  libzmq3-dev \
+  pkg-config \
+  python3 \
+  python3-colorlog \
+  python3-dev \
+  python3-grpcio-tools \
+  python3-grpcio \
+  python3-nose2 \
+  python3-pip \
+  python3-protobuf \
+  python3-pytest-runner \
+  python3-pytest \
+  python3-sawtooth-sdk \
+  python3-sawtooth-signing \
+  python3-setuptools-scm \
+  python3-yaml \
+  software-properties-common \
   && curl -s -S -o /tmp/setup-node.sh https://deb.nodesource.com/setup_8.x \
   && chmod 755 /tmp/setup-node.sh \
   && /tmp/setup-node.sh \
@@ -60,25 +60,25 @@ COPY fish_client/package.json fish_client/
 COPY server/package.json server/
 
 RUN \
- if [ ! -z $HTTP_PROXY ] && [ -z $http_proxy ]; then \
+  if [ ! -z $HTTP_PROXY ] && [ -z $http_proxy ]; then \
   http_proxy=$HTTP_PROXY; \
- fi; \
- if [ ! -z $HTTPS_PROXY ] && [ -z $https_proxy ]; then \
+  fi; \
+  if [ ! -z $HTTPS_PROXY ] && [ -z $https_proxy ]; then \
   https_proxy=$HTTPS_PROXY; \
- fi; \
- if [ ! -z $http_proxy ]; then \
+  fi; \
+  if [ ! -z $http_proxy ]; then \
   npm config set proxy $http_proxy; \
- fi; \
- if [ ! -z $https_proxy ]; then \
+  fi; \
+  if [ ! -z $https_proxy ]; then \
   npm config set https-proxy $https_proxy; \
- fi
+  fi
 
 RUN mkdir /node_deps \
   && bin/splice_json \
-    asset_client/package.json \
-    fish_client/package.json \
-    server/package.json \
-    > /node_deps/package.json \
+  asset_client/package.json \
+  fish_client/package.json \
+  server/package.json \
+  > /node_deps/package.json \
   && cd /node_deps && npm install && cd - \
   && ln -s /node_deps/node_modules asset_client/ \
   && ln -s /node_deps/node_modules fish_client/ \

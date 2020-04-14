@@ -39,6 +39,7 @@ const authorizableProperties = [
   ['weight', 'Weight'],
   ['location', 'Location'],
   ['temperature', 'Temperature'],
+  ['co2', 'Co2'],
   ['shock', 'Shock']
 ]
 
@@ -501,7 +502,24 @@ const AssetDetail = {
               xform: (x) => parsing.toInt(x),
               onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
             })
-           : null)),
+            : null)),
+        
+        _row(
+          _labelProperty(
+            'Co2',
+            _propLink(record, 'co2', _formatCo2(getPropertyValue(record, 'co2')))),
+          (isReporter(record, 'co2', publicKey) && !record.final
+            ? m(ReportValue,
+              {
+                name: 'co2',
+                label: 'Co2 (Kg)',
+                record,
+                typeField: 'numberValue',
+                type: payloads.updateProperties.enum.NUMBER,
+                xform: (x) => parsing.toInt(x),
+                onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+              })
+            : null)),
 
         _row(
           _labelProperty(
@@ -566,6 +584,14 @@ const _formatLocation = (location) => {
 const _formatTemp = (temp) => {
   if (temp !== undefined && temp !== null) {
     return `${parsing.toFloat(temp)} °C`
+  }
+
+  return 'Unknown'
+}
+
+const _formatCo2 = (co2) => {
+  if (co2 !== undefined && co2 !== null) {
+    return `${parsing.toFloat(co2)} Kg`
   }
 
   return 'Unknown'

@@ -38,7 +38,8 @@ const {
 const authorizableProperties = [
   ['location', 'Location'],
   ['temperature', 'Temperature'],
-  ['humidade','Humidade'], //TODO foi alterado para ter humidade
+  ['humidade', 'Humidade'], //TODO foi alterado para ter humidade
+  ['co2', 'Co2'],//TODO Foi alterado para ter co2
   ['tilt', 'Tilt'],
   ['shock', 'Shock']
 ]
@@ -587,23 +588,41 @@ const FishDetail = {
             })
            : null)),
            ////TODO foi alterado para ter humidade
+           _row(
+            _labelProperty(
+              'Humidade',
+              _propLink(record, 'humidade', _formatHumid(getPropertyValue(record, 'humidade')))),
+            (isReporter(record, 'humidade', publicKey) && !record.final
+            ? m(ReportValue,
+              {
+                name: 'humidade',
+                label: 'Humidade (C°)',
+                record,
+                typeField: 'numberValue',
+                type: payloads.updateProperties.enum.NUMBER,
+                xform: (x) => parsing.toInt(x),
+                onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+              })
+             : null)),
+        
+        //foi alterado para ter co2
+           
         _row(
-        _labelProperty(
-          'Humidade',
-          _propLink(record, 'humidade', _formatHumid(getPropertyValue(record, 'humidade')))),
-        (isReporter(record, 'humidade', publicKey) && !record.final
-        ? m(ReportValue,
-          {
-            name: 'humidade',
-            label: 'Humidade (C°)',
-            record,
-            typeField: 'numberValue',
-            type: payloads.updateProperties.enum.NUMBER,
-            xform: (x) => parsing.toInt(x),
-            onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
-          })
-          : null)),
-
+          _labelProperty(
+            'Co2',
+            _propLink(record, 'co2', _formatCo2(getPropertyValue(record, 'co2')))),
+          (isReporter(record, 'co2', publicKey) && !record.final
+            ? m(ReportValue,
+              {
+                name: 'co2',
+                label: 'Co2 (Kg)',
+                record,
+                typeField: 'numberValue',
+                type: payloads.updateProperties.enum.NUMBER,
+                xform: (x) => parsing.toInt(x),
+                onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
+              })
+            : null)),
         _row(
           _labelProperty(
             'Tilt',
@@ -685,6 +704,13 @@ const _formatHumid = (hum) => {
   return 'Unknown'
 }//TODO foi alterado para ter humidade
 
+const _formatCo2 = (co2) => {
+  if (co2 !== undefined && co2 !== null) {
+    return `${parsing.toFloat(co2)} Kg`
+  }
+
+  return 'Unknown'
+}//TODO foi alterado para ter co2
 const _formatTimestamp = (sec) => {
   if (!sec) {
     sec = Date.now() / 1000
