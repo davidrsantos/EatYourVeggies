@@ -1,40 +1,76 @@
 <template>
-  <form>
-    <v-text-field
-      v-model="name"
-      :error-messages="nameErrors"
-      :counter="10"
-      label="Name"
-      required
-      @input="$v.name.$touch()"
-      @blur="$v.name.$touch()"
-    ></v-text-field>
-    <v-text-field
-      v-model="email"
-      :error-messages="emailErrors"
-      label="E-mail"
-      required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
-    ></v-text-field>
-    <v-checkbox
-      v-model="checkbox"
-      :error-messages="checkboxErrors"
-      label="Do you agree?"
-      required
-      @change="$v.checkbox.$touch()"
-      @blur="$v.checkbox.$touch()"
-    ></v-checkbox>
+  <v-card class="mx-auto" max-width="800">
+    <v-container>
+      <form>
+        <v-text-field
+                v-model="name"
+                :error-messages="nameErrors"
+                :counter="10"
+                label="Name"
+                required
+                @input="$v.name.$touch()"
+                @blur="$v.name.$touch()"
+        />
+        <v-text-field
+                v-model="email"
+                :error-messages="emailErrors"
+                label="E-mail"
+                required
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()"
+        />
 
-    <v-btn class="mr-4" @click="submit">submit</v-btn>
-    <v-btn @click="clear">clear</v-btn>
-  </form>
+        <v-text-field
+                v-model="username"
+                :error-messages="usernameErrors"
+                :counter="10"
+                label="Username"
+                required
+                @input="$v.username.$touch()"
+                @blur="$v.username.$touch()"
+        />
+
+        <v-text-field
+                v-model="password"
+                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                :type="showPassword ? 'text' : 'password'"
+                label="Password"
+                hint="At least 8 characters"
+                counter
+                @click:append="showPassword = !showPassword"
+                :error-messages="passwordErrors"
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()"
+        />
+
+        <v-text-field
+                v-model="repeatPassword"
+                :type="password"
+                label="Confirm your Password"
+                hint="At least 8 characters"
+                counter
+                :error-messages="repeatPasswordErrors"
+                @input="$v.repeatPassword.$touch()"
+                @blur="$v.repeatPassword.$touch()"
+        />
+
+        <v-btn class="mr-4" @click="submit">submit</v-btn>
+        <v-btn @click="clear">clear</v-btn>
+      </form>
+    </v-container>
+  </v-card>
 </template>
 <script>
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import {
+  required,
+  maxLength,
+  minLength,
+  sameAs,
+  email
+} from "vuelidate/lib/validators";
 import transactions from "../services/transactions";
-import api  from "../services/api";
+import api from "../services/api";
 import payloads from "../services/payloads";
 
 export default {
@@ -43,36 +79,56 @@ export default {
   validations: {
     name: { required, maxLength: maxLength(10) },
     email: { required, email },
-    select: { required },
-    checkbox: {
-      checked(val) {
-        return val;
-      }
+    password: {
+      required,
+      minLength: minLength(8)
+    },
+    repeatPassword: {
+      required,
+      sameAsPassword: sameAs("password")
+    },
+    username:{
+      required, maxLength: maxLength(10) 
     }
   },
 
   data: () => ({
-    name: "ola", 
-    email: "ola@ola.pt",
-    password:"123",
-    username:"vue user",
-    select: null,
-    checkbox: false
+    name: null,
+    email: null,
+    password: null,
+    repeatPassword: null,
+    username: null,
+    showPassword: false
   }),
 
   computed: {
-    checkboxErrors() {
+    passwordErrors() {
       const errors = [];
-      if (!this.$v.checkbox.$dirty) return errors;
-      !this.$v.checkbox.checked && errors.push("You must agree to continue!");
+      if (!this.$v.password.$dirty) return errors;
+      !this.$v.password.minLength &&
+        errors.push("Password must be at most 8 characters long");
+      !this.$v.password.required && errors.push("Password is required.");
       return errors;
     },
-    selectErrors() {
+
+    repeatPasswordErrors() {
       const errors = [];
-      if (!this.$v.select.$dirty) return errors;
-      !this.$v.select.required && errors.push("Item is required");
+      if (!this.$v.repeatPassword.$dirty) return errors;
+      if (this.$v.repeatPassword !== this.$v.password)
+        errors.push("Please make use the same password");
+      !this.$v.repeatPassword.required && errors.push("Password is required.");
       return errors;
     },
+
+    usernameErrors() {
+      const errors = [];
+      if (!this.$v.username.$dirty) return errors;
+      !this.$v.username.maxLength &&
+        errors.push("Username must be at most 10 characters long");
+      !this.$v.username.required && errors.push("Username is required.");
+      return errors;
+    },
+
     nameErrors() {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
@@ -92,7 +148,6 @@ export default {
 
   methods: {
     userSubmitter() {
-      
       const keys = transactions.makePrivateKey(this.password);
       const user = _.assign(keys, {
         username: this.username,
@@ -101,7 +156,7 @@ export default {
       user.password = api.hashPassword(this.password);
       const agent = payloads.createAgent({ name: this.name });
 
-     // console.log(agent);
+      // console.log(agent);
       transactions
         .submit(agent, true)
         .then(() => api.post("users", user))
@@ -110,14 +165,14 @@ export default {
     },
 
     submit() {
-      this.userSubmitter()
+      this.userSubmitter();
     },
     clear() {
       this.$v.$reset();
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = false;
+      this.name = null;
+      this.email = null;
+      this.password = null;
+      this.repeatPassword = null;
     }
   }
 };
