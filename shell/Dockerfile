@@ -76,9 +76,9 @@ RUN \
 
 RUN mkdir /node_deps \
   && bin/splice_json \
-    asset_client/package.json \
-    fish_client/package.json \
-    eyv_app_vue/package.json\
+  asset_client/package.json \
+  fish_client/package.json \
+  eyv_app_vue/package.json\
     server/package.json \
     > /node_deps/package.json \
   && cd /node_deps && npm install && cd - \
