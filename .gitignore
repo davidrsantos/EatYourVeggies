@@ -24,3 +24,11 @@ tests/sawtooth_sc_test/protobuf/
 /docs/build/
 /docs/source/_autogen/
 /docs/source/cli/output/
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
