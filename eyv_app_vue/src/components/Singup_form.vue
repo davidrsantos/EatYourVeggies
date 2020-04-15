@@ -166,7 +166,7 @@
                         api.setAuth(res.authorization)                      //provavelmente este já não vai ser necessário
                         this.$store.commit('setToken', res.authorization)   //porque temos este
                         this.$router.push('dashboard')
-                        console.log(this)
+
                     }); //TODO o token já fica aqui guardado
 
             },
