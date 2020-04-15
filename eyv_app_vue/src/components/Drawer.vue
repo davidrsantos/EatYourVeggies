@@ -6,7 +6,7 @@
           <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
         </v-list-item-avatar>
 
-        <v-list-item-title>John Leider</v-list-item-title>
+        <v-list-item-title>{{this.$store.state.user.name}}</v-list-item-title>
 
 
       </v-list-item>
@@ -42,7 +42,7 @@
         items: [
           { title: 'Dashboard', icon: 'mdi-home-city' , link: '/dashboard'},
           { title: 'My Account', icon: 'mdi-account' },
-          { title: 'Singup', icon: 'mdi-account-group-outline', link:'/singup'},
+          { title: '', icon: 'mdi-account-group-outline', link:'/singup'},
         ],
         mini: true,
       }
