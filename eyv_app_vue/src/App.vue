@@ -8,7 +8,8 @@
 
 
             <template v-if="this.$store.state.token && (this.$store.state.user!=null)">
-                <v-toolbar-title> {{this.$store.state.user.email}}</v-toolbar-title>
+                <v-toolbar-title> {{this.$store.state.user.email}}</v-toolbar-title> <!-- continua a ter erro aqui quando
+                chama porque não tem logo o user disponivel TODO ver o que se passa com o $store no login-->
 
                 <v-btn @click="logout">Logout</v-btn>
             </template>
