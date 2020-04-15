@@ -42,7 +42,7 @@
         items: [
           { title: 'Dashboard', icon: 'mdi-home-city' , link: '/dashboard'},
           { title: 'My Account', icon: 'mdi-account' },
-          { title: 'n', icon: 'mdi-account-group-outline', link:'/singup'},
+          { title: 'Add Product', icon: 'mdi-account-group-outline', link:'/addProduct'},
         ],
         mini: true,
       }

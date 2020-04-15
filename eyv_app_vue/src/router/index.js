@@ -4,12 +4,18 @@ import Dashboard from '../views/Dashboard.vue'
 import drawer from '../components/Drawer.vue'
 import singup from '../components/Singup_form.vue'
 import login from '../components/Login_form'
+import addProduct from '../views/AddProduct'
 
 Vue.component('drawer', drawer);
 
 Vue.use(VueRouter)
 
 const routes = [
+  {
+    path:'/addProduct',
+    name:'addProduct',
+    component: addProduct
+  },
   {
     path:'/login',
     name:'login',
