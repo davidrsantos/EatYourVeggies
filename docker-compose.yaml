@@ -1,3 +1,5 @@
+--- # ------------------------------------------------------------------------------
+
 # Copyright 2017 Intel Corporation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,12 +13,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# ------------------------------------------------------------------------------
-
-version: '2.1'
+version: "2.1"
 
 services:
-
   shell:
     image: supply-shell
     container_name: supply-shell
@@ -40,14 +39,14 @@ services:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink
       - SERVER=http://server:3000
-      - 'http_proxy=${http_proxy}'
-      - 'https_proxy=${https_proxy}'
-      - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
+      - "http_proxy=${http_proxy}"
+      - "https_proxy=${https_proxy}"
+      - "no_proxy=rest-api,server,eth0,validator,${no_proxy}"
     command: |
       bash -c "
         cd asset_client/ && npm run build && cd - &&
         cd fish_client/ && npm run build && cd - &&
-        cd eyv_app_vue/ && npm install && npm run serve && cd - &&
+        cd eyv_app_vue/ &&  npm run serve && cd - &&
         if [ ! -f /root/.sawtooth/keys/root.priv ]; then
           sawtooth keygen &&
           cd server/ &&
@@ -71,9 +70,9 @@ services:
         - https_proxy
         - no_proxy
     environment:
-      - 'http_proxy=${http_proxy}'
-      - 'https_proxy=${https_proxy}'
-      - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
+      - "http_proxy=${http_proxy}"
+      - "https_proxy=${https_proxy}"
+      - "no_proxy=rest-api,server,eth0,validator,${no_proxy}"
     volumes:
       - .:/sawtooth-supply-chain
       - /sawtooth-supply-chain/processor/target
@@ -100,7 +99,7 @@ services:
     expose:
       - 3000
     ports:
-      - '8020:3000'
+      - "8020:3000"
     depends_on:
       - validator
       - rethink
@@ -108,9 +107,9 @@ services:
     environment:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink
-      - 'http_proxy=${http_proxy}'
-      - 'https_proxy=${https_proxy}'
-      - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
+      - "http_proxy=${http_proxy}"
+      - "https_proxy=${https_proxy}"
+      - "no_proxy=rest-api,server,eth0,validator,${no_proxy}"
     entrypoint: node index.js
 
   ledger-sync:
@@ -132,11 +131,9 @@ services:
     environment:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink
-      - 'http_proxy=${http_proxy}'
-      - 'https_proxy=${https_proxy}'
-      - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
-
-
+      - "http_proxy=${http_proxy}"
+      - "https_proxy=${https_proxy}"
+      - "no_proxy=rest-api,server,eth0,validator,${no_proxy}"
 
   fish-client:
     image: supply-fish-client
@@ -147,7 +144,7 @@ services:
     expose:
       - 80
     ports:
-      - '8022:80'
+      - "8022:80"
     depends_on:
       - server
 
@@ -160,11 +157,9 @@ services:
     expose:
       - 80
     ports:
-      - '8021:80'
+      - "8021:80"
     depends_on:
       - server
-
-
 
   rethink:
     image: rethinkdb
@@ -173,12 +168,12 @@ services:
       - 8080
       - 28015
     ports:
-      - '8023:8080'
-      - '28020:28015'
+      - "8023:8080"
+      - "28020:28015"
     environment:
-      - 'http_proxy=${http_proxy}'
-      - 'https_proxy=${https_proxy}'
-      - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
+      - "http_proxy=${http_proxy}"
+      - "https_proxy=${https_proxy}"
+      - "no_proxy=rest-api,server,eth0,validator,${no_proxy}"
 
   validator:
     image: hyperledger/sawtooth-validator:1.0
@@ -186,7 +181,7 @@ services:
     expose:
       - 4004
     ports:
-      - '4020:4004'
+      - "4020:4004"
     # start the validator with an empty genesis batch
     entrypoint: |
       bash -c "
@@ -215,7 +210,7 @@ services:
     expose:
       - 8008
     ports:
-      - '8024:8008'
+      - "8024:8008"
     depends_on:
       - validator
     entrypoint: |
