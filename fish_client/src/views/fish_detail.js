@@ -556,8 +556,6 @@ const FishDetail = {
             onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
           })),
 
-        _row(_labelProperty('Species', getPropertyValue(record, 'species'))),
-
         _row(
           _labelProperty('Length (m)', parsing.toFloat(getPropertyValue(record, 'length', 0))),
           _labelProperty('Weight (kg)', parsing.toFloat(getPropertyValue(record, 'weight', 0)))),

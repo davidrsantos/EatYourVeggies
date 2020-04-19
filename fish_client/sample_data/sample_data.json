@@ -5,11 +5,6 @@
       "recordType": "fish",
       "properties": [
           {
-            "name": "species",
-            "dataType": 4,
-            "stringValue": "BFT"
-          },
-          {
             "name": "length",
             "dataType": 3,
             "numberValue": 3257000
@@ -39,11 +34,6 @@
       "recordType": "fish",
       "properties": [
           {
-            "name": "species",
-            "dataType": 4,
-            "stringValue": "STV"
-          },
-          {
             "name": "length",
             "dataType": 3,
             "numberValue": 672000
@@ -69,11 +59,6 @@
       "recordId": "1-4m-n0t-f1sh",
       "recordType": "fish",
       "properties": [
-          {
-            "name": "species",
-            "dataType": 4,
-            "stringValue": "SPW"
-          },
           {
             "name": "length",
             "dataType": 3,
