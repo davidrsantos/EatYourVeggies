@@ -71,6 +71,13 @@ const AddFishForm = {
                }),
                value: vnode.state.serialNumber
              })),
+             _formGroup('Species (ASFIS 3-letter code)', m('input.form-control', {
+               type: 'text',
+               oninput: m.withAttr('value', (value) => {
+                 vnode.state.species = value
+               }),
+               value: vnode.state.species
+             })),
 
              layout.row([
                _formGroup('Length (m)', m('input.form-control', {
@@ -183,6 +190,11 @@ const _handleSubmit = (signingKey, state) => {
     recordId: state.serialNumber,
     recordType: 'fish',
     properties: [
+      {
+        name: 'species',
+        stringValue: state.species,
+        dataType: payloads.createRecord.enum.STRING
+      },
       {
         name: 'length',
         numberValue: parsing.toInt(state.lengthInCM),

@@ -128,77 +128,13 @@ export default {
       !this.$v.batch.required && errors.push("Batch is required.");
       return errors;
     },
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    classificationErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    originErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    weightErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    harvestDateErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    sizeErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    latitudeErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    },
-    longitudeErrors() {
-      const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Name is required.");
-      return errors;
-    }
   },
 
   methods: {
     addProduct() {
       let recordPayload = payloads.createRecord({
         recordId: this.batch,
-        recordType: "fish",
+        recordType: "vegetable",
         properties: [
           {
             name: "name",
@@ -266,7 +202,7 @@ export default {
       this.name = null;
       this.classification = null;
       this.origin = null;
-      this.weight = null;
+      this.weigth = null;
       this.size = null;
       this.harvestDate = null;
       this.latitude = null;

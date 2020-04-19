@@ -3,6 +3,11 @@
     "name": "fish",
     "properties": [
         {
+          "name": "species",
+          "dataType": 4,
+          "required": true
+        },
+        {
           "name": "length",
           "dataType": 3,
           "required": true,

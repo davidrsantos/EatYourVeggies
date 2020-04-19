@@ -271,12 +271,13 @@ class TestSupplyChain(unittest.TestCase):
             Subsequent attempts to create a type with that name will
             fail.
             ''',
-            ['weight', 'temperature',
+            ['species', 'weight', 'temperature',
              'location', 'is_trout', 'how_big'])
 
         self.assert_valid(
             jin.create_record_type(
                 'fish',
+                ('species', PropertySchema.STRING,
                  { 'required': True, 'fixed': True }),
                 ('weight', PropertySchema.NUMBER,
                  { 'required': True, 'unit': 'grams' }),
@@ -327,7 +328,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'fish-456',
                 'fish',
-                {'weight': 'heavy'}))
+                {'species': 'trout', 'weight': 'heavy'}))
 
         self.narrate(
             '''
@@ -341,7 +342,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'fish-456',
                 'fish',
-                {'how_big': Enum('small')}))
+                {'species': 'trout', 'how_big': Enum('small')}))
 
         self.narrate(
             '''
@@ -353,7 +354,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'fish-456',
                 'fish',
-                {'location': {
+                {'species': 'trout', 'location': {
                     'hemisphere': 'north',
                     'gps': {'lat': 45, 'long': 45}
                 }}))
@@ -368,7 +369,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'fish-456',
                 'fish',
-                {'weight': 5,
+                {'species': 'trout', 'weight': 5,
                  'temperature': -1000}))
 
         self.narrate(
@@ -381,7 +382,7 @@ class TestSupplyChain(unittest.TestCase):
             jin.create_record(
                 'fish-456',
                 'fish',
-                {'weight': 5,
+                {'species': 'trout', 'weight': 5,
                  'is_trout': True, 'how_big': Enum('bigger'),
                  'location': {
                     'hemisphere': 'north',
@@ -409,6 +410,21 @@ class TestSupplyChain(unittest.TestCase):
             jin.update_properties(
                 'fish-456',
                 {'splecies': 'tluna'}))
+
+        self.assert_invalid(
+            jin.update_properties(
+                'fish-???',
+                {'species': 'flounder'}))
+
+        self.narrate(
+            '''
+            Jin attempts to update species, but it is a static property.
+            ''')
+
+        self.assert_invalid(
+            jin.update_properties(
+                'fish-456',
+                {'species': 'bass'}))
 
         self.narrate(
             '''
@@ -853,7 +869,8 @@ class TestSupplyChain(unittest.TestCase):
         self.assertEqual(get_record['owner'], sun.public_key)
         self.assertEqual(get_record['recordId'], 'fish-456')
 
-        for attr in ('temperature',
+        for attr in ('species',
+                     'temperature',
                      'weight',
                      'is_trout',
                      'how_big',

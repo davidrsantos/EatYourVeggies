@@ -58,6 +58,7 @@ const FishList = {
         m(Table, {
           headers: [
             'Serial Number',
+            'Species',
             'Added',
             'Updated',
             'Updates'
@@ -69,6 +70,7 @@ const FishList = {
                   m(`a[href=/fish/${rec.recordId}]`, {
                     oncreate: m.route.link
                   }, truncate(rec.recordId, { length: 32 })),
+                  getPropertyValue(rec, 'species'),
                   // This is the "created" time, synthesized from properties
                   // added on the initial create
                   formatTimestamp(getOldestPropertyUpdateTime(rec)),
