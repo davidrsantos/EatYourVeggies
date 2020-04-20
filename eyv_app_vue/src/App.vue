@@ -13,13 +13,10 @@
 
                 <v-btn @click="logout">Logout</v-btn>
             </template>
-            <template v-else>
-                <v-btn light to="/login">Login</v-btn>
-                <v-btn light to="/singup">SingUp</v-btn>
-            </template>
+
 
         </v-app-bar>
-        <v-navigation-drawer app clipped expand-on-hover
+        <v-navigation-drawer app clipped expand-on-hover v-if="this.$store.state.token && (this.$store.state.user!=null)"
                              mini-variant-width="100"
         >
             <v-card>
@@ -28,7 +25,7 @@
         </v-navigation-drawer>
         <v-content app
         >
-            <v-container>
+            <v-container >
                 <router-view/>
             </v-container>
         </v-content>
