@@ -19,12 +19,14 @@
 const _ = require('lodash')
 const db = require('./')
 
-const USER_SCHEMA = {
+const USER_SCHEMA = { // Onde define as propriedades do user para posteriormente validar!!
   username: String,
   password: String,
   email: /.+@.+\..+/,
   publicKey: String,
   '?encryptedKey': String,
+    nif: String.of(9,null), //9 é o tamanho exato do campo e o null é para não meter restrições na string
+  //TODO adicionar aqui  o tipo de user e etc....
   '*': null
 }
 

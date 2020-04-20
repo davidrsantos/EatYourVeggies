@@ -31,6 +31,30 @@
                 />
 
                 <v-text-field
+                        :counter="9"
+                        :error-messages="nifErrors"
+                        @blur="$v.nif.$touch()"
+                        @input="$v.nif.$touch()"
+                        label="Nif"
+                        required
+                        v-model="nif"
+                        maxlength="9"
+
+                />
+
+                <v-select
+                        v-model="role"
+                        :items="typeofUser"
+                        item-text="name"
+                        item-value="value"
+                        label="Selecione o tipo de utilizador"
+
+                        return-object
+                        single-line
+                ></v-select>
+
+
+                <v-text-field
                         :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                         :error-messages="passwordErrors"
                         :type="showPassword ? 'text' : 'password'"
@@ -61,22 +85,19 @@
     </v-card>
 </template>
 <script>
-    import {validationMixin} from "vuelidate";
+    import * as transactions from "../services/transactions";
+    import * as api from "../services/api";
+    import * as payloads from "../services/payloads";
     import {
         required,
         maxLength,
         minLength,
         sameAs,
-        email
+        email,
+        numeric
     } from "vuelidate/lib/validators";
-    import * as transactions from "../services/transactions";
-    import * as api from "../services/api";
-    import * as payloads from "../services/payloads";
-
-
 
     export default {
-        mixins: [validationMixin],
 
         validations: {
             name: {required, maxLength: maxLength(50)},
@@ -91,7 +112,10 @@
             },
             username: {
                 required, maxLength: maxLength(10)
-            }
+            },
+            nif: {
+                required, minLength: minLength(9), maxLength: maxLength(9), numeric
+            },
         },
 
         data: () => ({
@@ -100,10 +124,30 @@
             password: null,
             repeatPassword: null,
             username: null,
-            showPassword: false
+            showPassword: false,
+            nif: null,
+            role: null,
+            typeofUser:[
+                {name:'Administrador', value: 'admin'},
+                {name:'Produtor', value: 'prod'},
+                {name:'Distribuidor', value: 'dist'},
+                {name:'Administrador', value: 'admin'},//todo faltam adicionar e por em ingles
+        ]
+
         }),
 
         computed: {
+            nifErrors() {
+                const errors = [];
+                if (!this.$v.nif.$dirty) return errors;
+                !this.$v.nif.minLength &&
+                errors.push("Nif must be at most 9 characters long");
+                !this.$v.nif.maxLength &&
+                errors.push("Nif should not be more that 9 characters long");
+                !this.$v.nif.required && errors.push("Nif is required.");
+                return errors;
+            },
+
             passwordErrors() {
                 const errors = [];
                 if (!this.$v.password.$dirty) return errors;
@@ -159,12 +203,12 @@
                 const agent = payloads.createAgent({name: this.name});
 
                 // console.log(agent);
-               transactions
+                transactions
                     .submit(agent, true)
                     .then(() => api.post("users", user))
                     .then(res => {
-                        api.setAuth(res.authorization)                      //provavelmente este já não vai ser necessário
-                        this.$store.commit('setToken', res.authorization)   //porque temos este
+                        api.setAuth(res.authorization);                      //provavelmente este já não vai ser necessário
+                        this.$store.commit('setToken', res.authorization);   //porque temos este
                         this.$router.push('dashboard')
 
                     }); //TODO o token já fica aqui guardado
@@ -178,7 +222,7 @@
                 this.$v.$reset();
                 this.name = null;
                 this.email = null;
-                this.username= null;
+                this.username = null;
                 this.password = null;
                 this.repeatPassword = null;
             }

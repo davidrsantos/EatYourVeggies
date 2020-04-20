@@ -107,7 +107,7 @@ const fetchQuery = (publicKey, auth) => block => {
 const fetchUser = publicKey => {
   return r.table('users')
     .filter(hasPublicKey(publicKey))
-    .pluck('username', 'email', 'encryptedKey')
+    .pluck('username', 'email', 'encryptedKey','nif')
     .nth(0)
 }
 
