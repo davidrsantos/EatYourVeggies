@@ -1,34 +1,16 @@
-# Copyright 2018 Intel Corporation
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# -----------------------------------------------------------------------------
+# base image
+FROM node:12.2.0-alpine
 
-# NOTE: Use `volumes` to make: fish_client/public/
-# available at: /usr/local/apache2/htdocs/
+# set working directory
+WORKDIR /app
 
-FROM httpd:2.4
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
 
-RUN echo "\
-\n\
-ServerName eyv_app_vue\n\
-AddDefaultCharset utf-8\n\
-LoadModule proxy_module modules/mod_proxy.so\n\
-LoadModule proxy_http_module modules/mod_proxy_http.so\n\
-ProxyPass /api http://server:3000\n\
-ProxyPassReverse /api http://server:3000\n\
-\n\
-" >>/usr/local/apache2/conf/httpd.conf
+# install and cache app dependencies
+COPY package.json /app/package.json
+RUN npm install
+RUN npm install @vue/cli@3.7.0 -g
 
-ENV PATH $PATH:/sawtooth-supply-chain/bin
-
-EXPOSE 80/tcp
+# start app
+CMD ["npm", "run", "serve"]
