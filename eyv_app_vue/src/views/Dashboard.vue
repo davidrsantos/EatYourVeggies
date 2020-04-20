@@ -1,14 +1,8 @@
 <template>
   <div>
-
-   <li v-for="item in items" :key="item.recordId" >
-      {{item.recordId}}
-
-      </li>
-    
-     
-   
-    
+    <li v-for="item in items" :key="item.recordId">
+      {{ item.recordId }}
+    </li>
   </div>
 </template>
 
@@ -18,22 +12,23 @@
 export default {
   name: "Home",
   data: () => ({
-    items: []
-    
+    items: [],
   }),
   methods: {
     getItems() {
-    axios.get('/records?recordType=fish').then(response => {
+      axios
+        .get("/records?recordType=vegetable")
+        .then((response) => {
           this.items = response.data;
           console.log("já fiz a chamada da api");
         })
         .catch(function(error) {
           console.log(error);
         });
-    }
+    },
   },
   beforeMount: function() {
     this.getItems();
-  }
+  },
 };
 </script>
