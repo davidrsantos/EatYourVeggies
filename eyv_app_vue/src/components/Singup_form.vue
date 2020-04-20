@@ -69,7 +69,9 @@
 
                 <v-text-field
                         :error-messages="repeatPasswordErrors"
-                        :type="password"
+                        @click:append="showPassword = !showPassword"
+                        :type="showPassword ? 'text' : 'password'"
+
                         @blur="$v.repeatPassword.$touch()"
                         @input="$v.repeatPassword.$touch()"
                         counter
@@ -129,9 +131,10 @@
             role: null,
             typeofUser:[
                 {name:'Administrador', value: 'admin'},
-                {name:'Produtor', value: 'prod'},
-                {name:'Distribuidor', value: 'dist'},
-                {name:'Administrador', value: 'admin'},//todo faltam adicionar e por em ingles
+                {name:'Producer', value: 'producer'},
+                {name:'Distributor', value: 'distributor'},
+                {name:'Retailer', value: 'retailer'},
+                {name:'Customer', value: 'customer'},
         ]
 
         }),
@@ -197,7 +200,9 @@
                 const keys = transactions.makePrivateKey(this.password);
                 const user = _.assign(keys, {
                     username: this.username,
-                    email: this.email
+                    email: this.email,
+                    nif: this.nif,
+                    role: this.role.value
                 });
                 user.password = api.hashPassword(this.password);
                 const agent = payloads.createAgent({name: this.name});

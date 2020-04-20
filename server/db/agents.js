@@ -104,10 +104,11 @@ const fetchQuery = (publicKey, auth) => block => {
       })
 }
 
+//vai buscar o user atraves da pubKey
 const fetchUser = publicKey => {
   return r.table('users')
     .filter(hasPublicKey(publicKey))
-    .pluck('username', 'email', 'encryptedKey','nif')
+    .pluck('username', 'email', 'encryptedKey','nif','role')
     .nth(0)
 }
 
