@@ -62,7 +62,7 @@
           required
           v-model="harvestDate"
         />
-        <v-text-field
+          <v-text-field
           :counter="10"
           :error-messages="latitudeErrors"
           @blur="$v.latitude.$touch()"
@@ -83,7 +83,7 @@
         <v-btn @click="submit" class="mr-4">submit</v-btn>
         <v-btn @click="clear">clear</v-btn>
       </form>
-    </v-container>
+   </v-container>
   </v-card>
 </template>
 <script>
@@ -104,7 +104,12 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    batch: { required, maxLength: maxLength(50) },
+    batch: { required, maxLength: maxLength(50), minLength: minLength(1)},
+    name: { required, maxLength: maxLength(50), minLength: minLength(2)},
+    classification: { required, maxLength: maxLength(50), minLength: minLength(2)},
+    origin: { required, maxLength: maxLength(50), minLength: minLength(2)},
+    weight: { required, maxLength: maxLength(10), minLength: minLength(1)},
+    size: { required, maxLength: maxLength(10), minLength: minLength(1)}
   },
 
   data: () => ({
