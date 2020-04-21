@@ -1,5 +1,13 @@
 <template>
   <v-card class="mx-auto" max-width="800">
+    <v-toolbar
+      color="primary"
+      dark
+      extended
+      flat
+    >
+    <v-toolbar-title>Register Product</v-toolbar-title>
+    </v-toolbar>
     <v-container>
       <form>
         <v-text-field
@@ -62,6 +70,7 @@
           required
           v-model="harvestDate"
         />
+        <v-card-title class="justify-center">Localization</v-card-title>
           <v-text-field
           :counter="10"
           :error-messages="latitudeErrors"
@@ -109,7 +118,10 @@ export default {
     classification: { required, maxLength: maxLength(50), minLength: minLength(2)},
     origin: { required, maxLength: maxLength(50), minLength: minLength(2)},
     weight: { required, maxLength: maxLength(10), minLength: minLength(1)},
-    size: { required, maxLength: maxLength(10), minLength: minLength(1)}
+    size: { required, maxLength: maxLength(10), minLength: minLength(1)},
+    harvestDate: { required, maxLength: maxLength(11), minLength: minLength(1)},
+    latitude: { required, maxLength: maxLength(20), minLength: minLength(1)},
+    longitude: { required, maxLength: maxLength(20), minLength: minLength(1)}
   },
 
   data: () => ({
@@ -129,72 +141,72 @@ export default {
       const errors = [];
       if (!this.$v.batch.$dirty) return errors;
       !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
+        errors.push("The batch must be 1 to 50 characters long");
       !this.$v.batch.required && errors.push("Batch is required.");
       return errors;
     },
     nameErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.maxLength &&
+        errors.push("The name must be 1 to 50 characters long"); //TODO alterar mensagem de erro
+      !this.$v.name.required && errors.push("Batch is required.");
       return errors;
     },
     classificationErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.classification.$dirty) return errors;
+      !this.$v.classification.maxLength &&
+        errors.push("The classification must be 1 to 50 characters long");
+      !this.$v.classification.required && errors.push("Batch is required.");
       return errors;
     },
     originErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.origin.$dirty) return errors;
+      !this.$v.origin.maxLength &&
+        errors.push("The origin must be 1 to 50 characters long");
+      !this.$v.origin.required && errors.push("Origin is required.");
       return errors;
     },
     weightErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.weight.$dirty) return errors;
+      !this.$v.weight.maxLength &&
+        errors.push("The weigth must be 1 to 10 characters long");
+      !this.$v.weight.required && errors.push("Weight is required.");
       return errors;
     },
     sizeErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.size.$dirty) return errors;
+      !this.$v.size.maxLength &&
+        errors.push("The size must be 1 to 10 characters long");
+      !this.$v.size.required && errors.push("Size is required.");
       return errors;
     },
     harvestDateErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.harvestDate.$dirty) return errors;
+      !this.$v.harvestDate.maxLength &&
+        errors.push("The harvest data must be 1 to 11 characters long");
+      !this.$v.harvestDate.required && errors.push("Harvest Date is required.");
       return errors;
     },
     latitudeErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.latitude.$dirty) return errors;
+      !this.$v.latitude.maxLength &&
+        errors.push("The latitude must be 1 to 20 characters long");
+      !this.$v.latitude.required && errors.push("Latitude is required.");
       return errors;
     },
     longitudeErrors() {
       const errors = [];
-      if (!this.$v.batch.$dirty) return errors;
-      !this.$v.batch.maxLength &&
-        errors.push("Batch must be at most 50 characters long"); //TODO alterar mensagem de erro
-      !this.$v.batch.required && errors.push("Batch is required.");
+      if (!this.$v.longitude.$dirty) return errors;
+      !this.$v.longitude.maxLength &&
+        errors.push("The longitude must be 1 to 20 characters long");
+      !this.$v.longitude.required && errors.push("Longitude is required.");
       return errors;
     },
   },
