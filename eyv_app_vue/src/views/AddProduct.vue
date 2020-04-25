@@ -1,12 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="800">
-    <v-toolbar
-      color="primary"
-      dark
-      extended
-      flat
-    >
-    <v-toolbar-title>Register Product</v-toolbar-title>
+    <v-toolbar color="primary" dark extended flat>
+      <v-toolbar-title>Register Product</v-toolbar-title>
     </v-toolbar>
     <v-container>
       <form>
@@ -71,7 +66,7 @@
           v-model="harvestDate"
         />
         <v-card-title class="justify-center">Localization</v-card-title>
-          <v-text-field
+        <v-text-field
           :counter="10"
           :error-messages="latitudeErrors"
           @blur="$v.latitude.$touch()"
@@ -92,7 +87,7 @@
         <v-btn @click="submit" class="mr-4">submit</v-btn>
         <v-btn @click="clear">clear</v-btn>
       </form>
-   </v-container>
+    </v-container>
   </v-card>
 </template>
 <script>
@@ -113,15 +108,23 @@ export default {
   mixins: [validationMixin],
 
   validations: {
-    batch: { required, maxLength: maxLength(50), minLength: minLength(1)},
-    name: { required, maxLength: maxLength(50), minLength: minLength(2)},
-    classification: { required, maxLength: maxLength(50), minLength: minLength(2)},
-    origin: { required, maxLength: maxLength(50), minLength: minLength(2)},
-    weight: { required, maxLength: maxLength(10), minLength: minLength(1)},
-    size: { required, maxLength: maxLength(10), minLength: minLength(1)},
-    harvestDate: { required, maxLength: maxLength(11), minLength: minLength(1)},
-    latitude: { required, maxLength: maxLength(20), minLength: minLength(1)},
-    longitude: { required, maxLength: maxLength(20), minLength: minLength(1)}
+    batch: { required, maxLength: maxLength(50), minLength: minLength(1) },
+    name: { required, maxLength: maxLength(50), minLength: minLength(2) },
+    classification: {
+      required,
+      maxLength: maxLength(50),
+      minLength: minLength(2),
+    },
+    origin: { required, maxLength: maxLength(50), minLength: minLength(2) },
+    weight: { required, maxLength: maxLength(10), minLength: minLength(1) },
+    size: { required, maxLength: maxLength(10), minLength: minLength(1) },
+    harvestDate: {
+      required,
+      maxLength: maxLength(11),
+      minLength: minLength(1),
+    },
+    latitude: { required, maxLength: maxLength(20), minLength: minLength(1) },
+    longitude: { required, maxLength: maxLength(20), minLength: minLength(1) },
   },
 
   data: () => ({
@@ -269,7 +272,7 @@ export default {
                         properties: reporter.properties
                     })) */ transactions
         .submit([recordPayload], true) //versão sem reporters!!!!!
-        .then(() => m.route.set(`/vegetable/${this.batch}`));
+        .then(this.$router.push("dashboard"));
     },
 
     submit() {
