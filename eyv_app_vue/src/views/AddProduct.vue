@@ -317,6 +317,16 @@ export default {
             dataType: payloads.createRecord.enum.STRING,
           },
           {
+            name: "expirationDate",
+            stringValue: this.expirationDate,
+            dataType: payloads.createRecord.enum.STRING,
+          },
+          {
+            name: "packingDate",
+            stringValue: this.packingDate,
+            dataType: payloads.createRecord.enum.STRING,
+          },
+          {
             name: "location",
             locationValue: {
               latitude: parsing.toInt(this.latitude),
@@ -355,6 +365,8 @@ export default {
       this.harvestDate = null;
       this.latitude = null;
       this.longitude = null;
+      this.expirationDate = null;
+      this.packingDate = null;
     },
   },
 };
