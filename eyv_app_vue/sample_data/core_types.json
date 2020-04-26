@@ -30,17 +30,16 @@
         "numberExponent": -6
       },
       {
-        "name": "amount",
-        "dataType": 3,
-        "numberExponent": -6
-      },
-      {
         "name": "harvestDate",
         "dataType": 4,
         "required": true
       },
       {
-        "name": "packing_date",
+        "name": "packingDate",
+        "dataType": 4
+      },
+      {
+        "name": "expirationDate",
         "dataType": 4
       },
       {

@@ -30,11 +30,6 @@
             "numberValue": 247096000
           },
           {
-            "name": "amount",
-            "dataType": 3,
-            "numberValue": 247096000
-          },
-          {
             "name": "harvestDate",
             "dataType": 4,
             "stringValue": "19/04/2020"
@@ -80,11 +75,6 @@
         },
         {
           "name": "weight",
-          "dataType": 3,
-          "numberValue": 247096000
-        },
-        {
-          "name": "amount",
           "dataType": 3,
           "numberValue": 247096000
         },
@@ -139,11 +129,6 @@
         },
         {
           "name": "weight",
-          "dataType": 3,
-          "numberValue": 247096000
-        },
-        {
-          "name": "amount",
           "dataType": 3,
           "numberValue": 247096000
         },
