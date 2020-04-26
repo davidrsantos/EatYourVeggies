@@ -40,23 +40,26 @@
           label="Origin"
           required
           v-model="origin"
-        /><v-text-field
-          :counter="10"
-          :error-messages="weightErrors"
-          @blur="$v.weight.$touch()"
-          @input="$v.weight.$touch()"
-          label="Weight"
-          required
-          v-model="weight"
-        /><v-text-field
-          :counter="10"
-          :error-messages="sizeErrors"
-          @blur="$v.size.$touch()"
-          @input="$v.size.$touch()"
-          label="Size"
-          required
-          v-model="size"
-        /><v-text-field
+        />
+        <v-text-field
+                :counter="10"
+                :error-messages="sizeErrors"
+                @blur="$v.size.$touch()"
+                @input="$v.size.$touch()"
+                label="Size"
+                required
+                v-model="size"
+        />
+        <v-text-field
+                :counter="10"
+                :error-messages="weightErrors"
+                @blur="$v.weight.$touch()"
+                @input="$v.weight.$touch()"
+                label="Weight"
+                required
+                v-model="weight"
+        />
+        <v-text-field
           :counter="10"
           :error-messages="harvestDateErrors"
           @blur="$v.harvestDate.$touch()"
@@ -65,7 +68,46 @@
           required
           v-model="harvestDate"
         />
-        <v-card-title class="justify-center">Localization</v-card-title>
+        <v-toolbar color="primary" dark>
+          <v-toolbar-title>Add Properties</v-toolbar-title>
+        </v-toolbar>
+          <v-card-text>
+            <v-row align="center">
+              <v-checkbox
+                      v-model="expirationDateCheck"
+                      hide-details
+                      class="shrink mr-2 mt-0"
+              ></v-checkbox>
+              <v-text-field
+                      :counter="10"
+                      :error-messages="expirationDateErrors"
+                      @blur="$v.expirationDate.$touch()"
+                      @input="$v.expirationDate.$touch()"
+                      v-model="expirationDate"
+                      :disabled="!expirationDateCheck"
+                      label="Expiration Date"
+              ></v-text-field>
+            </v-row>
+            <v-row align="center">
+              <v-checkbox
+                      v-model="packingDateCheck"
+                      hide-details
+                      class="shrink mr-2 mt-0"
+              ></v-checkbox>
+              <v-text-field
+                      :counter="10"
+                      :error-messages="packingDateErrors"
+                      @blur="$v.packingDate.$touch()"
+                      @input="$v.packingDate.$touch()"
+                      v-model="packingDate"
+                      :disabled="!packingDateCheck"
+                      label="Packing Date"
+              ></v-text-field>
+            </v-row>
+          </v-card-text>
+        <v-toolbar color="primary" dark>
+          <v-toolbar-title>Localization</v-toolbar-title>
+        </v-toolbar>
         <v-text-field
           :counter="10"
           :error-messages="latitudeErrors"
@@ -123,6 +165,12 @@ export default {
       maxLength: maxLength(11),
       minLength: minLength(1),
     },
+    expirationDate: {
+      maxLength: maxLength(11),
+    },
+    packingDate: {
+      maxLength: maxLength(11),
+    },
     latitude: { required, maxLength: maxLength(20), minLength: minLength(1) },
     longitude: { required, maxLength: maxLength(20), minLength: minLength(1) },
   },
@@ -137,6 +185,10 @@ export default {
     harvestDate: "17-04-2020",
     latitude: 10,
     longitude: 20,
+    expirationDate: null,
+    expirationDateCheck:false,
+    packingDate: null,
+    packingDateCheck:false,
   }),
 
   computed: {
@@ -152,7 +204,7 @@ export default {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
       !this.$v.name.maxLength &&
-        errors.push("The name must be 1 to 50 characters long"); //TODO alterar mensagem de erro
+        errors.push("The name must be 1 to 50 characters long");
       !this.$v.name.required && errors.push("Batch is required.");
       return errors;
     },
@@ -210,6 +262,20 @@ export default {
       !this.$v.longitude.maxLength &&
         errors.push("The longitude must be 1 to 20 characters long");
       !this.$v.longitude.required && errors.push("Longitude is required.");
+      return errors;
+    },
+    expirationDateErrors() {
+      const errors = [];
+      if (!this.$v.expirationDate.$dirty) return errors;
+      !this.$v.expirationDate.maxLength &&
+      errors.push("The Expiration Date must be 1 to 11 characters long");
+      return errors;
+    },
+    packingDateErrors() {
+      const errors = [];
+      if (!this.$v.packingDate.$dirty) return errors;
+      !this.$v.packingDate.maxLength &&
+      errors.push("The Packing Date must be 1 to 11 characters long");
       return errors;
     },
   },
@@ -284,7 +350,7 @@ export default {
       this.name = null;
       this.classification = null;
       this.origin = null;
-      this.weigth = null;
+      this.weight = null;
       this.size = null;
       this.harvestDate = null;
       this.latitude = null;
