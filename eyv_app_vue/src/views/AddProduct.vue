@@ -61,7 +61,7 @@
         />
 
         <v-menu
-                v-model="menu2"
+                v-model="menuHarvestDate"
                 :close-on-content-click="false"
                 :nudge-right="40"
                 transition="scale-transition"
@@ -80,7 +80,7 @@
                     v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="harvestDate" @input="menu2 = false"></v-date-picker>
+          <v-date-picker v-model="harvestDate" @input="menuHarvestDate= false"></v-date-picker>
         </v-menu>
         <v-toolbar color="primary" dark>
           <v-toolbar-title>Add Properties</v-toolbar-title>
@@ -92,15 +92,29 @@
                       hide-details
                       class="shrink mr-2 mt-0"
               ></v-checkbox>
-              <v-text-field
-                      :counter="10"
-                      :error-messages="expirationDateErrors"
-                      @blur="$v.expirationDate.$touch()"
-                      @input="$v.expirationDate.$touch()"
-                      v-model="expirationDate"
-                      :disabled="!expirationDateCheck"
-                      label="Expiration Date"
-              ></v-text-field>
+              <v-menu
+                      v-model="menuExpirationDate"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                          :counter="10"
+                          :error-messages="expirationDateErrors"
+                          @blur="$v.expirationDate.$touch()"
+                          @input="$v.expirationDate.$touch()"
+                          v-model="expirationDate"
+                          label="Expiration Date"
+                          :disabled="!expirationDateCheck"
+                          readonly
+                          v-on="on"
+                  ></v-text-field>
+                </template>
+                <v-date-picker v-model="expirationDate" @input="menuExpirationDate = false"></v-date-picker>
+              </v-menu>
             </v-row>
             <v-row align="center">
               <v-checkbox
@@ -199,12 +213,13 @@ export default {
     harvestDate: new Date().toISOString().substr(0, 10),
     latitude: 10,
     longitude: 20,
-    expirationDate: null,
-    expirationDateCheck:false,
+    expirationDate: new Date().toISOString().substr(0, 10),
     packingDate: null,
+    expirationDateCheck:false,
     packingDateCheck:false,
     menu: false,
-    menu2: false,
+    menuHarvestDate: false,
+    menuExpirationDate: false
   }),
 
   computed: {
@@ -334,8 +349,8 @@ export default {
           },
           {
             name: "expirationDate",
-            stringValue: this.expirationDate,
-            dataType: payloads.createRecord.enum.STRING,
+            timestampValue: this.expirationDate,
+            dataType: payloads.createRecord.enum.TIMESTAMP,
           },
           {
             name: "packingDate",

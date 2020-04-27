@@ -31,8 +31,8 @@
           },
           {
             "name": "harvestDate",
-            "dataType": 4,
-            "stringValue": "19/04/2020"
+            "dataType": 8,
+            "timestampValue": 1235544623
           },
           {
             "name": "location",
@@ -80,8 +80,8 @@
         },
         {
           "name": "harvestDate",
-          "dataType": 4,
-          "stringValue": "19/04/2020"
+          "dataType": 8,
+          "timestampValue": 458542108
         },
         {
           "name": "location",
@@ -135,7 +135,7 @@
         {
           "name": "harvestDate",
           "dataType": 4,
-          "stringValue": "19/04/2020"
+          "timestampValue": 785413682
         },
         {
           "name": "location",

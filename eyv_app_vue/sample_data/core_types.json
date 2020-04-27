@@ -40,7 +40,7 @@
       },
       {
         "name": "expirationDate",
-        "dataType": 4
+        "dataType": 8
       },
       {
         "name": "location",

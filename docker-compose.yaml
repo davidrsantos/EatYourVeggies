@@ -54,6 +54,7 @@ services:
           npm run make-fish &&
           npm run seed-sample-assets &&
           npm run seed-sample-fish &&
+          npm run make-veggie
           cd -
         fi;
         tail -f /dev/null
