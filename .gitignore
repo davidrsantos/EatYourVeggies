@@ -32,3 +32,4 @@ tests/sawtooth_sc_test/protobuf/
 *.njsproj
 *.sln
 *.sw?
+/package.json
