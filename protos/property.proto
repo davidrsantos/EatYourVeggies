@@ -92,6 +92,7 @@ message PropertySchema {
     ENUM = 5;
     STRUCT = 6;
     LOCATION = 7;
+    TIMESTAMP = 8;
   }
 
   // The name of the property, e.g. "temperature"
@@ -146,6 +147,7 @@ message PropertyValue {
   string enum_value = 15;
   repeated PropertyValue struct_values = 16;
   Location location_value = 17;
+  uint64 timestamp_value = 18;//@luana add for record properties
 }
 
 
@@ -167,6 +169,7 @@ message PropertyPage {
     uint32 enum_value = 15;
     repeated PropertyValue struct_values = 16;
     Location location_value = 17;
+    uint64 timestamp_value = 18;//@luana add for record properties
   }
 
   // The name of the page's associated Property and the record_id of

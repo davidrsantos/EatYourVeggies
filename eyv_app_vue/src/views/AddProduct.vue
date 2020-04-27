@@ -59,15 +59,29 @@
                 required
                 v-model="weight"
         />
-        <v-text-field
-          :counter="10"
-          :error-messages="harvestDateErrors"
-          @blur="$v.harvestDate.$touch()"
-          @input="$v.harvestDate.$touch()"
-          label="Harvest Date"
-          required
-          v-model="harvestDate"
-        />
+
+        <v-menu
+                v-model="menu2"
+                :close-on-content-click="false"
+                :nudge-right="40"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+                    :error-messages="harvestDateErrors"
+                    @blur="$v.harvestDate.$touch()"
+                    @input="$v.harvestDate.$touch()"
+                    required
+                    v-model="harvestDate"
+                    label="Harvest Date"
+                    readonly
+                    v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="harvestDate" @input="menu2 = false"></v-date-picker>
+        </v-menu>
         <v-toolbar color="primary" dark>
           <v-toolbar-title>Add Properties</v-toolbar-title>
         </v-toolbar>
@@ -182,13 +196,15 @@ export default {
     origin: "biológica",
     weight: 23,
     size: 26,
-    harvestDate: "17-04-2020",
+    harvestDate: new Date().toISOString().substr(0, 10),
     latitude: 10,
     longitude: 20,
     expirationDate: null,
     expirationDateCheck:false,
     packingDate: null,
     packingDateCheck:false,
+    menu: false,
+    menu2: false,
   }),
 
   computed: {
@@ -313,8 +329,8 @@ export default {
           },
           {
             name: "harvestDate",
-            stringValue: this.harvestDate,
-            dataType: payloads.createRecord.enum.STRING,
+            timestampValue: this.harvestDate,
+            dataType: payloads.createRecord.enum.TIMESTAMP,
           },
           {
             name: "expirationDate",
