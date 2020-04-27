@@ -36,7 +36,7 @@
       },
       {
         "name": "packingDate",
-        "dataType": 4
+        "dataType": 8
       },
       {
         "name": "expirationDate",

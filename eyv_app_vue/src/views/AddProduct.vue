@@ -116,22 +116,36 @@
                 <v-date-picker v-model="expirationDate" @input="menuExpirationDate = false"></v-date-picker>
               </v-menu>
             </v-row>
-            <v-row align="center">
-              <v-checkbox
-                      v-model="packingDateCheck"
-                      hide-details
-                      class="shrink mr-2 mt-0"
-              ></v-checkbox>
-              <v-text-field
-                      :counter="10"
-                      :error-messages="packingDateErrors"
-                      @blur="$v.packingDate.$touch()"
-                      @input="$v.packingDate.$touch()"
-                      v-model="packingDate"
-                      :disabled="!packingDateCheck"
-                      label="Packing Date"
-              ></v-text-field>
-            </v-row>
+              <v-row align="center">
+                  <v-checkbox
+                          v-model="packingDateCheck"
+                          hide-details
+                          class="shrink mr-2 mt-0"
+                  ></v-checkbox>
+                  <v-menu
+                          v-model="menuPackingDate"
+                          :close-on-content-click="false"
+                          :nudge-right="40"
+                          transition="scale-transition"
+                          offset-y
+                          min-width="290px"
+                  >
+                      <template v-slot:activator="{ on }">
+                          <v-text-field
+                                  :counter="10"
+                                  :error-messages="packingDateErrors"
+                                  @blur="$v.packingDate.$touch()"
+                                  @input="$v.packingDate.$touch()"
+                                  v-model="packingDate"
+                                  label="Packing Date"
+                                  :disabled="!packingDateCheck"
+                                  readonly
+                                  v-on="on"
+                          ></v-text-field>
+                      </template>
+                      <v-date-picker v-model="packingDate" @input="menuPackingDate = false"></v-date-picker>
+                  </v-menu>
+              </v-row>
           </v-card-text>
         <v-toolbar color="primary" dark>
           <v-toolbar-title>Localization</v-toolbar-title>
@@ -214,12 +228,13 @@ export default {
     latitude: 10,
     longitude: 20,
     expirationDate: new Date().toISOString().substr(0, 10),
-    packingDate: null,
+    packingDate: new Date().toISOString().substr(0, 10),
     expirationDateCheck:false,
     packingDateCheck:false,
     menu: false,
     menuHarvestDate: false,
-    menuExpirationDate: false
+    menuExpirationDate: false,
+      menuPackingDate: false
   }),
 
   computed: {
@@ -354,8 +369,8 @@ export default {
           },
           {
             name: "packingDate",
-            stringValue: this.packingDate,
-            dataType: payloads.createRecord.enum.STRING,
+            timestampValue: this.packingDate,
+            dataType: payloads.createRecord.enum.TIMESTAMP,
           },
           {
             name: "location",
