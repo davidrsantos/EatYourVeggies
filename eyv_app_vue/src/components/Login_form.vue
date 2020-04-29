@@ -24,11 +24,17 @@
                         label="Password"
                         v-model="password"
                 />
-
-                <v-btn @click="submit" class="mr-4">submit</v-btn>
-                <v-btn @click="clear">clear</v-btn>
+                <v-row>
+                    <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
+                    <v-btn @click="clear">clear</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn light to="/singup" class="mr-8">SingUp</v-btn>
+                </v-row>
             </form>
+
+
         </v-container>
+
     </v-card>
 </template>
 <script>
@@ -99,7 +105,8 @@
                         .then(agent => {
                             console.log(agent)
                             this.$store.commit('setUser', agent)
-                        }).finally(this.$router.push("dashboard"))
+                            this.$router.push("dashboard")
+                        })
 
 
                 });

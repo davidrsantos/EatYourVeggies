@@ -19,12 +19,12 @@
 const m = require('mithril')
 const _ = require('lodash')
 const sjcl = require('sjcl')
-const { createHash } = require('crypto')
+const {createHash} = require('crypto')
 const secp256k1 = require('sawtooth-sdk/signing/secp256k1')
 const {
-  Transaction,
-  TransactionHeader,
-  TransactionList
+    Transaction,
+    TransactionHeader,
+    TransactionList
 } = require('sawtooth-sdk/protobuf')
 //const modals = require('../components/modals') //TODO comentado porque a partida não precisamos disto aqui
 const api = require('../services/api')
@@ -40,8 +40,8 @@ let signerPublicKey = null
 let batcherPublicKey = null
 
 const setBatcherPubkey = async () => {
-  const { pubkey } = await api.get('info')
-  batcherPublicKey = pubkey
+    const {pubkey} = await api.get('info')
+    batcherPublicKey = pubkey
 }
 setBatcherPubkey()
 
@@ -63,26 +63,26 @@ setBatcherPubkey()
 } */
 
 const createTxn = payload => {
-  const header = TransactionHeader.encode({
-    signerPublicKey,
-    batcherPublicKey,
-    familyName: FAMILY_NAME,
-    familyVersion: FAMILY_VERSION,
-    inputs: [NAMESPACE],
-    outputs: [NAMESPACE],
-    nonce: (Math.random() * 10 ** 18).toString(36),
-    payloadSha512: createHash('sha512').update(payload).digest('hex'),
-  }).finish()
+    const header = TransactionHeader.encode({
+        signerPublicKey,
+        batcherPublicKey,
+        familyName: FAMILY_NAME,
+        familyVersion: FAMILY_VERSION,
+        inputs: [NAMESPACE],
+        outputs: [NAMESPACE],
+        nonce: (Math.random() * 10 ** 18).toString(36),
+        payloadSha512: createHash('sha512').update(payload).digest('hex'),
+    }).finish()
 
-  return Transaction.create({
-    payload,
-    header,
-    headerSignature: context.sign(header, privateKey)
-  })
+    return Transaction.create({
+        payload,
+        header,
+        headerSignature: context.sign(header, privateKey)
+    })
 }
 
 const encodeTxns = transactions => {
-  return TransactionList.encode({ transactions }).finish()
+    return TransactionList.encode({transactions}).finish()
 }
 
 /**
@@ -90,65 +90,69 @@ const encodeTxns = transactions => {
  * Returns both a public key and the encrypted private key.
  */
 const makePrivateKey = password => {
-  privateKey = context.newRandomPrivateKey()
-  signerPublicKey = context.getPublicKey(privateKey).asHex()
+    privateKey = context.newRandomPrivateKey()
+    signerPublicKey = context.getPublicKey(privateKey).asHex()
 
-  const encryptedKey = sjcl.encrypt(password, privateKey.asHex())
-  window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+    const encryptedKey = sjcl.encrypt(password, privateKey.asHex())
+    window.localStorage.setItem(STORAGE_KEY, encryptedKey)
 
-  return { encryptedKey, publicKey: signerPublicKey }
+    return {encryptedKey, publicKey: signerPublicKey}
 }
 
 /**
  * Saves an encrypted key to storage, and the decrypted version in memory.
  */
 const setPrivateKey = (password, encryptedKey) => {
-  const privateKeyHex = sjcl.decrypt(password, encryptedKey)
+    const privateKeyHex = sjcl.decrypt(password, encryptedKey)
 
-  privateKey = secp256k1.Secp256k1PrivateKey.fromHex(privateKeyHex)
-  signerPublicKey = context.getPublicKey(privateKey).asHex()
+    privateKey = secp256k1.Secp256k1PrivateKey.fromHex(privateKeyHex)
+    signerPublicKey = context.getPublicKey(privateKey).asHex()
 
-  window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+    window.localStorage.setItem(STORAGE_KEY, encryptedKey)
 
-  return encryptedKey
+    return encryptedKey
 }
 
 /**
  * Clears the users private key from memory and storage.
  */
 const clearPrivateKey = () => {
-  const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+    const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
 
-  window.localStorage.clear(STORAGE_KEY)
-  privateKey = null
-  signerPublicKey = null
+    window.localStorage.clear(STORAGE_KEY)
+    privateKey = null
+    signerPublicKey = null
 
-  return encryptedKey
+    return encryptedKey
 }
 
 /**
  * Returns the user's private key as promised, requesting password as needed.
  */
-const getPrivateKey = () => {
-  return Promise.resolve()
-  .then(() => {
-    if (privateKey) return privateKey.asHex()
-    const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
-    return requestPassword()
-      .then(password => sjcl.decrypt(password, encryptedKey))
-  })
+const getPrivateKey = (password) => {
+    return Promise.resolve()
+        .then(() => {
+            if (privateKey) return privateKey.asHex()
+            const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+            if (!password) {
+                return requestPassword()
+                    .then(password => sjcl.decrypt(password, encryptedKey))
+            } else {
+                return sjcl.decrypt(password, encryptedKey)
+            }
+        })
 }
 
 /**
  * Re-encrypts a private key with a new password.
  */
-const changePassword = password => {
-  return getPrivateKey()
-    .then(privateKey => {
-      const encryptedKey = sjcl.encrypt(password, privateKey)
-      window.localStorage.setItem(STORAGE_KEY, encryptedKey)
-      return encryptedKey
-    })
+const changePassword = (password,oldPassword) => {
+    return getPrivateKey(oldPassword)
+        .then(privateKey => {
+            const encryptedKey = sjcl.encrypt(password, privateKey)
+            window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+            return encryptedKey
+        })
 }
 
 /**
@@ -156,33 +160,33 @@ const changePassword = password => {
  * Prompts user for their password if their private key is not in memory.
  */
 const submit = (payloads, wait = false) => {
-  if (!_.isArray(payloads)) payloads = [payloads]
-  return Promise.resolve()
-    .then(() => {
-      if (privateKey) return
+    if (!_.isArray(payloads)) payloads = [payloads]
+    return Promise.resolve()
+        .then(() => {
+            if (privateKey) return
 
-      return requestPassword()
-        .then(password => {
-          const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
-          setPrivateKey(password, encryptedKey)
+            return requestPassword()
+                .then(password => {
+                    const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+                    setPrivateKey(password, encryptedKey)
+                })
         })
-    })
-    .then(() => {
-      if (batcherPublicKey) return
-      return setBatcherPubkey()
-    })
-    .then(() => {
-      const txns = payloads.map(payload => createTxn(payload))
-      const txnList = encodeTxns(txns)
-      return api.postBinary(`transactions${wait ? '?wait' : ''}`, txnList)
-    })
+        .then(() => {
+            if (batcherPublicKey) return
+            return setBatcherPubkey()
+        })
+        .then(() => {
+            const txns = payloads.map(payload => createTxn(payload))
+            const txnList = encodeTxns(txns)
+            return api.postBinary(`transactions${wait ? '?wait' : ''}`, txnList)
+        })
 }
 
 module.exports = {
-  makePrivateKey,
-  setPrivateKey,
-  clearPrivateKey,
-  getPrivateKey,
-  changePassword,
-  submit
+    makePrivateKey,
+    setPrivateKey,
+    clearPrivateKey,
+    getPrivateKey,
+    changePassword,
+    submit
 }

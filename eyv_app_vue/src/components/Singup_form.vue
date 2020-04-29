@@ -36,21 +36,21 @@
                         @blur="$v.nif.$touch()"
                         @input="$v.nif.$touch()"
                         label="Nif"
+                        maxlength="9"
                         required
                         v-model="nif"
-                        maxlength="9"
 
                 />
 
                 <v-select
-                        v-model="role"
                         :items="typeofUser"
                         item-text="name"
                         item-value="value"
                         label="Selecione o tipo de utilizador"
-
                         return-object
+
                         single-line
+                        v-model="role"
                 ></v-select>
 
 
@@ -69,19 +69,22 @@
 
                 <v-text-field
                         :error-messages="repeatPasswordErrors"
-                        @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"
-
                         @blur="$v.repeatPassword.$touch()"
+
+                        @click:append="showPassword = !showPassword"
                         @input="$v.repeatPassword.$touch()"
                         counter
                         hint="At least 8 characters"
                         label="Confirm your Password"
                         v-model="repeatPassword"
                 />
-
-                <v-btn @click="submit" class="mr-4">submit</v-btn>
-                <v-btn @click="clear">clear</v-btn>
+                <v-row>
+                    <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
+                    <v-btn @click="clear">clear</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-8" light to="/login">Login</v-btn>
+                </v-row>
             </form>
         </v-container>
     </v-card>
@@ -129,13 +132,13 @@
             showPassword: false,
             nif: null,
             role: null,
-            typeofUser:[
-                {name:'Administrador', value: 'admin'},
-                {name:'Producer', value: 'producer'},
-                {name:'Distributor', value: 'distributor'},
-                {name:'Retailer', value: 'retailer'},
-                {name:'Customer', value: 'customer'},
-        ]
+            typeofUser: [
+                {name: 'Administrador', value: 'admin'},
+                {name: 'Producer', value: 'producer'},
+                {name: 'Distributor', value: 'distributor'},
+                {name: 'Retailer', value: 'retailer'},
+                {name: 'Customer', value: 'customer'},
+            ]
 
         }),
 
@@ -163,9 +166,12 @@
             repeatPasswordErrors() {
                 const errors = [];
                 if (!this.$v.repeatPassword.$dirty) return errors;
-                if (this.$v.repeatPassword !== this.$v.password)
+                if (!this.$v.repeatPassword.$dirty && this.$v.repeatPassword !== this.$v.password)
                     errors.push("Please make use the same password");
-                !this.$v.repeatPassword.required && errors.push("Password is required.");
+                if (!this.$v.repeatPassword.required) {
+                    errors.push("Password is required.");
+                }
+
                 return errors;
             },
 
@@ -182,7 +188,7 @@
                 const errors = [];
                 if (!this.$v.name.$dirty) return errors;
                 !this.$v.name.maxLength &&
-                errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
+                errors.push("Name should not be more that 50 characters long");
                 !this.$v.name.required && errors.push("Name is required.");
                 return errors;
             },
@@ -212,11 +218,12 @@
                     .submit(agent, true)
                     .then(() => api.post("users", user))
                     .then(res => {
-                        api.setAuth(res.authorization);                      //provavelmente este já não vai ser necessário
-                        this.$store.commit('setToken', res.authorization);   //porque temos este
+                        api.setAuth(res.authorization);
+
                         this.$router.push('dashboard')
 
-                    }); //TODO o token já fica aqui guardado
+                    }); //TODO possivelmente trocar a ordem primeiro o post e depois o submit porque como está ele cria
+                        // sempre uma transação mas nem sempre consegue fazer post do user
 
             },
 
