@@ -27,7 +27,7 @@
         }),
         methods: {
             getItems() {
-                axios.get('/records?recordType=fish').then(response => {
+                axios.get('/records?recordType=vegetable').then(response => {
                     this.items = response.data;
                     console.log("já fiz a chamada da api");
                 })

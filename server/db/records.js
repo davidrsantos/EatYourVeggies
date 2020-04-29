@@ -115,6 +115,7 @@ const getValue = dataType => value => {
     r.eq(dataType, 'LOCATION'), value('locationValue'),
     r.eq(dataType, 'ENUM'), value('enumValue'),
     r.eq(dataType, 'STRUCT'), value('structValue'),
+      r.eq(dataType, 'TIMESTAMP'), value('timestampValue'),//@luana add for record properties
     value('bytesValue') // if dataType is unknown, use bytesValue
   )
 }
