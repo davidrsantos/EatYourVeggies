@@ -43,6 +43,7 @@
           { title: 'Dashboard', icon: 'mdi-home-city' , link: '/dashboard'},
           { title: 'My Account', icon: 'mdi-account' },
           { title: 'Add Product', icon: 'mdi-account-group-outline', link:'/addProduct'},
+            { title: 'My Products', icon: 'mdi-corn', link:'/managerProducts'},
         ],
         mini: true,
       }

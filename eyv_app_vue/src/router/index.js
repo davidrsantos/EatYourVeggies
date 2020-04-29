@@ -5,6 +5,7 @@ import drawer from '../components/Drawer.vue'
 import singup from '../components/Singup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
+import managerProducts from '../views/ManagerProducts'
 import welcome from '../views/welcome.vue'
 
 Vue.component('drawer', drawer);
@@ -21,6 +22,11 @@ const routes = [
     path:'/addProduct',
     name:'addProduct',
     component: addProduct
+  },
+  {
+    path:'/managerProducts',
+    name:'managerProducts',
+    component: managerProducts
   },
   {
     path:'/login',
