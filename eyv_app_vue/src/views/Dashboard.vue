@@ -1,11 +1,13 @@
 <template>
     <div>
+there you go! list of vegetables:
+
 
         <li :key="item.recordId" v-for="item in items">
             {{item.recordId}}
 
         </li>
-
+and some agents to see:
         <li :key="agent.key" v-for="agent in agents">
             {{agent.name}}
 

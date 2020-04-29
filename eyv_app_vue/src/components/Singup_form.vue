@@ -219,7 +219,7 @@
                     .then(() => api.post("users", user))
                     .then(res => {
                         api.setAuth(res.authorization);
-
+                        this.$store.commit('setToken', res.authorization);
                         this.$router.push('dashboard')
 
                     }); //TODO possivelmente trocar a ordem primeiro o post e depois o submit porque como está ele cria

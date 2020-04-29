@@ -2,6 +2,7 @@
     <v-app id="inspire">
 
         <v-app-bar app clipped-left color="indigo" dark elevate-on-scroll>
+
             <v-spacer></v-spacer>
             <v-toolbar-title>Eat Your Veggies</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -15,23 +16,24 @@
 
 
         </v-app-bar>
-        <v-navigation-drawer app clipped expand-on-hover
-                             mini-variant-width="100"
-                             v-if="this.$store.state.token && (this.$store.state.user!=null)"
-        >
-            <v-card>
-                <drawer/>
-            </v-card>
-        </v-navigation-drawer>
+        <v-footer app absolute color="indigo">
+            <span class="white--text">&copy;Instituto Politécnico de Leiria - 2020 - Projeto Informático  </span>
+        </v-footer>
+
         <v-content app
         >
             <v-container>
                 <router-view/>
             </v-container>
         </v-content>
-        <v-footer app color="indigo">
-            <span class="white--text">&copy; 2019</span>
-        </v-footer>
+        <v-navigation-drawer app clipped expand-on-hover permanent
+                             mini-variant
+                             v-if="this.$store.state.token && (this.$store.state.user!=null)"
+        >
+
+            <drawer/>
+
+        </v-navigation-drawer>
     </v-app>
 </template>
 

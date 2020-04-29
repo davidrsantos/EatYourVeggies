@@ -150,20 +150,6 @@ services:
     depends_on:
       - server
 
-  eyv-app:
-    image: eyv-app
-    container_name: eyv-app
-    build: ./eyv_app_vue
-    volumes:
-        - '.:/app'
-        - '/app/node_modules'
-    expose:
-      - 80
-    ports:
-      - '8025:80'
-    depends_on:
-      - server
-
 
 
   rethink:
