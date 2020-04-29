@@ -31,7 +31,6 @@ services:
       - .:/sawtooth-supply-chain
       - /sawtooth-supply-chain/asset_client/node_modules
       - /sawtooth-supply-chain/fish_client/node_modules
-      - /sawtooth-supply-chain/eyv_app_vue/node_modules
       - /sawtooth-supply-chain/server/node_modules
     depends_on:
       - rethink
@@ -55,6 +54,7 @@ services:
           npm run make-fish &&
           npm run seed-sample-assets &&
           npm run seed-sample-fish &&
+          npm run make-veggie
           cd -
         fi;
         tail -f /dev/null

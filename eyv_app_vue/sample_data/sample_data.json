@@ -1,16 +1,26 @@
 {
   "records": [
     {
-      "recordId": "1-4m-4-f1sh",
-      "recordType": "fish",
+      "recordId": "1-4m-4-veg",
+      "recordType": "vegetable",
       "properties": [
           {
-            "name": "species",
+            "name": "name",
             "dataType": 4,
-            "stringValue": "BFT"
+            "stringValue": "tomate"
           },
           {
-            "name": "length",
+            "name": "classification",
+            "dataType": 4,
+            "stringValue": "legume"
+          },
+          {
+            "name": "origin",
+            "dataType": 4,
+            "stringValue": "biologica"
+          },
+          {
+            "name": "size",
             "dataType": 3,
             "numberValue": 3257000
           },
@@ -18,6 +28,11 @@
             "name": "weight",
             "dataType": 3,
             "numberValue": 247096000
+          },
+          {
+            "name": "harvestDate",
+            "dataType": 8,
+            "timestampValue": 1235544623
           },
           {
             "name": "location",
@@ -35,65 +50,112 @@
     },
 
     {
-      "recordId": "1-4m-sm0l-f1sh",
-      "recordType": "fish",
+      "recordId": "1-4m-4-veg1",
+      "recordType": "vegetable",
       "properties": [
-          {
-            "name": "species",
-            "dataType": 4,
-            "stringValue": "STV"
-          },
-          {
-            "name": "length",
-            "dataType": 3,
-            "numberValue": 672000
-          },
-          {
-            "name": "weight",
-            "dataType": 3,
-            "numberValue": 7826000
-          },
-          {
-            "name": "location",
-            "dataType": 7,
-            "locationValue": {
-              "latitude": 46786299,
-              "longitude": -92051336
-            }
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "legume"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 458542108
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
           }
+        }
       ],
-      "ownerIndex": 1
+      "ownerIndex": 0,
+      "custodianIndex": 2,
+      "reporterIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
     },
-
     {
-      "recordId": "1-4m-n0t-f1sh",
-      "recordType": "fish",
+      "recordId": "1-4m-4-veg3",
+      "recordType": "vegetable",
       "properties": [
-          {
-            "name": "species",
-            "dataType": 4,
-            "stringValue": "SPW"
-          },
-          {
-            "name": "length",
-            "dataType": 3,
-            "numberValue": 20567000
-          },
-          {
-            "name": "weight",
-            "dataType": 3,
-            "numberValue": 57243980000
-          },
-          {
-            "name": "location",
-            "dataType": 7,
-            "locationValue": {
-              "latitude": -31404863,
-              "longitude": 40018772
-            }
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "tomate"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "legume"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 4,
+          "timestampValue": 785413682
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
           }
+        }
       ],
-      "ownerIndex": 0
+      "ownerIndex": 0,
+      "custodianIndex": 2,
+      "reporterIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
     }
   ],
 

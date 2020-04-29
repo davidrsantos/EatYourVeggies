@@ -1,47 +1,70 @@
 [
   {
-    "name": "fish",
+    "name": "vegetable",
     "properties": [
-        {
-          "name": "species",
-          "dataType": 4,
-          "required": true
-        },
-        {
-          "name": "length",
-          "dataType": 3,
-          "required": true,
-          "numberExponent": -6
-        },
-        {
-          "name": "weight",
-          "dataType": 3,
-          "required": true,
-          "numberExponent": -6
-        },
-        {
-          "name": "location",
-          "dataType": 7,
-          "required": true
-        },
-        {
-          "name": "temperature",
-          "dataType": 3,
-          "numberExponent": -6
-        },
-        {
-          "name": "humidade",
-          "dataType": 3,
-          "numberExponent": -6
-        },
-        {
-          "name": "tilt",
-          "dataType": 4
-        },
-        {
-          "name": "shock",
-          "dataType": 4
-        }
+      {
+        "name": "name",
+        "dataType": 4,
+        "required": true
+      },
+      {
+        "name": "classification",
+        "dataType": 4,
+        "required": true
+      },
+      {
+        "name": "origin",
+        "dataType": 4,
+        "required": true
+      },
+      {
+        "name": "size",
+        "dataType": 3,
+        "required": true,
+        "numberExponent": -6
+      },
+      {
+        "name": "weight",
+        "dataType": 3,
+        "required": true,
+        "numberExponent": -6
+      },
+      {
+        "name": "harvestDate",
+        "dataType": 8,
+        "required": true
+      },
+      {
+        "name": "packingDate",
+        "dataType": 8
+      },
+      {
+        "name": "expirationDate",
+        "dataType": 8
+      },
+      {
+        "name": "location",
+        "dataType": 7,
+        "required": true
+      },
+      {
+        "name": "temperature",
+        "dataType": 3,
+        "numberExponent": -6
+      },
+      {
+        "name": "humidade",
+        "dataType": 3,
+        "numberExponent": -6
+      },
+      {
+        "name": "tilt",
+        "dataType": 4
+      },
+      {
+        "name": "shock",
+        "dataType": 4
+      }
     ]
   }
 ]

@@ -6,6 +6,7 @@ import drawer from '../components/Drawer.vue'
 import singup from '../components/Singup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
+import managerProducts from '../views/ManagerProducts'
 import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
 
@@ -33,6 +34,11 @@ const routes = [
         component: addProduct
     },
     {
+        path: '/managerProducts',
+        name: 'managerProducts',
+        component: managerProducts
+    },
+    {
         path: '/login',
         name: 'login',
         component: login
@@ -54,7 +60,6 @@ const routes = [
     }
 ];
 
-
 const router = new VueRouter({
     routes
 
@@ -63,13 +68,10 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
 
-
-
     if (from.name == to.name) {
         next(false);
         return;
     }
-
 
 
     console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)

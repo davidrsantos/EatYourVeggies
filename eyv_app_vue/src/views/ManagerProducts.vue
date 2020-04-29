@@ -1,0 +1,74 @@
+<template>
+    <v-data-table
+            :headers="headers"
+            :items="products"
+            sort-by="name"
+            class="elevation-1"
+    >
+        <template  v-slot:body="{ items }">
+            <tbody>
+            <tr v-for="item in items" :key="item.recordId">
+                <td>{{item.recordId}}</td>
+                <td>{{ getPropertyValue(item, 'name') }}</td>
+                <td>{{ getPropertyValue(item, 'classification') }}</td>
+                <td> <v-icon
+                            small
+                            class="mr-2"
+                            @click="editItem(item)"
+                    >
+                        mdi-pencil
+                    </v-icon></td>
+            </tr>
+            </tbody>
+        </template>
+        <template v-slot:top>
+            <v-toolbar flat color="white">
+                <v-toolbar-title>My Products</v-toolbar-title>
+                <v-divider
+                        class="mx-4"
+                        inset
+                        vertical
+                ></v-divider>
+                <v-spacer></v-spacer>
+                <router-link :to="{name: 'addProduct'}">
+                    <button color="indigo" id="myButton" class="mb-2">Add Product</button>
+                </router-link>
+            </v-toolbar>
+        </template>
+    </v-data-table>
+</template>
+
+<script>
+    import {getPropertyValue} from "../utils/records";
+
+    export default {
+        data: () => ({
+            headers: [
+                { text: 'Batch', value: 'recordId' },
+                { text: 'Name', value: 'name' },
+                { text: 'Classification', value: 'classification' },
+                { text: 'Actions', value: 'actions', sortable: false },
+            ],
+            products: []
+        }),
+        methods: {
+            getPropertyValue(item, prop){
+
+                return getPropertyValue(item,prop)
+    },
+            getProducts() {
+                axios.get('/records?recordType=vegetable').then(response => {
+                    this.products = response.data;
+
+                    console.log(this.products);
+                })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+        },
+        mounted: function() {
+            this.getProducts();
+        }
+    }
+</script>
