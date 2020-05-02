@@ -51,7 +51,7 @@
                             outlined
                             readonly
 
-                            v-model="user.role"
+                            :value="typeOfUser(user.role)"
 
                     />
 
@@ -227,7 +227,7 @@
             },
 
             typeofUser: [
-                {name: 'Administrador', value: 'admin'},
+                {name: 'Administrator', value: 'admin'},
                 {name: 'Producer', value: 'producer'},
                 {name: 'Distributor', value: 'distributor'},
                 {name: 'Retailer', value: 'retailer'},
@@ -242,6 +242,23 @@
 
         },
         methods: {
+            typeOfUser(role) {
+
+                switch (role) {
+                    case 'admin':
+                        return 'Administrator'
+                    case 'producer':
+                        return 'Producer'
+                    case 'distributor':
+                        return 'Distributor'
+                    case 'retailer':
+                        return 'Retailer'
+                    case 'customer':
+                        return 'Customer'
+                    default:
+                        return 'Unknown'
+                }
+            },
             submitPasswordChange() {
 
                 transactions.changePassword(this.password, this.oldPassword)
@@ -261,6 +278,7 @@
 
                 return api.patch('users', _.pick(this.userValueUpdate, this.key))
                     .then((user) => {
+                        user.name = this.user.name
                         this.$store.commit('setUser', user);
                         this.user = user;
                     })
@@ -318,32 +336,32 @@
 
             keyErrors() {
                 const errors = [];
-              /*  if (this.key === 'nif') {
-                    if (!this.$v.valueUpdate.$dirty) return errors;
-                    !this.$v.valueUpdate.minLength &&
-                    errors.push("Nif must be at most 9 characters long");
-                    !this.$v.valueUpdate.maxLength &&
-                    errors.push("Nif should not be more that 9 characters long");
-                    !this.$v.valueUpdate.required && errors.push("Nif is required.");
-                    return errors;
-                }
+                /*  if (this.key === 'nif') {
+                      if (!this.$v.valueUpdate.$dirty) return errors;
+                      !this.$v.valueUpdate.minLength &&
+                      errors.push("Nif must be at most 9 characters long");
+                      !this.$v.valueUpdate.maxLength &&
+                      errors.push("Nif should not be more that 9 characters long");
+                      !this.$v.valueUpdate.required && errors.push("Nif is required.");
+                      return errors;
+                  }
 
-                if (this.key === 'email') {
+                  if (this.key === 'email') {
 
-                    if (!this.$v.valueUpdate.$dirty) return errors;
-                    !this.$v.valueUpdate.email && errors.push("Must be valid e-mail");
-                    !this.$v.valueUpdate.required && errors.push("E-mail is required");
-                    return errors;
-                }
+                      if (!this.$v.valueUpdate.$dirty) return errors;
+                      !this.$v.valueUpdate.email && errors.push("Must be valid e-mail");
+                      !this.$v.valueUpdate.required && errors.push("E-mail is required");
+                      return errors;
+                  }
 
-                if (this.key === 'username') {
+                  if (this.key === 'username') {
 
-                    if (!this.$v.valueUpdate.$dirty) return errors;
-                    !this.$v.valueUpdate.maxLength &&
-                    errors.push("Username must be at most 10 characters long");
-                    !this.$v.valueUpdate.required && errors.push("Username is required.");
-                    return errors;
-                }*/
+                      if (!this.$v.valueUpdate.$dirty) return errors;
+                      !this.$v.valueUpdate.maxLength &&
+                      errors.push("Username must be at most 10 characters long");
+                      !this.$v.valueUpdate.required && errors.push("Username is required.");
+                      return errors;
+                  }*/
 
                 //TODO perceber porque não funciona
 

@@ -24,6 +24,7 @@ and some agents to see:
         name: "Home",
         data: () => ({
             items: [],
+            timer: '',
 
             agents: []
         }),
@@ -45,8 +46,10 @@ and some agents to see:
                     });
             }
         },
-        beforeMount: function () {
+        created () {
             this.getItems();
-        }
+            this.timer = setInterval(this.getItems, 300000)
+        },
+
     };
 </script>
