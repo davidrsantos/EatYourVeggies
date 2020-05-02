@@ -8,13 +8,14 @@
         <template  v-slot:body="{ items }">
             <tbody>
             <tr v-for="item in items" :key="item.recordId">
-                <td>{{item.recordId}}</td>
+                <td>{{ item.recordId }}</td>
                 <td>{{ getPropertyValue(item, 'name') }}</td>
                 <td>{{ getPropertyValue(item, 'classification') }}</td>
+                <td>{{ getPropertyValue(item, 'origin') }}</td>
                 <td> <v-icon
                             small
                             class="mr-2"
-                            @click="editItem(item)"
+
                     >
                         mdi-pencil
                     </v-icon></td>
@@ -47,6 +48,7 @@
                 { text: 'Batch', value: 'recordId' },
                 { text: 'Name', value: 'name' },
                 { text: 'Classification', value: 'classification' },
+                { text: 'Origin', value: 'origin' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
             products: []

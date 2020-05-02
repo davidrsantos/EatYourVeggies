@@ -394,7 +394,9 @@ export default {
                         properties: reporter.properties
                     })) */ transactions
         .submit([recordPayload], true) //versão sem reporters!!!!!
-        .then(this.$router.push("dashboard"));
+        //.then(this.$router.push("dashboard"));
+      .then(this.$router.push({ path:`/editUser/${userId}` });
+
     },
 
     submit() {
