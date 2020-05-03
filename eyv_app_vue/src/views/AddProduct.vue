@@ -6,40 +6,40 @@
     <v-container>
       <form>
         <v-text-field
-          :counter="10"
-          :error-messages="batchErrors"
-          @blur="$v.batch.$touch()"
-          @input="$v.batch.$touch()"
-          label="Batch"
-          required
-          v-model="batch"
+            :counter="10"
+            :error-messages="batchErrors"
+            @blur="$v.batch.$touch()"
+            @input="$v.batch.$touch()"
+            label="Batch"
+            required
+            v-model="batch"
         />
         <v-text-field
-          :counter="10"
-          :error-messages="nameErrors"
-          @blur="$v.name.$touch()"
-          @input="$v.name.$touch()"
-          label="Name"
-          required
-          v-model="name"
+            :counter="10"
+            :error-messages="nameErrors"
+            @blur="$v.name.$touch()"
+            @input="$v.name.$touch()"
+            label="Name"
+            required
+            v-model="name"
         />
         <v-text-field
-          :counter="10"
-          :error-messages="classificationErrors"
-          @blur="$v.classification.$touch()"
-          @input="$v.classification.$touch()"
-          label="Classification"
-          required
-          v-model="classification"
+            :counter="10"
+            :error-messages="classificationErrors"
+            @blur="$v.classification.$touch()"
+            @input="$v.classification.$touch()"
+            label="Classification"
+            required
+            v-model="classification"
         />
         <v-text-field
-          :counter="10"
-          :error-messages="originErrors"
-          @blur="$v.origin.$touch()"
-          @input="$v.origin.$touch()"
-          label="Origin"
-          required
-          v-model="origin"
+            :counter="10"
+            :error-messages="originErrors"
+            @blur="$v.origin.$touch()"
+            @input="$v.origin.$touch()"
+            label="Origin"
+            required
+            v-model="origin"
         />
         <v-text-field
                 :counter="10"
@@ -395,7 +395,7 @@ export default {
                     })) */ transactions
         .submit([recordPayload], true) //versão sem reporters!!!!!
         //.then(this.$router.push("dashboard"));
-      .then(this.$router.push({ path:`/editUser/${userId}` });
+      .then(this.$router.push({ path: `/editProduct/${this.batch}` }) );// -> /user/123
 
     },
 
