@@ -7,7 +7,7 @@
                             label="Batch"
                             outlined
                             readonly
-                            v-model=product.batch
+                            v-model=product.recordId
 
                     />
 
@@ -23,6 +23,7 @@
                             label="Classification"
                             outlined
                             readonly
+                            :value= "getPropertyValue(product,'classification')"
 
                     />
 
@@ -30,6 +31,7 @@
                             label="Origin"
                             outlined
                             readonly
+                            :value= "getPropertyValue(product,'origin')"
 
                     />
 
