@@ -202,6 +202,27 @@
         },
 
         methods: {
+            login() {
+                const credentials = {
+                    username: this.username,
+                    password: api.hashPassword(this.password)
+                };
+                api.post("authorization", credentials).then(res => {
+                    api.setAuth(res.authorization);
+                    transactions.setPrivateKey(this.password, res.encryptedKey);
+                    this.$store.commit("setToken", res.authorization); //porque temos este
+
+                    let pubKey = api.getPublicKey()
+                    api.get(`agents/${pubKey}`)
+                        .then(agent => {
+                            console.log(agent)
+                            this.$store.commit('setUser', agent)
+                            this.$router.push("dashboard")
+                        })
+
+
+                });
+            },
             userSubmitter() {
                 const keys = transactions.makePrivateKey(this.password);
                 const user = _.assign(keys, {
@@ -213,14 +234,13 @@
                 user.password = api.hashPassword(this.password);
                 const agent = payloads.createAgent({name: this.name});
 
-                // console.log(agent);
                 transactions
                     .submit(agent, true)
                     .then(() => api.post("users", user))
                     .then(res => {
                         api.setAuth(res.authorization);
                         this.$store.commit('setToken', res.authorization);
-                        this.$router.push('dashboard')
+                        this.login();
 
                     }); //TODO possivelmente trocar a ordem primeiro o post e depois o submit porque como está ele cria
                         // sempre uma transação mas nem sempre consegue fazer post do user
