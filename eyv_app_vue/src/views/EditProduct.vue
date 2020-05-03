@@ -87,24 +87,32 @@
                     <v-list
                             rounded>
                         <v-list-item
-                                :key="item.title"
-                                :to="item.link"
                                 class="px-2"
-                                link
-                                v-for="item in items"
                         >
                             <v-list-item-icon>
-                                <v-icon>{{ item.icon }}</v-icon>
+                                <v-icon></v-icon>
                             </v-list-item-icon>
-
                             <v-list-item-content>
-                                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                                <v-list-item-title>
+                                    <v-btn @click="showDialogTransfer=true">Transfer Ownership</v-btn>
+                                </v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list>
                 </v-card>
             </v-col>
         </v-row>
+        <v-dialog v-model="showDialogTransfer">
+            <v-card>
+                <v-select
+                        :items="users"
+                        item-text="name"
+                        item-value="name"
+                        label="Select User"
+                        outlined
+                ></v-select>
+            </v-card>
+        </v-dialog>
     </v-container>
 
 </template>
@@ -114,6 +122,7 @@
 
     export default {
         data: () => ({
+          showDialogTransfer: false,
             recordId: '',
             product: {
                 batch: '',
@@ -124,14 +133,9 @@
                 weight: '',
                 harvestDate: '',
                 expirationDate: '',
-                packingDate: ''
+                packingDate: '',
+                users: []
             },
-            items: [
-                {title: 'Create Proposal', icon: 'mdi-account-group-outline', link: '/dashboard'},
-                {title: 'My Profile', icon: 'mdi-account', link: '/myProfile'},
-                {title: 'Add Product', icon: 'mdi-account-group-outline', link: '/addProduct'},
-                {title: 'My Products', icon: 'mdi-corn', link: '/managerProducts'},
-            ],
         }),
         created: function () {
             if (this.$route.params.recordId != null) {
@@ -140,8 +144,17 @@
             }
         },
         methods: {
-            getPropertyValue(item, prop) {
+          getUsers() {
+              axios.get('/agents').then(response => {
+                this.users = response.data;
 
+                console.log(this.users);
+              })
+                .catch(function (error) {
+                  console.log(error);
+                });
+            },
+            getPropertyValue(item, prop) {
                 return getPropertyValue(item, prop)
             },
 
@@ -158,6 +171,7 @@
         },
         beforeMount: function () {
             this.getProduct();
+            this.getUsers();
         },
     }
 

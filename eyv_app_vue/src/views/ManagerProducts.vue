@@ -12,13 +12,15 @@
                 <td>{{ getPropertyValue(item, 'name') }}</td>
                 <td>{{ getPropertyValue(item, 'classification') }}</td>
                 <td>{{ getPropertyValue(item, 'origin') }}</td>
-                <td> <v-icon
+                <td> <v-btn
+
                             small
                             class="mr-2"
-
-                    >
+                            :to="'/editProduct/'+item.recordId"
+                    ><v-icon>
                         mdi-pencil
-                    </v-icon></td>
+                </v-icon>
+                    </v-btn></td>
             </tr>
             </tbody>
         </template>
