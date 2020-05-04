@@ -108,8 +108,7 @@
                         :items="users"
                         item-text="name"
                         label="Select User"
-                        item-value="publicKey"
-                        return-object
+                        item-value="key"
                         v-model="publicKey"
                         outlined
                 ></v-select>
@@ -148,7 +147,6 @@
                 harvestDate: '',
                 expirationDate: '',
                 packingDate: '',
-
             },
             users: [],
             role:'owner',
@@ -179,7 +177,6 @@
             getProduct() {
                 axios.get(`/records/${this.recordId}`).then(response => {
                     this.product = response.data;
-                    //this.recordId = product.recordId;//todo ver se é necessário
                     console.log(this.product);
                 })
                     .catch(function (error) {
@@ -190,11 +187,14 @@
             this.showDialogTransfer = false;
           },
           submitProposal(recordId, role, publicKey){
-              let transferPayload = payloads.createProposal({
+
+
+            let transferPayload = payloads.createProposal({
                 recordId: recordId,
                 receivingAgent: publicKey,
                 role: this.roleToEnum(role)
               })
+            console.log(publicKey);
             return transactions.submit([transferPayload], true).then(() => {
               console.log('Successfully submitted proposal')
             })
