@@ -3,8 +3,6 @@
         <v-row no-gutters>
             <v-col class="col-8">
                 <v-card class="mx-auto" max-width="700">
-
-
                     <v-container>
 
                         <form>
@@ -105,7 +103,7 @@
         <v-dialog v-model="showDialogTransfer" max-width="600">
             <v-card fluid>
                 <v-select
-                        :items="users"
+                        :items="agents"
                         item-text="name"
                         label="Select User"
                         item-value="key"
@@ -148,7 +146,8 @@
                 expirationDate: '',
                 packingDate: '',
             },
-            users: [],
+            agents: [],
+            users:[],
             role:'owner',
             publicKey: ''
         }),
@@ -159,17 +158,26 @@
             }
         },
         methods: {
-          getUsers() {
-            //todo @luana falta validar o tipo dos users, tem de ser apenas abaixo do tipo do user atual
+          getAgents() {
               axios.get('/agents').then(response => {
-                this.users = response.data;
+                this.agents = response.data;
 
-                console.log(this.users);
+                console.log(this.agents);
               })
                 .catch(function (error) {
                   console.log(error);
                 });
             },
+          getUsers() {
+            axios.get('/users').then(response => {
+              this.users = response.data;
+
+              console.log(this.users);
+            })
+              .catch(function (error) {
+                console.log(error);
+              });
+          },
             getPropertyValue(item, prop) {
                 return getPropertyValue(item, prop)
             },
@@ -215,6 +223,7 @@
         },
         beforeMount: function () {
             this.getProduct();
+            this.getAgents();
             this.getUsers();
         },
     }

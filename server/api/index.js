@@ -154,6 +154,8 @@ router.use(authHandler)
 
 router.get('/agents', handle(agents.list))
 router.get('/agents/:publicKey', handle(agents.fetch))
+router.get('/users', handle(users.list))//@luana - added to have access to users on the client
+router.get('/users/:publicKey', handle(users.fetch))//@luana - added to have access to users on the client
 
 router.post('/authorization', handleBody(auth.authorize))
 
