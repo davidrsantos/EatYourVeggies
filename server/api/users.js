@@ -22,6 +22,10 @@ const agents = require('../db/agents')
 const auth = require('./auth')
 const { BadRequest } = require('./errors')
 
+const FILTER_KEYS = ['role', 'publicKey']//@luana
+const list = params => db.list(_.pick(params, FILTER_KEYS))//@luana
+const fetch = ({ publicKey, authedKey }) => db.fetch(publicKey, publicKey === authedKey)//@luana
+
 const create = user => {
   return Promise.resolve()
     .then(() => {
@@ -57,5 +61,7 @@ const update = (changes, { authedKey }) => {
 
 module.exports = {
   create,
-  update
+  update,
+  list,//@luana
+  fetch//@luana
 }

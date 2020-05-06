@@ -79,6 +79,7 @@
                     </v-container>
 
                 </v-card>
+
             </v-col>
             <v-col class="col-4">
                 <v-card>
@@ -98,8 +99,113 @@
                         </v-list-item>
                     </v-list>
                 </v-card>
+
+                <v-card>
+                <form>
+                    <v-toolbar color="indigo" dark>
+                        <v-toolbar-title>Localization</v-toolbar-title>
+                    </v-toolbar>
+                    <v-text-field
+                            @click:append="openDialog(product.latitude,'latitude','Latitude')"
+                            append-icon="mdi-pencil"
+                            label="Latitude"
+                            outlined
+                            readonly
+                            v-model="product.latitude"
+                    />
+
+                    <v-text-field
+                            @click:append="openDialog(product.longitude,'longitude','Longitude')"
+                            append-icon="mdi-pencil"
+                            label="Longitude"
+                            outlined
+                            readonly
+                            v-model="product.longitude"
+
+                    />
+                    <v-text-field
+                            @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
+                            append-icon="mdi-pencil"
+                            label="Temperature ºC"
+                            outlined
+                            readonly
+                            v-model="product.temperature"
+
+                    />
+
+                    <v-text-field
+                            @click:append="openDialog(product.humidade,'humidade','Humidity kg/m³')"
+                            append-icon="mdi-pencil"
+                            label="Humidity kg/m³"
+                            outlined
+                            readonly
+
+                            v-model="product.humidade"
+                    />
+
+                    <v-text-field
+                            @click:append="openDialog(product.co2,'co2','CO2')"
+                            append-icon="mdi-pencil"
+                            label="CO2"
+                            outlined
+                            readonly
+                            v-model="product.co2"
+
+                    />
+
+                    <v-toolbar color="indigo" dark>
+                        <v-toolbar-title>Shock</v-toolbar-title>
+                    </v-toolbar>
+                    <v-text-field
+                            @click:append="openDialog(product.shockAcceleration,'shockAcceleration','Acceleration')"
+                            append-icon="mdi-pencil"
+                            label="Acceleration"
+                            outlined
+                            readonly
+
+                            v-model="product.shockAcceleration"
+
+                    />
+
+                    <v-text-field
+                            @click:append="openDialog(product.shockDuration,'shockDuration','Duration')"
+                            append-icon="mdi-pencil"
+                            label="Duration"
+                            outlined
+                            readonly
+
+                            v-model="product.shockDuration"
+
+                    />
+                    <v-toolbar color="indigo" dark>
+                        <v-toolbar-title>Tilt</v-toolbar-title>
+                    </v-toolbar>
+                    <v-text-field
+                            @click:append="openDialog(product.tiltX,'tiltX','X')"
+                            append-icon="mdi-pencil"
+                            label="X"
+                            outlined
+                            readonly
+
+                            v-model="product.tiltX"
+
+                    />
+                    <v-text-field
+                            @click:append="openDialog(product.tiltY,'tiltY','Y')"
+                            append-icon="mdi-pencil"
+                            label="Y"
+                            outlined
+                            readonly
+
+                            v-model="product.tiltY"
+
+                    />
+
+                </form>
+                </v-card>
             </v-col>
         </v-row>
+
         <v-dialog v-model="showDialogTransfer" max-width="600">
             <v-card fluid>
                 <v-select
@@ -122,12 +228,44 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog
+                max-width="600"
+                v-model="dialogProperties"
+        >
+            <v-card>
+                <v-container fluid>
+                    <v-card-title class="headline">Insert {{dialogLabel}}?</v-card-title>
+
+                    <v-text-field :error-messages="keyErrors"
+
+                                  @blur="$v.valueUpdateForm.$touch()"
+                                  @input="$v.valueUpdateForm.$touch()"
+                                  class="ml-4 mr-4"
+                                  v-model="valueUpdate"
+                    />
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                                @click="cancelInsert"
+                                color="grey darken-1"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn @click="submit" class="ml-4" color="green darken-1">Insert</v-btn>
+
+                    </v-card-actions>
+                </v-container>
+            </v-card>
+        </v-dialog>
+
     </v-container>
 
 </template>
 
 <script>
     import {getPropertyValue} from "../utils/records";
+    import * as api from '../services/api'
     const payloads = require('../services/payloads');
     const transactions = require('../services/transactions');
 
@@ -145,11 +283,34 @@
                 harvestDate: '',
                 expirationDate: '',
                 packingDate: '',
-            },
+                latitude: '',
+                longitude: '',
+                temperature: '',
+                humidade: '',
+                co2: '',
+               acceleration:'',//shock
+               duration:'',//shock
+               tiltX: '',
+               tiltY:'',
+                },
+          productValueUpdate: {
+            latitude: '',
+            longitude: '',
+            temperature: '',
+            humidade: '',
+            co2: '',
+            acceleration:'',//shock
+            duration:'',//shock
+            tiltX: '',
+            tiltY:'',
+          },
             agents: [],
             users:[],
             role:'owner',
-            publicKey: ''
+            publicKey: '',
+            dialogLabel: '',
+            dialogProperties: '',
+            valueUpdate: null
         }),
         created: function () {
             if (this.$route.params.recordId != null) {
@@ -194,8 +355,10 @@
           cancel() {
             this.showDialogTransfer = false;
           },
+          cancelInsert() {
+            this.dialogProperties = false;
+          },
           submitProposal(recordId, role, publicKey){
-
 
             let transferPayload = payloads.createProposal({
                 recordId: recordId,
@@ -206,6 +369,36 @@
             return transactions.submit([transferPayload], true).then(() => {
               console.log('Successfully submitted proposal')
             })
+          },
+          reportShock(){//@luana todo - falta testar esse método e criar para as outras propriedades
+              return updateProperty(this.recordId, {
+                        name: 'shock',
+                        stringValue: JSON.stringify({
+                          accel: parsing.toInt(this.productValueUpdate.acceleration),
+                          duration: parsing.toInt(this.productValueUpdate.duration)
+                        }),
+                        dataType: payloads.updateProperties.enum.STRING
+                      })
+                        .then(() => {
+                          this.productValueUpdate.acceleration = null
+                          this.productValueUpdate.duration = null
+                        })
+                    },
+
+                updateProperty(record, value){
+                  let updatePayload = payloads.updateProperties({
+                    recordId: record,
+                    properties: [value]
+                  })
+                  return transactions.submit([updatePayload], true).then(() => {
+                    console.log('Successfully submitted property update')
+                  })
+                },
+          openDialog(model, key, label) {
+            this.dialogProperties = true;
+            this.key = key;
+            this.dialogLabel = label;
+            this.valueUpdate = model;
           },
           roleToEnum(role){
             if(role='owner'){
