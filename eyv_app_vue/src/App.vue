@@ -42,6 +42,7 @@
     import * as transactions from "./services/transactions";
 
     export default {
+        name: "App",
         props: {
             source: String
         },

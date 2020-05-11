@@ -53,6 +53,8 @@ const update = (changes, { authedKey }) => {
     })
     .then(finalChanges => db.update(authedKey, finalChanges))
     .then(updated => _.omit(updated, 'password'))
+      .catch(error=> {console.log('Error on users ' + new BadRequest(error.message))
+          throw new BadRequest(error.message)})
 }
 
 module.exports = {

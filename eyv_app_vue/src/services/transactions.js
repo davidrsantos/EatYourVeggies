@@ -152,6 +152,8 @@ const changePassword = (password,oldPassword) => {
             const encryptedKey = sjcl.encrypt(password, privateKey)
             window.localStorage.setItem(STORAGE_KEY, encryptedKey)
             return encryptedKey
+        }).catch(()=>{
+            throw  'Wrong password'
         })
 }
 
