@@ -20,7 +20,7 @@ const _ = require('lodash')
 const db = require('../db/users')
 const agents = require('../db/agents')
 const auth = require('./auth')
-const { BadRequest } = require('./errors')
+const { BadRequest, NotAcceptable } = require('./errors')
 
 const create = user => {
   return Promise.resolve()
@@ -54,7 +54,7 @@ const update = (changes, { authedKey }) => {
     .then(finalChanges => db.update(authedKey, finalChanges))
     .then(updated => _.omit(updated, 'password'))
       .catch(error=> {console.log('Error on users ' + new BadRequest(error.message))
-          throw new BadRequest(error.message)})
+          throw new NotAcceptable(error.message)})
 }
 
 module.exports = {
