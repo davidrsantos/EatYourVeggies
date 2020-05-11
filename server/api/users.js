@@ -53,7 +53,7 @@ const update = (changes, { authedKey }) => {
     })
     .then(finalChanges => db.update(authedKey, finalChanges))
     .then(updated => _.omit(updated, 'password'))
-      .catch(error=> {console.log('Error on users ' + new BadRequest(error.message))
+      .catch(error=> {console.log('\n\n\ API USERS \n  ' + error.message )
           throw new NotAcceptable(error.message)})
 }
 

@@ -178,21 +178,22 @@
 
 
         <!-- dialog for Errors -->
-        <v-dialog color="error" type="error" v-model="showErrors" elevation="24" max-width="500">
+        <v-dialog color="error" elevation="24" max-width="500" type="error" v-model="showErrors">
             <v-card>
                 <v-toolbar color="red" dark>
                     <v-toolbar-title>Some problem...</v-toolbar-title>
                 </v-toolbar>
 
-                <v-card-text  class="d-flex pa-2">
+                <v-card-text class="d-flex pa-2">
                     <p class="subtitle-2 text-center">
-                    <v-icon>mdi-alert-box</v-icon>
-                    {{error}}</p>
+                        <v-icon>mdi-alert-box</v-icon>
+                        {{error}}
+                    </p>
                 </v-card-text>
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" text @click="showErrors = false">Ok</v-btn>
+                    <v-btn @click="showErrors = false" color="primary" text>Ok</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -308,12 +309,22 @@
             },
 
             userUpdate() {
-                return api.patch('users', _.pick(this.userValueUpdate, this.key))
+                let key = this.key
+                let userUpdate = _.pick(this.userValueUpdate, this.key);
+                return api.patch('users', userUpdate)
                     .then((user) => {
                         user.name = this.user.name
                         this.$store.commit('setUser', user);
                         this.user = user;
-                    }).catch(e =>this.handleErrors(e.error))
+                    }).catch(e => {
+                        if (e.error.includes('Duplicate primary key')) {
+                            console.log(Object.values(userUpdate));
+                            let duplicatedError = Object.values(userUpdate) +  ' alright exist'
+                            this.handleErrors(duplicatedError)
+                        } else {
+                            this.handleErrors(e.error)
+                        }
+                    })
 
             },
             cancel() {
