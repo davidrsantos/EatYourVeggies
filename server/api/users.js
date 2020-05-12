@@ -38,7 +38,8 @@ const create = user => {
     .then(() => auth.createToken(user.publicKey))
     .then(token => ({
       authorization: token,
-      encryptedKey: user.encryptedKey || null
+      encryptedKey: user.encryptedKey || null,
+        user: user
     }))
 }
 
