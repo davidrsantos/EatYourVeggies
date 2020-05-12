@@ -9,7 +9,9 @@ import addProduct from '../views/AddProduct'
 import managerProducts from '../views/ManagerProducts'
 import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
+import errorDialog from "../components/errorDialog";
 
+Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
 
 Vue.use(VueRouter);

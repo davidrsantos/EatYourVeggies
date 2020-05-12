@@ -80,9 +80,8 @@
                         v-model="repeatPassword"
                 />
                 <v-row>
-                    <v-btn :disabled="submitStatus==='PENDING'>submit</v-btn>
-                    <v-btn @click=" @click="submit" class="mr-4 ml-4" clear
-                    ">clear</v-btn>
+                    <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
+                    <v-btn @click="clear">clear</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn class="mr-8" light to="/login">Login</v-btn>
                 </v-row>
@@ -249,10 +248,7 @@
             },
 
             submit() {
-
-              //TODO fazer a mesma coisa para os erro que foi feita no profile
-                    this.userSubmitter();
-
+                this.userSubmitter();
             },
             clear() {
                 this.$v.$reset();

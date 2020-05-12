@@ -178,25 +178,7 @@
 
 
         <!-- dialog for Errors -->
-        <v-dialog color="error" elevation="24" max-width="500" type="error" v-model="showErrors">
-            <v-card>
-                <v-toolbar color="red" dark>
-                    <v-toolbar-title>Some problem...</v-toolbar-title>
-                </v-toolbar>
 
-                <v-card-text class="d-flex pa-2">
-                    <p class="subtitle-2 text-center">
-                        <v-icon>mdi-alert-box</v-icon>
-                        {{error}}
-                    </p>
-                </v-card-text>
-
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn @click="showErrors = false" color="primary" text>Ok</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
     </v-container>
 
 </template>
@@ -204,11 +186,12 @@
 <script>
     import * as transactions from "../services/transactions";
     import * as api from "../services/api";
-    import * as payloads from "../services/payloads";
     import {email, maxLength, minLength, numeric, required, sameAs} from "vuelidate/lib/validators";
+
 
     export default {
         name: "profile",
+
         validations() {
             return {
                 password: {
@@ -223,8 +206,7 @@
             }
         },
         data: () => ({
-            showErrors: false,
-            error: null,
+
             submitStatus: null,
             showPassword: false,
             oldPassword: null,
@@ -268,11 +250,7 @@
         methods: {
 
             handleErrors(error) {
-
-                console.log(error);
-                this.error = error;
-
-                this.showErrors = true;
+                this.$emit('errorEvent',error)
             },
 
             typeOfUser(role) {
@@ -316,9 +294,10 @@
                         user.name = this.user.name
                         this.$store.commit('setUser', user);
                         this.user = user;
-                    }).catch(e => {
+                    })
+                    .catch(e => {
                         if (e.error.includes('Duplicate primary key')) {
-                            console.log(Object.values(userUpdate));
+                            console.log(e.status);
                             let duplicatedError = Object.values(userUpdate) +  ' alright exist'
                             this.handleErrors(duplicatedError)
                         } else {
@@ -461,6 +440,3 @@
 
 </script>
 
-<style scoped>
-
-</style>

@@ -23,7 +23,7 @@
         <v-content app
         >
             <v-container>
-                <router-view/>
+                <router-view @errorEvent="handleError"/>
             </v-container>
         </v-content>
         <v-navigation-drawer app clipped expand-on-hover permanent
@@ -34,6 +34,7 @@
             <drawer/>
 
         </v-navigation-drawer>
+        <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
     </v-app>
 </template>
 
@@ -49,6 +50,8 @@
         data: () => ({
 
             mini: false,
+            showErrors: false,
+            error: null,
         }),
         mounted() {
             this.$store.commit('loadTokenAndUserFromSession'); //this keeps the user logged
@@ -59,6 +62,15 @@
         },
 
         methods: {
+            closeDialog(){
+                this.showErrors = false;
+            },
+            handleError(error){
+                console.error("An Error occurrence: " + error);
+                this.error = error;
+                this.showErrors = true;
+            },
+
             logout() {
                 this.$store.commit('clearUserAndToken');
                 api.clearAuth()
