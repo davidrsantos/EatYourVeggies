@@ -45,8 +45,6 @@
 
                     <v-text-field
                             :value="typeOfUser(user.role)"
-                            @click:append="openDialog(user.role,'role','Role')"
-                            append-icon="mdi-pencil"
                             label="Role"
                             outlined
                             readonly
@@ -143,20 +141,11 @@
                                   @blur="$v.valueUpdate.$touch()"
                                   @input="$v.valueUpdate.$touch()"
                                   class="ml-4 mr-4"
-                                  v-if="key!=='role'"
+
                                   v-model="valueUpdate"
                     />
 
-                    <v-select :items="typeofUser"
-                              item-text="name"
-                              item-value="value"
-                              label="Select your role"
-                              return-object
-                              single-line
-                              solo
-                              v-else
-                              v-model="valueUpdate"
-                    ></v-select>
+
 
 
                     <v-card-actions>
@@ -232,12 +221,6 @@
                 role: '',
             },
 
-            typeofUser: [
-                {name: 'Administrator', value: 'admin'},
-                {name: 'Producer', value: 'producer'},
-                {name: 'Distributor', value: 'distributor'},
-                {name: 'Retailer', value: 'retailer'},
-                {name: 'Customer', value: 'customer'}]
         }),
         created: function () {
             if (this.$store.state.user != null) {
@@ -250,7 +233,7 @@
         methods: {
 
             handleErrors(error) {
-                this.$emit('errorEvent',error)
+                this.$emit('errorEvent', error)
             },
 
             typeOfUser(role) {
@@ -271,10 +254,12 @@
                 }
             },
             submitPasswordChange() {
+                if(this.password === this.oldPassword) return this.handleErrors("The new password cannot be the same as old")
+                if(this.password !== this.repeatPassword) return this.handleErrors("The new password didn't match")
 
                 transactions.changePassword(this.password, this.oldPassword)
                     .then(encryptedKey => {
-                        return api.patch('users', {
+                        return axios.patch('users', {
                             encryptedKey,
                             password: api.hashPassword(this.password)
                         })
@@ -289,21 +274,23 @@
             userUpdate() {
                 let key = this.key
                 let userUpdate = _.pick(this.userValueUpdate, this.key);
-                return api.patch('users', userUpdate)
-                    .then((user) => {
+                return axios.patch('users', userUpdate)
+                    .then((response) => {
+                        console.log(response);
+                        let user = response.data
                         user.name = this.user.name
+
                         this.$store.commit('setUser', user);
                         this.user = user;
                     })
-                    .catch(e => {
-                        if (e.error.includes('Duplicate primary key')) {
-                            console.log(e.status);
-                            let duplicatedError = Object.values(userUpdate) +  ' alright exist'
-                            this.handleErrors(duplicatedError)
-                        } else {
-                            this.handleErrors(e.error)
-                        }
-                    })
+                    .catch( (error) => {
+                            if (error.response && error.response.status === 406) {
+                                this.handleErrors("It's no possible to make that change")
+                            }
+
+                    });
+
+
 
             },
             cancel() {
@@ -431,7 +418,7 @@
                     return errors;
                 }
 
-                //TODO perceber porque não funciona
+
 
             }
         },
