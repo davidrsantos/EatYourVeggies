@@ -39,28 +39,6 @@ let privateKey = null
 let signerPublicKey = null
 let batcherPublicKey = null
 
-const setBatcherPubkey = async () => {
-    const {pubkey} = await api.get('info')
-    batcherPublicKey = pubkey
-}
-setBatcherPubkey()
-
-/* const requestPassword = () => { //TODO arranjar maneira de mostrar isto de outr forma
-  let password = null
-
-  return modals.show(modals.BasicModal, {
-    title: 'Enter Password',
-    acceptText: 'Submit',
-    body: m('.container', [
-      m('.mb-4', 'Please confirm your password to unlock your signing key.'),
-      m('input.form-control', {
-        type: 'password',
-        oninput: m.withAttr('value', value => { password = value })
-      })
-    ])
-  })
-    .then(() => password)
-} */
 
 const createTxn = payload => {
     const header = TransactionHeader.encode({
@@ -146,15 +124,21 @@ const getPrivateKey = (password) => {
 /**
  * Re-encrypts a private key with a new password.
  */
-const changePassword = (password,oldPassword) => {
+const changePassword = (password, oldPassword) => {
     return getPrivateKey(oldPassword)
         .then(privateKey => {
             const encryptedKey = sjcl.encrypt(password, privateKey)
             window.localStorage.setItem(STORAGE_KEY, encryptedKey)
             return encryptedKey
-        }).catch(()=>{
-            throw  'Wrong password'
+        }).catch(() => {
+            throw  "Your old password was entered incorrectly"
         })
+}
+
+const setBatcherPubkey = () => {
+    return axios.get('info').then(res => {
+        batcherPublicKey = res.data.pubkey
+    })
 }
 
 /**
@@ -179,8 +163,13 @@ const submit = (payloads, wait = false) => {
         })
         .then(() => {
             const txns = payloads.map(payload => createTxn(payload))
-            const txnList = encodeTxns(txns)
-            return api.postBinary(`transactions${wait ? '?wait' : ''}`, txnList)
+            let txnList = encodeTxns(txns)
+            return axios.post(`transactions${wait ? '?wait' : ''}`, Uint8Array.from(txnList), {
+                headers: {'Content-Type': 'application/octet-stream', 'X-Requested-With': ''}
+            }).catch(function (error) {
+                throw new Error(error)
+            });
+
         })
 }
 
@@ -190,5 +179,6 @@ module.exports = {
     clearPrivateKey,
     getPrivateKey,
     changePassword,
+    setBatcherPubkey,
     submit
 }
