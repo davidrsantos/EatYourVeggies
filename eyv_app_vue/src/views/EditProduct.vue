@@ -234,15 +234,13 @@
                 v-model="dialogProperties"
         >
             <v-card>
-                <v-container fluid>
+                <v-container>
                     <v-card-title class="headline">Insert {{dialogLabel}}?</v-card-title>
 
-                    <v-text-field :error-messages="keyErrors"
-
-                                  @blur="$v.valueUpdateForm.$touch()"
-                                  @input="$v.valueUpdateForm.$touch()"
+                    <v-text-field
                                   class="ml-4 mr-4"
                                   v-model="valueUpdate"
+
                     />
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -252,7 +250,7 @@
                         >
                             Cancel
                         </v-btn>
-                        <v-btn @click="submit" class="ml-4" color="green darken-1">Insert</v-btn>
+                        <v-btn @click="submitPropertie" class="ml-4" color="green darken-1">Insert</v-btn>
 
                     </v-card-actions>
                 </v-container>
@@ -266,6 +264,7 @@
 <script>
     import {getPropertyValue} from "../utils/records";
     import * as api from '../services/api'
+    import * as parsing from '../services/parsing'
     const payloads = require('../services/payloads');
     const transactions = require('../services/transactions');
 
@@ -310,7 +309,8 @@
             publicKey: '',
             dialogLabel: '',
             dialogProperties: '',
-            valueUpdate: null
+            valueUpdate: null,
+          key: ''
         }),
         created: function () {
             if (this.$route.params.recordId != null) {
@@ -352,6 +352,15 @@
                         console.log(error);
                     });
             },
+          updateProperty(record, value){
+            let updatePayload = payloads.updateProperties({
+              recordId: record,
+              properties: [value]
+            })
+            return transactions.submit([updatePayload], true).then(() => {
+              console.log('Successfully submitted property update')
+            })
+          },
           cancel() {
             this.showDialogTransfer = false;
           },
@@ -370,8 +379,9 @@
               console.log('Successfully submitted proposal')
             })
           },
+
           reportShock(){//@luana todo - falta testar esse método e criar para as outras propriedades
-              return updateProperty(this.recordId, {
+               this.updateProperty(this.recordId, {
                         name: 'shock',
                         stringValue: JSON.stringify({
                           accel: parsing.toInt(this.productValueUpdate.acceleration),
@@ -385,22 +395,21 @@
                         })
                     },
 
-                updateProperty(record, value){
-                  let updatePayload = payloads.updateProperties({
-                    recordId: record,
-                    properties: [value]
-                  })
-                  return transactions.submit([updatePayload], true).then(() => {
-                    console.log('Successfully submitted property update')
-                  })
-                },
+          reportTemperature(){
+            //@luana todo - falta testar esse método e criar para as outras propriedades
+            this.updateProperty(this.recordId, {
+              name: 'temperature',
+              numberValue: parsing.toInt(this.productValueUpdate.temperature),//todo ver se vai ser preciso colocar a key e fazer um método só para todas as props.
+              dataType: payloads.updateProperties.enum.NUMBER
+            })
+          },
           openDialog(model, key, label) {
             this.dialogProperties = true;
             this.key = key;
             this.dialogLabel = label;
             this.valueUpdate = model;
           },
-          roleToEnum(role){
+          roleToEnum(role){//todo perguntar as proffs se querem manter o custodiam e o reporter
             if(role='owner'){
               return payloads.createProposal.enum.OWNER;
             }else if(role='custodian'){
@@ -413,6 +422,13 @@
             this.submitProposal(this.recordId, this.role,this.publicKey);
             this.showDialogTransfer=false;
           },
+          submitPropertie() {
+            _.set(this.productValueUpdate, this.key, this.valueUpdate)
+            this.reportTemperature();
+            this.key = '';
+            this.dialogProperties = false;
+          },
+
         },
         beforeMount: function () {
             this.getProduct();
