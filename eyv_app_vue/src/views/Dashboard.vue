@@ -1,21 +1,21 @@
 <template>
-    <div>
+    <div></div>
+</template>
 there you go! list of vegetables:
 
 
-        <li :key="item.recordId" v-for="item in items">
-            {{item.recordId}}
+<li :key="item.recordId" v-for="item in items">
+    {{item.recordId}}
 
-        </li>
+</li>
 and some agents to see:
-        <li :key="agent.key" v-for="agent in agents">
-            {{agent.name}}
+<li :key="agent.key" v-for="agent in agents">
+    {{agent.name}}
 
-        </li>
+</li>
 
 
-    </div>
-</template>
+
 
 <script>
     // @ is an alias to /src

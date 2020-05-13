@@ -1,6 +1,6 @@
 <template>
     <v-card class="mx-auto" max-width="800">
-        <v-toolbar color="indigo" dark extended flat>
+        <v-toolbar color="green" dark extended flat>
             <v-toolbar-title>Register Product</v-toolbar-title>
         </v-toolbar>
         <v-container>
@@ -82,7 +82,7 @@
                     </template>
                     <v-date-picker @input="menuHarvestDate= false" v-model="harvestDate"></v-date-picker>
                 </v-menu>
-                <v-toolbar color="indigo" dark>
+                <v-toolbar color="green" dark>
                     <v-toolbar-title>Add Properties</v-toolbar-title>
                 </v-toolbar>
                 <v-card-text>
@@ -147,7 +147,7 @@
                         </v-menu>
                     </v-row>
                 </v-card-text>
-                <v-toolbar color="indigo" dark>
+                <v-toolbar color="green" dark>
                     <v-toolbar-title>Localization</v-toolbar-title>
                 </v-toolbar>
                 <v-text-field
