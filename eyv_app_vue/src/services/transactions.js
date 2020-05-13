@@ -138,6 +138,8 @@ const changePassword = (password, oldPassword) => {
 const setBatcherPubkey = () => {
     return axios.get('info').then(res => {
         batcherPublicKey = res.data.pubkey
+    }).catch(error => {
+        console.error(error)
     })
 }
 
