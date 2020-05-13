@@ -46,7 +46,7 @@
       "ownerIndex": 0,
       "custodianIndex": 2,
       "reporterIndex": 1,
-      "reportableProperties": ["temperature","humidade", "location", "tilt", "shock"]
+      "reportableProperties": ["temperature","humidade","co2", "location", "tilt", "shock"]
     },
 
     {
@@ -98,6 +98,7 @@
       "reportableProperties": [
         "temperature",
         "humidade",
+        "co2",
         "location",
         "tilt",
         "shock"
@@ -152,6 +153,7 @@
       "reportableProperties": [
         "temperature",
         "humidade",
+        "co2",
         "location",
         "tilt",
         "shock"

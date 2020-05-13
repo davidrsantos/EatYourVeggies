@@ -152,7 +152,7 @@
                             label="Acceleration"
                             outlined
                             readonly
-                            v-model="product.shockAcceleration"
+                            v-model="product.acceleration"
 
                     />
 
@@ -160,7 +160,7 @@
                             label="Duration"
                             outlined
                             readonly
-                            v-model="product.shockDuration"
+                            v-model="product.duration"
 
                     />
 
@@ -439,12 +439,32 @@
                this.updateProperty(this.recordId, {
                         name: 'shock',
                         stringValue: JSON.stringify({
-                          accel: parsing.toInt(this.productValueUpdate.acceleration),
-                          duration: parsing.toInt(this.productValueUpdate.duration)
+                          accel: parsing.toInt(this.valueUpdate1),
+                          duration: parsing.toInt(this.valueUpdate2)
                         }),
                         dataType: payloads.updateProperties.enum.STRING
                       })
                     },
+          reportTilt(){
+            this.updateProperty(this.recordId, {
+              name: 'tilt',
+              stringValue: JSON.stringify({
+                x: parsing.toInt(this.valueUpdate1),
+                y: parsing.toInt(this.valueUpdate2)
+              }),
+              dataType: payloads.updateProperties.enum.STRING
+            })
+          },
+          reportLocalization(){
+            this.updateProperty(this.recordId, {
+              name: 'location',
+              locationValue: {
+                latitude: parsing.toInt(this.valueUpdate1),
+                longitude: parsing.toInt(this.valueUpdate2)
+              },
+              dataType: payloads.updateProperties.enum.LOCATION
+            })
+          },
           reportTemperature(){
             this.updateProperty(this.recordId, {
               name: 'temperature',
@@ -462,7 +482,7 @@
           reportCo2(){
             this.updateProperty(this.recordId, {
               name: 'co2',
-              numberValue: parsing.toInt(this.productValueUpdate.co2),
+              numberValue: parsing.toInt(this.valueUpdate),
               dataType: payloads.updateProperties.enum.NUMBER
             })
           },
@@ -497,13 +517,25 @@
           },
           submitPropertie() {
             _.set(this.productValueUpdate, this.key, this.valueUpdate)
-            this.reportValuePropertie();//todo falta saber como invocar o método correspondente a prop que eu quero alterar
+            if(this.key=='temperature'){
+              this.reportTemperature();
+            }else if(this.key=='humidade'){
+              this.reportHumidity();
+            }else{
+              this.reportCo2();
+            }
             this.key = '';
             this.dialogProperties = false;
           },
           submitDoublePropertie() {
             _.set(this.productValueUpdate, this.key1,this.key2,this.valueUpdate1,this.valueUpdate2)
-            this.reportShock();//todo falta saber como invocar o método correspondente a prop que eu quero alterar
+            if(this.key1=='latitude' && this.key2=='longitude' ){
+              this.reportLocalization();
+            }else if(this.key1=='tiltX' && this.key2=='tiltY' ){
+              this.reportTilt();
+            }else{
+              this.reportShock();
+            }
             this.key1 = '';
             this.key2 = '';
             this.dialogDoubleProperties = false;
