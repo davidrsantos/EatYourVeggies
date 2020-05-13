@@ -96,10 +96,6 @@ const post = _.partial(request, 'POST')
 //const patch = _.partial(request, 'PATCH')
 
 
-const patch = (url, data) => {
-    return axios.patch(url, data)
-
-}
 
 /**
  * Method for posting a binary file to the API
@@ -124,6 +120,5 @@ module.exports = {
     request,
     get,
     post,
-    patch,
     postBinary
 }

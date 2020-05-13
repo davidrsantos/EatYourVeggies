@@ -222,9 +222,11 @@
                             this.$store.commit('setUser', res.data.user)
                             this.$router.push("dashboard")
                         }).catch(error => {
-                            this.$emit('errorEvent', error)
+                            this.$emit('errorEvent', error.response.data.error)
                         })
-                    )
+                    ).catch(error => {
+                    this.$emit('errorEvent', error)
+                })
 
 
             },
