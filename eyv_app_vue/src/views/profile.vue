@@ -44,14 +44,10 @@
                     />
 
                     <v-text-field
-                            @click:append="openDialog(user.role,'role','Role')"
-
-                            append-icon="mdi-pencil"
+                            :value="typeOfUser(user.role)"
                             label="Role"
                             outlined
                             readonly
-
-                            :value="typeOfUser(user.role)"
 
                     />
 
@@ -82,6 +78,7 @@
                                             @click:append="showPassword = !showPassword"
 
                                             label="Old Password"
+                                            required
                                             v-model="oldPassword"
                                     />
                                     <v-text-field
@@ -94,6 +91,7 @@
                                             counter
                                             hint="At least 8 characters"
                                             label="New Password"
+                                            required
                                             v-model="password"
                                     />
 
@@ -107,6 +105,7 @@
                                             counter
                                             hint="At least 8 characters"
                                             label="Confirm your New Password"
+                                            requied
                                             v-model="repeatPassword"
                                     />
 
@@ -114,10 +113,10 @@
 
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
-                                        <v-btn
-                                                @click="submitPasswordChange"
-                                                color="primary"
-                                                text
+                                        <v-btn :disabled="(password==null||repeatPassword!==password||oldPassword==null)"
+                                               @click="submitPasswordChange"
+                                               color="primary"
+                                               text
                                         >
                                             Change
                                         </v-btn>
@@ -139,23 +138,14 @@
 
                     <v-text-field :error-messages="keyErrors"
 
-                                  @blur="$v.valueUpdateForm.$touch()"
-                                  @input="$v.valueUpdateForm.$touch()"
+                                  @blur="$v.valueUpdate.$touch()"
+                                  @input="$v.valueUpdate.$touch()"
                                   class="ml-4 mr-4"
-                                  v-if="key!=='role'"
+
                                   v-model="valueUpdate"
                     />
 
-                    <v-select :items="typeofUser"
-                              item-text="name"
-                              item-value="value"
-                              label="Select your role"
-                              return-object
-                              single-line
-                              solo
-                              v-else
-                              v-model="valueUpdate"
-                    ></v-select>
+
 
 
                     <v-card-actions>
@@ -166,48 +156,53 @@
                         >
                             Cancel
                         </v-btn>
-                        <v-btn @click="submit" class="ml-4" color="green darken-1">Update</v-btn>
+                        <v-btn :disabled="submitStatus==='ERROR'" @click="submit" class="ml-4" color="green darken-1">
+                            Update
+                        </v-btn>
 
                     </v-card-actions>
                 </v-container>
             </v-card>
         </v-dialog>
+
+
+        <!-- dialog for Errors -->
+
     </v-container>
+
 </template>
 
 <script>
     import * as transactions from "../services/transactions";
     import * as api from "../services/api";
-    import * as payloads from "../services/payloads";
     import {email, maxLength, minLength, numeric, required, sameAs} from "vuelidate/lib/validators";
+
 
     export default {
         name: "profile",
-        validations: {
-            name: {required, maxLength: maxLength(50)},
-            email: {required, email},
-            password: {
-                required,
-                minLength: minLength(8)
-            },
-            repeatPassword: {
 
-                sameAsPassword: sameAs("password")
-            },
-            username: {
-                required, maxLength: maxLength(10)
-            },
-            nif: {
-                required, minLength: minLength(9), maxLength: maxLength(9), numeric
-            },
+        validations() {
+            return {
+                password: {
+                    required,
+                    minLength: minLength(8)
+                },
+                repeatPassword: {
+
+                    sameAsPassword: sameAs("password")
+                },
+                valueUpdate: this.rules
+            }
         },
         data: () => ({
+
+            submitStatus: null,
             showPassword: false,
             oldPassword: null,
             password: null,
             repeatPassword: null,
             dialogPassword: false,
-            valueUpdate: null,
+            valueUpdate: "",
             dialog: false,
             key: '',
             dialogLabel: '',
@@ -226,12 +221,6 @@
                 role: '',
             },
 
-            typeofUser: [
-                {name: 'Administrator', value: 'admin'},
-                {name: 'Producer', value: 'producer'},
-                {name: 'Distributor', value: 'distributor'},
-                {name: 'Retailer', value: 'retailer'},
-                {name: 'Customer', value: 'customer'}]
         }),
         created: function () {
             if (this.$store.state.user != null) {
@@ -242,6 +231,11 @@
 
         },
         methods: {
+
+            handleErrors(error) {
+                this.$emit('errorEvent', error)
+            },
+
             typeOfUser(role) {
 
                 switch (role) {
@@ -260,28 +254,43 @@
                 }
             },
             submitPasswordChange() {
+                if(this.password === this.oldPassword) return this.handleErrors("The new password cannot be the same as old")
+                if(this.password !== this.repeatPassword) return this.handleErrors("The new password didn't match")
 
                 transactions.changePassword(this.password, this.oldPassword)
                     .then(encryptedKey => {
-                        return api.patch('users', {
+                        return axios.patch('users', {
                             encryptedKey,
                             password: api.hashPassword(this.password)
                         })
 
                     }).then(() => {
                     this.dialogPassword = false
-                })
+                }).catch(e =>
+                    this.handleErrors(e)
+                )
             },
 
             userUpdate() {
-                console.log(this.valueUpdate + '+' + this.key)
-
-                return api.patch('users', _.pick(this.userValueUpdate, this.key))
-                    .then((user) => {
+                let key = this.key
+                let userUpdate = _.pick(this.userValueUpdate, this.key);
+                return axios.patch('users', userUpdate)
+                    .then((response) => {
+                        console.log(response);
+                        let user = response.data
                         user.name = this.user.name
+
                         this.$store.commit('setUser', user);
                         this.user = user;
                     })
+                    .catch( (error) => {
+                            if (error.response && error.response.status === 406) {
+                                this.handleErrors("It's no possible to make that change")
+                            }
+
+                    });
+
+
 
             },
             cancel() {
@@ -292,6 +301,8 @@
             },
 
             submit() {
+
+
                 _.set(this.userValueUpdate, this.key, this.valueUpdate)
                 this.userUpdate();
                 this.dialog = false;
@@ -310,6 +321,36 @@
 
         },
         computed: {
+            rules() {
+                switch (this.key
+                    ) {
+
+                    case
+                    'email'
+                    :
+                        return {
+                            required, email
+                        }
+                            ;
+
+                    case
+                    'username'
+                    :
+                        return {
+                            required, maxLength: maxLength(10)
+                        }
+                            ;
+                    case
+                    'nif'
+                    :
+                        return {
+                            required, minLength: minLength(9),
+                            maxLength: maxLength(9), numeric
+                        }
+                            ;
+                }
+
+            },
 
 
             passwordErrors() {
@@ -319,7 +360,8 @@
                 errors.push("Password must be at most 8 characters long");
                 !this.$v.password.required && errors.push("Password is required.");
                 return errors;
-            },
+            }
+            ,
 
             repeatPasswordErrors() {
                 const errors = [];
@@ -331,39 +373,52 @@
                 }
 
                 return errors;
-            },
+            }
+            ,
 
 
             keyErrors() {
                 const errors = [];
-                /*  if (this.key === 'nif') {
-                      if (!this.$v.valueUpdate.$dirty) return errors;
-                      !this.$v.valueUpdate.minLength &&
-                      errors.push("Nif must be at most 9 characters long");
-                      !this.$v.valueUpdate.maxLength &&
-                      errors.push("Nif should not be more that 9 characters long");
-                      !this.$v.valueUpdate.required && errors.push("Nif is required.");
-                      return errors;
-                  }
+                if (this.key === 'nif') {
 
-                  if (this.key === 'email') {
+                    if (!this.$v.valueUpdate.$dirty) return errors;
+                    !this.$v.valueUpdate.minLength && errors.push("Nif must be at most 9 characters long");
+                    !this.$v.valueUpdate.maxLength && errors.push("Nif should not be more that 9 characters long");
+                    !this.$v.valueUpdate.numeric && errors.push("Nif must be numeric.");
+                    !this.$v.valueUpdate.required && errors.push("Nif is required.");
 
-                      if (!this.$v.valueUpdate.$dirty) return errors;
-                      !this.$v.valueUpdate.email && errors.push("Must be valid e-mail");
-                      !this.$v.valueUpdate.required && errors.push("E-mail is required");
-                      return errors;
-                  }
+                    if (errors.length !== 0) this.submitStatus = 'ERROR'
+                    else this.submitStatus = 'OK';
 
-                  if (this.key === 'username') {
+                    return errors;
+                }
 
-                      if (!this.$v.valueUpdate.$dirty) return errors;
-                      !this.$v.valueUpdate.maxLength &&
-                      errors.push("Username must be at most 10 characters long");
-                      !this.$v.valueUpdate.required && errors.push("Username is required.");
-                      return errors;
-                  }*/
+                if (this.key === 'email') {
 
-                //TODO perceber porque não funciona
+                    if (!this.$v.valueUpdate.$dirty) return errors;
+                    !this.$v.valueUpdate.email && errors.push("Must be valid e-mail");
+                    !this.$v.valueUpdate.required && errors.push("E-mail is required");
+
+                    if (errors.length !== 0) this.submitStatus = 'ERROR'
+                    else this.submitStatus = 'OK';
+
+                    return errors;
+                }
+
+                if (this.key === 'username') {
+
+                    if (!this.$v.valueUpdate.$dirty) return errors;
+                    !this.$v.valueUpdate.maxLength &&
+                    errors.push("Username must be at most 10 characters long");
+                    !this.$v.valueUpdate.required && errors.push("Username is required.");
+
+                    if (errors.length !== 0) this.submitStatus = 'ERROR'
+                    else this.submitStatus = 'OK';
+
+                    return errors;
+                }
+
+
 
             }
         },
@@ -372,6 +427,3 @@
 
 </script>
 
-<style scoped>
-
-</style>
