@@ -27,7 +27,6 @@ const USER_SCHEMA = { // Onde define as propriedades do user para posteriormente
   '?encryptedKey': String,
     nif: String.of(9,null), //9 é o tamanho exato do campo e o null é para não meter restrições na string
     role: ['admin', 'producer','distributor','retailer','customer'], //são o tipo de roles possiveis de um user da blockchin ser
-    //TODO adicionar aqui  o tipo de user e etc....
   '*': null
 }
 
@@ -80,7 +79,8 @@ const update = (publicKey, changes) => {
         .catch(err => {
           // If failed to update usernames, reset user and re-throw error
           return db.updateTable('users', publicKey, oldUser)
-            .then(() => { throw err })
+            .then(() => {console.log('\n\n\DATABASE USERS \n ' + err)
+                throw err })
         })
     })
 }

@@ -6,11 +6,11 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: { 
+    state: {
         token: "",
-        user: null      
-    },  
-    mutations: { 
+        user: null
+    },
+    mutations: {
         clearUserAndToken: (state) => {
             state.user = null;
             state.token = "";
@@ -28,13 +28,13 @@ export default new Vuex.Store({
             axios.defaults.headers.common.Authorization = undefined;
         },
         setUser: (state, user) => {
-            state.user =  user;
+            state.user = user;
             sessionStorage.setItem('user', JSON.stringify(user));
         },
         setToken: (state, token) => {
-            state.token= token;
+            state.token = token;
             sessionStorage.setItem('token', token);
-            axios.defaults.headers.common.Authorization = "Bearer " + token;
+            axios.defaults.headers.common.Authorization = token;
         },
         loadTokenAndUserFromSession: (state) => {
             state.token = "";
@@ -43,11 +43,11 @@ export default new Vuex.Store({
             let user = sessionStorage.getItem('user');
             if (token) {
                 state.token = token;
-                axios.defaults.headers.common.Authorization = "Bearer " + token;
+                axios.defaults.headers.common.Authorization = token;
             }
             if (user) {
                 state.user = JSON.parse(user);
             }
         }
-    } 
+    }
 });

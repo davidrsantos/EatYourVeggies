@@ -93,18 +93,16 @@
             login() {
                 const credentials = {
                     username: this.username,
-                    password: api.hashPassword(this.password)
+                    password: api.hashPassword(this.password) //Ver onde vou por esta função quando o ficheiro api desaparecer
                 };
-                api.post("authorization", credentials).then(res => {
-                    api.setAuth(res.authorization);
-                    transactions.setPrivateKey(this.password, res.encryptedKey);
-                    this.$store.commit("setToken", res.authorization); //porque temos este
-
-                    let pubKey = api.getPublicKey()
-                    api.get(`agents/${pubKey}`)
-                        .then(agent => {
-                            console.log(agent)
-                            this.$store.commit('setUser', agent)
+                axios.post("authorization", credentials).then(res => {
+                    transactions.setPrivateKey(this.password, res.data.encryptedKey);
+                    this.$store.commit("setToken", res.data.authorization);
+                    let pubKey = window.atob(this.$store.state.token.split('.')[1]) //Vai buscar o valor do meio do token e depois decodes porque estava encoded em base-64
+                    axios.get(`agents/${pubKey}`)
+                        .then(res => {
+                            console.log(res);
+                            this.$store.commit('setUser', res.data)
                             this.$router.push("dashboard")
                         })
 
