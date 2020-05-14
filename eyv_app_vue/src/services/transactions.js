@@ -16,7 +16,7 @@
  */
 'use strict'
 
-const m = require('mithril')
+//const m = require('mithril')
 const _ = require('lodash')
 const sjcl = require('sjcl')
 const {createHash} = require('crypto')

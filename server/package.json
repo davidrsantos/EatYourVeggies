@@ -17,7 +17,7 @@
     "make-fish": "DATA=\"../../fish_client/sample_data/core_types.json\" node ./scripts/seed_core_types.js",
     "make-veggie": "DATA=\"../../eyv_app_vue/sample_data/core_types.json\" node ./scripts/seed_core_types.js",
     "seed-sample-fish": "DATA=\"../../fish_client/sample_data/sample_data.json\" node ./scripts/seed_sample_data.js",
-    "seed-sample-veggies": "DATA=\"../../eyv_app_vue/sample_data/sample_data.json\" node ./scripts/seed_sample_data.js",
+    "seed": "DATA=\"../../eyv_app_vue/sample_data/sample_data.json\" node ./scripts/seed_sample_data.js",
     "update-sample-fish": "DATA=\"../../fish_client/sample_data/sample_updates.json\" node ./scripts/run_sample_updates.js"
   },
   "repository": {
@@ -39,7 +39,8 @@
     "lodash": "^4.17.4",
     "protobufjs": "^6.8.0",
     "rethinkdb": "^2.3.3",
-    "sawtooth-sdk": "^1.0.0-rc"
+    "sawtooth-sdk": "^1.0.0-rc",
+    "sjcl": "^1.0.8"
   },
   "devDependencies": {
     "nodemon": "^1.11.0",
