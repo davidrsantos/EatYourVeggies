@@ -51,7 +51,10 @@
                     sortable: false,
                     value: 'key',
                 },
-                {text: 'Name', value: 'name', align: 'start',},
+                {text: 'Name', value: 'name',},
+              {text: 'Username', value: 'username'},
+              {text: 'Nif', value: 'nif'},
+              {text: 'Role', value: 'role'},
                 {text: 'Actions', value: 'actions', sortable: false},
 
             ],
