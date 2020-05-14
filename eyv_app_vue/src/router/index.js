@@ -11,7 +11,9 @@ import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
 import errorDialog from "../components/errorDialog";
 import listUsers from "../components/listUsers";
+import userDetails from "../components/UserDetails";
 
+Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
 Vue.component('listUsers', listUsers);
