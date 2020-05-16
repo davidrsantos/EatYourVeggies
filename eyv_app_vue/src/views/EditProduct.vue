@@ -113,6 +113,7 @@
                 <v-card>
                     <v-container>
                         <form>
+                            <v-container>
                             <v-text-field
                                     @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
                                     append-icon="mdi-pencil"
@@ -141,7 +142,7 @@
                                     v-model="product.co2"
 
                             />
-
+                            </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Shock</v-toolbar-title>
                                 <v-spacer></v-spacer>
@@ -150,6 +151,7 @@
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
+                            <v-container>
                             <v-text-field
                                     label="Acceleration"
                                     outlined
@@ -165,7 +167,7 @@
                                     v-model="product.duration"
 
                             />
-
+                            </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Tilt</v-toolbar-title>
                                 <v-spacer></v-spacer>
@@ -174,6 +176,7 @@
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
+                            <v-container>
                             <v-text-field
                                     label="X"
                                     outlined
@@ -188,6 +191,7 @@
                                     v-model="product.tiltY"
 
                             />
+                            </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Localization</v-toolbar-title>
                                 <v-spacer></v-spacer>
@@ -196,8 +200,7 @@
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
-
-
+                            <v-container>
                             <v-text-field
                                     label="Latitude"
                                     outlined
@@ -210,6 +213,7 @@
                                     readonly
                                     v-model="product.longitude"
                             />
+                            </v-container>
                         </form>
                     </v-container>
                 </v-card>
@@ -595,12 +599,14 @@
           }
           let tilt = getPropertyValue(response.data, 'tilt')
           if (tilt !== null) {
+            tilt=JSON.parse(tilt)
             this.product.tiltX = tilt.x
             this.product.tiltY = tilt.y
           }
           let shock = getPropertyValue(response.data, 'shock')
           if (shock !== null) {
-            this.product.acceleration = shock.acceleration
+            shock = JSON.parse(shock)
+            this.product.acceleration = shock.accel
             this.product.duration = shock.duration
           }
 
