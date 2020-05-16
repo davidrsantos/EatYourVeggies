@@ -16,167 +16,183 @@
  */
 'use strict'
 
+const secp256k1 = require('sawtooth-sdk/signing/secp256k1')
+
+const sjcl = require('sjcl')
+const context = new secp256k1.Secp256k1Context()
+
 const _ = require('lodash')
 const request = require('request-promise-native')
 const protos = require('../blockchain/protos')
 const {
-  awaitServerPubkey,
-  getTxnCreator,
-  submitTxns,
-  encodeTimestampedPayload
+    awaitServerPubkey,
+    getTxnCreator,
+    submitTxns,
+    encodeTimestampedPayload
 } = require('../system/submit_utils')
 
 const SERVER = process.env.SERVER || 'http://localhost:3000'
 const DATA = process.env.DATA
 if (DATA.indexOf('.json') === -1) {
-  throw new Error('Use the "DATA" environment variable to specify a JSON file')
+    throw new Error('Use the "DATA" environment variable to specify a JSON file')
 }
 
-const { records, agents } = require(`./${DATA}`)
+const {records, agents} = require(`./${DATA}`)
 let createTxn = null
 
 const createProposal = (privateKey, action) => {
-  return createTxn(privateKey, encodeTimestampedPayload({
-    action: protos.SCPayload.Action.CREATE_PROPOSAL,
-    createProposal: protos.CreateProposalAction.create(action)
-  }))
+    return createTxn(privateKey, encodeTimestampedPayload({
+        action: protos.SCPayload.Action.CREATE_PROPOSAL,
+        createProposal: protos.CreateProposalAction.create(action)
+    }))
 }
 
 const answerProposal = (privateKey, action) => {
-  return createTxn(privateKey, encodeTimestampedPayload({
-    action: protos.SCPayload.Action.ANSWER_PROPOSAL,
-    answerProposal: protos.AnswerProposalAction.create(action)
-  }))
+    return createTxn(privateKey, encodeTimestampedPayload({
+        action: protos.SCPayload.Action.ANSWER_PROPOSAL,
+        answerProposal: protos.AnswerProposalAction.create(action)
+    }))
+}
+
+const hashPassword = password => {
+    const bits = sjcl.hash.sha256.hash(password)
+    return sjcl.codec.base64.fromBits(bits)
 }
 
 protos.compile()
-  .then(awaitServerPubkey)
-  .then(batcherPublicKey => {
-    const txnCreators = {}
+    .then(awaitServerPubkey)
+    .then(batcherPublicKey => {
+        const txnCreators = {}
 
-    createTxn = (privateKey, payload) => {
-      if (!txnCreators[privateKey]) {
-        txnCreators[privateKey] = getTxnCreator(privateKey, batcherPublicKey)
-      }
-      return txnCreators[privateKey](payload)
-    }
-  })
-
-  // Create Agents
-  .then(() => {
-    console.log('Creating Agents . . .')
-    const agentAdditions = agents.map(agent => {
-      return createTxn(agent.privateKey, encodeTimestampedPayload({
-        action: protos.SCPayload.Action.CREATE_AGENT,
-        createAgent: protos.CreateAgentAction.create({ name: agent.name })
-      }))
-    })
-
-    return submitTxns(agentAdditions)
-  })
-
-  // Create Users
-  .then(() => {
-    console.log('Creating Users . . .')
-    const userRequests = agents.map(agent => {
-      const user = _.omit(agent, 'name', 'privateKey', 'hashedPassword')
-      user.password = agent.hashedPassword
-      return request({
-        method: 'POST',
-        url: `${SERVER}/users`,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-      })
-    })
-
-    return Promise.all(userRequests)
-  })
-
-  // Create Records
-  .then(() => {
-    console.log('Creating Records . . .')
-    const recordAdditions = records.map(record => {
-      const properties = record.properties.map(property => {
-        if (property.dataType === protos.PropertySchema.DataType.LOCATION) {
-          property.locationValue = protos.Location.create(property.locationValue)
+        createTxn = (privateKey, payload) => {
+            if (!txnCreators[privateKey]) {
+                txnCreators[privateKey] = getTxnCreator(privateKey, batcherPublicKey)
+            }
+            return txnCreators[privateKey](payload)
         }
-        return protos.PropertyValue.create(property)
-      })
-
-      return createTxn(agents[record.ownerIndex || 0].privateKey, encodeTimestampedPayload({
-        action: protos.SCPayload.Action.CREATE_RECORD,
-        createRecord: protos.CreateRecordAction.create({
-          recordId: record.recordId,
-          recordType: record.recordType,
-          properties
-        })
-      }))
     })
 
-    return submitTxns(recordAdditions)
-  })
+    // Create Agents
+    .then(() => {
+          console.log('Creating Agents . . .')
+          const agentAdditions = agents.map(agent => {
+            return createTxn(agent.privateKey, encodeTimestampedPayload({
+              action: protos.SCPayload.Action.CREATE_AGENT,
+              createAgent: protos.CreateAgentAction.create({ name: agent.name })
+            }))
+          })
 
-  // Transfer Custodianship
-  .then(() => {
-    console.log('Transferring Custodianship . . .')
-    const custodianProposals = records
-      .filter(record => record.custodianIndex !== undefined)
-      .map(record => {
-        return createProposal(agents[record.ownerIndex || 0].privateKey, {
-          recordId: record.recordId,
-          receivingAgent: agents[record.custodianIndex].publicKey,
-          role: protos.Proposal.Role.CUSTODIAN
+          return submitTxns(agentAdditions)
+    })
+
+    // Create Users
+    .then(() => {
+        console.log('Creating Users . . .')
+        const userRequests = agents.map(agent => {
+            const user = _.omit(agent, 'name', 'privateKey', 'hashedPassword')
+            user.password = hashPassword(agent.password)
+
+            user.publicKey = context.getPublicKey(secp256k1.Secp256k1PrivateKey.fromHex(agent.privateKey)).asHex()
+
+
+            user.encryptedKey = sjcl.encrypt(agent.password, agent.privateKey)
+
+            return request({
+                method: 'POST',
+                url: `${SERVER}/users`,
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(user)
+            })
         })
-      })
 
-    return submitTxns(custodianProposals)
-  })
-  .then(() => {
-    const custodianAnswers = records
-      .filter(record => record.custodianIndex !== undefined)
-      .map(record => {
-        return answerProposal(agents[record.custodianIndex].privateKey, {
-          recordId: record.recordId,
-          receivingAgent: agents[record.custodianIndex].publicKey,
-          role: protos.Proposal.Role.CUSTODIAN,
-          response: protos.AnswerProposalAction.Response.ACCEPT
+        return Promise.all(userRequests)
+    })
+
+    // Create Records
+    .then(() => {
+        console.log('Creating Records . . .')
+        const recordAdditions = records.map(record => {
+            const properties = record.properties.map(property => {
+                if (property.dataType === protos.PropertySchema.DataType.LOCATION) {
+                    property.locationValue = protos.Location.create(property.locationValue)
+                }
+                return protos.PropertyValue.create(property)
+            })
+
+            return createTxn(agents[record.ownerIndex || 0].privateKey, encodeTimestampedPayload({
+                action: protos.SCPayload.Action.CREATE_RECORD,
+                createRecord: protos.CreateRecordAction.create({
+                    recordId: record.recordId,
+                    recordType: record.recordType,
+                    properties
+                })
+            }))
         })
-      })
 
-    return submitTxns(custodianAnswers)
-  })
+        return submitTxns(recordAdditions)
+    })
 
-  // Authorize New Reporters
-  .then(() => {
-    console.log('Authorizing New Reporters . . .')
-    const reporterProposals = records
-      .filter(record => record.reporterIndex !== undefined)
-      .map(record => {
-        return createProposal(agents[record.ownerIndex || 0].privateKey, {
-          recordId: record.recordId,
-          receivingAgent: agents[record.reporterIndex].publicKey,
-          role: protos.Proposal.Role.REPORTER,
-          properties: record.reportableProperties
-        })
-      })
+   /* // Transfer Custodianship
+    .then(() => {
+        console.log('Transferring Custodianship . . .')
+        const custodianProposals = records
+            .filter(record => record.custodianIndex !== undefined)
+            .map(record => {
+                return createProposal(agents[record.ownerIndex || 0].privateKey, {
+                    recordId: record.recordId,
+                    receivingAgent: agents[record.custodianIndex].publicKey,
+                    role: protos.Proposal.Role.CUSTODIAN
+                })
+            })
 
-    return submitTxns(reporterProposals)
-  })
-  .then(() => {
-    const reporterAnswers = records
-      .filter(record => record.reporterIndex !== undefined)
-      .map(record => {
-        return answerProposal(agents[record.reporterIndex].privateKey, {
-          recordId: record.recordId,
-          receivingAgent: agents[record.reporterIndex].publicKey,
-          role: protos.Proposal.Role.REPORTER,
-          response: protos.AnswerProposalAction.Response.ACCEPT
-        })
-      })
+        return submitTxns(custodianProposals)
+    })
+    .then(() => {
+        const custodianAnswers = records
+            .filter(record => record.custodianIndex !== undefined)
+            .map(record => {
+                return answerProposal(agents[record.custodianIndex].privateKey, {
+                    recordId: record.recordId,
+                    receivingAgent: agents[record.custodianIndex].publicKey,
+                    role: protos.Proposal.Role.CUSTODIAN,
+                    response: protos.AnswerProposalAction.Response.ACCEPT
+                })
+            })
 
-    return submitTxns(reporterAnswers)
-  })
-  .catch(err => {
-    console.error(err.toString())
-    process.exit()
-  })
+        return submitTxns(custodianAnswers)
+    })
+
+    // Authorize New Reporters
+    .then(() => {
+        console.log('Authorizing New Reporters . . .')
+        const reporterProposals = records
+            .filter(record => record.reporterIndex !== undefined)
+            .map(record => {
+                return createProposal(agents[record.ownerIndex || 0].privateKey, {
+                    recordId: record.recordId,
+                    receivingAgent: agents[record.reporterIndex].publicKey,
+                    role: protos.Proposal.Role.REPORTER,
+                    properties: record.reportableProperties
+                })
+            })
+
+        return submitTxns(reporterProposals)
+    })
+    .then(() => {
+        const reporterAnswers = records
+            .filter(record => record.reporterIndex !== undefined)
+            .map(record => {
+                return answerProposal(agents[record.reporterIndex].privateKey, {
+                    recordId: record.recordId,
+                    receivingAgent: agents[record.reporterIndex].publicKey,
+                    role: protos.Proposal.Role.REPORTER,
+                    response: protos.AnswerProposalAction.Response.ACCEPT
+                })
+            })
+
+        return submitTxns(reporterAnswers)
+    })*/
+    .catch(err => {
+        console.error(err.toString())
+        process.exit()
+    })
