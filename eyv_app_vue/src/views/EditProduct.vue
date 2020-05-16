@@ -24,7 +24,7 @@
                                     label="Name"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'name')"
+                                    :value="product.name"
 
                             />
 
@@ -32,7 +32,7 @@
                                     label="Classification"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'classification')"
+                                    :value="product.classification"
 
                             />
 
@@ -40,42 +40,42 @@
                                     label="Origin"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'origin')"
+                                    :value="product.origin"
 
                             />
                             <v-text-field
                                     label="Size"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'size')"
+                                    :value="product.size"
 
                             />
                             <v-text-field
                                     label="Weight"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'weight')"
+                                    :value="product.weight"
 
                             />
                             <v-text-field
                                     label="Harvest Date"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'harvestDate')"
+                                    :value="product.harvestDate"
 
                             />
                             <v-text-field
                                     label="Expiration Date"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'expirationDate')"
+                                    :value="product.expirationDate"
 
                             />
                             <v-text-field
                                     label="Packing Date"
                                     outlined
                                     readonly
-                                    :value="getPropertyValue(product,'packingDate')"
+                                    :value="product.packingDate"
 
                             />
 
@@ -146,7 +146,7 @@
                                 <v-toolbar-title>Shock</v-toolbar-title>
                                 <v-spacer></v-spacer>
                                 <v-btn icon
-                                       @click="openShockDialog()">
+                                       @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
@@ -170,7 +170,7 @@
                                 <v-toolbar-title>Tilt</v-toolbar-title>
                                 <v-spacer></v-spacer>
                                 <v-btn icon
-                                       @click="openTiltDialog(product.tiltX,product.tiltY)">
+                                       @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
@@ -192,7 +192,7 @@
                                 <v-toolbar-title>Localization</v-toolbar-title>
                                 <v-spacer></v-spacer>
                                 <v-btn icon
-                                       @click="openLocalizationDialog(product.latitude,product.longitude)">
+                                       @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                             </v-toolbar>
@@ -283,6 +283,7 @@
                 <v-container>
 
                     <v-card-title class="headline">Insert Tilt:</v-card-title>
+
                     <v-text-field :error-messages="doublePropsErrors"
                                   @blur="$v.tiltX.$touch()"
                                   @input="$v.tiltX.$touch()"
@@ -291,7 +292,7 @@
                                   label="X"
 
                     />
-                    <v-text-field :error-messages="doublePropsErrors"
+                    <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.tiltY.$touch()"
                                   @input="$v.tiltY.$touch()"
                                   class="ml-4 mr-4"
@@ -299,6 +300,7 @@
                                   label="Y"
 
                     />
+
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn
@@ -332,7 +334,7 @@
                                   label="Acceleration"
 
                     />
-                    <v-text-field :error-messages="doublePropsErrors"
+                    <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.duration.$touch()"
                                   @input="$v.duration.$touch()"
                                   class="ml-4 mr-4"
@@ -373,7 +375,7 @@
                                   label="X"
 
                     />
-                    <v-text-field :error-messages="doublePropsErrors"
+                    <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.longitude.$touch()"
                                   @input="$v.longitude.$touch()"
                                   class="ml-4 mr-4"
@@ -497,6 +499,8 @@
       dialogLocalization: '',
       valueUpdate: null,
       key: '',
+      key1: '',
+      key2: ''
 
     }),
     created: function () {
@@ -540,6 +544,66 @@
       getProduct () {
         axios.get(`/records/${this.recordId}`).then(response => {
           this.product = response.data
+          let name = getPropertyValue(response.data, 'name')
+          if (name !== null) {
+            this.product.name = name
+          }
+          let classification = getPropertyValue(response.data, 'classification')
+          if (name !== null) {
+            this.product.classification = classification
+          }
+          let origin = getPropertyValue(response.data, 'origin')
+          if (origin !== null) {
+            this.product.origin = origin
+          }
+          let size = getPropertyValue(response.data, 'size')
+          if (size !== null) {
+            this.product.size = size
+          }
+          let weight = getPropertyValue(response.data, 'weight')
+          if (weight !== null) {
+            this.product.weight = weight
+          }
+          let harvestDate = getPropertyValue(response.data, 'harvestDate')
+          if (harvestDate !== null) {
+            this.product.harvestDate = harvestDate
+          }
+          let expirationDate = getPropertyValue(response.data, 'expirationDate')
+          if (expirationDate !== null) {
+            this.product.expirationDate = expirationDate
+          }
+          let packingDate = getPropertyValue(response.data, 'packingDate')
+          if (packingDate !== null) {
+            this.product.packingDate = packingDate
+          }
+          let temperature = getPropertyValue(response.data, 'temperature')
+          if (temperature !== null) {
+            this.product.temperature = temperature
+          }
+          let humidade = getPropertyValue(response.data, 'humidade')
+          if (humidade !== null) {
+            this.product.humidade = humidade
+          }
+          let co2 = getPropertyValue(response.data, 'co2')
+          if (co2 !== null) {
+            this.product.co2 = co2
+          }
+          let location = getPropertyValue(response.data, 'location')
+          if (location !== null) {
+            this.product.latitude = location.latitude
+            this.product.longitude = location.longitude
+          }
+          let tilt = getPropertyValue(response.data, 'tilt')
+          if (tilt !== null) {
+            this.product.tiltX = tilt.x
+            this.product.tiltY = tilt.y
+          }
+          let shock = getPropertyValue(response.data, 'shock')
+          if (shock !== null) {
+            this.product.acceleration = shock.acceleration
+            this.product.duration = shock.duration
+          }
+
           console.log(this.product)
         })
           .catch(function (error) {
@@ -639,21 +703,27 @@
         this.dialogLabel = label
         this.valueUpdate = model
       },
-      openTiltDialog (tiltX,tiltY) {
+      openTiltDialog (tiltX, tiltY, key1, key2) {
         this.dialogTilt = true
-        this.tiltX=tiltX
-        this.tiltY=tiltY
+        this.key1 = key1
+        this.key2 = key2
+        this.tiltX = tiltX
+        this.tiltY = tiltY
 
       },
-      openShockDialog (acceleration,duration) {
+      openShockDialog (acceleration, duration, key1, key2) {
         this.dialogShock = true
-        this.acceleration=acceleration
-        this.duration=duration
+        this.key1 = key1
+        this.key2 = key2
+        this.acceleration = acceleration
+        this.duration = duration
       },
-      openLocalizationDialog (latitude,longitude) {
+      openLocalizationDialog (latitude, longitude, key1, key2) {
         this.dialogLocalization = true
-        this.latitude=latitude
-        this.longitude=longitude
+        this.key1 = key1
+        this.key2 = key2
+        this.latitude = latitude
+        this.longitude = longitude
       },
       roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {
@@ -738,35 +808,72 @@
         }
 
       },
-      doublePropsErrors(){
+      doublePropsErrors () {
         const errors = []
-
+        if (this.key1 === 'tiltX') {
           if (!this.$v.tiltX.$dirty) return errors
           !this.$v.tiltX.minLength && errors.push('The X must be at most 1 characters long')
           !this.$v.tiltX.maxLength && errors.push('The X should not be more that 6 characters long')
           !this.$v.tiltX.numeric && errors.push('The X must be numeric.')
 
-          if (!this.$v.tiltY.$dirty) return errors
-          !this.$v.tiltY.minLength && errors.push('The Y must be at most 1 characters long')
-          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 6 characters long')
-          !this.$v.tiltY.numeric && errors.push('The Y must be numeric.')
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
 
+          return errors
+        }
+
+        if (this.key1 === 'acceleration') {
           if (!this.$v.acceleration.$dirty) return errors
           !this.$v.acceleration.minLength && errors.push('The acceleration must be at most 1 characters long')
           !this.$v.acceleration.maxLength && errors.push('The acceleration should not be more that 6 characters long')
           !this.$v.acceleration.numeric && errors.push('The acceleration must be numeric.')
 
-          if (!this.$v.duration.$dirty) return errors
-          !this.$v.duration.minLength && errors.push('The duration must be at most 1 characters long')
-          !this.$v.duration.maxLength && errors.push('The duration should not be more that 6 characters long')
-          !this.$v.duration.numeric && errors.push('The duration must be numeric.')
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
 
+          return errors
+        }
+
+        if (this.key1 === 'latitude') {
           if (!this.$v.latitude.$dirty) return errors
           !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
           !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
           !this.$v.latitude.numeric && errors.push('The latitude must be numeric.')
           !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
 
+          return errors
+        }
+
+      },
+      doublePropsErrors2 () {
+        const errors = []
+
+        if (this.key2 === 'tiltY') {
+          if (!this.$v.tiltY.$dirty) return errors
+          !this.$v.tiltY.minLength && errors.push('The Y must be at most 1 characters long')
+          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 6 characters long')
+          !this.$v.tiltY.numeric && errors.push('The Y must be numeric.')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+
+          return errors
+        }
+
+        if (this.key2 === 'duration') {
+          if (!this.$v.duration.$dirty) return errors
+          !this.$v.duration.minLength && errors.push('The duration must be at most 1 characters long')
+          !this.$v.duration.maxLength && errors.push('The duration should not be more that 6 characters long')
+          !this.$v.duration.numeric && errors.push('The duration must be numeric.')
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+
+          return errors
+        }
+
+        if (this.key2 === 'longitude') {
           if (!this.$v.longitude.$dirty) return errors
           !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
           !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
@@ -802,12 +909,13 @@
 
         }
 
-      },
+      }
+    },
 
     beforeMount: function () {
       this.getProduct()
       this.getAgents()
-     // this.getUsers()
+      // this.getUsers()
     },
   }
 
