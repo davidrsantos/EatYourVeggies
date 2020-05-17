@@ -11,9 +11,13 @@ import editProduct from '../views/EditProduct'
 import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
 import errorDialog from "../components/errorDialog";
+import listUsers from "../components/listUsers";
+import userDetails from "../components/UserDetails";
 
+Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
+Vue.component('listUsers', listUsers);
 
 Vue.use(VueRouter);
 
@@ -85,7 +89,7 @@ router.beforeEach((to, from, next) => {
     console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
     if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup') && !store.state.user) next({name: 'welcome'})
     else next()
-    return;
+
 
 
 });

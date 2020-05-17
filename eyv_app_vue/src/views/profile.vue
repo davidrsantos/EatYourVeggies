@@ -1,230 +1,33 @@
 <template>
     <v-container>
-        <v-card class="mx-auto" max-width="800">
-            <v-container>
-                <form>
-                    <v-text-field
-                            label="Name"
-                            outlined
-                            readonly
-                            v-model="user.name"
-
-                    />
-
-
-                    <v-text-field
-                            @click:append="openDialog(user.email,'email','E-mail')"
-                            append-icon="mdi-pencil"
-                            label="E-mail"
-                            outlined
-                            readonly
-                            v-model="user.email"
-
-                    />
-
-                    <v-text-field
-                            @click:append="openDialog(user.username,'username','Username')"
-                            append-icon="mdi-pencil"
-                            label="Username"
-                            outlined
-                            readonly
-
-                            v-model="user.username"
-                    />
-
-                    <v-text-field
-                            @click:append="openDialog(user.nif,'nif','Nif')"
-                            append-icon="mdi-pencil"
-                            label="Nif"
-                            outlined
-                            readonly
-
-                            v-model="user.nif"
-
-                    />
-
-                    <v-text-field
-                            :value="typeOfUser(user.role)"
-                            label="Role"
-                            outlined
-                            readonly
-
-                    />
-
-
-                </form>
-                <div class="text-center">
-                    <v-dialog
-                            v-model="dialogPassword"
-                            width="600"
-                    >
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                    color="red lighten-2"
-                                    dark
-                                    v-on="on"
-                            >
-                                Change Password
-                            </v-btn>
-                        </template>
-
-                        <v-card class="mx-auto" max-width="800">
-                            <v-container>
-                                <form>
-                                    <v-text-field
-                                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                            :type="showPassword ? 'text' : 'password'"
-
-                                            @click:append="showPassword = !showPassword"
-
-                                            label="Old Password"
-                                            required
-                                            v-model="oldPassword"
-                                    />
-                                    <v-text-field
-                                            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                                            :error-messages="passwordErrors"
-                                            :type="showPassword ? 'text' : 'password'"
-                                            @blur="$v.password.$touch()"
-                                            @click:append="showPassword = !showPassword"
-                                            @input="$v.password.$touch()"
-                                            counter
-                                            hint="At least 8 characters"
-                                            label="New Password"
-                                            required
-                                            v-model="password"
-                                    />
-
-                                    <v-text-field
-                                            :error-messages="repeatPasswordErrors"
-                                            :type="showPassword ? 'text' : 'password'"
-                                            @blur="$v.repeatPassword.$touch()"
-
-                                            @click:append="showPassword = !showPassword"
-                                            @input="$v.repeatPassword.$touch()"
-                                            counter
-                                            hint="At least 8 characters"
-                                            label="Confirm your New Password"
-                                            requied
-                                            v-model="repeatPassword"
-                                    />
-
-                                    <v-divider></v-divider>
-
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn :disabled="(password==null||repeatPassword!==password||oldPassword==null)"
-                                               @click="submitPasswordChange"
-                                               color="primary"
-                                               text
-                                        >
-                                            Change
-                                        </v-btn>
-                                    </v-card-actions>
-                                </form>
-                            </v-container>
-                        </v-card>
-                    </v-dialog>
-                </div>
-            </v-container>
-        </v-card>
-        <v-dialog
-                max-width="600"
-                v-model="dialog"
-        >
-            <v-card>
-                <v-container fluid>
-                    <v-card-title class="headline">Do you want to change your {{dialogLabel}}?</v-card-title>
-
-                    <v-text-field :error-messages="keyErrors"
-
-                                  @blur="$v.valueUpdate.$touch()"
-                                  @input="$v.valueUpdate.$touch()"
-                                  class="ml-4 mr-4"
-
-                                  v-model="valueUpdate"
-                    />
-
-
-
-
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn
-                                @click="cancel"
-                                color="grey darken-1"
-                        >
-                            Cancel
-                        </v-btn>
-                        <v-btn :disabled="submitStatus==='ERROR'" @click="submit" class="ml-4" color="green darken-1">
-                            Update
-                        </v-btn>
-
-                    </v-card-actions>
-                </v-container>
-            </v-card>
-        </v-dialog>
-
-
-        <!-- dialog for Errors -->
-
+        <user-details :user="user"></user-details>
     </v-container>
-
 </template>
 
 <script>
-    import * as transactions from "../services/transactions";
-    import * as api from "../services/api";
-    import {email, maxLength, minLength, numeric, required, sameAs} from "vuelidate/lib/validators";
+  export default {
+    name: 'profile',
 
+    data: () => ({
 
-    export default {
-        name: "profile",
+      user: {
+        name: '',
+        username: '',
+        email: '',
+        nif: '',
+        role: '',
+      },
 
-        validations() {
-            return {
-                password: {
-                    required,
-                    minLength: minLength(8)
-                },
-                repeatPassword: {
+    }),
+    created: function () {
+      if (this.$store.state.user != null) {
+        this.user = this.$store.state.user
 
-                    sameAsPassword: sameAs("password")
-                },
-                valueUpdate: this.rules
-            }
-        },
-        data: () => ({
+      }
 
-            submitStatus: null,
-            showPassword: false,
-            oldPassword: null,
-            password: null,
-            repeatPassword: null,
-            dialogPassword: false,
-            valueUpdate: "",
-            dialog: false,
-            key: '',
-            dialogLabel: '',
-            user: {
-                name: '',
-                username: '',
-                email: '',
-                nif: '',
-                role: '',
-            },
-            userValueUpdate: {
-                name: '',
-                username: '',
-                email: '',
-                nif: '',
-                role: '',
-            },
+    },
 
-        }),
-        created: function () {
-            if (this.$store.state.user != null) {
-                this.user = this.$store.state.user;
+  }
 
             }
 
