@@ -5068,6 +5068,7 @@
       "ownerIndex": 2,
       "custodianIndex": 2,
       "reporterIndex": 1,
+
       "reportableProperties": [
         "temperature",
         "humidade",
@@ -5179,6 +5180,7 @@
       "reportableProperties": [
         "temperature",
         "humidade",
+        "co2",
         "location",
         "tilt",
         "shock"
@@ -5287,6 +5289,7 @@
       "reportableProperties": [
         "temperature",
         "humidade",
+        "co2",
         "location",
         "tilt",
         "shock"

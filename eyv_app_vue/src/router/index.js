@@ -7,6 +7,7 @@ import singup from '../components/Singup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
 import managerProducts from '../views/ManagerProducts'
+import editProduct from '../views/EditProduct'
 import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
 import errorDialog from "../components/errorDialog";
@@ -39,6 +40,11 @@ const routes = [
         path: '/managerProducts',
         name: 'managerProducts',
         component: managerProducts
+    },
+    {
+        path: '/editProduct/:recordId',
+        name: 'editProduct',
+        component: editProduct
     },
     {
         path: '/login',

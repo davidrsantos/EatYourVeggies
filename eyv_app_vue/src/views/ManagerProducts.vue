@@ -8,16 +8,19 @@
         <template  v-slot:body="{ items }">
             <tbody>
             <tr v-for="item in items" :key="item.recordId">
-                <td>{{item.recordId}}</td>
+                <td>{{ item.recordId }}</td>
                 <td>{{ getPropertyValue(item, 'name') }}</td>
                 <td>{{ getPropertyValue(item, 'classification') }}</td>
-                <td> <v-icon
+                <td>{{ getPropertyValue(item, 'origin') }}</td>
+                <td> <v-btn
+
                             small
                             class="mr-2"
-                            @click="editItem(item)"
-                    >
+                            :to="'/editProduct/'+item.recordId"
+                    ><v-icon>
                         mdi-pencil
-                    </v-icon></td>
+                </v-icon>
+                    </v-btn></td>
             </tr>
             </tbody>
         </template>
@@ -31,7 +34,7 @@
                 ></v-divider>
                 <v-spacer></v-spacer>
                 <router-link :to="{name: 'addProduct'}">
-                    <button color="indigo" id="myButton" class="mb-2">Add Product</button>
+                    <button color="green" id="myButton" class="mb-2">Add Product</button>
                 </router-link>
             </v-toolbar>
         </template>
@@ -47,6 +50,7 @@
                 { text: 'Batch', value: 'recordId' },
                 { text: 'Name', value: 'name' },
                 { text: 'Classification', value: 'classification' },
+                { text: 'Origin', value: 'origin' },
                 { text: 'Actions', value: 'actions', sortable: false },
             ],
             products: []

@@ -18,6 +18,13 @@
         "startValue": -2000000
       },
       {
+        "name": "co2",
+        "dataType": 3,
+        "value": 500000,
+        "isRelative": true,
+        "startValue": -2000000
+      },
+      {
         "name": "location",
         "dataType": 7,
         "value": {
