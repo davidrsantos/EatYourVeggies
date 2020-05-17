@@ -5064,6 +5064,7 @@
       "ownerIndex": 2,
       "custodianIndex": 2,
       "reporterIndex": 1,
+
       "reportableProperties": [
         "temperature",
         "humidade",
