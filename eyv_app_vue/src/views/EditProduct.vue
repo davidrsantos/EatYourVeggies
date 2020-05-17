@@ -101,7 +101,7 @@
                         >
                             <v-list-item-content>
                                 <v-list-item-title>
-                                    <v-btn dark color="green" @click="showDialogTransfer=true">Transfer Ownership
+                                    <v-btn v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null" dark color="green" @click="openTransferDialog">Transfer Ownership
                                     </v-btn>
                                 </v-list-item-title>
                             </v-list-item-content>
@@ -218,14 +218,16 @@
                     </v-container>
                 </v-card>
             </v-col>
+
         </v-row>
 
-        <v-dialog v-model="showDialogTransfer" max-width="600">
+        <v-dialog v-model="dialogTransfer" max-width="600">
 
             <v-card fluid>
                 <v-container>
+
                     <v-select
-                            :items="agents"
+                            :items="users"
                             item-text="name"
                             label="Select User"
                             item-value="key"
@@ -460,7 +462,6 @@
     },
     data: () => ({
       submitStatus: null,
-      showDialogTransfer: false,
       recordId: '',
       product: {
         batch: '',
@@ -492,10 +493,10 @@
       duration: '',
       tiltX: '',
       tiltY: '',
-      agents: [],
       users: [],
       role: 'owner',
       publicKey: '',
+      dialogTransfer: '',
       dialogLabel: '',
       dialogProperties: '',
       dialogTilt: '',
@@ -517,22 +518,33 @@
       handleErrors (error) {
         this.$emit('errorEvent', error)
       },
+      filterUserRole(users){
+        let role = this.$store.state.user.role
 
-      getAgents () {
+        if(role =='admin'){
+           this.users=users
+        }else if(role =='distributor'){
+          this.users = users.filter(function(user){
+            return user.role == 'retailer'
+          });
+        }else if(role=='retailer'){
+          this.users = users.filter(function(user){
+            return user.role == 'customer'
+          });
+        }else if(role=='producer'){
+          this.users = users.filter(function(user){
+
+            return user.role == 'distributor'
+          });
+          console.log(role)
+          console.log(this.users)
+        }
+
+  },
+      getUsers() {
+
         axios.get('/agents').then(response => {
-          this.agents = response.data
-
-          console.log(this.agents)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
-      },
-      /*
-      getUsers () {
-        axios.get('/users').then(response => {
-          this.users = response.data
-
+             this.filterUserRole(response.data)
           console.log(this.users)
         })
           .catch(function (error) {
@@ -540,7 +552,6 @@
           })
       },
 
-       */
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
@@ -626,7 +637,7 @@
         })
       },
       cancel () {
-        this.showDialogTransfer = false
+        this.dialogTransfer = false
       },
       cancelInsert () {
         this.dialogProperties = false
@@ -731,6 +742,9 @@
         this.latitude = latitude
         this.longitude = longitude
       },
+      openTransferDialog(){
+        this.dialogTransfer=true
+      },
       roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
@@ -742,7 +756,7 @@
       },
       submit () {
         this.submitProposal(this.recordId, this.role, this.publicKey)
-        this.showDialogTransfer = false
+        this.dialogTransfer = false
       },
       submitProperty () {
         _.set(this.key, this.valueUpdate)
@@ -920,8 +934,7 @@
 
     beforeMount: function () {
       this.getProduct()
-      this.getAgents()
-      // this.getUsers()
+      this.getUsers()
     },
   }
 
