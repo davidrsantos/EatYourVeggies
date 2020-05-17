@@ -32,14 +32,12 @@ and some agents to see:
             getItems() {
                 axios.get('/records?recordType=vegetable').then(response => {
                     this.items = response.data;
-                    console.log("já fiz a chamada da api");
                 })
                     .catch(function (error) {
                         console.log(error);
                     });
                 axios.get('/agents').then(response => {
                     this.agents = response.data;
-                    console.log("já fiz a chamada da api");
                 })
                     .catch(function (error) {
                         console.log(error);

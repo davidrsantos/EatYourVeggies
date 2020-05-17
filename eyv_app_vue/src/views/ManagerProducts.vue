@@ -34,7 +34,7 @@
                 ></v-divider>
                 <v-spacer></v-spacer>
                 <router-link :to="{name: 'addProduct'}">
-                    <button color="indigo" id="myButton" class="mb-2">Add Product</button>
+                    <button color="green" id="myButton" class="mb-2">Add Product</button>
                 </router-link>
             </v-toolbar>
         </template>

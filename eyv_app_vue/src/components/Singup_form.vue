@@ -202,27 +202,7 @@
         },
 
         methods: {
-            login() {
-                const credentials = {
-                    username: this.username,
-                    password: api.hashPassword(this.password)
-                };
-                api.post("authorization", credentials).then(res => {
-                    api.setAuth(res.authorization);
-                    transactions.setPrivateKey(this.password, res.encryptedKey);
-                    this.$store.commit("setToken", res.authorization); //porque temos este
 
-                    let pubKey = api.getPublicKey()
-                    api.get(`agents/${pubKey}`)
-                        .then(agent => {
-                            console.log(agent)
-                            this.$store.commit('setUser', agent)
-                            this.$router.push("dashboard")
-                        })
-
-
-                });
-            },
             userSubmitter() {
                 const keys = transactions.makePrivateKey(this.password);
                 const user = _.assign(keys, {
@@ -236,18 +216,23 @@
 
                 transactions
                     .submit(agent, true)
-                    .then(() => api.post("users", user))
-                    .then(res => {
-                        api.setAuth(res.authorization);
-                        this.$store.commit('setToken', res.authorization);
-                        this.login();
+                    .then(() => axios.post("users", user)
+                        .then(res => {
+                            this.$store.commit('setToken', res.data.authorization);
+                            this.$store.commit('setUser', res.data.user)
+                            this.$router.push("dashboard")
+                        }).catch(error => {
+                            this.$emit('errorEvent', error.response.data.error)
+                        })
+                    ).catch(error => {
+                    this.$emit('errorEvent', error)
+                })
 
-                    }); //TODO possivelmente trocar a ordem primeiro o post e depois o submit porque como está ele cria
-                        // sempre uma transação mas nem sempre consegue fazer post do user
 
             },
 
             submit() {
+                //todo fala proteger o btn de submit, agora aceita qualquer password etc..
                 this.userSubmitter();
             },
             clear() {

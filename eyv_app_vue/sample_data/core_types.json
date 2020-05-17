@@ -58,6 +58,10 @@
         "numberExponent": -6
       },
       {
+        "name": "co2",
+        "dataType": 3
+      },
+      {
         "name": "tilt",
         "dataType": 4
       },

@@ -20,7 +20,7 @@ const _ = require('lodash')
 const db = require('../db/users')
 const agents = require('../db/agents')
 const auth = require('./auth')
-const { BadRequest } = require('./errors')
+const { BadRequest, NotAcceptable } = require('./errors')
 
 const FILTER_KEYS = ['role', 'publicKey']//@luana
 const list = params => db.list(_.pick(params, FILTER_KEYS))//@luana
@@ -42,7 +42,8 @@ const create = user => {
     .then(() => auth.createToken(user.publicKey))
     .then(token => ({
       authorization: token,
-      encryptedKey: user.encryptedKey || null
+      encryptedKey: user.encryptedKey || null,
+        user: user
     }))
 }
 
@@ -57,6 +58,8 @@ const update = (changes, { authedKey }) => {
     })
     .then(finalChanges => db.update(authedKey, finalChanges))
     .then(updated => _.omit(updated, 'password'))
+      .catch(error=> {console.log('\n\n\ API USERS \n  ' + error.message )
+          throw new NotAcceptable(error.message)})
 }
 
 module.exports = {
