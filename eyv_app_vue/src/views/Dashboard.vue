@@ -1,5 +1,10 @@
 <template>
     <div>
+        <list-users v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
+
+
+
+
 there you go! list of vegetables:
 
 
@@ -30,7 +35,7 @@ and some agents to see:
         }),
         methods: {
             getItems() {
-                axios.get('/records?recordType=vegetable').then(response => {
+               /* axios.get('/records?recordType=vegetable').then(response => {
                     this.items = response.data;
                 })
                     .catch(function (error) {
@@ -41,7 +46,7 @@ and some agents to see:
                 })
                     .catch(function (error) {
                         console.log(error);
-                    });
+                    });*/
             }
         },
         created () {
