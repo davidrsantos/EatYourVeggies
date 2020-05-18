@@ -218,17 +218,17 @@
         },
 
         data: () => ({
-            batch: "1fs23",
-            name: "tomate",
-            classification: "legume",
-            origin: "biológica",
-            weight: 23,
-            size: 26,
-            harvestDate: new Date().toISOString().substr(0, 10),
-            latitude: 10,
-            longitude: 20,
-            expirationDate: new Date().toISOString().substr(0, 10),
-            packingDate: new Date().toISOString().substr(0, 10),
+            batch: '',
+            name: '',
+            classification: '',
+            origin: '',
+            weight: '',
+            size: '',
+            harvestDate:'',
+            latitude: '',
+            longitude: '',
+            expirationDate: null,
+            packingDate: null,
             expirationDateCheck: false,
             packingDateCheck: false,
             menu: false,
@@ -349,7 +349,7 @@
                         },
                         {
                             name: "weight",
-                            numberValue: parsing.toInt(this.weightInKg),
+                            numberValue: parsing.toInt(this.weight),
                             dataType: payloads.createRecord.enum.NUMBER,
                         },
                         {
@@ -359,17 +359,17 @@
                         },
                         {
                             name: "harvestDate",
-                            timestampValue: this.harvestDate,
+                            timestampValue: new Date(this.harvestDate).getTime()/1000,
                             dataType: payloads.createRecord.enum.TIMESTAMP,
                         },
                         {
                             name: "expirationDate",
-                            timestampValue: this.expirationDate,
+                            timestampValue: this.expirationDate!==null?new Date(this.expirationDate).getTime()/1000:null,
                             dataType: payloads.createRecord.enum.TIMESTAMP,
                         },
                         {
                             name: "packingDate",
-                            timestampValue: this.packingDate,
+                            timestampValue: this.expirationDate!==null?new Date(this.packingDate).getTime()/1000:null,
                             dataType: payloads.createRecord.enum.TIMESTAMP,
                         },
                         {

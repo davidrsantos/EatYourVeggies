@@ -68,17 +68,17 @@
                                     label="Expiration Date"
                                     outlined
                                     readonly
-                                    :value="product.expirationDate"
+                                    :value="product.expirationDate==null?'N/A':product.expirationDate"
 
                             />
+
                             <v-text-field
                                     label="Packing Date"
                                     outlined
                                     readonly
-                                    :value="product.packingDate"
+                                    :value="product.packingDate==null?'N/A':product.packingDate"
 
                             />
-
                         </form>
 
                     </v-container>
@@ -120,7 +120,7 @@
                                     label="Temperature ºC"
                                     outlined
                                     readonly
-                                    v-model="product.temperature"
+                                    v-model="product.temperature==null?'N/A':product.temperature"
                             />
 
                             <v-text-field
@@ -130,7 +130,7 @@
                                     outlined
                                     readonly
 
-                                    v-model="product.humidade"
+                                    v-model="product.humidade==null?'N/A':product.humidade"
                             />
 
                             <v-text-field
@@ -139,7 +139,7 @@
                                     label="CO2"
                                     outlined
                                     readonly
-                                    v-model="product.co2"
+                                    v-model="product.co2==null?'N/A':product.co2"
 
                             />
                             </v-container>
@@ -156,7 +156,7 @@
                                     label="Acceleration"
                                     outlined
                                     readonly
-                                    v-model="product.acceleration"
+                                    v-model="product.acceleration==null?'N/A':product.acceleration"
 
                             />
 
@@ -164,7 +164,7 @@
                                     label="Duration"
                                     outlined
                                     readonly
-                                    v-model="product.duration"
+                                    v-model="product.duration==null?'N/A':product.duration"
 
                             />
                             </v-container>
@@ -181,14 +181,14 @@
                                     label="X"
                                     outlined
                                     readonly
-                                    v-model="product.tiltX"
+                                    v-model="product.tiltX==null?'N/A':product.tiltX"
 
                             />
                             <v-text-field
                                     label="Y"
                                     outlined
                                     readonly
-                                    v-model="product.tiltY"
+                                    v-model="product.tiltY==null?'N/A':product.tiltY"
 
                             />
                             </v-container>
@@ -581,15 +581,21 @@
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
-            this.product.harvestDate = harvestDate
+            console.log(harvestDate)
+            var date = new Date(harvestDate * 1000);
+            this.product.harvestDate = date.toISOString().substr(0, 10)
           }
           let expirationDate = getPropertyValue(response.data, 'expirationDate')
           if (expirationDate !== null) {
-            this.product.expirationDate = expirationDate
+            console.log(expirationDate)
+            var date1 = new Date(expirationDate * 1000);
+            this.product.expirationDate =  date1.toISOString().substr(0, 10)
           }
           let packingDate = getPropertyValue(response.data, 'packingDate')
           if (packingDate !== null) {
-            this.product.packingDate = packingDate
+            console.log(packingDate)
+            var date2 = new Date(packingDate * 1000);
+            this.product.packingDate =  date2.toISOString().substr(0, 10)
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
