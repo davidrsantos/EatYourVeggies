@@ -177,12 +177,13 @@
 <script>
     import {validationMixin} from "vuelidate";
     import {
-        required,
-        maxLength,
-        minLength,
-        sameAs,
-        email,
-    } from "vuelidate/lib/validators";
+      required,
+      maxLength,
+      minLength,
+      between,
+      sameAs,
+      email, numeric,
+    } from 'vuelidate/lib/validators'
     import * as transactions from "../services/transactions";
     import * as api from "../services/api";
     import * as payloads from "../services/payloads";
@@ -213,8 +214,19 @@
             packingDate: {
                 maxLength: maxLength(11),
             },
-            latitude: {required, maxLength: maxLength(20), minLength: minLength(1)},
-            longitude: {required, maxLength: maxLength(20), minLength: minLength(1)},
+          latitude: {
+            minLength: minLength(1),
+            maxLength: maxLength(9),
+            numeric,
+            between: between(-90, 90)
+          },
+          longitude:
+            {
+              minLength: minLength(1),
+              maxLength: maxLength(9),
+              numeric,
+              between: between(-180, 180)
+            }
         },
 
         data: () => ({

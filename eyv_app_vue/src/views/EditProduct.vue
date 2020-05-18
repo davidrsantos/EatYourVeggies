@@ -93,7 +93,7 @@
                     <v-spacer></v-spacer>
                 </v-toolbar>
 
-                <v-card>
+                <v-card v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null">
                     <v-list
                             rounded>
                         <v-list-item
@@ -101,7 +101,7 @@
                         >
                             <v-list-item-content>
                                 <v-list-item-title>
-                                    <v-btn v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null" dark color="green" @click="openTransferDialog">Transfer Ownership
+                                    <v-btn dark color="green" @click="openTransferDialog">Transfer Ownership
                                     </v-btn>
                                 </v-list-item-title>
                             </v-list-item-content>
@@ -116,7 +116,7 @@
                             <v-container>
                             <v-text-field
                                     @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="Temperature ºC"
                                     outlined
                                     readonly
@@ -125,7 +125,7 @@
 
                             <v-text-field
                                     @click:append="openDialog(product.humidade,'humidade','Humidity kg/m³')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="Humidity kg/m³"
                                     outlined
                                     readonly
@@ -135,7 +135,7 @@
 
                             <v-text-field
                                     @click:append="openDialog(product.co2,'co2','CO2')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="CO2"
                                     outlined
                                     readonly
@@ -146,7 +146,7 @@
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Shock</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
@@ -171,7 +171,7 @@
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Tilt</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
@@ -195,7 +195,7 @@
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Localization</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>

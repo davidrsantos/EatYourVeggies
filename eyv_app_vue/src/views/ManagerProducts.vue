@@ -33,9 +33,11 @@
                         vertical
                 ></v-divider>
                 <v-spacer></v-spacer>
-                <router-link :to="{name: 'addProduct'}">
+
+                <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer'" >
                     <button color="green" id="myButton" class="mb-2">Add Product</button>
                 </router-link>
+
             </v-toolbar>
         </template>
     </v-data-table>
