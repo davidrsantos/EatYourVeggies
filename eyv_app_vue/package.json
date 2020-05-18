@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "generate-proto-files": "node scripts/generate_proto_json.js > src/generated_protos.json",
-    "serve": "vue-cli-service serve",
+    "serve": "npm run generate-proto-files && vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",
+    "@mdi/js": "^5.1.45",
     "axios": "^0.19.2",
     "lodash": "latest",
     "mithril": "^1.1.3",

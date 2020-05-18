@@ -36,21 +36,21 @@
                         @blur="$v.nif.$touch()"
                         @input="$v.nif.$touch()"
                         label="Nif"
+                        maxlength="9"
                         required
                         v-model="nif"
-                        maxlength="9"
 
                 />
 
                 <v-select
-                        v-model="role"
                         :items="typeofUser"
                         item-text="name"
                         item-value="value"
                         label="Selecione o tipo de utilizador"
-
                         return-object
+
                         single-line
+                        v-model="role"
                 ></v-select>
 
 
@@ -69,19 +69,22 @@
 
                 <v-text-field
                         :error-messages="repeatPasswordErrors"
-                        @click:append="showPassword = !showPassword"
                         :type="showPassword ? 'text' : 'password'"
-
                         @blur="$v.repeatPassword.$touch()"
+
+                        @click:append="showPassword = !showPassword"
                         @input="$v.repeatPassword.$touch()"
                         counter
                         hint="At least 8 characters"
                         label="Confirm your Password"
                         v-model="repeatPassword"
                 />
-
-                <v-btn @click="submit" class="mr-4">submit</v-btn>
-                <v-btn @click="clear">clear</v-btn>
+                <v-row>
+                    <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
+                    <v-btn @click="clear">clear</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn class="mr-8" light to="/login">Login</v-btn>
+                </v-row>
             </form>
         </v-container>
     </v-card>
@@ -129,13 +132,13 @@
             showPassword: false,
             nif: null,
             role: null,
-            typeofUser:[
-                {name:'Administrador', value: 'admin'},
-                {name:'Producer', value: 'producer'},
-                {name:'Distributor', value: 'distributor'},
-                {name:'Retailer', value: 'retailer'},
-                {name:'Customer', value: 'customer'},
-        ]
+            typeofUser: [
+                {name: 'Administrador', value: 'admin'},
+                {name: 'Producer', value: 'producer'},
+                {name: 'Distributor', value: 'distributor'},
+                {name: 'Retailer', value: 'retailer'},
+                {name: 'Customer', value: 'customer'},
+            ]
 
         }),
 
@@ -163,9 +166,12 @@
             repeatPasswordErrors() {
                 const errors = [];
                 if (!this.$v.repeatPassword.$dirty) return errors;
-                if (this.$v.repeatPassword !== this.$v.password)
+                if (!this.$v.repeatPassword.$dirty && this.$v.repeatPassword !== this.$v.password)
                     errors.push("Please make use the same password");
-                !this.$v.repeatPassword.required && errors.push("Password is required.");
+                if (!this.$v.repeatPassword.required) {
+                    errors.push("Password is required.");
+                }
+
                 return errors;
             },
 
@@ -182,7 +188,7 @@
                 const errors = [];
                 if (!this.$v.name.$dirty) return errors;
                 !this.$v.name.maxLength &&
-                errors.push("Name must be at most 50 characters long"); //TODO alterar mensagem de erro
+                errors.push("Name should not be more that 50 characters long");
                 !this.$v.name.required && errors.push("Name is required.");
                 return errors;
             },
@@ -196,6 +202,7 @@
         },
 
         methods: {
+
             userSubmitter() {
                 const keys = transactions.makePrivateKey(this.password);
                 const user = _.assign(keys, {
@@ -207,20 +214,25 @@
                 user.password = api.hashPassword(this.password);
                 const agent = payloads.createAgent({name: this.name});
 
-                // console.log(agent);
                 transactions
                     .submit(agent, true)
-                    .then(() => api.post("users", user))
-                    .then(res => {
-                        api.setAuth(res.authorization);                      //provavelmente este já não vai ser necessário
-                        this.$store.commit('setToken', res.authorization);   //porque temos este
-                        this.$router.push('dashboard')
+                    .then(() => axios.post("users", user)
+                        .then(res => {
+                            this.$store.commit('setToken', res.data.authorization);
+                            this.$store.commit('setUser', res.data.user)
+                            this.$router.push("dashboard")
+                        }).catch(error => {
+                            this.$emit('errorEvent', error.response.data.error)
+                        })
+                    ).catch(error => {
+                    this.$emit('errorEvent', error)
+                })
 
-                    }); //TODO o token já fica aqui guardado
 
             },
 
             submit() {
+                //todo fala proteger o btn de submit, agora aceita qualquer password etc..
                 this.userSubmitter();
             },
             clear() {

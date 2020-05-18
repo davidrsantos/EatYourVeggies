@@ -44,9 +44,17 @@ class InternalServerError extends Error {
   }
 }
 
+class NotAcceptable extends Error{
+  constructor(message) {
+    super(message);
+    this.status = 406;
+  }
+}
+
 module.exports = {
   BadRequest,
   Unauthorized,
   NotFound,
-  InternalServerError
+  InternalServerError,
+  NotAcceptable
 }

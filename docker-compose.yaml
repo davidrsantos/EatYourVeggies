@@ -29,7 +29,6 @@ services:
         - no_proxy
     volumes:
       - .:/sawtooth-supply-chain
-      - /sawtooth-supply-chain/asset_client/node_modules
       - /sawtooth-supply-chain/fish_client/node_modules
       - /sawtooth-supply-chain/server/node_modules
     depends_on:
@@ -44,17 +43,13 @@ services:
       - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
     command: |
       bash -c "
-        cd asset_client/ && npm run build && cd - &&
         cd fish_client/ && npm run build && cd - &&
         if [ ! -f /root/.sawtooth/keys/root.priv ]; then
           sawtooth keygen &&
           cd server/ &&
           npm run init &&
-          npm run make-asset &&
-          npm run make-fish &&
-          npm run seed-sample-assets &&
-          npm run seed-sample-fish &&
-          npm run make-veggie
+          npm run make-veggie &&
+          npm run seed
           cd -
         fi;
         tail -f /dev/null
@@ -147,20 +142,6 @@ services:
       - 80
     ports:
       - '8022:80'
-    depends_on:
-      - server
-
-  eyv-app:
-    image: eyv-app
-    container_name: eyv-app
-    build: ./eyv_app_vue
-    volumes:
-        - '.:/app'
-        - '/app/node_modules'
-    expose:
-      - 80
-    ports:
-      - '8025:80'
     depends_on:
       - server
 
