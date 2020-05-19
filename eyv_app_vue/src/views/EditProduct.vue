@@ -542,14 +542,10 @@
 
   },
       getUsers() {
-
         axios.get('/agents').then(response => {
              this.filterUserRole(response.data)
           console.log(this.users)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
 
       getPropertyValue (item, prop) {
@@ -628,10 +624,7 @@
           }
 
           console.log(this.product)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
       updateProperty (record, value) {
         let updatePayload = payloads.updateProperties({
@@ -640,7 +633,7 @@
         })
         return transactions.submit([updatePayload], true).then(() => {
           console.log('Successfully submitted property update')
-        })
+        }).catch(error=>{this.$emit('errorEvent', error)})
       },
       cancel () {
         this.dialogTransfer = false
@@ -667,7 +660,7 @@
         console.log(publicKey)
         return transactions.submit([transferPayload], true).then(() => {
           console.log('Successfully submitted proposal')
-        })
+        }).catch(error=>{this.$emit('errorEvent', error)})
       },
       reportShock () {
         this.updateProperty(this.recordId, {
@@ -895,7 +888,6 @@
           !this.$v.duration.numeric && errors.push('The duration must be numeric.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
-
           return errors
         }
 
@@ -905,10 +897,8 @@
           !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
           !this.$v.longitude.numeric && errors.push('The longitude must be numeric.')
           !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
-
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
-
           return errors
         }
       },

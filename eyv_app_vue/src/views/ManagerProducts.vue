@@ -67,10 +67,7 @@
                     this.products = response.data;
 
                     console.log(this.products);
-                })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
             },
         },
         mounted: function() {
