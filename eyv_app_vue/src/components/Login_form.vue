@@ -108,7 +108,8 @@
                         this.$emit('errorEvent', error)
                     })
                 }).catch(error => {
-                    this.$emit('errorEvent', error)
+                  console.log(error.toString())
+                  this.$emit('errorEvent', error.response.data.error)
                 });
             },
 
