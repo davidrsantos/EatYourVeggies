@@ -60,12 +60,16 @@ const authorize = ({ username, password }) => {
 
   return users.query(users => users.filter({ username }))
     .then(matches => {
-      if (matches.length === 0) throw new Error()
+      if (matches.length === 0) throw new Error("User not found")
       const user = matches[0]
+
+      if (user.active === 0 && user.role !== 'admin') {
+        throw new Unauthorized('Please contact your network administrator to access')
+      }
 
       return bcrypt.compare(password, user.password)
         .then(passValid => {
-          if (!passValid) throw new Error()
+          if (!passValid) throw new Error("Verify your username or password")
           return createToken(user.publicKey)
         })
         .then(token => ({
@@ -73,7 +77,7 @@ const authorize = ({ username, password }) => {
           encryptedKey: user.encryptedKey
         }))
     })
-    .catch(() => { throw new Unauthorized('Authorization Failed') })
+    .catch((error) => { throw new Unauthorized(error) })
 }
 
 module.exports = {
