@@ -105,7 +105,7 @@ services:
       - 'http_proxy=${http_proxy}'
       - 'https_proxy=${https_proxy}'
       - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
-    entrypoint: node index.js
+    entrypoint: nodemon -L index.js
 
   ledger-sync:
     image: supply-ledger-sync

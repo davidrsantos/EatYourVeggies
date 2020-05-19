@@ -16,15 +16,23 @@
                           :items="users"
                           :loading="loading"
                           :search="search"
+                          fixed-header
                           item-key="key"
                           sort-by="name"
 
 
             >
 
+                <template v-slot:item.active="{ item }">
+                    <v-btn :color="getColor(item.active)"
+                           @click="changeStatus(item)"
+                           dark
+                           rounded> {{getUserStatus(item.active) }}
+                    </v-btn>
+                </template>
                 <template v-slot:item.actions="{ item }">
                     <v-icon
-                            @click="editItem(item)"
+                            @click.stop="editItem(item)"
                             class="mr-2"
                             small
                     >
@@ -35,8 +43,8 @@
 
             </v-data-table>
         </v-card>
-        <v-dialog v-show="showUserDetails">
-            <user-details :user="user"></user-details>
+        <v-dialog class="mx-auto" max-width="800" v-model="showUserDetails">
+            <user-details :user-prop="user" v-on:refreshList="refreshList"></user-details>
         </v-dialog>
 
     </v-container>
@@ -55,22 +63,27 @@
         {
           text: 'Public Key',
 
-          sortable: false,
+          align: 'start',
           value: 'key',
         },
         { text: 'Name', value: 'name', },
         { text: 'Username', value: 'username' },
         { text: 'Nif', value: 'nif' },
         { text: 'Role', value: 'role' },
+        { text: 'Email', value: 'email' },
+        { text: 'Status', value: 'active' },
         { text: 'Actions', value: 'actions', sortable: false },
 
       ],
 
     }), beforeMount () {
-      this.getUser()
+      this.getUsers()
     },
     methods: {
-      getUser () {
+      refreshList () {
+        this.getUsers()
+      },
+      getUsers () {
         this.loading = true
         axios.get('/agents').then(response => {
           this.users = response.data
@@ -87,6 +100,44 @@
 
         this.showUserDetails = true
       },
+
+      changeStatus (user) {
+
+        let statusUpdate = {
+          'active': null
+        }
+        if (user.active === 1) {
+          statusUpdate.active = 0
+        } else if (user.active === 0) {
+          statusUpdate.active = 1
+        }
+
+        return axios.patch('users/' + user.key, statusUpdate)
+          .then(response => {
+            this.getUsers()
+          })
+          .catch(error => {
+            console.log(error)
+            this.isLoading = false
+            if (error.response && error.response.data.errors) {
+              console.log(error.response)
+              this.handleErrors(error.response.data.errors)
+            } else {
+              this.errors = ['Problem connecting server or unknown error']
+              this.showErrors = true
+            }
+          })
+      },
+      getUserStatus (active) {
+        if (active) {
+          return 'Active'
+        }
+        return 'Not Active'
+      },
+      getColor (active) {
+        if (active === 1) return 'green'
+        else return 'red'
+      }
     }
   }
 </script>

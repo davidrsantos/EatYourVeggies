@@ -36,7 +36,8 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends \
  && rm /tmp/setup-node.sh \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/* \
- && npm install -g prebuild-install
+ && npm install -g prebuild-install \
+ && npm install -g nodemon
 
 WORKDIR /sawtooth-supply-chain/server
 

@@ -17,7 +17,8 @@
 'use strict'
 
 const _ = require('lodash')
-const db = require('../db/users')
+const db = require('../db')
+const users = require('../db/users')
 const agents = require('../db/agents')
 const auth = require('./auth')
 const { BadRequest, NotAcceptable } = require('./errors')
@@ -32,7 +33,7 @@ const create = user => {
     })
     .then(() => auth.hashPassword(user.password))
     .then(hashed => {
-      return db.insert(_.assign({}, user, {password: hashed}))
+      return users.insert(_.assign({}, user, {password: hashed, active:0}))
         .catch(err => { throw new BadRequest(err.message) })
     })
     .then(() => auth.createToken(user.publicKey))
@@ -52,13 +53,16 @@ const update = (changes, { authedKey }) => {
       }
       return changes
     })
-    .then(finalChanges => db.update(authedKey, finalChanges))
+    .then(finalChanges => users.update(authedKey, finalChanges))
     .then(updated => _.omit(updated, 'password'))
       .catch(error=> {console.log('\n\n\ API USERS \n  ' + error.message )
           throw new NotAcceptable(error.message)})
 }
 
+const fetch = (publicKey) => users.fetch(publicKey)
+
 module.exports = {
   create,
-  update
+  update,
+  fetch
 }
