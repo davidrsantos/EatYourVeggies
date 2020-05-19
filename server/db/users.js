@@ -16,6 +16,7 @@
  */
 'use strict'
 
+const r = require('rethinkdb')
 const _ = require('lodash')
 const db = require('./')
 
@@ -27,6 +28,7 @@ const USER_SCHEMA = { // Onde define as propriedades do user para posteriormente
   '?encryptedKey': String,
     nif: String.of(9,null), //9 é o tamanho exato do campo e o null é para não meter restrições na string
     role: ['admin', 'producer','distributor','retailer','customer'], //são o tipo de roles possiveis de um user da blockchin ser
+  active: [0,1],
   '*': null
 }
 
@@ -85,8 +87,16 @@ const update = (publicKey, changes) => {
     })
 }
 
+const fetchQuery = publicKey => {
+  return db.queryTable('users', users => users.get(publicKey), false)
+
+}
+
+const fetch = publicKey => fetchQuery(publicKey)
+
 module.exports = {
   query,
   insert,
-  update
+  update,
+  fetch
 }

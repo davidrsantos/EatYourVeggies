@@ -193,10 +193,14 @@ router.route('/users')
 
 // This route is redundant, but matches RESTful expectations
 router.patch('/users/:publicKey', restrict, handleBody((body, params) => {
-  if (params.publicKey !== params.authedKey) {
-    throw new Unauthorized('You may only modify your own user account!')
-  }
-  return users.update(body, params)
+   return users.fetch(params.authedKey).then(user => {
+    if (params.publicKey !== params.authedKey && user.role !== 'admin') {
+      throw new Unauthorized('You may only modify your own user account!')
+    }
+    params.authedKey = params.publicKey //porque quando é o admin a fazer o update elas são diferentes
+    return users.update(body, params)
+  })
+
 }))
 
 router.use(errorHandler)

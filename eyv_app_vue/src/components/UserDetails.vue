@@ -53,6 +53,14 @@
 
                     />
 
+                    <v-text-field
+                            label="Public Key"
+                            outlined
+                            readonly
+                            v-model="user.key"
+
+                    />
+
 
                 </form>
                 <div class="text-center">
@@ -189,8 +197,8 @@
   import { email, maxLength, minLength, numeric, required, sameAs } from 'vuelidate/lib/validators'
 
   export default {
-    name: 'User Details',
-    props: ['user'],
+    name: 'user-details',
+    props: ['userProp', 'myself'],
 
     validations () {
       return {
@@ -205,33 +213,35 @@
         valueUpdate: this.rules
       }
     },
-    data: () => ({
-      user: null,
-      submitStatus: null,
-      showPassword: false,
-      oldPassword: null,
-      password: null,
-      repeatPassword: null,
-      dialogPassword: false,
-      valueUpdate: '',
-      dialog: false,
-      key: '',
-      dialogLabel: '',
-      userValueUpdate: {
-        name: '',
-        username: '',
-        email: '',
-        nif: '',
-        role: '',
-      },
-      typeofUser: [
-        { name: 'Administrator', value: 'admin' },
-        { name: 'Producer', value: 'producer' },
-        { name: 'Distributor', value: 'distributor' },
-        { name: 'Retailer', value: 'retailer' },
-        { name: 'Customer', value: 'customer' }]
+    data () {
+      return {
+        user: this.userProp,
+        submitStatus: null,
+        showPassword: false,
+        oldPassword: null,
+        password: null,
+        repeatPassword: null,
+        dialogPassword: false,
+        valueUpdate: '',
+        dialog: false,
+        key: '',
+        dialogLabel: '',
+        userValueUpdate: {
+          name: '',
+          username: '',
+          email: '',
+          nif: '',
+          role: '',
+        },
+        typeofUser: [
+          { name: 'Administrator', value: 'admin' },
+          { name: 'Producer', value: 'producer' },
+          { name: 'Distributor', value: 'distributor' },
+          { name: 'Retailer', value: 'retailer' },
+          { name: 'Customer', value: 'customer' }]
 
-    }),
+      }
+    },
 
     methods: {
 
@@ -277,13 +287,27 @@
       userUpdate () {
         let userUpdate = _.pick(this.userValueUpdate, this.key)
         console.log(this.user)
+        if (this.myself) {
+          return axios.patch('users', userUpdate)
+            .then((response) => {
+              let user = response.data
+              user.name = this.user.name
+              this.$store.commit('setUser', user)
+              this.user = user
+            })
+            .catch((error) => {
+              if (error.response && error.response.status === 406) {
+                this.handleErrors('It\'s no possible to make that change')
+              }
+
+            })
+        }
         return axios.patch('users/' + this.user.key, userUpdate)
           .then((response) => {
             let user = response.data
             user.name = this.user.name
-
-            this.$store.commit('setUser', user) //todo isto tem de desaparecer
             this.user = user
+            this.$emit('refreshList')
           })
           .catch((error) => {
             if (error.response && error.response.status === 406) {

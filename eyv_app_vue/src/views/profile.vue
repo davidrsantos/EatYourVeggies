@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <user-details :user="user"></user-details>
+        <user-details :user-prop="user" myself="true"></user-details>
     </v-container>
 </template>
 
