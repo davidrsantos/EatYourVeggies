@@ -1,7 +1,7 @@
 <template>
     <v-app id="inspire">
 
-        <v-app-bar app clipped-left color="indigo" dark elevate-on-scroll>
+        <v-app-bar app clipped-left color="#66BB6A" dark elevate-on-scroll>
 
             <v-spacer></v-spacer>
             <v-toolbar-title>Eat Your Veggies</v-toolbar-title>
@@ -17,7 +17,9 @@
 
 
         </v-app-bar>
-        <v-footer absolute app color="indigo">
+
+        <v-footer app absolute color="#66BB6A">
+
             <span class="white--text">&copy;Instituto Politécnico de Leiria - 2020 - Projeto Informático  </span>
         </v-footer>
 
