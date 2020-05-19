@@ -24,7 +24,7 @@
 
                 <template v-slot:item.actions="{ item }">
                     <v-icon
-                            @click="editItem(item)"
+                            @click.stop="editItem(item)"
                             class="mr-2"
                             small
                     >
@@ -35,8 +35,8 @@
 
             </v-data-table>
         </v-card>
-        <v-dialog v-show="showUserDetails">
-            <user-details :user="user"></user-details>
+        <v-dialog v-model="showUserDetails" class="mx-auto" max-width="800">
+             <user-details :user="user"></user-details>
         </v-dialog>
 
     </v-container>
@@ -62,6 +62,7 @@
         { text: 'Username', value: 'username' },
         { text: 'Nif', value: 'nif' },
         { text: 'Role', value: 'role' },
+        {text: 'Email', value: 'email'},
         { text: 'Actions', value: 'actions', sortable: false },
 
       ],
