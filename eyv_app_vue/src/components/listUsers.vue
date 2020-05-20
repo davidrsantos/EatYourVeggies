@@ -64,7 +64,7 @@
           text: 'Public Key',
 
           align: 'start',
-          value: 'key',
+          value: 'publicKey',
         },
         { text: 'Name', value: 'name', },
         { text: 'Username', value: 'username' },
@@ -112,7 +112,7 @@
           statusUpdate.active = 1
         }
 
-        return axios.patch('users/' + user.key, statusUpdate)
+        return axios.patch('users/' + user.publicKey, statusUpdate)
           .then(response => {
             this.getUsers()
           })

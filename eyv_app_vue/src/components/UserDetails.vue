@@ -50,6 +50,15 @@
                             label="Role"
                             outlined
                             readonly
+                            v-show="this.$store.state.user.role==='admin'"
+
+                    />
+                    <v-text-field
+                            :value="typeOfUser(user.role)"
+                            label="Role"
+                            outlined
+                            readonly
+                            v-show="this.$store.state.user.role!=='admin'"
 
                     />
 
@@ -57,7 +66,7 @@
                             label="Public Key"
                             outlined
                             readonly
-                            v-model="user.key"
+                            v-model="user.publicKey"
 
                     />
 
@@ -285,8 +294,13 @@
       },
 
       userUpdate () {
+        console.log(this.userValueUpdate)
         let userUpdate = _.pick(this.userValueUpdate, this.key)
-        console.log(this.user)
+
+        if (this.key === 'role') {
+          userUpdate = { 'role': this.userValueUpdate.role.value }
+        }
+        console.log(userUpdate)
         if (this.myself) {
           return axios.patch('users', userUpdate)
             .then((response) => {
@@ -302,7 +316,7 @@
 
             })
         }
-        return axios.patch('users/' + this.user.key, userUpdate)
+        return axios.patch('users/' + this.user.publicKey, userUpdate)
           .then((response) => {
             let user = response.data
             user.name = this.user.name

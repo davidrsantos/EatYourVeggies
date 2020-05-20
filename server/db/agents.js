@@ -73,7 +73,7 @@ const listQuery = filterQuery => block => {
         .filter(filterQuery)
         .map(agent => r.expr({
             'name': getName(agent),
-            'key': getPublicKey(agent),
+            'publicKey': getPublicKey(agent),
             'owns': getTable('records', block)
                 .filter(isRecordOwner(agent))
                 .map(getRecordId)
@@ -86,7 +86,7 @@ const listQuery = filterQuery => block => {
                 .filter(isReporter(agent))
                 .map(getRecordId)
                 .distinct()
-        })).eqJoin('key', r.table('users')).without({right: "publicKey"}).zip()
+        })).eqJoin('publicKey', r.table('users')).without({right: "publicKey"}).zip()
         .coerceTo('array')
 }
 
