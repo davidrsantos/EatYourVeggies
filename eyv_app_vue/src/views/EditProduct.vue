@@ -230,7 +230,7 @@
                             :items="users"
                             item-text="name"
                             label="Select User"
-                            item-value="key"
+                            item-value="publicKey"
                             v-model="publicKey"
                             outlined
                     ></v-select>
