@@ -13,7 +13,7 @@ there you go! list of vegetables:
 
         </li>
 and some agents to see:
-        <li :key="agent.key" v-for="agent in agents">
+        <li :key="agent.publicKey" v-for="agent in agents">
             {{agent.name}}
 
         </li>
