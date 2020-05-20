@@ -68,17 +68,17 @@
                                     label="Expiration Date"
                                     outlined
                                     readonly
-                                    :value="product.expirationDate"
+                                    :value="product.expirationDate==null?'N/A':product.expirationDate"
 
                             />
+
                             <v-text-field
                                     label="Packing Date"
                                     outlined
                                     readonly
-                                    :value="product.packingDate"
+                                    :value="product.packingDate==null?'N/A':product.packingDate"
 
                             />
-
                         </form>
 
                     </v-container>
@@ -93,7 +93,7 @@
                     <v-spacer></v-spacer>
                 </v-toolbar>
 
-                <v-card>
+                <v-card v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null">
                     <v-list
                             rounded>
                         <v-list-item
@@ -101,7 +101,7 @@
                         >
                             <v-list-item-content>
                                 <v-list-item-title>
-                                    <v-btn v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null" dark color="green" @click="openTransferDialog">Transfer Ownership
+                                    <v-btn dark color="green" @click="openTransferDialog">Transfer Ownership
                                     </v-btn>
                                 </v-list-item-title>
                             </v-list-item-content>
@@ -116,37 +116,37 @@
                             <v-container>
                             <v-text-field
                                     @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="Temperature ºC"
                                     outlined
                                     readonly
-                                    v-model="product.temperature"
+                                    v-model="product.temperature==null?'N/A':product.temperature"
                             />
 
                             <v-text-field
                                     @click:append="openDialog(product.humidade,'humidade','Humidity kg/m³')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="Humidity kg/m³"
                                     outlined
                                     readonly
 
-                                    v-model="product.humidade"
+                                    v-model="product.humidade==null?'N/A':product.humidade"
                             />
 
                             <v-text-field
                                     @click:append="openDialog(product.co2,'co2','CO2')"
-                                    append-icon="mdi-pencil"
+                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                     label="CO2"
                                     outlined
                                     readonly
-                                    v-model="product.co2"
+                                    v-model="product.co2==null?'N/A':product.co2"
 
                             />
                             </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Shock</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
@@ -156,7 +156,7 @@
                                     label="Acceleration"
                                     outlined
                                     readonly
-                                    v-model="product.acceleration"
+                                    v-model="product.acceleration==null?'N/A':product.acceleration"
 
                             />
 
@@ -164,14 +164,14 @@
                                     label="Duration"
                                     outlined
                                     readonly
-                                    v-model="product.duration"
+                                    v-model="product.duration==null?'N/A':product.duration"
 
                             />
                             </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Tilt</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
@@ -181,21 +181,21 @@
                                     label="X"
                                     outlined
                                     readonly
-                                    v-model="product.tiltX"
+                                    v-model="product.tiltX==null?'N/A':product.tiltX"
 
                             />
                             <v-text-field
                                     label="Y"
                                     outlined
                                     readonly
-                                    v-model="product.tiltY"
+                                    v-model="product.tiltY==null?'N/A':product.tiltY"
 
                             />
                             </v-container>
                             <v-toolbar dense color="green" dark>
                                 <v-toolbar-title>Localization</v-toolbar-title>
                                 <v-spacer></v-spacer>
-                                <v-btn icon
+                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
@@ -542,14 +542,10 @@
 
   },
       getUsers() {
-
         axios.get('/agents').then(response => {
              this.filterUserRole(response.data)
           console.log(this.users)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
 
       getPropertyValue (item, prop) {
@@ -581,15 +577,21 @@
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
-            this.product.harvestDate = harvestDate
+            console.log(harvestDate)
+            var date = new Date(harvestDate * 1000);
+            this.product.harvestDate = date.toISOString().substr(0, 10)
           }
           let expirationDate = getPropertyValue(response.data, 'expirationDate')
           if (expirationDate !== null) {
-            this.product.expirationDate = expirationDate
+            console.log(expirationDate)
+            var date1 = new Date(expirationDate * 1000);
+            this.product.expirationDate =  date1.toISOString().substr(0, 10)
           }
           let packingDate = getPropertyValue(response.data, 'packingDate')
           if (packingDate !== null) {
-            this.product.packingDate = packingDate
+            console.log(packingDate)
+            var date2 = new Date(packingDate * 1000);
+            this.product.packingDate =  date2.toISOString().substr(0, 10)
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
@@ -622,10 +624,7 @@
           }
 
           console.log(this.product)
-        })
-          .catch(function (error) {
-            console.log(error)
-          })
+        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
       updateProperty (record, value) {
         let updatePayload = payloads.updateProperties({
@@ -634,7 +633,7 @@
         })
         return transactions.submit([updatePayload], true).then(() => {
           console.log('Successfully submitted property update')
-        })
+        }).catch(error=>{this.$emit('errorEvent', error)})
       },
       cancel () {
         this.dialogTransfer = false
@@ -661,7 +660,7 @@
         console.log(publicKey)
         return transactions.submit([transferPayload], true).then(() => {
           console.log('Successfully submitted proposal')
-        })
+        }).catch(error=>{this.$emit('errorEvent', error)})
       },
       reportShock () {
         this.updateProperty(this.recordId, {
@@ -889,7 +888,6 @@
           !this.$v.duration.numeric && errors.push('The duration must be numeric.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
-
           return errors
         }
 
@@ -899,10 +897,8 @@
           !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
           !this.$v.longitude.numeric && errors.push('The longitude must be numeric.')
           !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
-
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
-
           return errors
         }
       },

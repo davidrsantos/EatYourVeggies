@@ -33,9 +33,11 @@
                         vertical
                 ></v-divider>
                 <v-spacer></v-spacer>
-                <router-link :to="{name: 'addProduct'}">
+
+                <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer'" >
                     <button color="green" id="myButton" class="mb-2">Add Product</button>
                 </router-link>
+
             </v-toolbar>
         </template>
     </v-data-table>
@@ -65,10 +67,7 @@
                     this.products = response.data;
 
                     console.log(this.products);
-                })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
             },
         },
         mounted: function() {

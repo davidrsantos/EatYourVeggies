@@ -1,33 +1,49 @@
 <template>
     <div>
+        <v-list rounded>
 
         <v-list-item class="px-2" v-if="this.$store.state.user!=null">
             <v-list-item-avatar>
                 <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
             </v-list-item-avatar>
-
             <v-list-item-title>{{this.$store.state.user.name}}</v-list-item-title>
-
-
         </v-list-item>
 
         <v-divider></v-divider>
 
-        <v-list
-                rounded>
-            <v-list-item
-                    :key="item.title"
-                    :to="item.link"
-                    class="px-2"
-                    link
-                    v-for="item in items"
-            >
-                <v-list-item-icon >
-                    <v-icon>{{ item.icon }}</v-icon>
+            <v-list-item class="px-2" to="/dashboard">
+                <v-list-item-icon>
+                    <v-icon>mdi-home-city</v-icon>
                 </v-list-item-icon>
-
                 <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-title>Dashboard</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item class="px-2" to="/myProfile">
+                <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>My Profile</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item class="px-2" to="/addProduct" v-if="canAccessAddProduct">
+                <v-list-item-icon>
+                    <v-icon>mdi-account-group-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>Add Product</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+
+            <v-list-item class="px-2" to="/managerProducts">
+                <v-list-item-icon>
+                    <v-icon>mdi-corn</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>My Products</v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
@@ -38,16 +54,19 @@
 <script>
     export default {
         data() {
-            return {
-                drawer: true,
-                items: [
-                    {title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard'},
-                    {title: 'My Profile', icon: 'mdi-account', link: '/myProfile'},
-                    {title: 'Add Product', icon: 'mdi-account-group-outline', link: '/addProduct'},
-                    {title: 'My Products', icon: 'mdi-corn', link: '/managerProducts'},
-                ],
-                mini: true,
+            return{
+
             }
         },
+      computed:{
+        canAccessAddProduct(){
+          if(this.$store.state.user) {
+            if (this.$store.state.user.role === 'producer' || this.$store.state.user.role === 'retailer') {
+              return true;
+            }
+          }
+          return false;
+        },
+      }
     }
 </script>
