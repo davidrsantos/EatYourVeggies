@@ -184,7 +184,6 @@ router.get('/records/:recordId/:propertyName', handle(records.fetchProperty))
 
 router.get('/record-types', handle(recordTypes.list))
 router.get('/record-types/:typeName', handle(recordTypes.fetch))
-
 router.post('/transactions', handleBody(blockchain.submit))
 
 router.route('/users')

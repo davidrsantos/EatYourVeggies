@@ -252,7 +252,12 @@ const listRecordsQuery = (authedKey, filterQuery) => block => {
     .map(_loadRecord(block, authedKey))
     .coerceTo('array')
 }
-
+const listRecordsQueryByOwner= (authedKey, filterQuery) => block => {
+  return getTable('records', block)
+    .map(_loadRecord(block, authedKey))
+    .filter(filterQuery)
+    .coerceTo('array')
+}
 /* Exported functions */
 
 const fetchProperty = (recordId, propertyName) => {
@@ -267,8 +272,13 @@ const listRecords = (authedKey, filterQuery) => {
   return db.queryWithCurrentBlock(listRecordsQuery(authedKey, filterQuery))
 }
 
+const listRecordsByOwner = (authedKey, filterQuery) => {
+  return db.queryWithCurrentBlock(listRecordsQueryByOwner(authedKey, filterQuery))
+}
+
 module.exports = {
   fetchProperty,
   fetchRecord,
-  listRecords
+  listRecords,
+  listRecordsByOwner
 }
