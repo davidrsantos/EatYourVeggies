@@ -64,7 +64,6 @@
     },
             getProducts() {
                 axios.get('/records?owner='+ this.$store.state.user.publicKey).then(response => {
-              //  axios.get('/records?recordType=vegetable').then(response => {
                     this.products = response.data;
                     console.log(this.products);
                 }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
