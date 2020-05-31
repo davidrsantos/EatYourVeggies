@@ -9,12 +9,20 @@ import vuetify from './plugins/vuetify';
 import vuelidate from 'vuelidate'
 
 
+
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 
 Vue.use(vuelidate)
+
+import VueSocketio from 'vue-socket.io';
+Vue.use(new VueSocketio({
+  debug: true,
+  connection: 'http://localhost'+ ':8020'
+}));
+
 
 new Vue({
   vuelidate,

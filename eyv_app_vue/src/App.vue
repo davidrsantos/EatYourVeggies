@@ -100,6 +100,11 @@
             return 'Unknown'
         }
       }
+    },
+    sockets: {
+      connect () {
+        console.log('socket connected (socket ID = ' + this.$socket.id + ')');
+      },
     }
   }
 </script>

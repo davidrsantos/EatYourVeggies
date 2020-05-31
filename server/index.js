@@ -26,6 +26,9 @@ const config = require('./system/config')
 const PORT = config.PORT
 const app = express()
 
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
+
 Promise.all([
   db.connect(),
   protos.compile(),
@@ -33,8 +36,15 @@ Promise.all([
 ])
   .then(() => {
     app.use('/', api)
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Supply Chain Server listening on port ${PORT}`)
     })
   })
   .catch(err => console.error(err.message))
+
+io.on('connection', function (socket) {
+  console.log('client has connected (socket ID = ' + socket.id + ')')
+  socket.on('user_enter', function (user) {
+    console.log('user entrou')
+  })
+})
