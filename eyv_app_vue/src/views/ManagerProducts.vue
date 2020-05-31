@@ -63,12 +63,12 @@
                 return getPropertyValue(item,prop)
     },
             getProducts() {
-                axios.get('/records?recordType=vegetable').then(response => {
+                axios.get('/records?owner='+ this.$store.state.user.publicKey).then(response => {
                     this.products = response.data;
-
                     console.log(this.products);
                 }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
             },
+
         },
         mounted: function() {
             this.getProducts();

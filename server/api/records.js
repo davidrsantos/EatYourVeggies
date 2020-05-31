@@ -19,7 +19,7 @@
 const _ = require('lodash')
 const db = require('../db/records')
 
-const FILTER_KEYS = ['recordId', 'recordType']
+const FILTER_KEYS = ['recordId', 'recordType','owner']//todo por aqui o filtro do user
 
 const fetchProperty = ({recordId, propertyName}) => {
   return db.fetchProperty(recordId, propertyName)
@@ -30,11 +30,17 @@ const fetchRecord = ({recordId, authedKey}) => {
 }
 
 const listRecords = params => {
+  if(params.hasOwnProperty('owner')){
+    return db.listRecordsByOwner(params.authedKey, _.pick(params, FILTER_KEYS))
+  }
   return db.listRecords(params.authedKey, _.pick(params, FILTER_KEYS))
 }
+
+
 
 module.exports = {
   fetchProperty,
   fetchRecord,
-  listRecords
+  listRecords,
+
 }
