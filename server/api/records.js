@@ -19,7 +19,7 @@
 const _ = require('lodash')
 const db = require('../db/records')
 
-const FILTER_KEYS = ['recordId', 'recordType', 'owner', 'receivingAgent']
+const FILTER_KEYS = ['recordId', 'recordType', 'owner', 'receivingAgent', 'issuingAgent']//@luana add 2 keys for answer proposals
 
 const fetchProperty = ({recordId, propertyName}) => {
   return db.fetchProperty(recordId, propertyName)
