@@ -23,20 +23,20 @@
             >
 
                 <template v-slot:item.actions="{ item }">
+                    <div v-if="item.status ==='OPEN'">
                     <v-btn
                             @click="acceptedProposal(item.recordId)"
                             color="green darken-1"
-                            v-on:refreshList="refreshList"
                     >
                         Answer Proposal
                     </v-btn>
                     <v-btn
                             @click="rejectedProposal(item.recordId)"
                             color="red darken-1"
-                            v-on:refreshList="refreshList"
                     >
                         Refused Proposal
                     </v-btn>
+                    </div>
                 </template>
             </v-data-table>
         </v-card>
@@ -85,7 +85,7 @@
       },
       answerProposal(record, role, publicKey, response){//todo @luana resolver como guardar o id do record e a resposta do user
         let answerPayload = payloads.answerProposal({
-          recordId: record.recordId,
+          recordId: record,
           receivingAgent: publicKey,
           role,
           response
@@ -104,10 +104,12 @@
         }
       },
       acceptedProposal(recordId){
-        this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.ACCEPT)//todo @luana resolver como guardar o id do record e a resposta do user
+        this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.ACCEPT)
+        this.refreshList();
       },
       rejectedProposal(recordId){
-        this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)//todo @luana resolver como guardar o id do record e a resposta do user
+        this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)
+        this.refreshList();
       }
     }
   }
