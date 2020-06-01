@@ -2,7 +2,7 @@
     <v-container>
         <v-card>
             <v-card-title>
-                Proposals
+                Proposals Received
                 <v-spacer></v-spacer>
                 <v-text-field
                         append-icon="mdi-magnify"
@@ -42,6 +42,42 @@
                 </template>
             </v-data-table>
         </v-card>
+        <v-card>
+            <v-card-title>
+                Proposals Sent
+                <v-spacer></v-spacer>
+                <v-text-field
+                        append-icon="mdi-magnify"
+                        hide-details
+                        label="Search"
+                        single-line
+                        v-model="search"
+                ></v-text-field>
+            </v-card-title>
+            <v-data-table :headers="headersProposalsSent"
+                          :items="proposalsSent"
+                          :loading="loading"
+                          :search="search"
+                          fixed-header
+                          item-key="key"
+                          sort-by="timestamp"
+
+            >
+                <template v-slot:item.timestamp="{ item }">
+                    {{formatTimestamp(item.timestamp)}}
+                </template>
+                <template v-slot:item.actions="{ item }">
+                    <div v-if="item.status ==='OPEN'">
+                        <v-btn small
+                               @click="cancelProposal(item.recordId, item.receivingAgent)"
+                               color="green darken-1"
+                        >
+                            Cancel Proposal
+                        </v-btn>
+                    </div>
+                </template>
+            </v-data-table>
+        </v-card>
     </v-container>
 </template>
 
@@ -58,28 +94,52 @@
       loading: true,
       role:"OWNER",
       proposals: [],
+      proposalsSent: [],
       search: '',
       headers: [
         { text: 'Data', value: 'timestamp'},
         { text: 'RecordId', value: 'recordId', },
-        { text: 'Issuing User', value: 'issuingAgent'},
+        { text: 'Issuing User Public Key', value: 'issuingAgent'},
         { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false }
       ],
-
+      headersProposalsSent: [
+        { text: 'Data', value: 'timestamp'},
+        { text: 'RecordId', value: 'recordId', },
+        { text: 'Receiving User Public Key', value: 'receivingAgent'},
+        { text: 'Status', value: 'status' },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ],
     }),
     beforeMount () {
       this.getProposals()
+      this.getProposalsSend()
     },
     methods: {
-      refreshList () {
+      refreshList() {
         this.getProposals()
+      },
+      refreshListProposalsSent(){
+        this.getProposalsSend()
       },
       getProposals () {
         this.loading = true
         axios.get(`/proposals/${this.$store.state.user.publicKey}`).then(response => {
           this.proposals = response.data
           console.log(this.proposals)
+          this.loading = false
+        })
+          .catch(function (error) {
+            console.log(error)
+            this.loading = false
+
+          })
+      },
+      getProposalsSend() {
+        this.loading = true
+        axios.get(`/proposals-send/${this.$store.state.user.publicKey}`).then(response => {
+          this.proposalsSent = response.data
+          console.log(this.proposalsSent)
           this.loading = false
         })
           .catch(function (error) {
@@ -97,9 +157,15 @@
         })
         return transactions.submit([answerPayload], true).then(() => {
           console.log('Successfully submitted answer')
+          if(response=== 2) {//2 == cancel no enum do proto
+            this.refreshListProposalsSent();
+          }else{
+            this.refreshList();
+          }
         }).catch(error=>{this.$emit('errorEvent', error)})
       },
-      roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
+
+        roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
         } else if (role = 'custodian') {
@@ -116,12 +182,13 @@
       },
       acceptedProposal(recordId){
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.ACCEPT)
-        this.refreshList();
       },
       rejectedProposal(recordId){
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)
-        this.refreshList();
-      }
+      },
+      cancelProposal(recordId,receivingAgent){
+        this.answerProposal(recordId, this.roleToEnum(this.role), receivingAgent, payloads.answerProposal.enum.CANCEL)
+      },
     }
   }
 </script>
