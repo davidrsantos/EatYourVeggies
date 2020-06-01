@@ -16,12 +16,14 @@
  */
 'use strict'
 
+
 const express = require('express')
 const db = require('./db')
 const blockchain = require('./blockchain')
 const protos = require('./blockchain/protos')
 const api = require('./api')
 const config = require('./system/config')
+const websocket = require('./websocket')
 
 const PORT = config.PORT
 const app = express()
@@ -39,12 +41,8 @@ Promise.all([
     server.listen(PORT, () => {
       console.log(`Supply Chain Server listening on port ${PORT}`)
     })
+    websocket.start(io)
   })
   .catch(err => console.error(err.message))
 
-io.on('connection', function (socket) {
-  console.log('client has connected (socket ID = ' + socket.id + ')')
-  socket.on('user_enter', function (user) {
-    console.log('user entrou')
-  })
-})
+
