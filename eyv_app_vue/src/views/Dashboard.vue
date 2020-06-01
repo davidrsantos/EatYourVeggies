@@ -1,9 +1,7 @@
 <template>
     <div>
         <list-users v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
-
-
-
+        <proposals v-show="this.$store.state.user!=null"></proposals>
 
 there you go! list of vegetables:
 

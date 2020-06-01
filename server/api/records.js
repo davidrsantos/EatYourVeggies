@@ -19,7 +19,7 @@
 const _ = require('lodash')
 const db = require('../db/records')
 
-const FILTER_KEYS = ['recordId', 'recordType','owner']//todo por aqui o filtro do user
+const FILTER_KEYS = ['recordId', 'recordType', 'owner', 'receivingAgent']
 
 const fetchProperty = ({recordId, propertyName}) => {
   return db.fetchProperty(recordId, propertyName)
@@ -36,11 +36,14 @@ const listRecords = params => {
   return db.listRecords(params.authedKey, _.pick(params, FILTER_KEYS))
 }
 
-
+const listProposals = params =>
+  //return todo ver se é preciso
+  db.listProposalsByAgent(_.pick(params, FILTER_KEYS))//todo luana propose2
 
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
+  listProposals//todo @luana proposals
 
 }
