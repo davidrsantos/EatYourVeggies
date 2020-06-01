@@ -110,7 +110,7 @@
 
       }
       ,
-      openDialog (model, key, label) {//todo - ver se vai ser preciso colocar outra label aqui para as props c/ + de 2 atrb
+      openDialog (model, key, label) {
         this.dialog = true
         this.key = key
         this.dialogLabel = label

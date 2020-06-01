@@ -34,7 +34,10 @@ const getReporters = getAttribute('reporters')
 const getAuthorization = getAttribute('authorized')
 const getReportedValues = getAttribute('reportedValues')
 const getStatus = getAttribute('status')
-
+const getIssuingAgent = getAttribute('issuingAgent')//@luana submit proposal
+const getReceivingAgent = getAttribute('receivingAgent')//@luana submit proposal
+const getRole = getAttribute('role')//@luana submit proposal
+const getTimestamp= getAttribute('timestamp')//@luana submit proposal
 const getAssociatedAgentId = role => record => record(role).nth(-1)('agentId')
 const getOwnerId = getAssociatedAgentId('owners')
 const getCustodianId = getAssociatedAgentId('custodians')
@@ -67,6 +70,19 @@ const getProposals = recordId => receivingAgent => block => {
     .filter(hasStatus('OPEN'))
     .pluck('receivingAgent', 'issuingAgent', 'role', 'properties')
     .coerceTo('array')
+}
+
+const getProposalsByAgent = filterQuery => block => { //@luana submit proposal
+  return getTable('proposals', block)
+    .filter(filterQuery)
+    .map(proposal => r.expr({
+      'issuingAgent': getIssuingAgent(proposal),
+      'receivingAgent': getReceivingAgent(proposal),
+      'recordId': getRecordId(proposal),
+      'role': getRole(proposal),
+      'status': getStatus(proposal),
+      'timestamp': getTimestamp(proposal)
+    })).coerceTo('array')
 }
 
 const findRecord = recordId => block => {
@@ -276,9 +292,13 @@ const listRecordsByOwner = (authedKey, filterQuery) => {
   return db.queryWithCurrentBlock(listRecordsQueryByOwner(authedKey, filterQuery))
 }
 
+const listProposalsByAgent = filterQuery =>
+  db.queryWithCurrentBlock(getProposalsByAgent(filterQuery))//@luana submit proposal
+
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
-  listRecordsByOwner
+  listRecordsByOwner,
+  listProposalsByAgent//@luana submit proposal
 }
