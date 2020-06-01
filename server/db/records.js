@@ -34,10 +34,10 @@ const getReporters = getAttribute('reporters')
 const getAuthorization = getAttribute('authorized')
 const getReportedValues = getAttribute('reportedValues')
 const getStatus = getAttribute('status')
-const getIssuingAgent = getAttribute('issuingAgent')//todo @luana proposal2
-const getReceivingAgent = getAttribute('receivingAgent')//todo @luana proposal2
-const getRole = getAttribute('role')//todo @luana proposal2
-
+const getIssuingAgent = getAttribute('issuingAgent')//@luana submit proposal
+const getReceivingAgent = getAttribute('receivingAgent')//@luana submit proposal
+const getRole = getAttribute('role')//@luana submit proposal
+const getTimestamp= getAttribute('timestamp')//@luana submit proposal
 const getAssociatedAgentId = role => record => record(role).nth(-1)('agentId')
 const getOwnerId = getAssociatedAgentId('owners')
 const getCustodianId = getAssociatedAgentId('custodians')
@@ -72,15 +72,16 @@ const getProposals = recordId => receivingAgent => block => {
     .coerceTo('array')
 }
 
-const getProposalsByAgent = filterQuery => block => { //todo @luana proposal2
+const getProposalsByAgent = filterQuery => block => { //@luana submit proposal
   return getTable('proposals', block)
     .filter(filterQuery)
     .map(proposal => r.expr({
-      'issuingAgent': getIssuingAgent(proposal),//todo metodo
-      'receivingAgent': getReceivingAgent(proposal),//todo metodo
-      'recordId': getRecordId(proposal),//todo metodo
-      'role': getRole(proposal),//todo metodo
-      'status': getStatus(proposal),//todo metodo//
+      'issuingAgent': getIssuingAgent(proposal),
+      'receivingAgent': getReceivingAgent(proposal),
+      'recordId': getRecordId(proposal),
+      'role': getRole(proposal),
+      'status': getStatus(proposal),
+      'timestamp': getTimestamp(proposal)
     })).coerceTo('array')
 }
 
@@ -292,13 +293,12 @@ const listRecordsByOwner = (authedKey, filterQuery) => {
 }
 
 const listProposalsByAgent = filterQuery =>
-  //return //todo ver se é preciso
-  db.queryWithCurrentBlock(getProposalsByAgent(filterQuery))//todo @luana proposal2
+  db.queryWithCurrentBlock(getProposalsByAgent(filterQuery))//@luana submit proposal
 
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
   listRecordsByOwner,
-  listProposalsByAgent//todo @luana proposal
+  listProposalsByAgent//@luana submit proposal
 }

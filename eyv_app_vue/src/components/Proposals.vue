@@ -18,19 +18,21 @@
                           :search="search"
                           fixed-header
                           item-key="key"
-                          sort-by="recordId"
+                          sort-by="timestamp"
 
             >
-
+                <template v-slot:item.timestamp="{ item }">
+                    {{formatTimestamp(item.timestamp)}}
+                </template>
                 <template v-slot:item.actions="{ item }">
                     <div v-if="item.status ==='OPEN'">
-                    <v-btn
+                    <v-btn small
                             @click="acceptedProposal(item.recordId)"
                             color="green darken-1"
                     >
-                        Answer Proposal
+                        Accepted Proposal
                     </v-btn>
-                    <v-btn
+                    <v-btn small
                             @click="rejectedProposal(item.recordId)"
                             color="red darken-1"
                     >
@@ -45,6 +47,8 @@
 
 <script>
 
+  import * as moment from 'moment'
+
   const payloads = require('../services/payloads')
   const transactions = require('../services/transactions')
 
@@ -56,10 +60,11 @@
       proposals: [],
       search: '',
       headers: [
+        { text: 'Data', value: 'timestamp'},
         { text: 'RecordId', value: 'recordId', },
-        { text: 'Issuing User', value: 'issuingAgent' },
+        { text: 'Issuing User', value: 'issuingAgent'},
         { text: 'Status', value: 'status' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Actions', value: 'actions', sortable: false }
       ],
 
     }),
@@ -83,7 +88,7 @@
 
           })
       },
-      answerProposal(record, role, publicKey, response){//todo @luana resolver como guardar o id do record e a resposta do user
+      answerProposal(record, role, publicKey, response){
         let answerPayload = payloads.answerProposal({
           recordId: record,
           receivingAgent: publicKey,
@@ -102,6 +107,12 @@
         } else if (role = 'reporter') {
           return payloads.createProposal.enum.REPORTER
         }
+      },
+      formatTimestamp (sec){
+        if (!sec) {
+          sec = Date.now() / 1000
+        }
+        return moment.unix(sec).format('DD-MM-YYYY')
       },
       acceptedProposal(recordId){
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.ACCEPT)

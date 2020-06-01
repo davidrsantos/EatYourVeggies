@@ -37,13 +37,12 @@ const listRecords = params => {
 }
 
 const listProposals = params =>
-  //return todo ver se é preciso
-  db.listProposalsByAgent(_.pick(params, FILTER_KEYS))//todo luana propose2
+  db.listProposalsByAgent(_.pick(params, FILTER_KEYS))//@luana submit proposal
 
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
-  listProposals//todo @luana proposals
+  listProposals//@luana submit proposal
 
 }
