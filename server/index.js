@@ -23,7 +23,7 @@ const blockchain = require('./blockchain')
 const protos = require('./blockchain/protos')
 const api = require('./api')
 const config = require('./system/config')
-const websocket = require('./websocket')
+const websocket = require('./websocket/websocket')
 
 const PORT = config.PORT
 const app = express()
