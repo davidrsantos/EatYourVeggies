@@ -20,6 +20,7 @@
     "socket.io-client": "^2.3.0",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
+    "vue-snotify": "^3.2.1",
     "vue-socket.io": "^3.0.9",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.11",
