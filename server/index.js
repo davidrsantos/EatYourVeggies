@@ -16,15 +16,20 @@
  */
 'use strict'
 
+
 const express = require('express')
 const db = require('./db')
 const blockchain = require('./blockchain')
 const protos = require('./blockchain/protos')
 const api = require('./api')
 const config = require('./system/config')
+const websocket = require('./websocket/websocket')
 
 const PORT = config.PORT
 const app = express()
+
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 
 Promise.all([
   db.connect(),
@@ -33,8 +38,11 @@ Promise.all([
 ])
   .then(() => {
     app.use('/', api)
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`Supply Chain Server listening on port ${PORT}`)
     })
+    websocket.start(io)
   })
   .catch(err => console.error(err.message))
+
+

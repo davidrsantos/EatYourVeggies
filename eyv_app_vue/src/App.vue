@@ -62,12 +62,16 @@
       this.$store.commit('loadTokenAndUserFromSession') //this keeps the user logged
       setBatcherPubkey()
       if (this.$store.state.user) {
+        this.$socket.emit('user_enter', this.$store.state.user);
         this.$router.push('dashboard')
         // this.$socket.emit('user_enter', this.$store.state.user); //TODO this can be useful for a broker
       }
     },
 
     methods: {
+      mostra(){
+        this.$socket.emit('mostra');
+      },
       closeDialog () {
         this.showErrors = false
       },
@@ -79,6 +83,7 @@
 
       logout () {
         this.$store.commit('clearUserAndToken')
+        this.$socket.emit('user_exit', this.$store.state.user);
         api.clearAuth()
         transactions.clearPrivateKey()
         this.$router.push('welcome')
@@ -100,6 +105,11 @@
             return 'Unknown'
         }
       }
+    },
+    sockets: {
+      connect () {
+        console.log('socket connected (socket ID = ' + this.$socket.id + ')');
+      },
     }
   }
 </script>
