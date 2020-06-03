@@ -14,12 +14,17 @@ import errorDialog from "../components/errorDialog";
 import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
+import notifications from "../components/Notifications"
+import materialNotification from '../components/materialNotification'
 
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
 Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
+
+Vue.component('notifications' , notifications)
+Vue.component('material-notification',materialNotification)
 
 Vue.use(VueRouter);
 
