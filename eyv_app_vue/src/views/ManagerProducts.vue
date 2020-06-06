@@ -66,12 +66,10 @@
               if(this.$store.state.user.role == "admin"){
                 axios.get('/records').then(response => {
                   this.products = response.data;
-                  console.log(this.products);
                 }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
               }
                 axios.get('/records?owner='+ this.$store.state.user.publicKey).then(response => {
                     this.products = response.data;
-                    console.log(this.products);
                 }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
             },
 

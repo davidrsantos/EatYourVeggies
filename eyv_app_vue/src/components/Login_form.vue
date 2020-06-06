@@ -101,7 +101,6 @@
                     let pubKey = window.atob(this.$store.state.token.split('.')[1]) //Vai buscar o valor do meio do token e depois decodes porque estava encoded em base-64
                     axios.get(`agents/${pubKey}`)
                         .then(res => {
-                            console.log(res);
                             this.$store.commit('setUser', res.data)
                             this.$router.push("dashboard")
                         }).catch(error => {

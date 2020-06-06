@@ -14,12 +14,14 @@ import errorDialog from "../components/errorDialog";
 import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
+import propertyDetails from "../components/PropertyDetails";
 
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
 Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
+Vue.component('propertyDetails', propertyDetails);
 
 Vue.use(VueRouter);
 
@@ -46,6 +48,11 @@ const routes = [
         path: '/managerProducts',
         name: 'managerProducts',
         component: managerProducts
+    },
+    {
+        path: '/propertyDetails/:recordId/property/:name',
+        name: 'propertyDetails',
+        component: propertyDetails, props: true
     },
     {
         path: '/editProduct/:recordId',
@@ -88,7 +95,7 @@ router.beforeEach((to, from, next) => {
     }
 
 
-    console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
+    console.log( " from: " + from.name + " to: " + to.name + " next: " + next.name)
     if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup') && !store.state.user) next({name: 'welcome'})
     else next()
 

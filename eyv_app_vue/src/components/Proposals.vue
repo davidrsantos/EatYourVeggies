@@ -70,7 +70,7 @@
                     <div v-if="item.status ==='OPEN'">
                         <v-btn small
                                @click="cancelProposal(item.recordId, item.receivingAgent)"
-                               color="green darken-1"
+                               color="red darken-1"
                         >
                             Cancel Proposal
                         </v-btn>
@@ -126,7 +126,6 @@
         this.loading = true
         axios.get(`/proposals/${this.$store.state.user.publicKey}`).then(response => {
           this.proposals = response.data
-          console.log(this.proposals)
           this.loading = false
         })
           .catch(function (error) {
@@ -139,7 +138,6 @@
         this.loading = true
         axios.get(`/proposals-send/${this.$store.state.user.publicKey}`).then(response => {
           this.proposalsSent = response.data
-          console.log(this.proposalsSent)
           this.loading = false
         })
           .catch(function (error) {

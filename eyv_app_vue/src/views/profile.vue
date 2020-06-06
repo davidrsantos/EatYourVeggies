@@ -75,7 +75,6 @@
         let userUpdate = _.pick(this.userValueUpdate, this.key)
         return axios.patch('users', userUpdate)
           .then((response) => {
-            console.log(response)
             let user = response.data
             user.name = this.user.name
 

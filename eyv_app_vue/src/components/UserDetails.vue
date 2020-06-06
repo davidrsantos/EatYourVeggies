@@ -294,13 +294,11 @@
       },
 
       userUpdate () {
-        console.log(this.userValueUpdate)
         let userUpdate = _.pick(this.userValueUpdate, this.key)
 
         if (this.key === 'role') {
           userUpdate = { 'role': this.userValueUpdate.role.value }
         }
-        console.log(userUpdate)
         if (this.myself) {
           return axios.patch('users', userUpdate)
             .then((response) => {

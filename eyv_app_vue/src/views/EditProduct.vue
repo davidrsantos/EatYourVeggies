@@ -150,6 +150,10 @@
                                        @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       :to="'/propertyDetails/'+product.recordId+'/property/shock'">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
                             </v-toolbar>
                             <v-container>
                             <v-text-field
@@ -536,15 +540,12 @@
 
             return user.role == 'distributor'
           });
-          console.log(role)
-          console.log(this.users)
         }
 
   },
       getUsers() {
         axios.get('/agents').then(response => {
              this.filterUserRole(response.data)
-          console.log(this.users)
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
 
@@ -577,19 +578,16 @@
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
-            console.log(harvestDate)
             var date = new Date(harvestDate * 1000);
             this.product.harvestDate = date.toISOString().substr(0, 10)
           }
           let expirationDate = getPropertyValue(response.data, 'expirationDate')
           if (expirationDate !== null) {
-            console.log(expirationDate)
             var date1 = new Date(expirationDate * 1000);
             this.product.expirationDate =  date1.toISOString().substr(0, 10)
           }
           let packingDate = getPropertyValue(response.data, 'packingDate')
           if (packingDate !== null) {
-            console.log(packingDate)
             var date2 = new Date(packingDate * 1000);
             this.product.packingDate =  date2.toISOString().substr(0, 10)
           }
@@ -622,8 +620,6 @@
             this.product.acceleration = shock.accel
             this.product.duration = shock.duration
           }
-
-          console.log(this.product)
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
       updateProperty (record, value) {
@@ -633,6 +629,7 @@
         })
         return transactions.submit([updatePayload], true).then(() => {
           console.log('Successfully submitted property update')
+          this.getProduct();
         }).catch(error=>{this.$emit('errorEvent', error)})
       },
       cancel () {
@@ -657,7 +654,6 @@
           receivingAgent: publicKey,
           role: this.roleToEnum(role)
         })
-        console.log(publicKey)
         return transactions.submit([transferPayload], true).then(() => {
           console.log('Successfully submitted proposal')
         }).catch(error=>{this.$emit('errorEvent', error)})
@@ -695,21 +691,21 @@
       reportTemperature () {
         this.updateProperty(this.recordId, {
           name: 'temperature',
-          numberValue: parsing.toInt(this.temperature),
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
       reportHumidity () {
         this.updateProperty(this.recordId, {
           name: 'humidade',
-          numberValue: parsing.toInt(this.humidade),
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
       reportCo2 () {
         this.updateProperty(this.recordId, {
           name: 'co2',
-          numberValue: parsing.toInt(this.co2),
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
