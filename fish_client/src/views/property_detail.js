@@ -70,7 +70,6 @@ const typedWidget = state => {
 const updateSubmitter = state => e => {
   e.preventDefault()
   const { name, dataType, recordId } = state.property
-
   let value = null
   if (state.update) {
     value = state.update

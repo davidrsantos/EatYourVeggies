@@ -45,14 +45,14 @@
 
                             />
                             <v-text-field
-                                    label="Size"
+                                    label="Size (cm)"
                                     outlined
                                     readonly
                                     :value="product.size"
 
                             />
                             <v-text-field
-                                    label="Weight"
+                                    label="Weight (grams)"
                                     outlined
                                     readonly
                                     :value="product.weight"
@@ -453,7 +453,7 @@
   import { getPropertyValue } from '../utils/records'
   import * as api from '../services/api'
   import * as parsing from '../services/parsing'
-  import { email, maxLength, minLength, numeric, between, required, sameAs } from 'vuelidate/lib/validators'
+  import { email, maxLength, minLength, numeric, between, decimal, required, sameAs } from 'vuelidate/lib/validators'
 
   const payloads = require('../services/payloads')
   const transactions = require('../services/transactions')
@@ -464,37 +464,37 @@
         valueUpdate: this.rules,
         tiltX: {
           minLength: minLength(1),
-          maxLength: maxLength(6),
-          numeric
+          maxLength: maxLength(9),
+          decimal
         },
         tiltY: {
           minLength: minLength(1),
-          maxLength: maxLength(6),
-          numeric
+          maxLength: maxLength(9),
+          decimal
         },
         acceleration:
           {
             minLength: minLength(1),
-            maxLength: maxLength(6),
-            numeric
+            maxLength: maxLength(9),
+            decimal
           },
         duration:
           {
             minLength: minLength(1),
-            maxLength: maxLength(6),
-            numeric
+            maxLength: maxLength(9),
+            decimal
           },
         latitude: {
           minLength: minLength(1),
           maxLength: maxLength(9),
-          numeric,
+          decimal,
           between: between(-90, 90)
         },
         longitude:
           {
             minLength: minLength(1),
             maxLength: maxLength(9),
-            numeric,
+            decimal,
             between: between(-180, 180)
           }
       }
@@ -609,11 +609,11 @@
           }
           let size = getPropertyValue(response.data, 'size')
           if (size !== null) {
-            this.product.size = size/1000000
+            this.product.size = parsing.toFloat(size)
           }
           let weight = getPropertyValue(response.data, 'weight')
           if (weight !== null) {
-            this.product.weight = weight/1000000
+            this.product.weight = parsing.toFloat(weight)
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
@@ -632,32 +632,32 @@
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
-            this.product.temperature = temperature/1000000
+            this.product.temperature =  parsing.toFloat(temperature)
           }
           let humidity = getPropertyValue(response.data, 'humidity')
           if (humidity !== null) {
-            this.product.humidity = humidity/1000000
+            this.product.humidity =  parsing.toFloat(humidity)
           }
           let co2 = getPropertyValue(response.data, 'co2')
           if (co2 !== null) {
-            this.product.co2 = co2/1000000
+            this.product.co2 =  parsing.toFloat(co2)
           }
           let location = getPropertyValue(response.data, 'location')
           if (location !== null) {
-            this.product.latitude = location.latitude
-            this.product.longitude = location.longitude
+            this.product.latitude = parsing.toFloat(location.latitude)
+            this.product.longitude = parsing.toFloat(location.longitude)
           }
           let tilt = getPropertyValue(response.data, 'tilt')
           if (tilt !== null) {
             tilt=JSON.parse(tilt)
-            this.product.tiltX = tilt.x/1000000
-            this.product.tiltY = tilt.y/1000000
+            this.product.tiltX = parsing.toFloat(tilt.x)
+            this.product.tiltY = parsing.toFloat(tilt.y)
           }
           let shock = getPropertyValue(response.data, 'shock')
           if (shock !== null) {
             shock = JSON.parse(shock)
-            this.product.acceleration = shock.accel/1000000
-            this.product.duration = shock.duration/1000000
+            this.product.acceleration = parsing.toFloat(shock.accel)
+            this.product.duration = parsing.toFloat(shock.duration)
           }
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
@@ -828,8 +828,8 @@
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The Temperature must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The Temperature should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The Temperature must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The Temperature should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The Temperature must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -840,8 +840,8 @@
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The CO2 must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The CO2 should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The CO2 must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The CO2 should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The CO2 must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -852,8 +852,8 @@
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The Humidity must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The Humidity must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The Humidity must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -867,8 +867,8 @@
         if (this.key1 === 'tiltX') {
           if (!this.$v.tiltX.$dirty) return errors
           !this.$v.tiltX.minLength && errors.push('The X must be at most 1 characters long')
-          !this.$v.tiltX.maxLength && errors.push('The X should not be more that 6 characters long')
-          !this.$v.tiltX.numeric && errors.push('The X must be numeric.')
+          !this.$v.tiltX.maxLength && errors.push('The X should not be more that 9 characters long')
+          !this.$v.tiltX.decimal && errors.push('The X must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -879,8 +879,8 @@
         if (this.key1 === 'acceleration') {
           if (!this.$v.acceleration.$dirty) return errors
           !this.$v.acceleration.minLength && errors.push('The acceleration must be at most 1 characters long')
-          !this.$v.acceleration.maxLength && errors.push('The acceleration should not be more that 6 characters long')
-          !this.$v.acceleration.numeric && errors.push('The acceleration must be numeric.')
+          !this.$v.acceleration.maxLength && errors.push('The acceleration should not be more that 9 characters long')
+          !this.$v.acceleration.decimal && errors.push('The acceleration must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -892,7 +892,7 @@
           if (!this.$v.latitude.$dirty) return errors
           !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
           !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
-          !this.$v.latitude.numeric && errors.push('The latitude must be numeric.')
+          !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
           !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -907,8 +907,8 @@
         if (this.key2 === 'tiltY') {
           if (!this.$v.tiltY.$dirty) return errors
           !this.$v.tiltY.minLength && errors.push('The Y must be at most 1 characters long')
-          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 6 characters long')
-          !this.$v.tiltY.numeric && errors.push('The Y must be numeric.')
+          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 9 characters long')
+          !this.$v.tiltY.decimal && errors.push('The Y must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -919,8 +919,8 @@
         if (this.key2 === 'duration') {
           if (!this.$v.duration.$dirty) return errors
           !this.$v.duration.minLength && errors.push('The duration must be at most 1 characters long')
-          !this.$v.duration.maxLength && errors.push('The duration should not be more that 6 characters long')
-          !this.$v.duration.numeric && errors.push('The duration must be numeric.')
+          !this.$v.duration.maxLength && errors.push('The duration should not be more that 9 characters long')
+          !this.$v.duration.decimal && errors.push('The duration must be a decimal number.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
           return errors
@@ -930,7 +930,7 @@
           if (!this.$v.longitude.$dirty) return errors
           !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
           !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
-          !this.$v.longitude.numeric && errors.push('The longitude must be numeric.')
+          !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
           !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -942,20 +942,20 @@
           case 'temperature':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
           case 'co2':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
           case 'humidity':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
 
         }
