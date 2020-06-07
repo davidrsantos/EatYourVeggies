@@ -2,9 +2,12 @@
     <v-app id="inspire">
 
         <v-app-bar app clipped-left color="#66BB6A" dark elevate-on-scroll>
+            <v-spacer/>
+            <v-avatar size="90px">
+                <img src="icon.png"/>
+            </v-avatar>
 
-            <v-spacer></v-spacer>
-            <v-toolbar-title>Eat Your Veggies</v-toolbar-title>
+            <v-toolbar-title link="/dashboard">Eat Your Veggies</v-toolbar-title>
             <v-spacer></v-spacer>
 
 
@@ -166,9 +169,13 @@
       }
     },
     sockets: {
-      connect () {
+      connect: function(){
+
         console.log('socket connected (socket ID = ' + this.$socket.id + ')');
       },
+      newUser(user){
+        console.log('recebi um novo user')
+      }
     }
   }
 </script>

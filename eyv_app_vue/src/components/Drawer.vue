@@ -3,7 +3,7 @@
 
         <v-list-item class="px-2" v-if="this.$store.state.user!=null">
             <v-list-item-avatar>
-                <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
+
             </v-list-item-avatar>
 
             <v-list-item-title>{{this.$store.state.user.name}}</v-list-item-title>
