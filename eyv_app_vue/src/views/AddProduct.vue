@@ -46,7 +46,7 @@
                         :error-messages="sizeErrors"
                         @blur="$v.size.$touch()"
                         @input="$v.size.$touch()"
-                        label="Size"
+                        label="Size (cm)"
                         required
                         v-model="size"
                 />
@@ -55,7 +55,7 @@
                         :error-messages="weightErrors"
                         @blur="$v.weight.$touch()"
                         @input="$v.weight.$touch()"
-                        label="Weight"
+                        label="Weight (grams)"
                         required
                         v-model="weight"
                 />
@@ -177,7 +177,7 @@
 <script>
     import {validationMixin} from "vuelidate";
     import {
-      required, maxLength, minLength, between, sameAs, email, numeric,alpha
+      required, maxLength, minLength, between, sameAs, email, numeric, alpha, decimal, minValue
     } from 'vuelidate/lib/validators'
     import * as transactions from "../services/transactions";
     import * as api from "../services/api";
@@ -205,22 +205,23 @@
         minLength: minLength(2),
       },
       origin: {
-        alpha,
         required,
         maxLength: maxLength(50),
         minLength: minLength(2)
       },
       weight: {
         required,
-        numeric,
+        decimal,
         maxLength: maxLength(10),
-        minLength: minLength(1)
+        minLength: minLength(1),
+        minValue: minValue(0.01)
       },
       size: {
         required,
-        numeric,
+        decimal,
         maxLength: maxLength(10),
-        minLength: minLength(1)
+        minLength: minLength(1),
+        minValue: minValue(0.01)
       },
       harvestDate: {
         required,
@@ -236,14 +237,14 @@
       latitude: {
         minLength: minLength(1),
         maxLength: maxLength(9),
-        numeric,
+        decimal,
         between: between(-90, 90)
       },
       longitude:
         {
           minLength: minLength(1),
           maxLength: maxLength(9),
-          numeric,
+          decimal,
           between: between(-180, 180)
         }
     },
@@ -310,7 +311,6 @@
         !this.$v.origin.maxLength && errors.push('The origin should not be more that 50 characters long')
         !this.$v.origin.minLength && errors.push('The origin must be at most 1 characters long')
         !this.$v.origin.required && errors.push('Origin is required.')
-        !this.$v.origin.alpha && errors.push('The origin can only contain letters.')
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
         else this.submitStatus = 'OK'
@@ -322,7 +322,8 @@
         !this.$v.weight.minLength && errors.push('The weight must be at most 1 characters long')
         !this.$v.weight.maxLength && errors.push('The weight should not be more that 10 characters long')
         !this.$v.weight.required && errors.push('Weight is required.')
-        !this.$v.weight.numeric && errors.push('The weight must be numeric.')
+        !this.$v.weight.decimal && errors.push('The weight must be a decimal number.')
+        !this.$v.weight.minValue && errors.push('The weight must be greater than zero')
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
         else this.submitStatus = 'OK'
@@ -334,7 +335,9 @@
         !this.$v.size.minLength && errors.push('The size must be at most 1 characters long')
         !this.$v.size.maxLength && errors.push('The size should not be more that 10 characters long')
         !this.$v.size.required && errors.push('Size is required.')
-        !this.$v.size.numeric && errors.push('The size must be numeric.')
+        !this.$v.size.decimal && errors.push('The size must be a decimal number.')
+        !this.$v.size.minValue && errors.push('The size must be greater than zero')
+
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
         else this.submitStatus = 'OK'
@@ -355,7 +358,7 @@
         if (!this.$v.latitude.$dirty) return errors
         !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
         !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
-        !this.$v.latitude.numeric && errors.push('The latitude must be numeric.')
+        !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
         !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
@@ -366,7 +369,7 @@
         const errors = []
         !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
         !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
-        !this.$v.longitude.numeric && errors.push('The longitude must be numeric.')
+        !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
         !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
