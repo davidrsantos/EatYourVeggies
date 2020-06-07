@@ -30,7 +30,7 @@
           "numberExponent": -6
         }, 
       {
-          "name": "humidade",
+          "name": "humidity",
           "dataType": 3,
           "numberExponent": -6
         },

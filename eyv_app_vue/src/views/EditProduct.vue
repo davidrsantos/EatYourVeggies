@@ -1,7 +1,8 @@
 <template>
-    <v-container fluid>
+    <v-container>
+        <v-container>
         <v-row no-gutters>
-            <v-col class="col-8">
+            <v-col class="col-5">
                 <v-card class="mx-auto" max-width="700">
                     <v-toolbar color="green" dark>
                         <v-spacer></v-spacer>
@@ -86,7 +87,8 @@
                 </v-card>
 
             </v-col>
-            <v-col class="col-4">
+            <v-spacer></v-spacer>
+            <v-col class="col-5">
                 <v-toolbar color="green" dark>
                     <v-spacer></v-spacer>
                     <v-toolbar-title>Product Properties</v-toolbar-title>
@@ -113,30 +115,59 @@
                 <v-card>
                     <v-container>
                         <form>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>Temperature ºC</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.temperature,'temperature','Temperature ºC')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'temperature')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
                             <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="Temperature ºC"
                                     outlined
                                     readonly
                                     v-model="product.temperature==null?'N/A':product.temperature"
                             />
-
+                            </v-container>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.humidity,'humidity','Humidity kg/m³')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'humidity')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
+                                <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.humidade,'humidade','Humidity kg/m³')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="Humidity kg/m³"
                                     outlined
                                     readonly
 
-                                    v-model="product.humidade==null?'N/A':product.humidade"
+                                    v-model="product.humidity==null?'N/A':product.humidity"
                             />
-
+                                </v-container>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>CO2</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.humidity,'co2','CO2')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'co2')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
+                            <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.co2,'co2','CO2')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="CO2"
                                     outlined
                                     readonly
                                     v-model="product.co2==null?'N/A':product.co2"
@@ -151,7 +182,7 @@
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
                                 <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       :to="'/propertyDetails/'+product.recordId+'/property/shock'">
+                                       @click="callRoutePropertyDetails(product.recordId,'shock')">
                                     <v-icon>mdi-folder-clock</v-icon>
                                 </v-btn>
                             </v-toolbar>
@@ -178,6 +209,10 @@
                                 <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
                                     <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'tilt')">
+                                    <v-icon>mdi-folder-clock</v-icon>
                                 </v-btn>
                             </v-toolbar>
                             <v-container>
@@ -224,7 +259,7 @@
             </v-col>
 
         </v-row>
-
+        </v-container>
         <v-dialog v-model="dialogTransfer" max-width="600">
 
             <v-card fluid>
@@ -480,7 +515,7 @@
         latitude: '',
         longitude: '',
         temperature: '',
-        humidade: '',
+        humidity: '',
         co2: '',
         acceleration: '',
         duration: '',
@@ -491,7 +526,7 @@
       latitude: '',
       longitude: '',
       temperature: '',
-      humidade: '',
+      humidity: '',
       co2: '',
       acceleration: '',
       duration: '',
@@ -519,6 +554,10 @@
       }
     },
     methods: {
+      callRoutePropertyDetails(recordId,name){
+        this.$router.push('/propertyDetails/'+recordId+'/property/'+name)
+      },
+
       handleErrors (error) {
         this.$emit('errorEvent', error)
       },
@@ -570,11 +609,11 @@
           }
           let size = getPropertyValue(response.data, 'size')
           if (size !== null) {
-            this.product.size = size
+            this.product.size = size/1000000
           }
           let weight = getPropertyValue(response.data, 'weight')
           if (weight !== null) {
-            this.product.weight = weight
+            this.product.weight = weight/1000000
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
@@ -593,15 +632,15 @@
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
-            this.product.temperature = temperature
+            this.product.temperature = temperature/1000000
           }
-          let humidade = getPropertyValue(response.data, 'humidade')
-          if (humidade !== null) {
-            this.product.humidade = humidade
+          let humidity = getPropertyValue(response.data, 'humidity')
+          if (humidity !== null) {
+            this.product.humidity = humidity/1000000
           }
           let co2 = getPropertyValue(response.data, 'co2')
           if (co2 !== null) {
-            this.product.co2 = co2
+            this.product.co2 = co2/1000000
           }
           let location = getPropertyValue(response.data, 'location')
           if (location !== null) {
@@ -611,14 +650,14 @@
           let tilt = getPropertyValue(response.data, 'tilt')
           if (tilt !== null) {
             tilt=JSON.parse(tilt)
-            this.product.tiltX = tilt.x
-            this.product.tiltY = tilt.y
+            this.product.tiltX = tilt.x/1000000
+            this.product.tiltY = tilt.y/1000000
           }
           let shock = getPropertyValue(response.data, 'shock')
           if (shock !== null) {
             shock = JSON.parse(shock)
-            this.product.acceleration = shock.accel
-            this.product.duration = shock.duration
+            this.product.acceleration = shock.accel/1000000
+            this.product.duration = shock.duration/1000000
           }
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
@@ -697,7 +736,7 @@
       },
       reportHumidity () {
         this.updateProperty(this.recordId, {
-          name: 'humidade',
+          name: 'humidity',
           numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
@@ -757,7 +796,7 @@
         _.set(this.key, this.valueUpdate)
         if (this.key == 'temperature') {
           this.reportTemperature()
-        } else if (this.key == 'humidade') {
+        } else if (this.key == 'humidity') {
           this.reportHumidity()
         } else {
           this.reportCo2()
@@ -809,7 +848,7 @@
 
           return errors
         }
-        if (this.key === 'humidade') {
+        if (this.key === 'humidity') {
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The Humidity must be at most 1 characters long')
@@ -912,7 +951,7 @@
               maxLength: maxLength(6),
               numeric
             }
-          case 'humidade':
+          case 'humidity':
             return {
               minLength: minLength(1),
               maxLength: maxLength(6),

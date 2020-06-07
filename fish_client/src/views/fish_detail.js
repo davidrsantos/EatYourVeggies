@@ -38,7 +38,7 @@ const {
 const authorizableProperties = [
   ['location', 'Location'],
   ['temperature', 'Temperature'],
-  ['humidade', 'Humidade'], //TODO foi alterado para ter humidade
+  ['humidity', 'humidity'], //TODO foi alterado para ter humidity
   ['co2', 'Co2'],//TODO Foi alterado para ter co2
   ['tilt', 'Tilt'],
   ['shock', 'Shock']
@@ -587,16 +587,16 @@ const FishDetail = {
               onsuccess: () => _loadData(vnode.attrs.recordId, vnode.state)
             })
            : null)),
-           ////TODO foi alterado para ter humidade
+           ////TODO foi alterado para ter humidity
            _row(
             _labelProperty(
-              'Humidade',
-              _propLink(record, 'humidade', _formatHumid(getPropertyValue(record, 'humidade')))),
-            (isReporter(record, 'humidade', publicKey) && !record.final
+              'humidity',
+              _propLink(record, 'humidity', _formatHumid(getPropertyValue(record, 'humidity')))),
+            (isReporter(record, 'humidity', publicKey) && !record.final
             ? m(ReportValue,
               {
-                name: 'humidade',
-                label: 'Humidade (C°)',
+                name: 'humidity',
+                label: 'humidity (C°)',
                 record,
                 typeField: 'numberValue',
                 type: payloads.updateProperties.enum.NUMBER,
@@ -702,7 +702,7 @@ const _formatHumid = (hum) => {
   }
 
   return 'Unknown'
-}//TODO foi alterado para ter humidade
+}//TODO foi alterado para ter humidity
 
 const _formatCo2 = (co2) => {
   if (co2 !== undefined && co2 !== null) {

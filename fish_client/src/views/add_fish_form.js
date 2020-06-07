@@ -30,7 +30,7 @@ const layout = require('../components/layout')
 const authorizableProperties = [
   ['location', 'Location'],
   ['temperature', 'Temperature'],
-  ['humidade', 'Humidade'], //TODO Foi alterado para ter humidade
+  ['humidity', 'Humidity'], //TODO Foi alterado para ter humidity
   ['co2', 'Co2'],//TODO Foi alterado para ter co2
   ['tilt', 'Tilt'],
   ['shock', 'Shock']

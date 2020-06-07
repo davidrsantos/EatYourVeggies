@@ -52,18 +52,30 @@
       }
     },
     methods: {
-      getPropertyValues () {//todo
-        console.log(this.recordId + '    ' + this.name)
+      getPropertyValues () {
         axios.get(`records/${this.recordId}/${this.name}`)
           .then(res => {
             this.configureTypeProperty(res.data)
-          })
+          }).catch(function (error) {
+          console.log(error)
+          this.loading = false
+        })
       },
 
       configureTypeProperty: function (property) {
-        //if (property.dataType === 'NUMBER') {
-        // return m(LineGraphWidget, { updates: property.updates })
-        // }
+        if (property.dataType === 'NUMBER') {
+          property.updates.forEach(property => {
+
+            let propertyValue = property.value
+
+            this.y_values.push(propertyValue)
+            this.x_values.push(this.formatTimestamp(property.timestamp))
+
+          })
+          this.datacollection_line.datasets[0].data = this.y_values
+          this.datacollection_line.labels = this.x_values
+          this.loaded=true
+         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {
 
@@ -73,33 +85,25 @@
             this.x_values.push(this.formatTimestamp(property.timestamp))
 
           })
-
           this.datacollection_line.datasets[0].data = this.y_values
           this.datacollection_line.labels = this.x_values
           this.loaded=true
-          console.log('y_values' + this.y_values)
-          console.log('x_values' + this.x_values)
+
         }
         if (property.name === 'tilt') {
-          let amplitudes
-          for (let update in property.updates) {
-            amplitudes.push(Math.sqrt(update.value.x ** 2 + update.value.y ** 2))
-          }
-          console.log(amplitudes)
-        }
-        /*
-               if (property.name === 'shock') {
-                  return m(LineGraphWidget, {
-                    updates: property.updates.map(update => {
-                      const degree = update.value.duration === 0
-                        ? 0
-                        : update.value.accel / update.value.duration
-                      return _.assign({}, update, {value: degree.toFixed(3)})
-                    })
-                  })
-                }
+          property.updates.forEach(property => {
 
-                return null*/
+            let propertyValue = parsing.floatifyValue(property.value)
+
+            this.y_values.push(Math.sqrt(propertyValue.x ** 2 + propertyValue.y ** 2))
+            this.x_values.push(this.formatTimestamp(property.timestamp))
+
+          })
+          this.datacollection_line.datasets[0].data = this.y_values
+          this.datacollection_line.labels = this.x_values
+          this.loaded=true
+        }
+
       },
       formatTimestamp (sec) {
         if (!sec) {

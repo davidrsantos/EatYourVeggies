@@ -46,7 +46,7 @@
       "ownerIndex": 0,
       "custodianIndex": 2,
       "reporterIndex": 1,
-      "reportableProperties": ["temperature","humidade","co2", "location", "tilt", "shock"]
+      "reportableProperties": ["temperature","humidity","co2", "location", "tilt", "shock"]
     },
     {
       "recordId": "5ebd0f0c9136cf119e3c9671",
@@ -96,7 +96,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -150,7 +150,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -204,7 +204,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -258,7 +258,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -312,7 +312,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -366,7 +366,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -420,7 +420,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -474,7 +474,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -528,7 +528,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -582,7 +582,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -636,7 +636,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -690,7 +690,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -744,7 +744,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -798,7 +798,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -852,7 +852,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -906,7 +906,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -960,7 +960,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1014,7 +1014,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1068,7 +1068,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1122,7 +1122,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1176,7 +1176,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1230,7 +1230,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1284,7 +1284,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1338,7 +1338,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1392,7 +1392,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1446,7 +1446,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1500,7 +1500,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1554,7 +1554,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1608,7 +1608,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1662,7 +1662,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1716,7 +1716,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1770,7 +1770,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1824,7 +1824,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1878,7 +1878,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1932,7 +1932,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -1986,7 +1986,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2040,7 +2040,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2094,7 +2094,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2148,7 +2148,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2202,7 +2202,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2256,7 +2256,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2310,7 +2310,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2364,7 +2364,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2418,7 +2418,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2472,7 +2472,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2526,7 +2526,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2580,7 +2580,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2634,7 +2634,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2688,7 +2688,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2742,7 +2742,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2796,7 +2796,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2850,7 +2850,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2904,7 +2904,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -2958,7 +2958,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "co2",
         "location",
         "tilt",
@@ -3013,7 +3013,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3067,7 +3067,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3121,7 +3121,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3175,7 +3175,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3229,7 +3229,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "co2",
         "location",
         "tilt",
@@ -3284,7 +3284,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3338,7 +3338,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3392,7 +3392,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3446,7 +3446,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3500,7 +3500,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3554,7 +3554,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3608,7 +3608,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3662,7 +3662,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3716,7 +3716,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3770,7 +3770,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3824,7 +3824,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3878,7 +3878,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3932,7 +3932,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -3986,7 +3986,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4040,7 +4040,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4094,7 +4094,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4148,7 +4148,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4202,7 +4202,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4256,7 +4256,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4310,7 +4310,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4364,7 +4364,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4418,7 +4418,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4472,7 +4472,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4526,7 +4526,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4580,7 +4580,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4634,7 +4634,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4688,7 +4688,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4742,7 +4742,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4796,7 +4796,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4850,7 +4850,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4904,7 +4904,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -4958,7 +4958,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5012,7 +5012,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5067,7 +5067,7 @@
 
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5121,7 +5121,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5175,7 +5175,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5229,7 +5229,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5283,7 +5283,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5337,7 +5337,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
@@ -5391,7 +5391,7 @@
       "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidade",
+        "humidity",
         "location",
         "tilt",
         "shock"
