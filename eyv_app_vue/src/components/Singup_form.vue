@@ -242,7 +242,7 @@
             .then(res => {
               this.$router.push('welcome')
               console.log(res)
-              this.$socket.emit('newUser', res.data.user)
+              this.$socket.client.emit('newUser', res.data.user)
               this.$emit('errorEvent', 'You will need to way for the administrator to validate your registration')
             }).catch(error => {
               this.$emit('errorEvent', error.response.data.error)

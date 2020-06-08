@@ -10,11 +10,12 @@
             <v-toolbar-title link="/dashboard">Eat Your Veggies</v-toolbar-title>
             <v-spacer></v-spacer>
 
-
+            <v-btn @click="teste">newUser</v-btn>
             <v-menu
                     :close-on-content-click="false"
                     :nudge-width="200"
                     offset-y
+
 
             >
                 <template v-slot:activator="{ on }">
@@ -27,8 +28,7 @@
                     >
                         <v-badge
                                 :content="notifications.length"
-                                :value="notifications"
-
+                                :value="notifications.length>0"
                                 color="red"
                                 overlap
 
@@ -43,12 +43,19 @@
                 <v-card>
                     <v-card-text>
 
-                        <material-notification :color="item.type" :key="item.message"
+                        <material-notification :color="item.color" :key="item.message"
                                                class="mb-3"
-                                               dismissible
+                                               elevation="5"
                                                v-for="item in notifications.slice().reverse()"
+
                         >
-                            <strong>{{item.type.toUpperCase()}}</strong> - {{item.message}}
+                            <v-row>
+                                <strong>{{item.title.toUpperCase()}}</strong>   <div>  -{{item.message}}</div>
+                                <v-spacer/>
+                                <v-btn @click="removeFromNotifications(item)" icon>
+                                    <v-icon>mdi-eye</v-icon>
+                                </v-btn>
+                            </v-row>
                         </material-notification>
 
                     </v-card-text>
@@ -75,7 +82,10 @@
         >
             <v-container>
                 <router-view @errorEvent="handleError"/>
+
+
             </v-container>
+
         </v-content>
         <v-navigation-drawer app clipped expand-on-hover mini-variant
                              permanent
@@ -86,8 +96,7 @@
 
         </v-navigation-drawer>
         <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
-
-
+        <vue-snotify></vue-snotify>
     </v-app>
 </template>
 
@@ -98,6 +107,42 @@
   const { setBatcherPubkey } = require('./services/transactions')
 
   export default {
+    sockets: {
+      connect () {
+        console.log('socket connected (socket ID = ' + this.$socket.client.id + ')')
+      },
+      newUser (user) {
+        console.log('ola new user!')
+        let buttons = [
+          { text: 'Details', action: () => console.log('Clicked: Yes'), bold: false },
+          {
+            text: 'Later', action: (toast) => {
+              console.log('Clicked: Later')
+              vm.$snotify.remove(toast.id)
+            }
+          },
+          {
+            text: 'Close', action: (toast) => {
+              console.log('Clicked: No')
+              vm.$snotify.remove(toast.id)
+
+            }, bold: true
+          },
+        ]
+        let message = user.name + '\n is ask to sign in!! Do you want to see more?'
+        let title = 'New User'
+        this.$snotify.confirm(message, title,
+          {
+            timeout: 5000,
+            showProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            buttons
+          })
+        this.notifications.push({ color: 'confirm', title: title, message: message })
+      }
+    },
+
     name: 'App',
     props: {
       source: String
@@ -108,16 +153,21 @@
       showErrors: false,
       error: null,
       notifications: [
-        { type: 'error', message: 'alguma ioahfjiajsfpia  pioajsfj' }, { type: 'success', message: 'alguma' },
+        { title: 'error', message: 'alguma ioahfjiajsfpia  pioajsfj' }, {
+          title: 'success',
+          message: 'alguma',
+          color: 'success'
+        },
         {
-          type: 'warning',
-          message: 'alguma'
-        },  {
-          type: 'warning',
+          title: 'warning',
+          message: 'alguma',
+          color: 'warning'
+        }, {
+          title: 'warning',
           message: 'alguma'
         }, {
-          type: 'warning',
-          message: 'algumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalgumaalguma'
+          title: 'warning',
+          message: 'sdxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkijmdsf  iosdfh o isd vdsvvvvvvvvvvvvvvvvvvvvvvfg gdddddddddddddddddddsgdsfa'
         },
       ]
     }),
@@ -125,27 +175,38 @@
       this.$store.commit('loadTokenAndUserFromSession') //this keeps the user logged
       setBatcherPubkey()
       if (this.$store.state.user) {
-        this.$socket.emit('user_enter', this.$store.state.user);
+        this.$socket.client.emit('user_enter', this.$store.state.user)
         this.$router.push('dashboard')
 
       }
     },
 
     methods: {
+      removeFromNotifications (item) {
+        let index = this.notifications.indexOf(item)
+        if (index > -1) {
+          this.notifications.splice(index, 1)
+        }
+      },
+      teste () {
+        let user = { name: 'ola' }
+        this.$socket.client.emit('newUser', user)
+
+      },
       closeDialog () {
         this.showErrors = false
       },
       handleError (error) {
-        console.log("chegou aqui")
+        console.log('chegou aqui')
         console.error('An Error occurrence: ' + error)
         this.error = error
         this.showErrors = true
-        this.notifications.push({type: 'error', message: error})
+        this.notifications.push({ title: 'error', color: 'error', message: error })
       },
 
       logout () {
         this.$store.commit('clearUserAndToken')
-        this.$socket.emit('user_exit', this.$store.state.user);
+        this.$socket.client.emit('user_exit', this.$store.state.user)
         api.clearAuth()
         transactions.clearPrivateKey()
         this.$router.push('welcome')
@@ -168,14 +229,9 @@
         }
       }
     },
-    sockets: {
-      connect: function(){
 
-        console.log('socket connected (socket ID = ' + this.$socket.id + ')');
-      },
-      newUser(user){
-        console.log('recebi um novo user')
-      }
-    }
   }
 </script>
+<style lang="scss">
+    @import "~vue-snotify/styles/material";
+</style>
