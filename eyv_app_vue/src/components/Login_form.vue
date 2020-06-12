@@ -28,7 +28,7 @@
                     <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
                     <v-btn @click="clear">clear</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-8" light to="/singup">SingUp</v-btn>
+                    <v-btn class="mr-8" light to="/singup">SignUp</v-btn>
                 </v-row>
             </form>
 

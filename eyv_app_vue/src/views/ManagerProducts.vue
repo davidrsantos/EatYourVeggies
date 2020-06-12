@@ -117,7 +117,7 @@
 
 
             <template v-slot:default="props">
-                <v-row>
+           <!--     <v-row>
                     <v-col
                             :key="item.name"
                             cols="12"
@@ -141,6 +141,67 @@
 
                         </v-card>
                     </v-col>
+                </v-row>-->
+                <v-row>
+
+                        <v-card :loading="loading"
+                          class="mx-auto my-12" width="374">
+
+                            <v-card-title class="subheading font-weight-bold">Cenoura</v-card-title>
+                            <v-img
+                                    height="250"
+                                    src="cenoura1.webp"
+                            ></v-img>
+
+                            <v-card-text>Batch : canoura1</v-card-text>
+                            <v-divider></v-divider>
+
+
+                        </v-card>
+                        <v-card :loading="loading"
+                                class="mx-auto my-12" width="374">
+
+                            <v-card-title class="subheading font-weight-bold">Tomate</v-card-title>
+                            <v-img
+                                    height="250"
+                                    src="tomate.jpg"
+                            ></v-img>
+
+                            <v-card-text>Batch : tomate12354643</v-card-text>
+                            <v-divider></v-divider>
+
+
+                        </v-card>
+                        <v-card :loading="loading"
+                                class="mx-auto my-12" width="374">
+
+                            <v-card-title class="subheading font-weight-bold">Couve</v-card-title>
+                            <v-img
+                                    height="250"
+                                    src="couve.jpeg"
+                            ></v-img>
+
+                            <v-card-text>Batch : Alent2020lt45</v-card-text>
+                            <v-divider></v-divider>
+
+
+                        </v-card>
+                        <v-card :loading="loading"
+                                class="mx-auto my-12" width="374">
+
+                            <v-card-title class="subheading font-weight-bold">Batata</v-card-title>
+                            <v-img
+                                    height="250"
+                                    src="batata.jpg"
+                            ></v-img>
+
+                            <v-card-text>Batch : Alem45345ly345</v-card-text>
+                            <v-divider></v-divider>
+
+
+                        </v-card>
+
+
                 </v-row>
             </template>
             <template v-slot:footer>

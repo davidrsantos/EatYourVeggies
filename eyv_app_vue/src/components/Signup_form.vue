@@ -143,16 +143,16 @@
 
       //------------------------------------------- using this just in dev----------------------------------------//
 
-      email: "teste@teste.pt",
+      email: "bob@email.com",
       password: '123123123',
-      repeatPassword: null,
-      username: 'teste',
+      repeatPassword: '123123123',
+      username: 'bob',
       showPassword: false,
-      nif: '123123123',
+      nif: '123456789',
       role: {value: 'producer'},
-      name: 'ola',
+      name: 'Mr.Bob',
       typeofUser: [
-        { name: 'Administrador', value: 'admin' },
+     /*   { name: 'Administrador', value: 'admin' },*/
         { name: 'Producer', value: 'producer' },
         { name: 'Distributor', value: 'distributor' },
         { name: 'Retailer', value: 'retailer' },

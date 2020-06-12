@@ -1,69 +1,72 @@
 <template>
+
     <v-app id="inspire">
 
         <v-app-bar app clipped-left color="#66BB6A" dark elevate-on-scroll>
-            <v-spacer/>
-            <v-avatar size="90px">
-                <img src="icon.png"/>
-            </v-avatar>
+            <v-app-bar-nav-icon class="ml-10 mr-5">
+                <v-avatar size="90px">
+                    <img src="icon.png"/>
+                </v-avatar>
+            </v-app-bar-nav-icon>
+
 
             <v-toolbar-title link="/dashboard">Eat Your Veggies</v-toolbar-title>
+
             <v-spacer></v-spacer>
 
-            <v-btn @click="teste">newUser</v-btn>
-            <v-menu
-                    :close-on-content-click="false"
-                    :nudge-width="200"
-                    offset-y
-
-
-            >
-                <template v-slot:activator="{ on }">
-
-
-                    <v-btn
-                            class="mr-10"
-                            icon
-                            v-on="on"
-                    >
-                        <v-badge
-                                :content="notifications.length"
-                                :value="notifications.length>0"
-                                color="red"
-                                overlap
-
-                        >
-                            <v-icon>mdi-bell</v-icon>
-                        </v-badge>
-                    </v-btn>
-
-
-                </template>
-
-                <v-card>
-                    <v-card-text>
-
-                        <material-notification :color="item.color" :key="item.message"
-                                               class="mb-3"
-                                               elevation="5"
-                                               v-for="item in notifications.slice().reverse()"
-
-                        >
-                            <v-row>
-                                <strong>{{item.title.toUpperCase()}}</strong>   <div>  -{{item.message}}</div>
-                                <v-spacer/>
-                                <v-btn @click="removeFromNotifications(item)" icon>
-                                    <v-icon>mdi-eye</v-icon>
-                                </v-btn>
-                            </v-row>
-                        </material-notification>
-
-                    </v-card-text>
-
-                </v-card>
-            </v-menu>
-
             <template v-if="this.$store.state.token && (this.$store.state.user!=null)">
+                <v-menu
+                        :close-on-content-click="false"
+                        :nudge-width="200"
+                        offset-y
+
+
+                >
+                    <template v-slot:activator="{ on }">
+
+
+                        <v-btn
+                                class="mr-10"
+                                icon
+                                v-on="on"
+                        >
+                            <v-badge
+                                    :content="notifications.length"
+                                    :value="notifications.length>0"
+                                    color="red"
+                                    overlap
+
+                            >
+                                <v-icon>mdi-bell</v-icon>
+                            </v-badge>
+                        </v-btn>
+
+
+                    </template>
+
+                    <v-card>
+                        <v-card-text>
+
+                            <material-notification :color="item.color" :key="item.message"
+                                                   class="mb-3"
+                                                   elevation="5"
+                                                   v-for="item in notifications.slice().reverse()"
+
+                            >
+                                <v-row>
+                                    <strong>{{item.title.toUpperCase()}}</strong>
+                                    <div> -{{item.message}}</div>
+                                    <v-spacer/>
+                                    <v-btn @click="removeFromNotifications(item)" icon>
+                                        <v-icon>mdi-eye</v-icon>
+                                    </v-btn>
+                                </v-row>
+                            </material-notification>
+
+                        </v-card-text>
+
+                    </v-card>
+                </v-menu>
                 <v-toolbar-title>({{typeOfUser(this.$store.state.user.role)}}) {{this.$store.state.user.username}}
                 </v-toolbar-title>
 
@@ -98,6 +101,7 @@
         <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
         <vue-snotify></vue-snotify>
     </v-app>
+
 </template>
 
 <script>
