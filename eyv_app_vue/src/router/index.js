@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import Dashboard from '../views/Dashboard.vue'
 import drawer from '../components/Drawer.vue'
-import singup from '../components/Singup_form.vue'
+import signup from '../components/Signup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
 import managerProducts from '../views/ManagerProducts'
@@ -66,9 +66,9 @@ const routes = [
         component: Dashboard
     },
     {
-        path: '/singup',
-        name: 'Singup',
-        component: singup
+        path: '/signup',
+        name: 'Signup',
+        component: signup
     },
     {
         path: '/about',
@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
 
 
     console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
-    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup') && !store.state.user) next({name: 'welcome'})
+    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Signup') && !store.state.user) next({name: 'welcome'})
     else next()
 
 

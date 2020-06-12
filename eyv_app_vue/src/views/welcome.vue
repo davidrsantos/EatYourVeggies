@@ -9,7 +9,7 @@
 
                 <v-btn  light to="/login" x-large>Login</v-btn>
 
-                <v-btn  light to="/singup" x-large>SingUp</v-btn>
+                <v-btn  light to="/singup" x-large>SignUp</v-btn>
 
 
 
