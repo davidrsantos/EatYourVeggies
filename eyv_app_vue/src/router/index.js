@@ -92,7 +92,7 @@ router.beforeEach((to, from, next) => {
 
 
     console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
-    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup') && !store.state.user) next({name: 'welcome'})
+    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup' && to.name !=='managerProducts') && !store.state.user) next({name: 'welcome'})
     else next()
 
 

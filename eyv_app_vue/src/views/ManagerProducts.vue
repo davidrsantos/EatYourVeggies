@@ -22,7 +22,7 @@
                 ></v-divider>
                 <v-spacer></v-spacer>
 
-                <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer'">
+                <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer' && $store.state.user.role !== 'viewer'">
                     <button class="mb-2" color="green" id="myButton">Add Product</button>
                 </router-link>
 
@@ -51,7 +51,7 @@
       },
       getProducts () {
         this.loading = true
-        if (this.$store.state.user.role == 'admin') {
+        if (this.$store.state.user.role == 'admin' || this.$store.state.user.role == 'viewer') {
           axios.get('/records').then(response => {
             this.products = response.data
             this.loading = false
