@@ -84,7 +84,7 @@
         <v-content app
         >
             <v-container>
-                <router-view @errorEvent="handleError"/>
+                <router-view @errorEvent="handleError" @registEvent="handleRegist"/>
 
 
             </v-container>
@@ -99,16 +99,18 @@
 
         </v-navigation-drawer>
         <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
-        <vue-snotify></vue-snotify>
+        <vue-snotify ></vue-snotify>
     </v-app>
 
 </template>
 
 <script>
+  import {SnotifyPosition, SnotifyStyle} from 'vue-snotify';
   import * as api from './services/api'
   import * as transactions from './services/transactions'
 
   const { setBatcherPubkey } = require('./services/transactions')
+
 
   export default {
     sockets: {
@@ -206,6 +208,14 @@
         this.error = error
         this.showErrors = true
         this.notifications.push({ title: 'error', color: 'error', message: error })
+      },
+      handleRegist (msg) {
+        this.$snotify.warning(msg,'Hello New User',{
+          timeout: 5000,
+          position: SnotifyPosition.centerBottom,
+          bodyMaxLength: 500
+        })
+
       },
 
       logout () {
