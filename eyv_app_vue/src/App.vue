@@ -2,10 +2,11 @@
     <v-app id="inspire">
 
         <v-app-bar app clipped-left color="#66BB6A" dark elevate-on-scroll>
-            <v-spacer/>
-            <v-avatar size="90px">
-                <img src="icon.png"/>
-            </v-avatar>
+            <v-app-bar-nav-icon class="ml-10 mr-5" to="/">
+                <v-avatar size="90px">
+                    <img src="icon.png"/>
+                </v-avatar>
+            </v-app-bar-nav-icon>
 
             <v-toolbar-title link="/dashboard">Eat Your Veggies</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -207,7 +208,7 @@
       },
       handleRegist (msg) {
         this.$snotify.warning(msg,'Hello New User',{
-          timeout: 5000,
+          timeout: 50000,
           position: SnotifyPosition.centerBottom,
           bodyMaxLength: 500
         })
