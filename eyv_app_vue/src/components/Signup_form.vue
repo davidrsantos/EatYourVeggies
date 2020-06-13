@@ -242,6 +242,7 @@
             .then(res => {
               this.$router.push('welcome')
               console.log(res)
+              res.data.user.name = this.name
               this.$socket.client.emit('newUser', res.data.user)
               this.$emit('registEvent', 'Wait a little bit the administrator is validating your registration....')
             }).catch(error => {
