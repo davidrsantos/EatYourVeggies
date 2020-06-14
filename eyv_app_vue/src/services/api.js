@@ -62,9 +62,7 @@ const clearAuth = () => {
 const getPublicKey = () => {
     const token = getAuth()
     if (!token) return null
-    console.log("valor do token: " +token);
     let s = window.atob(token.split('.')[1]);
-    console.log("valor depois de dividido: " +s);
     return s
 }
 

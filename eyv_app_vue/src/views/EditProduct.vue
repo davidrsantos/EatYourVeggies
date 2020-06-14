@@ -1,7 +1,8 @@
 <template>
-    <v-container fluid>
+    <v-container>
+        <v-container>
         <v-row no-gutters>
-            <v-col class="col-8">
+            <v-col class="col-5">
                 <v-card class="mx-auto" max-width="700">
                     <v-toolbar color="green" dark>
                         <v-spacer></v-spacer>
@@ -44,14 +45,14 @@
 
                             />
                             <v-text-field
-                                    label="Size"
+                                    label="Size (cm)"
                                     outlined
                                     readonly
                                     :value="product.size"
 
                             />
                             <v-text-field
-                                    label="Weight"
+                                    label="Weight (grams)"
                                     outlined
                                     readonly
                                     :value="product.weight"
@@ -86,7 +87,8 @@
                 </v-card>
 
             </v-col>
-            <v-col class="col-4">
+            <v-spacer></v-spacer>
+            <v-col class="col-5">
                 <v-toolbar color="green" dark>
                     <v-spacer></v-spacer>
                     <v-toolbar-title>Product Properties</v-toolbar-title>
@@ -113,30 +115,59 @@
                 <v-card>
                     <v-container>
                         <form>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>Temperature ºC</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.temperature,'temperature','Temperature ºC')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'temperature')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
                             <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.temperature,'temperature','Temperature ºC')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="Temperature ºC"
                                     outlined
                                     readonly
                                     v-model="product.temperature==null?'N/A':product.temperature"
                             />
-
+                            </v-container>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.humidity,'humidity','Humidity kg/m³')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'humidity')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
+                                <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.humidade,'humidade','Humidity kg/m³')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="Humidity kg/m³"
                                     outlined
                                     readonly
 
-                                    v-model="product.humidade==null?'N/A':product.humidade"
+                                    v-model="product.humidity==null?'N/A':product.humidity"
                             />
-
+                                </v-container>
+                            <v-toolbar dense color="green" dark>
+                                <v-toolbar-title>CO2</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
+                                       @click="openDialog(product.humidity,'co2','CO2')">
+                                    <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'co2')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
+                            </v-toolbar>
+                            <v-container>
                             <v-text-field
-                                    @click:append="openDialog(product.co2,'co2','CO2')"
-                                    :append-icon="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                    label="CO2"
                                     outlined
                                     readonly
                                     v-model="product.co2==null?'N/A':product.co2"
@@ -149,6 +180,10 @@
                                 <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
                                     <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'shock')">
+                                    <v-icon>mdi-folder-clock</v-icon>
                                 </v-btn>
                             </v-toolbar>
                             <v-container>
@@ -174,6 +209,10 @@
                                 <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
                                        @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
                                     <v-icon>mdi-pencil</v-icon>
+                                </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'tilt')">
+                                    <v-icon>mdi-folder-clock</v-icon>
                                 </v-btn>
                             </v-toolbar>
                             <v-container>
@@ -220,7 +259,7 @@
             </v-col>
 
         </v-row>
-
+        </v-container>
         <v-dialog v-model="dialogTransfer" max-width="600">
 
             <v-card fluid>
@@ -414,7 +453,7 @@
   import { getPropertyValue } from '../utils/records'
   import * as api from '../services/api'
   import * as parsing from '../services/parsing'
-  import { email, maxLength, minLength, numeric, between, required, sameAs } from 'vuelidate/lib/validators'
+  import { email, maxLength, minLength, numeric, between, decimal, required, sameAs } from 'vuelidate/lib/validators'
 
   const payloads = require('../services/payloads')
   const transactions = require('../services/transactions')
@@ -425,37 +464,37 @@
         valueUpdate: this.rules,
         tiltX: {
           minLength: minLength(1),
-          maxLength: maxLength(6),
-          numeric
+          maxLength: maxLength(9),
+          decimal
         },
         tiltY: {
           minLength: minLength(1),
-          maxLength: maxLength(6),
-          numeric
+          maxLength: maxLength(9),
+          decimal
         },
         acceleration:
           {
             minLength: minLength(1),
-            maxLength: maxLength(6),
-            numeric
+            maxLength: maxLength(9),
+            decimal
           },
         duration:
           {
             minLength: minLength(1),
-            maxLength: maxLength(6),
-            numeric
+            maxLength: maxLength(9),
+            decimal
           },
         latitude: {
           minLength: minLength(1),
           maxLength: maxLength(9),
-          numeric,
+          decimal,
           between: between(-90, 90)
         },
         longitude:
           {
             minLength: minLength(1),
             maxLength: maxLength(9),
-            numeric,
+            decimal,
             between: between(-180, 180)
           }
       }
@@ -476,7 +515,7 @@
         latitude: '',
         longitude: '',
         temperature: '',
-        humidade: '',
+        humidity: '',
         co2: '',
         acceleration: '',
         duration: '',
@@ -487,7 +526,7 @@
       latitude: '',
       longitude: '',
       temperature: '',
-      humidade: '',
+      humidity: '',
       co2: '',
       acceleration: '',
       duration: '',
@@ -515,6 +554,10 @@
       }
     },
     methods: {
+      callRoutePropertyDetails(recordId,name){
+        this.$router.push('/propertyDetails/'+recordId+'/property/'+name)
+      },
+
       handleErrors (error) {
         this.$emit('errorEvent', error)
       },
@@ -536,15 +579,12 @@
 
             return user.role == 'distributor'
           });
-          console.log(role)
-          console.log(this.users)
         }
 
   },
       getUsers() {
         axios.get('/agents').then(response => {
              this.filterUserRole(response.data)
-          console.log(this.users)
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
 
@@ -569,61 +609,56 @@
           }
           let size = getPropertyValue(response.data, 'size')
           if (size !== null) {
-            this.product.size = size
+            this.product.size = parsing.toFloat(size)
           }
           let weight = getPropertyValue(response.data, 'weight')
           if (weight !== null) {
-            this.product.weight = weight
+            this.product.weight = parsing.toFloat(weight)
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
-            console.log(harvestDate)
             var date = new Date(harvestDate * 1000);
             this.product.harvestDate = date.toISOString().substr(0, 10)
           }
           let expirationDate = getPropertyValue(response.data, 'expirationDate')
           if (expirationDate !== null) {
-            console.log(expirationDate)
             var date1 = new Date(expirationDate * 1000);
             this.product.expirationDate =  date1.toISOString().substr(0, 10)
           }
           let packingDate = getPropertyValue(response.data, 'packingDate')
           if (packingDate !== null) {
-            console.log(packingDate)
             var date2 = new Date(packingDate * 1000);
             this.product.packingDate =  date2.toISOString().substr(0, 10)
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
-            this.product.temperature = temperature
+            this.product.temperature =  parsing.toFloat(temperature)
           }
-          let humidade = getPropertyValue(response.data, 'humidade')
-          if (humidade !== null) {
-            this.product.humidade = humidade
+          let humidity = getPropertyValue(response.data, 'humidity')
+          if (humidity !== null) {
+            this.product.humidity =  parsing.toFloat(humidity)
           }
           let co2 = getPropertyValue(response.data, 'co2')
           if (co2 !== null) {
-            this.product.co2 = co2
+            this.product.co2 =  parsing.toFloat(co2)
           }
           let location = getPropertyValue(response.data, 'location')
           if (location !== null) {
-            this.product.latitude = location.latitude
-            this.product.longitude = location.longitude
+            this.product.latitude = parsing.toFloat(location.latitude)
+            this.product.longitude = parsing.toFloat(location.longitude)
           }
           let tilt = getPropertyValue(response.data, 'tilt')
           if (tilt !== null) {
             tilt=JSON.parse(tilt)
-            this.product.tiltX = tilt.x
-            this.product.tiltY = tilt.y
+            this.product.tiltX = parsing.toFloat(tilt.x)
+            this.product.tiltY = parsing.toFloat(tilt.y)
           }
           let shock = getPropertyValue(response.data, 'shock')
           if (shock !== null) {
             shock = JSON.parse(shock)
-            this.product.acceleration = shock.accel
-            this.product.duration = shock.duration
+            this.product.acceleration = parsing.toFloat(shock.accel)
+            this.product.duration = parsing.toFloat(shock.duration)
           }
-
-          console.log(this.product)
         }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
       },
       updateProperty (record, value) {
@@ -633,6 +668,7 @@
         })
         return transactions.submit([updatePayload], true).then(() => {
           console.log('Successfully submitted property update')
+          this.getProduct();
         }).catch(error=>{this.$emit('errorEvent', error)})
       },
       cancel () {
@@ -657,7 +693,6 @@
           receivingAgent: publicKey,
           role: this.roleToEnum(role)
         })
-        console.log(publicKey)
         return transactions.submit([transferPayload], true).then(() => {
           console.log('Successfully submitted proposal')
         }).catch(error=>{this.$emit('errorEvent', error)})
@@ -695,21 +730,21 @@
       reportTemperature () {
         this.updateProperty(this.recordId, {
           name: 'temperature',
-          numberValue: parsing.toInt(this.temperature),
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
       reportHumidity () {
         this.updateProperty(this.recordId, {
-          name: 'humidade',
-          numberValue: parsing.toInt(this.humidade),
+          name: 'humidity',
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
       reportCo2 () {
         this.updateProperty(this.recordId, {
           name: 'co2',
-          numberValue: parsing.toInt(this.co2),
+          numberValue: parsing.toInt(this.valueUpdate),
           dataType: payloads.updateProperties.enum.NUMBER
         })
       },
@@ -761,7 +796,7 @@
         _.set(this.key, this.valueUpdate)
         if (this.key == 'temperature') {
           this.reportTemperature()
-        } else if (this.key == 'humidade') {
+        } else if (this.key == 'humidity') {
           this.reportHumidity()
         } else {
           this.reportCo2()
@@ -793,8 +828,8 @@
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The Temperature must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The Temperature should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The Temperature must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The Temperature should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The Temperature must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -805,20 +840,20 @@
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The CO2 must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The CO2 should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The CO2 must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The CO2 should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The CO2 must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
 
           return errors
         }
-        if (this.key === 'humidade') {
+        if (this.key === 'humidity') {
 
           if (!this.$v.valueUpdate.$dirty) return errors
           !this.$v.valueUpdate.minLength && errors.push('The Humidity must be at most 1 characters long')
-          !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 6 characters long')
-          !this.$v.valueUpdate.numeric && errors.push('The Humidity must be numeric.')
+          !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 9 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The Humidity must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -832,8 +867,8 @@
         if (this.key1 === 'tiltX') {
           if (!this.$v.tiltX.$dirty) return errors
           !this.$v.tiltX.minLength && errors.push('The X must be at most 1 characters long')
-          !this.$v.tiltX.maxLength && errors.push('The X should not be more that 6 characters long')
-          !this.$v.tiltX.numeric && errors.push('The X must be numeric.')
+          !this.$v.tiltX.maxLength && errors.push('The X should not be more that 9 characters long')
+          !this.$v.tiltX.decimal && errors.push('The X must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -844,8 +879,8 @@
         if (this.key1 === 'acceleration') {
           if (!this.$v.acceleration.$dirty) return errors
           !this.$v.acceleration.minLength && errors.push('The acceleration must be at most 1 characters long')
-          !this.$v.acceleration.maxLength && errors.push('The acceleration should not be more that 6 characters long')
-          !this.$v.acceleration.numeric && errors.push('The acceleration must be numeric.')
+          !this.$v.acceleration.maxLength && errors.push('The acceleration should not be more that 9 characters long')
+          !this.$v.acceleration.decimal && errors.push('The acceleration must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -857,7 +892,7 @@
           if (!this.$v.latitude.$dirty) return errors
           !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
           !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
-          !this.$v.latitude.numeric && errors.push('The latitude must be numeric.')
+          !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
           !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -872,8 +907,8 @@
         if (this.key2 === 'tiltY') {
           if (!this.$v.tiltY.$dirty) return errors
           !this.$v.tiltY.minLength && errors.push('The Y must be at most 1 characters long')
-          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 6 characters long')
-          !this.$v.tiltY.numeric && errors.push('The Y must be numeric.')
+          !this.$v.tiltY.maxLength && errors.push('The Y should not be more that 9 characters long')
+          !this.$v.tiltY.decimal && errors.push('The Y must be a decimal number.')
 
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -884,8 +919,8 @@
         if (this.key2 === 'duration') {
           if (!this.$v.duration.$dirty) return errors
           !this.$v.duration.minLength && errors.push('The duration must be at most 1 characters long')
-          !this.$v.duration.maxLength && errors.push('The duration should not be more that 6 characters long')
-          !this.$v.duration.numeric && errors.push('The duration must be numeric.')
+          !this.$v.duration.maxLength && errors.push('The duration should not be more that 9 characters long')
+          !this.$v.duration.decimal && errors.push('The duration must be a decimal number.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
           return errors
@@ -895,7 +930,7 @@
           if (!this.$v.longitude.$dirty) return errors
           !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
           !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
-          !this.$v.longitude.numeric && errors.push('The longitude must be numeric.')
+          !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
           !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
@@ -907,20 +942,20 @@
           case 'temperature':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
           case 'co2':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
-          case 'humidade':
+          case 'humidity':
             return {
               minLength: minLength(1),
-              maxLength: maxLength(6),
-              numeric
+              maxLength: maxLength(9),
+              decimal
             }
 
         }
