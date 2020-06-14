@@ -69,7 +69,6 @@
                 </v-menu>
                 <v-toolbar-title>({{typeOfUser(this.$store.state.user.role)}}) {{this.$store.state.user.username}}
                 </v-toolbar-title>
-
                 <v-btn @click="logout" class="ma-4">Logout</v-btn>
             </template>
 

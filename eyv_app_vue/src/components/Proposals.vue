@@ -70,7 +70,7 @@
                     <div v-if="item.status ==='OPEN'">
                         <v-btn small
                                @click="cancelProposal(item.recordId, item.receivingAgent)"
-                               color="green darken-1"
+                               color="red darken-1"
                         >
                             Cancel Proposal
                         </v-btn>

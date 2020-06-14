@@ -14,6 +14,7 @@ import errorDialog from "../components/errorDialog";
 import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
+import propertyDetails from "../components/PropertyDetails";
 import materialNotification from '../components/materialNotification'
 
 Vue.component('user-details',userDetails)
@@ -21,6 +22,7 @@ Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
 Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
+Vue.component('propertyDetails', propertyDetails);
 
 Vue.component('material-notification',materialNotification)
 
@@ -49,6 +51,11 @@ const routes = [
         path: '/managerProducts',
         name: 'managerProducts',
         component: managerProducts
+    },
+    {
+        path: '/propertyDetails/:recordId/property/:name',
+        name: 'propertyDetails',
+        component: propertyDetails, props: true
     },
     {
         path: '/editProduct/:recordId',

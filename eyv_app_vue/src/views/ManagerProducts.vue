@@ -296,6 +296,16 @@
       updateItemsPerPage (number) {
         this.itemsPerPage = number
       },
+        /*    getProducts() {
+              if(this.$store.state.user.role == "admin"){
+                axios.get('/records').then(response => {
+                  this.products = response.data;
+                }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
+              }
+                axios.get('/records?owner='+ this.$store.state.user.publicKey).then(response => {
+                    this.products = response.data;
+                }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
+            },*/
 
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
