@@ -1,8 +1,11 @@
 <template>
     <v-col>
+        <v-toolbar color="primary" dark>
+            <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
+        </v-toolbar>
         <v-row>
             <v-container v-if="this.name=='location'">
-                <google-map />
+                <google-map :locations="this.locations"/>
             </v-container>
     <v-container v-else>
         <v-card
@@ -10,9 +13,6 @@
                 outlined
                 tile
         >
-            <v-toolbar color="primary" dark>
-                <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
-            </v-toolbar>
             <line-chart v-if="loaded" :chart-data="datacollection_line"></line-chart>
         </v-card>
     </v-container>
@@ -72,6 +72,7 @@
         ,
 
       ],
+      locations: [],
       loaded:false,
       loading:true,
       updates: [],
@@ -132,7 +133,7 @@
         }
         if (property.dataType === 'LOCATION') {
           this.updates.forEach(update=> {
-            update.value = parsing.floatifyValue(update.value)
+            this.locations.push(update.value)
           })
         }
         if (property.name === 'shock') {

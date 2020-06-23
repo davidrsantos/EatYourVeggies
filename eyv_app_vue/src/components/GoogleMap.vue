@@ -1,7 +1,6 @@
 <template>
     <div>
         <div>
-            <h2>Search and add a pin</h2>
             <label>
                 <gmap-autocomplete
                         @place_changed="setPlace">
@@ -28,21 +27,26 @@
 </template>
 
 <script>
+  import * as parsing from '../services/parsing'
+
   export default {
+    props:['locations'],
     name: "GoogleMap",
     data() {
       return {
+        localizations: this.locations,
         // default to Montreal to keep it simple
         // change this to whatever makes sense
         center: { lat: 45.508, lng: -73.587 },
         markers: [],
         places: [],
-        currentPlace: null
+        currentPlace: null,
       };
     },
 
     mounted() {
       this.geolocate();
+      this.addHistoryLocations(this.localizations);
     },
 
     methods: {
@@ -57,6 +61,8 @@
             lng: this.currentPlace.geometry.location.lng()
           };
           this.markers.push({ position: marker });
+          console.log('markers verdadeitos')
+          console.log(this.markers)
           this.places.push(this.currentPlace);
           this.center = marker;
           this.currentPlace = null;
@@ -69,6 +75,18 @@
             lng: position.coords.longitude
           };
         });
+      },
+      addHistoryLocations(locations){
+       locations.forEach(update=> {
+         this.markers.push({ position: {lat:parsing.toFloat(update.latitude),lng:parsing.toFloat(update.longitude)} });
+        })
+        /*var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < this.markers.length; i++) {
+          bounds.extend(this.markers[i]);
+        }
+        map.fitBounds(bounds);*/
+        console.log('markers')
+        console.log(this.markers)
       }
     }
   };
