@@ -1,7 +1,10 @@
 <template>
     <v-col>
         <v-row>
-    <v-container>
+            <v-container v-if="this.name=='location'">
+                <google-map />
+            </v-container>
+    <v-container v-else>
         <v-card
                 class="pa-5"
                 outlined
@@ -106,12 +109,12 @@
             this.loading=false
           }).catch(function (error) {
           console.log(error)
+          this.loading = false
           this.loaded = false
         })
       },
 
       configureTypeProperty: function (property) {
-
         this.updates = property.updates
         let propertyValue;
         let x_valuesAux = []
@@ -125,6 +128,11 @@
           })
           this.updates.forEach(update=> {
            update.value = parsing.floatifyValue(update.value).toFixed(3)
+          })
+        }
+        if (property.dataType === 'LOCATION') {
+          this.updates.forEach(update=> {
+            update.value = parsing.floatifyValue(update.value)
           })
         }
         if (property.name === 'shock') {
@@ -162,7 +170,12 @@
         return moment.unix(sec).format('DD-MM-YYYY, HH:mm:ss')
       },
       format(value){
-        var d = JSON.parse(value)
+
+       if(value.hasOwnProperty('latitude')) {
+         return "Latitude: " + value.latitude + ", Longitude: " + value.longitude
+       }
+         var d = JSON.parse(value)
+
         if(d.hasOwnProperty('accel')) {
           return "Accel: " + parsing.toFloat(d.accel) + ", Duration: " + parsing.toFloat(d.duration)
         }else if(d.hasOwnProperty('x')){
