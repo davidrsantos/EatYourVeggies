@@ -70,7 +70,6 @@ const typedWidget = state => {
 const updateSubmitter = state => e => {
   e.preventDefault()
   const { name, dataType, recordId } = state.property
-
   let value = null
   if (state.update) {
     value = state.update
@@ -160,10 +159,10 @@ const typedInput = state => {
     ])
   }
 
-  if (name === 'humidade') { //TODO foi alterado para ter humidade
+  if (name === 'humidity') { //TODO foi alterado para ter humidity
     return m('.col-md-8', [
       m('input.form-control', {
-        placeholder: 'Enter Humidade...',
+        placeholder: 'Enter humidity...',
         oninput: withIntVal(value => { state.update = value })
       })
     ])
