@@ -117,18 +117,43 @@
 
 
             <template v-slot:default="props">
+                <!--     <v-row>
+                         <v-col
+                                 :key="item.name"
+                                 cols="12"
+                                 lg="3"
+                                 md="4"
+                                 sm="6"
+                                 v-for="item in props.items"
+                         >
+                             <v-card :loading="loading"
+                                     :to="'/editProduct/'+item.recordId" class="mx-auto my-12" max-width="374">
+
+                                 <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                                 <v-img
+                                         height="250"
+                                         src="icon.png"
+                                 ></v-img>
+
+                                 <v-card-text>Batch : {{ item.recordId }}</v-card-text>
+                                 <v-divider></v-divider>
+
+
+                             </v-card>
+                         </v-col>
+                     </v-row>-->
                 <v-row>
 
                     <v-card :loading="loading"
-                            :to="'/editProduct/'+ props.items[2].recordId" class="mx-auto my-12" max-width="374">
+                            class="mx-auto my-12" width="374">
 
-                        <v-card-title class="subheading font-weight-bold">{{  props.items[2].name }}</v-card-title>
+                        <v-card-title class="subheading font-weight-bold">Cenoura</v-card-title>
                         <v-img
                                 height="250"
-                                src="batata.jpg"
+                                src="cenoura1.webp"
                         ></v-img>
 
-                        <v-card-text>Batch : {{  props.items[2].recordId }}</v-card-text>
+                        <v-card-text>Batch : canoura1</v-card-text>
                         <v-divider></v-divider>
 
 
