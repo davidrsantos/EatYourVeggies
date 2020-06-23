@@ -3,7 +3,7 @@
 
         <v-list-item class="px-2" v-if="this.$store.state.user!=null">
             <v-list-item-avatar>
-
+                <v-img src="https://randomuser.me/api/portraits/men/18.jpg"></v-img>
             </v-list-item-avatar>
 
             <v-list-item-title>{{this.$store.state.user.name}}</v-list-item-title>
@@ -41,16 +41,27 @@
       return {
         drawer: true,
         items: [],
-        itemsForAll: [
+        itemsForCustomer: [
+
+          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
+          { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
+        ],
+        itemsForDistributor: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
           { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
         ],
-        itemsForProducerRetailer: [
+        itemsForProducer: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
           { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
           { title: 'Add Product', icon: 'mdi-account-group-outline', link: '/addProduct' }
+        ],
+        itemsForRetailer: [
+          { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
+          { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
+          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
+          { title: 'Transform Product', icon: 'mdi-account-group-outline', link: '/addProduct' }
         ],
 
         mini: true,
@@ -58,10 +69,23 @@
     },
     created: function () {
       if (this.$store.state.user) {
-        if (this.$store.state.user.role === 'producer' || this.$store.state.user.role === 'retailer') {
-          this.items = this.itemsForProducerRetailer
-        } else {
-          this.items = this.itemsForAll
+        switch (this.$store.state.user.role) {
+          case 'producer':
+            this.items = this.itemsForProducer
+            break
+          case 'distributor':
+            this.items = this.itemsForDistributor
+            break
+          case 'retailer':
+            this.items = this.itemsForRetailer
+            break
+          case 'customer':
+            this.items = this.itemsForCustomer
+            break
+          case 'admin':
+            this.items = this.itemsForProducer
+            break
+
         }
       }
     }

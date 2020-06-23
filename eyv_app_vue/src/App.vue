@@ -138,7 +138,7 @@
         let title = 'New User'
         this.$snotify.confirm(message, title,
           {
-            timeout: 5000,
+            timeout: 9999,
             showProgressBar: true,
             closeOnClick: false,
             pauseOnHover: true,
@@ -158,22 +158,7 @@
       showErrors: false,
       error: null,
       notifications: [
-        { title: 'error', message: 'alguma ioahfjiajsfpia  pioajsfj' }, {
-          title: 'success',
-          message: 'alguma',
-          color: 'success'
-        },
-        {
-          title: 'warning',
-          message: 'alguma',
-          color: 'warning'
-        }, {
-          title: 'warning',
-          message: 'alguma'
-        }, {
-          title: 'warning',
-          message: 'sdxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxkijmdsf  iosdfh o isd vdsvvvvvvvvvvvvvvvvvvvvvvfg gdddddddddddddddddddsgdsfa'
-        },
+
       ]
     }),
     mounted () {
