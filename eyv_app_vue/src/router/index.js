@@ -15,7 +15,6 @@ import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
 import propertyDetails from "../components/PropertyDetails";
-import notifications from "../components/Notifications"
 import materialNotification from '../components/materialNotification'
 
 Vue.component('user-details',userDetails)
