@@ -214,6 +214,32 @@ const fetchPropertyQuery = (recordId, name) => block => {
   })
 }
 
+const _loadRecordSimple = (block, authedKey) => (record) => {
+ try{ let recordId = getRecordId(record)
+   return findProperty(recordId)(block)('name').do(property => {
+    return  getPropertyValues(recordId)(block)(property).do(propertyValues => {
+      return r.expr({
+        'recordId': recordId,
+        'owner': getOwnerId(record),
+        'name': getCurrentValue(propertyValues).do(
+          value => r.branch(
+            value,
+            value('value'),
+            value
+          )
+        ),
+
+      })
+    })
+  })
+
+ }catch (e) {
+   throw new Error(e)
+   console.log(e)
+
+ }
+}
+
 const _loadRecord = (block, authedKey) => (record) => {
   let recordId = getRecordId(record)
   return getTypeProperties(record)(block)
@@ -265,12 +291,12 @@ const fetchRecordQuery = (recordId, authedKey) => block => {
 const listRecordsQuery = (authedKey, filterQuery) => block => {
   return getTable('records', block)
     .filter(filterQuery)
-    .map(_loadRecord(block, authedKey))
+    .map(_loadRecordSimple(block, authedKey))
     .coerceTo('array')
 }
 const listRecordsQueryByOwner= (authedKey, filterQuery) => block => {
   return getTable('records', block)
-    .map(_loadRecord(block, authedKey))
+    .map(_loadRecordSimple(block, authedKey))
     .filter(filterQuery)
     .coerceTo('array')
 }
