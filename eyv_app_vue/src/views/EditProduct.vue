@@ -272,18 +272,21 @@
                             item-value="publicKey"
                             v-model="publicKey"
                             outlined
+                            :menu-props="{ top: true, offsetY: true }"
+
                     ></v-select>
-                </v-container>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
+
+                <v-card-actions class="justify-center">
+
                     <v-btn
                             @click="cancel"
                             color="grey darken-1"
                     >
                         Cancel
                     </v-btn>
-                    <v-btn @click="submit" color="green darken-1" class="mr-4 ml-4">Submit</v-btn>
+                    <v-btn @click="submit" color="green darken-1" class="mr-4 ml-4">Transfer</v-btn>
                 </v-card-actions>
+                </v-container>
             </v-card>
 
         </v-dialog>

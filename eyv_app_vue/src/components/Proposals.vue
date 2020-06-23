@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card>
+        <v-card v-show="this.$store.state.user.role !=='producer'">
             <v-card-title>
                 Proposals Received
                 <v-spacer></v-spacer>

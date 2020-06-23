@@ -1,8 +1,10 @@
 <template>
+<!--    http://localhost:8021/#/propertyDetails/Bat20L15/property/temperature-->
     <v-col>
         <v-row>
     <v-container>
         <v-card
+            max-height="800"
                 class="pa-5"
                 outlined
                 tile
@@ -10,7 +12,8 @@
             <v-toolbar color="primary" dark>
                 <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
             </v-toolbar>
-            <line-chart v-if="loaded" :chart-data="datacollection_line"></line-chart>
+
+              <line-chart  :styles="myStyles" v-if="loaded" :chart-data="datacollection_line" :options="options"></line-chart>
         </v-card>
     </v-container>
         </v-row>
@@ -77,6 +80,16 @@
       property: null,
       recordId: '',
       name: '',
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        fill: false,
+        scales: {
+          yAxes: [{
+            stacked: false
+          }]
+        }
+      },
       datacollection_line: {
         //Data to be represented on x-axis
         labels: [],
@@ -96,6 +109,15 @@
       }
       if (this.$route.params.name != null) {
         this.name = this.$route.params.name
+      }
+    },
+    computed: {
+      myStyles () {
+        return {
+          height: `500px`,
+          position: 'relative',
+          fill: false
+        }
       }
     },
     methods: {

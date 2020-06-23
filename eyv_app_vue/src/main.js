@@ -7,24 +7,37 @@ import router from './router'
 import store from './store/index'
 import vuetify from './plugins/vuetify';
 import vuelidate from 'vuelidate'
+import VueSocketio from 'vue-socket.io';
+import Snotify, { SnotifyPosition } from 'vue-snotify'
 
 
 
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+
 Vue.config.productionTip = false
 
+
+
+
+
+Vue.use(Snotify, {
+  toast: {
+    position: SnotifyPosition.rightBottom
+  }
+})
+
+
+
 Vue.use(vuelidate)
+import VueSocketIOExt from 'vue-socket.io-extended';
+import io from 'socket.io-client';
 
-import VueSocketio from 'vue-socket.io';
-Vue.use(new VueSocketio({
-  debug: true,
-  connection: 'http://localhost'+ ':8020'
-}));
+const socket = io('http://localhost:8020');
+Vue.use(VueSocketIOExt, socket);
 
-
-new Vue({
+const app = new Vue({
   vuelidate,
   api,
   transactions,
@@ -33,3 +46,5 @@ new Vue({
   vuetify,
   render: function (h) { return h(App) }
 }).$mount('#app')
+
+export default app;

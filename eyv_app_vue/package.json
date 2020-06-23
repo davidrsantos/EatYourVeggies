@@ -23,7 +23,8 @@
     "vue-chartjs": "^3.5.0",
     "vue-router": "^3.1.5",
     "vue-snotify": "^3.2.1",
-    "vue-socket.io": "^3.0.9",
+    "vue-socket.io": "^3.0.7",
+    "vue-socket.io-extended": "^4.0.3",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.11",
     "vuex": "^3.1.2"
@@ -32,6 +33,8 @@
     "@vue/cli-plugin-router": "~4.2.0",
     "@vue/cli-plugin-vuex": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
+    "sass": "^1.26.8",
+    "sass-loader": "^8.0.2",
     "vue-cli-plugin-vuetify": "~2.0.5",
     "vue-template-compiler": "^2.6.11"
   }
