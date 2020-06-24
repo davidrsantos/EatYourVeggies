@@ -9,7 +9,6 @@
                 <button @click="addMarker">Add</button>
             </label>
             <br/>
-
         </div>
         <br>
         <gmap-map
@@ -81,13 +80,8 @@
         }
         map.fitBounds(bounds);*/
       },
-      addHistoryLocations(){//todo atualizar os markers antes de abrir o mapa
-       /*this.localizations.forEach(update=> {
-         this.markers.push({ position: {lat:parsing.toFloat(update.latitude),lng:parsing.toFloat(update.longitude)} });
-        })*/
+      addHistoryLocations(){
         this.markers=this.localizations;
-        console.log('markers')
-        console.log(this.markers)
       }
     }
   };
