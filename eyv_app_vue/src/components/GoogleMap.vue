@@ -5,6 +5,7 @@
                 <gmap-autocomplete
                         @place_changed="setPlace">
                 </gmap-autocomplete>
+
                 <button @click="addMarker">Add</button>
             </label>
             <br/>
@@ -81,9 +82,10 @@
         map.fitBounds(bounds);*/
       },
       addHistoryLocations(){//todo atualizar os markers antes de abrir o mapa
-       this.localizations.forEach(update=> {
+       /*this.localizations.forEach(update=> {
          this.markers.push({ position: {lat:parsing.toFloat(update.latitude),lng:parsing.toFloat(update.longitude)} });
-        })
+        })*/
+        this.markers=this.localizations;
         console.log('markers')
         console.log(this.markers)
       }
