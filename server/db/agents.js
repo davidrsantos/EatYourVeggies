@@ -115,10 +115,13 @@ const fetchUser = publicKey => {
 
 const list = filterQuery => db.queryWithCurrentBlock(listQuery(filterQuery))
 
-const fetch = (publicKey, auth) =>
-    db.queryWithCurrentBlock(fetchQuery(publicKey, auth))
+const fetch = (publicKey, auth) => {
+  return db.queryWithCurrentBlock(fetchQuery(publicKey, auth))
+}
+const isAdmin = auth => db.runQuery(fetchUser(auth))
 
 module.exports = {
     list,
-    fetch
+    fetch,
+  isAdmin,
 }

@@ -23,7 +23,18 @@ const FILTER_KEYS = ['name', 'publicKey']
 
 const list = params => db.list(_.pick(params, FILTER_KEYS))
 
-const fetch = ({ publicKey, authedKey }) => { return db.fetch(publicKey, publicKey === authedKey) }
+const fetch = ({ publicKey, authedKey }) => {
+  return db.isAdmin(authedKey)
+    .then(result => {
+      if (result.role === 'admin') {
+        return db.fetch(publicKey, true)
+      } else {
+        return db.fetch(publicKey, publicKey === authedKey)
+      }
+    })
+    .catch(err => console.log(err))
+
+}
 
 module.exports = {
   list,
