@@ -16,6 +16,7 @@ import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
 import propertyDetails from "../components/PropertyDetails";
 import materialNotification from '../components/materialNotification'
+import UserDetailsView from '../views/admin/UserDetailsView'
 
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
@@ -71,6 +72,11 @@ const routes = [
         path: '/dashboard',
         name: 'Dashboard',
         component: Dashboard
+    },
+    {
+        path: '/user/:publicKey',
+        name: 'userDetails',
+        component: UserDetailsView
     },
     {
         path: '/signup',

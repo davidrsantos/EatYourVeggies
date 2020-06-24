@@ -117,21 +117,15 @@
         console.log('socket connected (socket ID = ' + this.$socket.client.id + ')')
       },
       newUser (user) {
+        console.log(user)
         console.log('ola new user!')
         let buttons = [
-          { text: 'Details', action: () => console.log('Clicked: Yes'), bold: false },
+          { text: 'Details', action: () => this.$router.push({name:'userDetails', params: { publicKey: user.publicKey }}), bold: false },
           {
             text: 'Later', action: (toast) => {
               console.log('Clicked: Later')
               vm.$snotify.remove(toast.id)
             }
-          },
-          {
-            text: 'Close', action: (toast) => {
-              console.log('Clicked: No')
-              vm.$snotify.remove(toast.id)
-
-            }, bold: true
           },
         ]
         let message = user.name + '\n is ask to sign in!! Do you want to see more?'
