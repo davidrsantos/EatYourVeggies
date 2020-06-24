@@ -1,5 +1,5 @@
 <template>
-    <div v-model="user" >
+    <div v-if="user" >
     <user-details :user-prop="user" v-on:errorEvent="handleErrors"></user-details>
     </div>
 </template>
@@ -17,7 +17,6 @@
           .then(res => {
             console.log(res.data)
             this.user = res.data
-            console.log(this.user)
           }).catch(error => {
           this.$emit('errorEvent', error)
         })
@@ -27,7 +26,7 @@
         this.$emit('errorEvent', error)
       },
     },
-    beforeMount () {
+    created () {
       this.getUser()
     }
   }
