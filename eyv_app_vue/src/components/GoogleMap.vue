@@ -13,7 +13,7 @@
         <br>
         <gmap-map
                 :center="center"
-                :zoom="12"
+                :zoom="4"
                 style="width:100%;  height: 400px;"
         >
             <gmap-marker
@@ -28,6 +28,7 @@
 
 <script>
   import * as parsing from '../services/parsing'
+  import GoogleMapsLoader from 'google-maps'
 
   export default {
     props:['locations'],
@@ -46,7 +47,7 @@
 
     mounted() {
       this.geolocate();
-      this.addHistoryLocations(this.localizations);
+      this.addHistoryLocations();
     },
 
     methods: {
@@ -61,8 +62,6 @@
             lng: this.currentPlace.geometry.location.lng()
           };
           this.markers.push({ position: marker });
-          console.log('markers verdadeitos')
-          console.log(this.markers)
           this.places.push(this.currentPlace);
           this.center = marker;
           this.currentPlace = null;
@@ -75,16 +74,16 @@
             lng: position.coords.longitude
           };
         });
-      },
-      addHistoryLocations(locations){
-       locations.forEach(update=> {
-         this.markers.push({ position: {lat:parsing.toFloat(update.latitude),lng:parsing.toFloat(update.longitude)} });
-        })
-        /*var bounds = new google.maps.LatLngBounds();
+        /*var bounds = new google.maps.LatLngBounds();//todo arranjar maneira de atualizar as bordas do mapa
         for (var i = 0; i < this.markers.length; i++) {
           bounds.extend(this.markers[i]);
         }
         map.fitBounds(bounds);*/
+      },
+      addHistoryLocations(){//todo atualizar os markers antes de abrir o mapa
+       this.localizations.forEach(update=> {
+         this.markers.push({ position: {lat:parsing.toFloat(update.latitude),lng:parsing.toFloat(update.longitude)} });
+        })
         console.log('markers')
         console.log(this.markers)
       }
