@@ -327,6 +327,8 @@
             if (error.response && error.response.status === 406) {
               let newError = new Error('It\'s no possible to make that change')
               this.$emit('errorEvent', newError)
+            }else{
+              this.$emit('errorEvent',error.response.data.error)
             }
 
           })
