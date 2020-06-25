@@ -1,16 +1,20 @@
 <template>
-    <div>
-        <div>
-            <label>
-                <gmap-autocomplete
-                        @place_changed="setPlace">
-                </gmap-autocomplete>
+    <v-container>
+            <v-toolbar
+                    dense
+                    width="500"
+                    height="80"
+            >
+                <label>
+                    <gmap-autocomplete placeholder="Search new location" style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
+                                       @place_changed="setPlace">
+                    </gmap-autocomplete>
+                </label>
+                <v-spacer></v-spacer>
+                <v-btn color="green" @click="addMarker">Add</v-btn>
 
-                <button @click="addMarker">Add</button>
-            </label>
-            <br/>
-        </div>
-        <br>
+            </v-toolbar>
+      <br>
         <gmap-map
                 :center="center"
                 :zoom="4"
@@ -23,7 +27,8 @@
                     @click="center=m.position"
             ></gmap-marker>
         </gmap-map>
-    </div>
+
+    </v-container>
 </template>
 
 <script>
