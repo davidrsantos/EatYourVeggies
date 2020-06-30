@@ -83,7 +83,7 @@
         <v-content app
         >
             <v-container>
-                <router-view @errorEvent="handleError" @registEvent="handleRegist"/>
+                <router-view @requestPasswordEvent="handleRequestPassword" @errorEvent="handleError" @registEvent="handleRegist"/>
 
 
             </v-container>
@@ -99,6 +99,8 @@
         </v-navigation-drawer>
         <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
         <vue-snotify ></vue-snotify>
+        <v-dialog v-model="requestPassword"> <request-password ></request-password></v-dialog>
+
     </v-app>
 
 </template>
@@ -117,8 +119,6 @@
         console.log('socket connected (socket ID = ' + this.$socket.client.id + ')')
       },
       newUser (user) {
-        console.log(user)
-        console.log('ola new user!')
         let buttons = [
           { text: 'Details', action: () => this.$router.push({name:'userDetails', params: { publicKey: user.publicKey }}), bold: false },
           {
@@ -147,7 +147,7 @@
       source: String
     },
     data: () => ({
-
+      requestPassword : false,
       mini: false,
       showErrors: false,
       error: null,
@@ -180,6 +180,11 @@
       closeDialog () {
         this.showErrors = false
       },
+      handleRequestPassword(){
+        console.log('chegou aaqui!')
+        this.requestPassword = true
+      },
+
       handleError (error) {
         console.log('chegou aqui')
         console.error('An Error occurrence: ' + error)
@@ -196,12 +201,13 @@
 
       },
 
-      logout () {
+      logout: function () {
         this.$store.commit('clearUserAndToken')
         this.$socket.client.emit('user_exit', this.$store.state.user)
         api.clearAuth()
         transactions.clearPrivateKey()
-        this.$router.push('welcome')
+        this.$router.push('/').then(value => console.log(value)).catch(reason => console.log(reason))
+
       },
       typeOfUser (role) {
 

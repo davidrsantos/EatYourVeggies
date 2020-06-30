@@ -154,13 +154,17 @@
           response
         })
         return transactions.submit([answerPayload], true).then(() => {
-          console.log('Successfully submitted answer')
           if(response=== 2) {//2 == cancel no enum do proto
             this.refreshListProposalsSent();
           }else{
             this.refreshList();
           }
-        }).catch(error=>{this.$emit('errorEvent', error)})
+        }).catch(error=>{
+          if(error==='requestPassword'){
+            this.$emit('requestPasswordEvent')
+          }
+          console.log(error)
+          this.$emit('errorEvent', error)})
       },
 
         roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
@@ -185,6 +189,7 @@
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)
       },
       cancelProposal(recordId,receivingAgent){
+        console.log('hello estou a carregar')
         this.answerProposal(recordId, this.roleToEnum(this.role), receivingAgent, payloads.answerProposal.enum.CANCEL)
       },
     }

@@ -175,17 +175,17 @@
     </v-card>
 </template>
 <script>
-    import {validationMixin} from "vuelidate";
-    import {
-      required, maxLength, minLength, between, sameAs, email, numeric, alpha, decimal, minValue
-    } from 'vuelidate/lib/validators'
-    import * as transactions from "../services/transactions";
-    import * as api from "../services/api";
-    import * as payloads from "../services/payloads";
-    import * as parsing from "../services/parsing";
+  import { validationMixin } from 'vuelidate'
+  import {
+    required, maxLength, minLength, between, sameAs, email, numeric, alpha, decimal, minValue
+  } from 'vuelidate/lib/validators'
+  import * as transactions from '../services/transactions'
+  import * as api from '../services/api'
+  import * as payloads from '../services/payloads'
+  import * as parsing from '../services/parsing'
 
-    export default {
-        mixins: [validationMixin],
+  export default {
+    mixins: [validationMixin],
 
     validations: {
       batch: {
@@ -338,7 +338,6 @@
         !this.$v.size.decimal && errors.push('The size must be a decimal number.')
         !this.$v.size.minValue && errors.push('The size must be greater than zero')
 
-
         if (errors.length !== 0) this.submitStatus = 'ERROR'
         else this.submitStatus = 'OK'
         return errors
@@ -455,14 +454,20 @@
 
         if (this.expirationDate !== null && new Date(this.expirationDate).getTime() < new Date(this.harvestDate).getTime()) {
           this.$emit('errorEvent', 'The expiration date cannot be less than the harvest date')
-        }else if (this.packingDate !== null && this.packingDate < this.harvestDate) {
+        } else if (this.packingDate !== null && this.packingDate < this.harvestDate) {
           this.$emit('errorEvent', 'The packing date cannot be less than the harvest date')
-        }else if (this.expirationDate !== null && this.packingDate !== null && this.packingDate < this.expirationDate) {
+        } else if (this.expirationDate !== null && this.packingDate !== null && this.packingDate < this.expirationDate) {
           this.$emit('errorEvent', 'The packing date cannot be less than the expiration date')
-        }else {
+        } else {
           transactions.submit([recordPayload], true)
             .then(() => (this.$router.push({ path: `/editProduct/${this.batch}` })))
-            .catch(error=>{this.$emit('errorEvent', error)})
+            .catch(error => {
+              if (error === 'requestPassword') {
+                this.$emit('requestPasswordEvent')
+              }
+              console.log(error)
+              this.$emit('errorEvent', error)
+            })
         }
         /* transactions.submit([recordPayload].concat(reporterPayloads), true) //todo versão em que manda reporters não está a ser usado porque no formlulário ainda não dá para adici0ona reporters
             .then(() => m.route.set(`/fish/${state.serialNumber}`))
