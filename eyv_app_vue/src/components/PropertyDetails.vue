@@ -5,7 +5,7 @@
         </v-toolbar>
         <v-row>
             <v-container v-if="this.name=='location'">
-                <google-map :locations="this.locations"/>
+                <google-map :locations="this.locations"  :polylines-locations="this.polylines" :record-id="this.recordId"/>
             </v-container>
     <v-container v-else>
         <v-card
@@ -74,6 +74,8 @@
 
       ],
       locations: [],
+      location: null,
+      polylines: [],
       loaded:false,
       loading:true,
       updates: [],
@@ -135,9 +137,11 @@
         if (property.dataType === 'LOCATION') {
           this.updates.forEach(update=> {
             this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
-            console.log('locations')
-            console.log(this.locations)
+            this.polylines.push({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
           })
+          this.location = this.polylines[this.polylines.length-1]
+       /*   console.log('location')
+          console.log(this.location)*/
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {
