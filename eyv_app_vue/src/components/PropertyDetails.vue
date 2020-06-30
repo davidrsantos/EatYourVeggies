@@ -74,7 +74,6 @@
 
       ],
       locations: [],
-      location: null,
       polylines: [],
       loaded:false,
       loading:true,
@@ -139,9 +138,6 @@
             this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
             this.polylines.push({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
           })
-          this.location = this.polylines[this.polylines.length-1]
-       /*   console.log('location')
-          console.log(this.location)*/
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {

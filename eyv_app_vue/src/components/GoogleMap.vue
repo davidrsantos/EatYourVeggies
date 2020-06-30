@@ -15,11 +15,9 @@
 
             </v-toolbar>
       <br>
-
         <gmap-map
-
                 :center="center"
-                :zoom="12"
+                :zoom="4"
                 style="width:100%;  height: 400px;"
         >
             <gmap-marker
@@ -53,18 +51,13 @@
         record: this.recordId,
         // default to Montreal to keep it simple
         // change this to whatever makes sense
-        center: { lat: this.polylinesLocations[this.polylinesLocations.length-1].lat, lng: this.polylinesLocations[this.polylinesLocations.length-1].lng },
+        center: { lat: 39.399872, lng: -8.224454 },
         markers: [],
         markersPolyline: [],
         currentPlace: null,
-        loading :  false
       };
     },
-
     mounted () {
-      console.log('location')
-      console.log(this.location)
-     // this.loading = true
       this.geolocate();
       this.addHistoryLocations();
     },
@@ -84,8 +77,6 @@
           this.markersPolyline.push({lat:this.currentPlace.geometry.location.lat(),lng: this.currentPlace.geometry.location.lng()})
           this.reportLocalization();
           this.center = marker;
-          console.log('center')
-          console.log(this.center)
           this.currentPlace = null;
         }
       },
