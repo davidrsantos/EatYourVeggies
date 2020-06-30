@@ -72,6 +72,7 @@
 
 
                 </form>
+
                 <div class="text-center">
                     <v-dialog
                             v-model="dialogPassword"
@@ -79,7 +80,7 @@
                     >
                         <template v-slot:activator="{ on }">
                             <v-btn
-                                    color="red lighten-2"
+                                    color="red"
                                     dark
                                     v-on="on"
                             >
