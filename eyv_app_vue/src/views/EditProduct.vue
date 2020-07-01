@@ -681,15 +681,47 @@
           recordId: record,
           properties: [value]
         })
-        return transactions.submit([updatePayload], true).then(() => {
-          console.log('Successfully submitted property update')
-          this.getProduct()
-        }).catch(error=>{
-          if(error==='requestPassword'){
-            this.$emit('requestPasswordEvent')
-          }
-          console.log(error)
-          this.$emit('errorEvent', error)})
+
+
+
+
+        this.$snotify.async('Updating property in the blockchain', 'Updating Property',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([updatePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully updated property',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+
       },
       cancel () {
         this.dialogTransfer = false
@@ -720,28 +752,31 @@
                 .then((response) => {
                 console.log(response)
                 if (response.status && response.type === undefined) {
-                  resolve({
+                  setTimeout(() => resolve({
+
                       title: 'Success',
                       body: 'Successfully submitted proposal',
                       config: {
+                        showProgressBar: true,
                         closeOnClick: true,
+                        timeout: 8000
                       }
                     }
-                  )
+                  ),2000)
                   let proposal = { toPublicKey : publicKey , product: recordId, fromPublicKey: this.$store.state.user.publicKey}
                   this.$socket.client.emit('newProposal', proposal)
                 }
-
-
               }).catch(error => {
                   console.log(error.toString())
-                  reject({
+                  setTimeout(() =>  reject({
                   title: 'Error',
                   body: error.toString(),
                   config: {
+                    showProgressBar: true,
                     closeOnClick: true,
+                    timeout: 8000
                   }
-                })
+                }),2000)
                 if (error === 'requestPassword') {
                   this.$emit('requestPasswordEvent')
                 }

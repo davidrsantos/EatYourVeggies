@@ -34,7 +34,7 @@ const FAMILY_NAME = 'supply_chain'
 const FAMILY_VERSION = '1.1'
 const NAMESPACE = '3400de'
 
-const PRIVATE_KEY = 'eat_your_veggies.privateKey'
+
 
 const context = new secp256k1.Secp256k1Context()
 let privateKey = null

@@ -153,18 +153,46 @@
           role,
           response
         })
-        return transactions.submit([answerPayload], true).then(() => {
-          if(response=== 2) {//2 == cancel no enum do proto
-            this.refreshListProposalsSent();
-          }else{
-            this.refreshList();
-          }
-        }).catch(error=>{
-          if(error==='requestPassword'){
-            this.$emit('requestPasswordEvent')
-          }
-          console.log(error)
-          this.$emit('errorEvent', error)})
+        this.$snotify.async('Submitting your answer', 'Submitting Answer',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([answerPayload], true)
+                .then((res) => {
+                  console.log(res)
+                  if (res.status && res.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully submitted answer',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    if(response=== 2) {//2 == cancel no enum do proto
+                      this.refreshListProposalsSent();
+                    }else{
+                      this.refreshList();
+                    }
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
       },
 
         roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter

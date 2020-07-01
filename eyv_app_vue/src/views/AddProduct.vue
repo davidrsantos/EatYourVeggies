@@ -459,28 +459,44 @@
         } else if (this.expirationDate !== null && this.packingDate !== null && this.packingDate < this.expirationDate) {
           this.$emit('errorEvent', 'The packing date cannot be less than the expiration date')
         } else {
-          transactions.submit([recordPayload], true)
-            .then(() => (this.$router.push({ path: `/editProduct/${this.batch}` })))
-            .catch(error => {
-              if (error === 'requestPassword') {
-                this.$emit('requestPasswordEvent')
-              }
-              console.log(error)
-              this.$emit('errorEvent', error)
+
+          this.$snotify.async('Adding product to the blockchain', 'Adding Product',
+            () => {
+              return new Promise((resolve, reject) => {
+                return transactions.submit([recordPayload], true)
+                  .then((response) => {
+                    console.log(response)
+                    if (response.status && response.type === undefined) {
+                      setTimeout(() => resolve({
+                          title: 'Success',
+                          body: 'Successfully submitted product',
+                          config: {
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            timeout: 8000
+                          }
+                        }
+                      ), 2000)
+                      this.$router.push({ path: `/editProduct/${this.batch}` })
+                    }
+                  }).catch(error => {
+                    console.log(error.toString())
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error.toString(),
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
+                    if (error === 'requestPassword') {
+                      this.$emit('requestPasswordEvent')
+                    }
+                  })
+              })
             })
         }
-        /* transactions.submit([recordPayload].concat(reporterPayloads), true) //todo versão em que manda reporters não está a ser usado porque no formlulário ainda não dá para adici0ona reporters
-            .then(() => m.route.set(`/fish/${state.serialNumber}`))
-*/ //Necessário se quisermos atribuir já reporters!
-
-        /*   const reporterPayloads = state.reporters
-                      .filter((reporter) => !!reporter.reporterKey)
-                      .map((reporter) => payloads.createProposal({
-                          recordId: state.serialNumber,
-                          receivingAgent: reporter.reporterKey,
-                          role: payloads.createProposal.enum.REPORTER,
-                          properties: reporter.properties
-                      })) */
       },
 
       submit () {

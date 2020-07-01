@@ -113,4 +113,11 @@ router.beforeEach((to, from, next) => {
 
 });
 
+
+router.onError(error => {
+    console.error(error)
+});
+
+
+
 export default router
