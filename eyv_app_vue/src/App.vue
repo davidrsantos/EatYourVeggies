@@ -54,12 +54,23 @@
 
                             >
                                 <v-row>
+                                    <v-container>
                                     <strong>{{item.title.toUpperCase()}}</strong>
                                     <div> -{{item.message}}</div>
-                                    <v-spacer/>
-                                    <v-btn @click="removeFromNotifications(item)" icon>
-                                        <v-icon>mdi-eye</v-icon>
+
+                                    <v-card-actions>
+
+                                   <div v-show="item.button"> <v-btn  @click="item.button.action()" color="blue lighten-4">
+                                        {{item.button.text}}
                                     </v-btn>
+                                   </div>
+                                        <v-spacer/>
+                                    <v-btn class="ml-lg-10" @click="removeFromNotifications(item)"  color="blue lighten-4">
+                                        Cancel
+                                    </v-btn>
+
+                                    </v-card-actions>
+                                    </v-container>
                                 </v-row>
                             </material-notification>
 
@@ -138,7 +149,7 @@
             pauseOnHover: true,
             buttons
           })
-        this.notifications.push({ color: 'confirm', title: title, message: message })
+        this.notifications.push({ color: 'confirm', title: title, message: message , button:buttons[0] })
       }
     },
 
