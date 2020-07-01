@@ -6,7 +6,7 @@
         <v-row>
             <v-container v-if="this.name=='location' && centerr">
                 <google-map :centerr="centerr" :locations="this.locations" :polylines-locations="this.polylines"
-                            :record-id="this.recordId"/>
+                            :record-id="this.recordId" v-on:refreshList="refreshList" @requestPasswordEvent="$emit('requestPasswordEvent')"/>
             </v-container>
             <v-container v-else>
                 <v-card
@@ -15,11 +15,6 @@
                         outlined
                         tile
                 >
-                    <line-chart :chart-data="datacollection_line" v-if="loaded"></line-chart>
-                    <v-toolbar color="primary" dark>
-                        <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
-                    </v-toolbar>
-
                     <line-chart :chart-data="datacollection_line" :options="options" :styles="myStyles"
                                 v-if="loaded"></line-chart>
                 </v-card>
@@ -132,6 +127,12 @@
       }
     },
     methods: {
+      refreshList () {
+        this.polylines = null
+        this.locations = null
+        this.getPropertyValues()
+      },
+
       getPropertyValues () {
         axios.get(`records/${this.recordId}/${this.name}`)
           .then(res => {
@@ -161,11 +162,19 @@
           })
         }
         if (property.dataType === 'LOCATION') {
-          this.updates.forEach(update=> {
-            this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
-            this.polylines.unshift({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
+          this.updates.forEach(update => {
+            this.locations.push({
+              position: {
+                lat: parsing.toFloat(update.value.latitude),
+                lng: parsing.toFloat(update.value.longitude)
+              }
+            })
+            this.polylines.unshift({
+              lat: parsing.toFloat(update.value.latitude),
+              lng: parsing.toFloat(update.value.longitude)
+            })
           })
-          this.centerr=this.polylines[this.polylines.length-1]
+          this.centerr = this.polylines[this.polylines.length - 1]
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {
@@ -203,10 +212,10 @@
       },
       format (value) {
 
-       if(value.hasOwnProperty('latitude')) {
-         return "Latitude: " + value.latitude + ", Longitude: " + value.longitude
-       }
-         var d = JSON.parse(value)
+        if (value.hasOwnProperty('latitude')) {
+          return 'Latitude: ' + value.latitude + ', Longitude: ' + value.longitude
+        }
+        var d = JSON.parse(value)
 
         if (d.hasOwnProperty('accel')) {
           return 'Accel: ' + parsing.toFloat(d.accel) + ', Duration: ' + parsing.toFloat(d.duration)
