@@ -255,6 +255,7 @@
     methods: {
 
       handleErrors (error) {
+        console.log(error)
         this.$emit('errorEvent', error)
       },
 
@@ -309,7 +310,8 @@
             })
             .catch((error) => {
               if (error.response && error.response.status === 406) {
-                this.handleErrors('It\'s no possible to make that change')
+                let newError = new Error('It\'s no possible to make that change')
+                this.$emit('errorEvent', newError)
               }
 
             })
@@ -323,7 +325,8 @@
           })
           .catch((error) => {
             if (error.response && error.response.status === 406) {
-              this.handleErrors('It\'s no possible to make that change')
+              let newError = new Error('It\'s no possible to make that change')
+              this.$emit('errorEvent', newError)
             }
 
           })

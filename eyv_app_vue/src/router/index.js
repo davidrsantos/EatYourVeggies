@@ -15,6 +15,8 @@ import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
 import propertyDetails from "../components/PropertyDetails";
+import notifications from "../components/Notifications"
+import materialNotification from '../components/materialNotification'
 import googleMap from "../components/GoogleMap"
 
 Vue.component('user-details',userDetails)
@@ -24,6 +26,9 @@ Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
 Vue.component('propertyDetails', propertyDetails);
 Vue.component('googleMap', googleMap);
+
+Vue.component('notifications' , notifications)
+Vue.component('material-notification',materialNotification)
 
 Vue.use(VueRouter);
 

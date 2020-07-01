@@ -10,6 +10,7 @@ import vuelidate from 'vuelidate'
 import * as VueGoogleMaps from "vue2-google-maps";
 
 
+
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
@@ -22,6 +23,13 @@ Vue.use(vuelidate)
       libraries: "places" // necessary for places input
     }
   });
+
+import VueSocketio from 'vue-socket.io';
+Vue.use(new VueSocketio({
+  debug: true,
+  connection: 'http://localhost'+ ':8020'
+}));
+
 
 new Vue({
   vuelidate,

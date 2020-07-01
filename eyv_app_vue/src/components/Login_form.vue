@@ -102,6 +102,7 @@
                     axios.get(`agents/${pubKey}`)
                         .then(res => {
                             this.$store.commit('setUser', res.data)
+                          this.$socket.emit('user_enter', res.data);
                             this.$router.push("dashboard")
                         }).catch(error => {
                         this.$emit('errorEvent', error)

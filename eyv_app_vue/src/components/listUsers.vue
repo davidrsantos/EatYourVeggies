@@ -44,7 +44,7 @@
             </v-data-table>
         </v-card>
         <v-dialog class="mx-auto" max-width="800" v-model="showUserDetails">
-            <user-details :user-prop="user" v-on:refreshList="refreshList"></user-details>
+            <user-details v-on:errorEvent="handleErrors" :user-prop="user" v-on:refreshList="refreshList"></user-details>
         </v-dialog>
 
     </v-container>
@@ -80,6 +80,11 @@
       this.getUsers()
     },
     methods: {
+      handleErrors (error) {
+        console.log(error)
+        this.$emit('errorEvent', error)
+      },
+
       refreshList () {
         this.getUsers()
       },
