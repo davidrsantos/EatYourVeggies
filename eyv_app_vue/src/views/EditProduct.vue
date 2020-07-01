@@ -238,6 +238,10 @@
                                        @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
                                     <v-icon>mdi-pencil</v-icon>
                                 </v-btn>
+                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                       @click="callRoutePropertyDetails(product.recordId,'location')">
+                                    <v-icon>mdi-folder-clock</v-icon>
+                                </v-btn>
                             </v-toolbar>
                             <v-container>
                             <v-text-field
