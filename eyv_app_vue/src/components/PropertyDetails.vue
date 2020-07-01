@@ -4,8 +4,8 @@
             <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
         </v-toolbar>
         <v-row>
-            <v-container v-if="this.name=='location'">
-                <google-map :locations="this.locations"  :polylines-locations="this.polylines" :record-id="this.recordId"/>
+            <v-container v-if="this.name=='location' && centerr" >
+                <google-map :locations="this.locations"  :centerr="centerr" :polylines-locations="this.polylines" :record-id="this.recordId"/>
             </v-container>
     <v-container v-else>
         <v-card
@@ -81,6 +81,7 @@
       y_values: [],
       x_values: [],
       property: null,
+      centerr: null,
       recordId: '',
       name: '',
       datacollection_line: {
@@ -138,6 +139,8 @@
             this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
             this.polylines.push({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
           })
+          this.centerr=this.polylines[0]
+          console.log(this.centerr)
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {

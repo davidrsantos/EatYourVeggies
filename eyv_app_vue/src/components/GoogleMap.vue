@@ -1,23 +1,23 @@
 <template>
     <v-container>
-            <v-toolbar
-                    dense
-                    width="500"
-                    height="80"
-            >
-                <label>
-                    <gmap-autocomplete placeholder="Search new location" style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
-                                       @place_changed="setPlace">
-                    </gmap-autocomplete>
-                </label>
-                <v-spacer></v-spacer>
-                <v-btn color="green" @click="addMarker">Add</v-btn>
+        <v-toolbar
+                dense
+                width="500"
+                height="80"
+        >
+            <label>
+                <gmap-autocomplete placeholder="Search new location" style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
+                                   @place_changed="setPlace">
+                </gmap-autocomplete>
+            </label>
+            <v-spacer></v-spacer>
+            <v-btn color="green" @click="addMarker">Add</v-btn>
 
-            </v-toolbar>
-      <br>
+        </v-toolbar>
+        <br>
         <gmap-map
                 :center="center"
-                :zoom="4"
+                :zoom="12"
                 style="width:100%;  height: 400px;"
         >
             <gmap-marker
@@ -42,7 +42,7 @@
   const transactions = require('../services/transactions')
 
   export default {
-    props: ['locations','polylinesLocations', 'recordId'],
+    props: ['locations','polylinesLocations', 'recordId', 'centerr'],
     name: "GoogleMap",
     data () {
       return {
@@ -51,14 +51,16 @@
         record: this.recordId,
         // default to Montreal to keep it simple
         // change this to whatever makes sense
-        center: { lat: 39.399872, lng: -8.224454 },
+        center: { lat: this.centerr.lat, lng: this.centerr.lng},
         markers: [],
         markersPolyline: [],
         currentPlace: null,
       };
     },
     mounted () {
-      this.geolocate();
+
+      console.log(this.centerr)
+      // this.geolocate(); //era isto que estava a estragar tudo!!!!!
       this.addHistoryLocations();
     },
 
