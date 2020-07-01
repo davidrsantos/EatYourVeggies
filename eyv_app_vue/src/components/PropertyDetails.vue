@@ -137,9 +137,9 @@
         if (property.dataType === 'LOCATION') {
           this.updates.forEach(update=> {
             this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
-            this.polylines.push({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
+            this.polylines.unshift({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
           })
-          this.centerr=this.polylines[0]
+          this.centerr=this.polylines[this.polylines.length-1]
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {
