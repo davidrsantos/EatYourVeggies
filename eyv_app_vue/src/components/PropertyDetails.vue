@@ -140,7 +140,6 @@
             this.polylines.push({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
           })
           this.centerr=this.polylines[0]
-          console.log(this.centerr)
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {

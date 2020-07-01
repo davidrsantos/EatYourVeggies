@@ -49,8 +49,6 @@
         localizations: this.locations,
         polylines: this.polylinesLocations,
         record: this.recordId,
-        // default to Montreal to keep it simple
-        // change this to whatever makes sense
         center: { lat: this.centerr.lat, lng: this.centerr.lng},
         markers: [],
         markersPolyline: [],
@@ -58,9 +56,6 @@
       };
     },
     mounted () {
-
-      console.log(this.centerr)
-      // this.geolocate(); //era isto que estava a estragar tudo!!!!!
       this.addHistoryLocations();
     },
 
@@ -103,24 +98,9 @@
           this.getProduct();
         }).catch(error=>{this.$emit('errorEvent', error)})
       },
-      geolocate: function () {
-        navigator.geolocation.getCurrentPosition(position => {
-          this.center = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-        });
-        /*
-        let bounds = new google.maps.LatLngBounds()//todo zoom no mapa
-        this.markers.forEach(position => bounds.extend(position))
-        map.fitBounds(bounds)
-        */
-      },
       addHistoryLocations () {
         this.markers = this.localizations;
         this.markersPolyline = this.polylines;
-        console.log('markersPolyline')
-        console.log(this.markersPolyline)
       }
     }
   }
