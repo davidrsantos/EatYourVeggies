@@ -108,7 +108,6 @@ const setPrivateKey = (password, encryptedKey) => {
   signerPublicKey = context.getPublicKey(privateKey).asHex()
 
   window.localStorage.setItem(STORAGE_KEY, encryptedKey)
-  window.localStorage.setItem(PRIVATE_KEY, privateKey) //TODO this is for shore not secure //todo we need to find out a way of ask the user is password
 
   return encryptedKey
 }

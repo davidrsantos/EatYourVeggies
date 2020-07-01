@@ -55,21 +55,23 @@
                             >
                                 <v-row>
                                     <v-container>
-                                    <strong>{{item.title.toUpperCase()}}</strong>
-                                    <div> -{{item.message}}</div>
+                                        <strong>{{item.title.toUpperCase()}}</strong>
+                                        <div> -{{item.message}}</div>
 
-                                    <v-card-actions>
+                                        <v-card-actions>
 
-                                   <div v-show="item.button"> <v-btn  @click="item.button.action()" color="blue lighten-4">
-                                        {{item.button.text}}
-                                    </v-btn>
-                                   </div>
-                                        <v-spacer/>
-                                    <v-btn class="ml-lg-10" @click="removeFromNotifications(item)"  color="blue lighten-4">
-                                        Cancel
-                                    </v-btn>
+                                            <div v-show="item.button">
+                                                <v-btn @click="item.button.action()" color="blue lighten-4">
+                                                    {{item.button.text}}
+                                                </v-btn>
+                                            </div>
+                                            <v-spacer/>
+                                            <v-btn @click="removeFromNotifications(item)" class="ml-lg-10"
+                                                   color="blue lighten-4">
+                                                Cancel
+                                            </v-btn>
 
-                                    </v-card-actions>
+                                        </v-card-actions>
                                     </v-container>
                                 </v-row>
                             </material-notification>
@@ -94,7 +96,8 @@
         <v-content app
         >
             <v-container>
-                <router-view @requestPasswordEvent="handleRequestPassword" @errorEvent="handleError" @registEvent="handleRegist"/>
+                <router-view @errorEvent="handleError" @registEvent="handleRegist"
+                             @requestPasswordEvent="handleRequestPassword"/>
 
 
             </v-container>
@@ -109,29 +112,39 @@
 
         </v-navigation-drawer>
         <errorDialog :error="error" :show-errors="showErrors" v-on:closeDialog="closeDialog"/>
-        <vue-snotify ></vue-snotify>
-        <v-dialog v-model="requestPassword"> <request-password ></request-password></v-dialog>
+        <vue-snotify></vue-snotify>
+        <v-dialog v-model="requestPassword" width="unset">
+            <v-card>
+            <v-card-title class="red darken-1">Your session expired</v-card-title>
+            <login_form/>
+            </v-card>
+        </v-dialog>
 
     </v-app>
 
 </template>
 
 <script>
-  import {SnotifyPosition, SnotifyStyle} from 'vue-snotify';
+  import { SnotifyPosition, SnotifyStyle } from 'vue-snotify'
   import * as api from './services/api'
   import * as transactions from './services/transactions'
+  import Login_form from './components/Login_form'
 
   const { setBatcherPubkey } = require('./services/transactions')
 
-
   export default {
+    components: { Login_form },
     sockets: {
       connect () {
         console.log('socket connected (socket ID = ' + this.$socket.client.id + ')')
       },
       newUser (user) {
         let buttons = [
-          { text: 'Details', action: () => this.$router.push({name:'userDetails', params: { publicKey: user.publicKey }}), bold: false },
+          {
+            text: 'Details',
+            action: () => this.$router.push({ name: 'userDetails', params: { publicKey: user.publicKey } }),
+            bold: false
+          },
           {
             text: 'Later', action: (toast) => {
               console.log('Clicked: Later')
@@ -149,7 +162,31 @@
             pauseOnHover: true,
             buttons
           })
-        this.notifications.push({ color: 'confirm', title: title, message: message , button:buttons[0] })
+        this.notifications.push({ color: 'confirm', title: title, message: message, button: buttons[0] })
+      },
+      newProposal (proposal) {
+        let buttons = [
+          { text: 'Details', action: () =>     this.$router.push('dashboard') },
+          {
+            text: 'Later', action: (toast) => {
+              console.log('Clicked: Later')
+              vm.$snotify.remove(toast.id)
+            }
+          },
+        ]
+        let message = 'the user: \n' + proposal.fromPublicKey + '\n  is asking you to accept the proposal regarding the product: '
+          + proposal.product + '\n  Do you want to see more?'
+        let title = 'New Proposal'
+        this.$snotify.confirm(message, title,
+          {
+            timeout: 9999,
+            showProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            buttons
+          })
+        this.notifications.push({ color: 'confirm', title: title, message: message, button: buttons[0] })
+
       }
     },
 
@@ -158,13 +195,11 @@
       source: String
     },
     data: () => ({
-      requestPassword : false,
+      requestPassword: false,
       mini: false,
       showErrors: false,
       error: null,
-      notifications: [
-
-      ]
+      notifications: []
     }),
     mounted () {
       this.$store.commit('loadTokenAndUserFromSession') //this keeps the user logged
@@ -191,7 +226,7 @@
       closeDialog () {
         this.showErrors = false
       },
-      handleRequestPassword(){
+      handleRequestPassword () {
         console.log('chegou aaqui!')
         this.requestPassword = true
       },
@@ -204,7 +239,7 @@
         this.notifications.push({ title: 'error', color: 'error', message: error })
       },
       handleRegist (msg) {
-        this.$snotify.warning(msg,'Hello New User',{
+        this.$snotify.warning(msg, 'Hello New User', {
           timeout: 50000,
           position: SnotifyPosition.centerBottom,
           bodyMaxLength: 500

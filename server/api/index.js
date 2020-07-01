@@ -154,6 +154,7 @@ router.use(authHandler)
 
 router.get('/agents', handle(agents.list))
 router.get('/agents/:publicKey', handle(agents.fetch))
+//todo router.get('/agents/:publicKey/name', handle(agents.fetchName))
 
 router.post('/authorization', handleBody(auth.authorize))
 

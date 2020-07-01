@@ -28,6 +28,13 @@ function start (io) {
       console.log('vou dizer ao admin!!')
       socket.to('role_admin').emit('newUser',user)
     })
+
+    socket.on('newProposal', function (proposal) {
+
+
+      let userInfo = loggedUsers.userInfoByPublicKey(proposal.toPublicKey)
+      socket.to(userInfo.socketID).emit('newProposal',proposal)
+    })
   })
 }
 

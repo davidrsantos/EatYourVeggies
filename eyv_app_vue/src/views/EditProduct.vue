@@ -728,7 +728,11 @@
                       }
                     }
                   )
+                  let proposal = { toPublicKey : publicKey , product: recordId, fromPublicKey: this.$store.state.user.publicKey}
+                  this.$socket.client.emit('newProposal', proposal)
                 }
+
+
               }).catch(error => {
                   console.log(error.toString())
                   reject({
