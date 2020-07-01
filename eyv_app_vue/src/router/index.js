@@ -18,6 +18,7 @@ import propertyDetails from "../components/PropertyDetails";
 import materialNotification from '../components/materialNotification'
 import UserDetailsView from '../views/admin/UserDetailsView'
 import requestPassword from '../components/requestPassword'
+import googleMap from "../components/GoogleMap"
 
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
@@ -26,6 +27,7 @@ Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
 Vue.component('propertyDetails', propertyDetails);
 Vue.component('requestPassword',requestPassword)
+Vue.component('googleMap', googleMap);
 Vue.component('material-notification',materialNotification)
 
 Vue.use(VueRouter);
