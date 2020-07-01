@@ -2,7 +2,7 @@
     <div>
         <list-users @errorEvent="handleErrors"
                     v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
-        <proposals v-show="this.$store.state.user!=null"></proposals>
+        <proposals @requestPasswordEvent="$emit('requestPasswordEvent')" v-show="this.$store.state.user!=null"></proposals>
 
         there you go! list of vegetables:
 

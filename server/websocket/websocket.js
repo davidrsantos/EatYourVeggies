@@ -9,23 +9,31 @@ function start (io) {
     console.log('client has connected (socket ID = ' + socket.id + ')')
     socket.on('user_enter', function (user) {
       if (user !== undefined && user !== null) {
-        socket.join('type_' + user.type)
+        socket.join('role_' + user.role)
         loggedUsers.addUserInfo(user, socket.id)
         let userInfo = loggedUsers.userInfoByPublicKey(user.publicKey)
         console.log('Entrou  user : ' + userInfo.user.name)
-
+        socket.to(userInfo.socketID).emit('newUser')
       }
     })
     socket.on('user_exit', function (user) {
       if (user !== undefined && user !== null) {
-        socket.leave('type_' + user.type)
+        socket.leave('role_' + user.role)
         loggedUsers.removeUserInfoByPublicKey(user.publicKey)
       }
     })
 
-    socket.on('mostra', function () {
+    socket.on('newUser', function (user) {
 
-      console.log(loggedUsers.users)
+      console.log('vou dizer ao admin!!')
+      socket.to('role_admin').emit('newUser',user)
+    })
+
+    socket.on('newProposal', function (proposal) {
+
+
+      let userInfo = loggedUsers.userInfoByPublicKey(proposal.toPublicKey)
+      socket.to(userInfo.socketID).emit('newProposal',proposal)
     })
   })
 }

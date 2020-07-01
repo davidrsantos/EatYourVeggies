@@ -19,12 +19,12 @@
 //const m = require('mithril')
 const _ = require('lodash')
 const sjcl = require('sjcl')
-const {createHash} = require('crypto')
+const { createHash } = require('crypto')
 const secp256k1 = require('sawtooth-sdk/signing/secp256k1')
 const {
-    Transaction,
-    TransactionHeader,
-    TransactionList
+  Transaction,
+  TransactionHeader,
+  TransactionList
 } = require('sawtooth-sdk/protobuf')
 //const modals = require('../components/modals') //TODO comentado porque a partida não precisamos disto aqui
 const api = require('../services/api')
@@ -34,33 +34,54 @@ const FAMILY_NAME = 'supply_chain'
 const FAMILY_VERSION = '1.1'
 const NAMESPACE = '3400de'
 
+
+
 const context = new secp256k1.Secp256k1Context()
 let privateKey = null
 let signerPublicKey = null
 let batcherPublicKey = null
 
 
-const createTxn = payload => {
-    const header = TransactionHeader.encode({
-        signerPublicKey,
-        batcherPublicKey,
-        familyName: FAMILY_NAME,
-        familyVersion: FAMILY_VERSION,
-        inputs: [NAMESPACE],
-        outputs: [NAMESPACE],
-        nonce: (Math.random() * 10 ** 18).toString(36),
-        payloadSha512: createHash('sha512').update(payload).digest('hex'),
-    }).finish()
+/*const requestPassword = () => {
+  let password = null
+  return modals.show(modals.BasicModal, {
+    title: 'Enter Password',
+    acceptText: 'Submit',
+    body: m('.container', [
+      m('.mb-4', 'Please confirm your password to unlock your signing key.'),
+      m('input.form-control', {
+        type: 'password',
+        oninput: m.withAttr('value', value => { password = value })
+      })
+    ])
+  })
+    .then(() => password)
+}*///todo we need to find out a way of ask the user is password
 
-    return Transaction.create({
-        payload,
-        header,
-        headerSignature: context.sign(header, privateKey)
-    })
+
+
+
+const createTxn = payload => {
+  const header = TransactionHeader.encode({
+    signerPublicKey,
+    batcherPublicKey,
+    familyName: FAMILY_NAME,
+    familyVersion: FAMILY_VERSION,
+    inputs: [NAMESPACE],
+    outputs: [NAMESPACE],
+    nonce: (Math.random() * 10 ** 18).toString(36),
+    payloadSha512: createHash('sha512').update(payload).digest('hex'),
+  }).finish()
+
+  return Transaction.create({
+    payload,
+    header,
+    headerSignature: context.sign(header, privateKey)
+  })
 }
 
 const encodeTxns = transactions => {
-    return TransactionList.encode({transactions}).finish()
+  return TransactionList.encode({ transactions }).finish()
 }
 
 /**
@@ -68,79 +89,79 @@ const encodeTxns = transactions => {
  * Returns both a public key and the encrypted private key.
  */
 const makePrivateKey = password => {
-    privateKey = context.newRandomPrivateKey()
-    signerPublicKey = context.getPublicKey(privateKey).asHex()
+  privateKey = context.newRandomPrivateKey()
+  signerPublicKey = context.getPublicKey(privateKey).asHex()
 
-    const encryptedKey = sjcl.encrypt(password, privateKey.asHex())
-    window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+  const encryptedKey = sjcl.encrypt(password, privateKey.asHex())
+  window.localStorage.setItem(STORAGE_KEY, encryptedKey)
 
-    return {encryptedKey, publicKey: signerPublicKey}
+  return { encryptedKey, publicKey: signerPublicKey }
 }
 
 /**
  * Saves an encrypted key to storage, and the decrypted version in memory.
  */
 const setPrivateKey = (password, encryptedKey) => {
-    const privateKeyHex = sjcl.decrypt(password, encryptedKey)
+  const privateKeyHex = sjcl.decrypt(password, encryptedKey)
 
-    privateKey = secp256k1.Secp256k1PrivateKey.fromHex(privateKeyHex)
-    signerPublicKey = context.getPublicKey(privateKey).asHex()
+  privateKey = secp256k1.Secp256k1PrivateKey.fromHex(privateKeyHex)
+  signerPublicKey = context.getPublicKey(privateKey).asHex()
 
-    window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+  window.localStorage.setItem(STORAGE_KEY, encryptedKey)
 
-    return encryptedKey
+  return encryptedKey
 }
 
 /**
  * Clears the users private key from memory and storage.
  */
 const clearPrivateKey = () => {
-    const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+  const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
 
-    window.localStorage.clear(STORAGE_KEY)
-    privateKey = null
-    signerPublicKey = null
+  window.localStorage.clear(STORAGE_KEY)
+  privateKey = null
+  signerPublicKey = null
 
-    return encryptedKey
+  return encryptedKey
 }
 
 /**
  * Returns the user's private key as promised, requesting password as needed.
  */
 const getPrivateKey = (password) => {
-    return Promise.resolve()
-        .then(() => {
-            if (privateKey) return privateKey.asHex()
-            const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
-            if (!password) {
-                return requestPassword()
-                    .then(password => sjcl.decrypt(password, encryptedKey))
-            } else {
-                return sjcl.decrypt(password, encryptedKey)
-            }
-        })
+  return Promise.resolve()
+    .then(() => {
+      if (privateKey) return privateKey.asHex()
+      const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+      if (!password) {
+        return requestPassword()
+          .then(password => sjcl.decrypt(password, encryptedKey))
+      } else {
+        return sjcl.decrypt(password, encryptedKey)
+      }
+    })
 }
 
 /**
  * Re-encrypts a private key with a new password.
  */
 const changePassword = (password, oldPassword) => {
-    return getPrivateKey(oldPassword)
-        .then(privateKey => {
-            const encryptedKey = sjcl.encrypt(password, privateKey)
-            window.localStorage.setItem(STORAGE_KEY, encryptedKey)
-            return encryptedKey
-        }).catch(() => {
-            throw  "Your old password was entered incorrectly"
-        })
+  return getPrivateKey(oldPassword)
+    .then(privateKey => {
+      const encryptedKey = sjcl.encrypt(password, privateKey)
+      window.localStorage.setItem(STORAGE_KEY, encryptedKey)
+      return encryptedKey
+    }).catch(() => {
+      throw  'Your old password was entered incorrectly'
+    })
 }
 
 const setBatcherPubkey = () => {
-    return axios.get('info').then(res => {
-        batcherPublicKey = res.data.pubkey
-    }).catch(error => {
-        console.error(error)
-    })
+  return axios.get('info').then(res => {
+    batcherPublicKey = res.data.pubkey
+  }).catch(error => {
+    console.error(error)
+  })
 }
 
 /**
@@ -148,39 +169,41 @@ const setBatcherPubkey = () => {
  * Prompts user for their password if their private key is not in memory.
  */
 const submit = (payloads, wait = false) => {
-    if (!_.isArray(payloads)) payloads = [payloads]
-    return Promise.resolve()
-        .then(() => {
-            if (privateKey) return
+  if (!_.isArray(payloads)) payloads = [payloads]
+  return Promise.resolve()
+    .then(() => {
+   if (privateKey) return
 
-            return requestPassword()
-                .then(password => {
-                    const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
-                    setPrivateKey(password, encryptedKey)
-                })
-        })
-        .then(() => {
-            if (batcherPublicKey) return
-            return setBatcherPubkey()
-        })
-        .then(() => {
-            const txns = payloads.map(payload => createTxn(payload))
-            let txnList = encodeTxns(txns)
-            return axios.post(`transactions${wait ? '?wait' : ''}`, Uint8Array.from(txnList), {
-                headers: {'Content-Type': 'application/octet-stream', 'X-Requested-With': ''}
-            }).catch(function (error) {
-                throw new Error(error)
-            });
+      throw ("requestPassword")
 
-        })
+      /*return requestPassword() //todo we need to find out a way of ask the user is password
+        .then(password => {
+          const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
+          setPrivateKey(password, encryptedKey)
+        })*/
+    })
+    .then(() => {
+      if (batcherPublicKey) return
+      return setBatcherPubkey()
+    })
+    .then(() => {
+      const txns = payloads.map(payload => createTxn(payload))
+      let txnList = encodeTxns(txns)
+      return axios.post(`transactions${wait ? '?wait' : ''}`, Uint8Array.from(txnList), {
+        headers: { 'Content-Type': 'application/octet-stream', 'X-Requested-With': '' }
+      }).catch(function (error) {
+        throw error
+      })
+
+    })
 }
 
 module.exports = {
-    makePrivateKey,
-    setPrivateKey,
-    clearPrivateKey,
-    getPrivateKey,
-    changePassword,
-    setBatcherPubkey,
-    submit
+  makePrivateKey,
+  setPrivateKey,
+  clearPrivateKey,
+  getPrivateKey,
+  changePassword,
+  setBatcherPubkey,
+  submit
 }

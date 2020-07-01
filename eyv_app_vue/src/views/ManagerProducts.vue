@@ -70,24 +70,6 @@
                         width="374"
                 ></v-skeleton-loader>
             </v-row>
-            <v-row fluid>
-                <v-skeleton-loader
-                        class="mx-auto my-12"
-                        type="card"
-                        width="374"
-                ></v-skeleton-loader>
-
-                <v-skeleton-loader
-                        class="mx-auto my-12"
-                        type="card"
-                        width="374"
-                ></v-skeleton-loader>
-                <v-skeleton-loader
-                        class="mx-auto my-12"
-                        type="card"
-                        width="374"
-                ></v-skeleton-loader>
-            </v-row>
         </v-sheet>
 
         <v-data-iterator :items="products"
@@ -108,7 +90,8 @@
                     ></v-divider>
                     <v-spacer></v-spacer>
 
-                    <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer' && $store.state.user.role !== 'viewer'">
+                    <router-link :to="{name: 'addProduct'}"
+                                 v-if="$store.state.user.role!=='customer' && $store.state.user.role !== 'viewer'">
                         <button class="mb-2" color="green" id="myButton">Add Product</button>
                     </router-link>
 
@@ -117,92 +100,32 @@
 
 
             <template v-slot:default="props">
-                <!--     <v-row>
-                         <v-col
-                                 :key="item.name"
-                                 cols="12"
-                                 lg="3"
-                                 md="4"
-                                 sm="6"
-                                 v-for="item in props.items"
-                         >
-                             <v-card :loading="loading"
-                                     :to="'/editProduct/'+item.recordId" class="mx-auto my-12" max-width="374">
-
-                                 <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
-                                 <v-img
-                                         height="250"
-                                         src="icon.png"
-                                 ></v-img>
-
-                                 <v-card-text>Batch : {{ item.recordId }}</v-card-text>
-                                 <v-divider></v-divider>
-
-
-                             </v-card>
-                         </v-col>
-                     </v-row>-->
                 <v-row>
+                    <v-col
+                            :key="item.name"
+                            cols="12"
+                            lg="3"
+                            md="4"
+                            sm="6"
+                            v-for="item in props.items"
+                    >
+                        <v-card :loading="loading"
+                                :to="'/editProduct/'+item.recordId" class="mx-auto my-12" max-width="374">
 
-                    <v-card :loading="loading"
-                            class="mx-auto my-12" width="374">
+                            <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                            <v-img
+                                    height="250"
+                                    src="icon.png"
+                            ></v-img>
 
-                        <v-card-title class="subheading font-weight-bold">Cenoura</v-card-title>
-                        <v-img
-                                height="250"
-                                src="cenoura1.webp"
-                        ></v-img>
-
-                        <v-card-text>Batch : canoura1</v-card-text>
-                        <v-divider></v-divider>
-
-
-                    </v-card>
-                    <v-card :loading="loading"
-                            class="mx-auto my-12" width="374">
-
-                        <v-card-title class="subheading font-weight-bold">Tomate</v-card-title>
-                        <v-img
-                                height="250"
-                                src="tomate.jpg"
-                        ></v-img>
-
-                        <v-card-text>Batch : tomate12354643</v-card-text>
-                        <v-divider></v-divider>
+                            <v-card-text>Batch : {{ item.recordId }}</v-card-text>
+                            <v-divider></v-divider>
 
 
-                    </v-card>
-                    <v-card :loading="loading"
-                            class="mx-auto my-12" width="374">
-
-                        <v-card-title class="subheading font-weight-bold">Couve</v-card-title>
-                        <v-img
-                                height="250"
-                                src="couve.jpeg"
-                        ></v-img>
-
-                        <v-card-text>Batch : Alent2020lt45</v-card-text>
-                        <v-divider></v-divider>
-
-
-                    </v-card>
-                    <v-card :loading="loading"
-                            class="mx-auto my-12" width="374">
-
-                        <v-card-title class="subheading font-weight-bold">Batata</v-card-title>
-                        <v-img
-                                height="250"
-                                src="batata.jpg"
-                        ></v-img>
-
-                        <v-card-text>Batch : Alem45345ly345</v-card-text>
-                        <v-divider></v-divider>
-
-
-                    </v-card>
-
-
+                        </v-card>
+                    </v-col>
                 </v-row>
+
             </template>
             <template v-slot:footer>
                 <v-row align="center" class="mt-2" justify="center">
@@ -272,7 +195,7 @@
     data: () => ({
       itemsPerPageArray: [4, 8, 12],
       page: 1,
-      itemsPerPage: 4,
+      itemsPerPage: 8,
       loading: true,
       headers: [
         { text: 'Batch', value: 'recordId' },
@@ -296,16 +219,6 @@
       updateItemsPerPage (number) {
         this.itemsPerPage = number
       },
-      /*    getProducts() {
-            if(this.$store.state.user.role == "admin"){
-              axios.get('/records').then(response => {
-                this.products = response.data;
-              }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
-            }
-              axios.get('/records?owner='+ this.$store.state.user.publicKey).then(response => {
-                  this.products = response.data;
-              }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
-          },*/
 
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)

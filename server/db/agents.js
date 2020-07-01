@@ -109,16 +109,19 @@ const fetchQuery = (publicKey, auth) => block => {
 const fetchUser = publicKey => {
     return r.table('users')
         .filter(hasPublicKey(publicKey))
-        .pluck('username', 'email', 'encryptedKey', 'nif', 'role')
+        .pluck('username', 'email', 'encryptedKey', 'nif', 'role','active')
         .nth(0)
 }
 
 const list = filterQuery => db.queryWithCurrentBlock(listQuery(filterQuery))
 
-const fetch = (publicKey, auth) =>
-    db.queryWithCurrentBlock(fetchQuery(publicKey, auth))
+const fetch = (publicKey, auth) => {
+  return db.queryWithCurrentBlock(fetchQuery(publicKey, auth))
+}
+const isAdmin = auth => db.runQuery(fetchUser(auth))
 
 module.exports = {
     list,
-    fetch
+    fetch,
+  isAdmin,
 }

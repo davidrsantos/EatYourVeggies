@@ -271,23 +271,26 @@
 
                     <v-select
                             :items="users"
+                            :menu-props="{ top: true, offsetY: true }"
                             item-text="name"
-                            label="Select User"
                             item-value="publicKey"
-                            v-model="publicKey"
+                            label="Select User"
                             outlined
+                            v-model="publicKey"
+
                     ></v-select>
+
+                    <v-card-actions class="justify-center">
+
+                        <v-btn
+                                @click="cancel"
+                                color="grey darken-1"
+                        >
+                            Cancel
+                        </v-btn>
+                        <v-btn @click="submit" class="mr-4 ml-4" color="green darken-1">Transfer</v-btn>
+                    </v-card-actions>
                 </v-container>
-                <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                            @click="cancel"
-                            color="grey darken-1"
-                    >
-                        Cancel
-                    </v-btn>
-                    <v-btn @click="submit" color="green darken-1" class="mr-4 ml-4">Submit</v-btn>
-                </v-card-actions>
             </v-card>
 
         </v-dialog>
@@ -458,6 +461,7 @@
   import * as api from '../services/api'
   import * as parsing from '../services/parsing'
   import { email, maxLength, minLength, numeric, between, decimal, required, sameAs } from 'vuelidate/lib/validators'
+  import { SnotifyPosition } from 'vue-snotify'
 
   const payloads = require('../services/payloads')
   const transactions = require('../services/transactions')
@@ -670,10 +674,43 @@
           recordId: record,
           properties: [value]
         })
-        return transactions.submit([updatePayload], true).then(() => {
-          console.log('Successfully submitted property update')
-          this.getProduct();
-        }).catch(error=>{this.$emit('errorEvent', error)})
+        this.$snotify.async('Updating property in the blockchain', 'Updating Property',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([updatePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully updated property',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+
       },
       cancel () {
         this.dialogTransfer = false
@@ -697,9 +734,44 @@
           receivingAgent: publicKey,
           role: this.roleToEnum(role)
         })
-        return transactions.submit([transferPayload], true).then(() => {
-          console.log('Successfully submitted proposal')
-        }).catch(error=>{this.$emit('errorEvent', error)})
+        this.$snotify.async('Working on your proposal...', 'Sending Proposal',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([transferPayload], true)
+                .then((response) => {
+                console.log(response)
+                if (response.status && response.type === undefined) {
+                  setTimeout(() => resolve({
+
+                      title: 'Success',
+                      body: 'Successfully submitted proposal',
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }
+                  ),2000)
+                  let proposal = { toPublicKey : publicKey , product: recordId, fromPublicKey: this.$store.state.user.publicKey}
+                  this.$socket.client.emit('newProposal', proposal)
+                }
+              }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() =>  reject({
+                  title: 'Error',
+                  body: error.toString(),
+                  config: {
+                    showProgressBar: true,
+                    closeOnClick: true,
+                    timeout: 8000
+                  }
+                }),2000)
+                if (error === 'requestPassword') {
+                  this.$emit('requestPasswordEvent')
+                }
+              })
+            })
+          })
       },
       reportShock () {
         this.updateProperty(this.recordId, {
@@ -780,8 +852,8 @@
         this.latitude = latitude
         this.longitude = longitude
       },
-      openTransferDialog(){
-        this.dialogTransfer=true
+      openTransferDialog () {
+        this.dialogTransfer = true
       },
       roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {

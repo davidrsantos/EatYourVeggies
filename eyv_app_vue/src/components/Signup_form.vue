@@ -124,7 +124,7 @@
     },
 
     data: () => ({
-      name: null,
+    /*  name: null,
       email: null,
       password: null,
       repeatPassword: null,
@@ -139,6 +139,28 @@
         { name: 'Retailer', value: 'retailer' },
         { name: 'Customer', value: 'customer' },
       ]
+*/
+
+      //------------------------------------------- using this just in dev----------------------------------------//
+
+      email: "bob@email.com",
+      password: '123123123',
+      repeatPassword: '123123123',
+      username: 'bob',
+      showPassword: false,
+      nif: '123456789',
+      role: {value: 'producer'},
+      name: 'Mr.Bob',
+      typeofUser: [
+     /*   { name: 'Administrador', value: 'admin' },*/
+        { name: 'Producer', value: 'producer' },
+        { name: 'Distributor', value: 'distributor' },
+        { name: 'Retailer', value: 'retailer' },
+        { name: 'Customer', value: 'customer' },
+      ]
+      //------------------------------------------- using this just in dev----------------------------------------//
+
+
 
     }),
 
@@ -219,7 +241,10 @@
           .then(() => axios.post('users', user)
             .then(res => {
               this.$router.push('welcome')
-              this.$emit('errorEvent', 'You will need to way for the administrator to validate your registration')
+              console.log(res)
+              res.data.user.name = this.name
+              this.$socket.client.emit('newUser', res.data.user)
+              this.$emit('registEvent', 'Wait a little bit the administrator is validating your registration....')
             }).catch(error => {
               this.$emit('errorEvent', error.response.data.error)
             })

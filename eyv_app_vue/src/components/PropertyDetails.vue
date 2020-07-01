@@ -4,18 +4,21 @@
             <v-toolbar-title>{{this.name.charAt(0).toUpperCase() + name.slice(1)}} History</v-toolbar-title>
         </v-toolbar>
         <v-row>
-            <v-container v-if="this.name=='location' && centerr" >
-                <google-map :locations="this.locations"  :centerr="centerr" :polylines-locations="this.polylines" :record-id="this.recordId"/>
+            <v-container v-if="this.name=='location' && centerr">
+                <google-map :centerr="centerr" :locations="this.locations" :polylines-locations="this.polylines"
+                            :record-id="this.recordId" v-on:refreshList="refreshList" @requestPasswordEvent="$emit('requestPasswordEvent')"/>
             </v-container>
-    <v-container v-else>
-        <v-card
-                class="pa-5"
-                outlined
-                tile
-        >
-            <line-chart v-if="loaded" :chart-data="datacollection_line"></line-chart>
-        </v-card>
-    </v-container>
+            <v-container v-else>
+                <v-card
+                        class="pa-5"
+                        max-height="800"
+                        outlined
+                        tile
+                >
+                    <line-chart :chart-data="datacollection_line" :options="options" :styles="myStyles"
+                                v-if="loaded"></line-chart>
+                </v-card>
+            </v-container>
         </v-row>
         <v-row>
             <v-container>
@@ -31,7 +34,6 @@
                                 v-model="search"
                         ></v-text-field>
                     </v-card-title>
-
                     <v-data-table :headers="headers"
                                   :items="updates"
                                   :loading="loading"
@@ -67,16 +69,16 @@
     data: () => ({
       search: '',
       headers: [
-        { text: 'Value', value:'value'},
-        { text: 'Reporter', value: 'reporter.name'},
-        { text: 'Time', value: 'timestamp'}
+        { text: 'Value', value: 'value' },
+        { text: 'Reporter', value: 'reporter.name' },
+        { text: 'Time', value: 'timestamp' }
         ,
 
       ],
       locations: [],
       polylines: [],
-      loaded:false,
-      loading:true,
+      loaded: false,
+      loading: true,
       updates: [],
       y_values: [],
       x_values: [],
@@ -84,10 +86,20 @@
       centerr: null,
       recordId: '',
       name: '',
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        fill: false,
+        scales: {
+          yAxes: [{
+            stacked: false
+          }]
+        }
+      },
       datacollection_line: {
         //Data to be represented on x-axis
         labels: [],
-        datasets:[
+        datasets: [
           {
             label: 'Value',
             backgroundColor: '#33b3f8',
@@ -105,12 +117,27 @@
         this.name = this.$route.params.name
       }
     },
+    computed: {
+      myStyles () {
+        return {
+          height: `500px`,
+          position: 'relative',
+          fill: false
+        }
+      }
+    },
     methods: {
+      refreshList () {
+        this.polylines = null
+        this.locations = null
+        this.getPropertyValues()
+      },
+
       getPropertyValues () {
         axios.get(`records/${this.recordId}/${this.name}`)
           .then(res => {
             this.configureTypeProperty(res.data)
-            this.loading=false
+            this.loading = false
           }).catch(function (error) {
           console.log(error)
           this.loading = false
@@ -120,7 +147,7 @@
 
       configureTypeProperty: function (property) {
         this.updates = property.updates
-        let propertyValue;
+        let propertyValue
         let x_valuesAux = []
 
         if (property.dataType === 'NUMBER') {
@@ -130,16 +157,24 @@
             this.y_values.push(propertyValue)
             x_valuesAux.push(property.timestamp)
           })
-          this.updates.forEach(update=> {
-           update.value = parsing.floatifyValue(update.value).toFixed(3)
+          this.updates.forEach(update => {
+            update.value = parsing.floatifyValue(update.value).toFixed(3)
           })
         }
         if (property.dataType === 'LOCATION') {
-          this.updates.forEach(update=> {
-            this.locations.push({ position: {lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)} })
-            this.polylines.unshift({lat:parsing.toFloat(update.value.latitude),lng:parsing.toFloat(update.value.longitude)})
+          this.updates.forEach(update => {
+            this.locations.push({
+              position: {
+                lat: parsing.toFloat(update.value.latitude),
+                lng: parsing.toFloat(update.value.longitude)
+              }
+            })
+            this.polylines.unshift({
+              lat: parsing.toFloat(update.value.latitude),
+              lng: parsing.toFloat(update.value.longitude)
+            })
           })
-          this.centerr=this.polylines[this.polylines.length-1]
+          this.centerr = this.polylines[this.polylines.length - 1]
         }
         if (property.name === 'shock') {
           property.updates.forEach(property => {
@@ -167,7 +202,7 @@
           this.x_values.push(this.formatTimestamp(value))
         })
         this.datacollection_line.labels = this.x_values
-        this.loaded=true
+        this.loaded = true
       },
       formatTimestamp (sec) {
         if (!sec) {
@@ -175,18 +210,18 @@
         }
         return moment.unix(sec).format('DD-MM-YYYY, HH:mm:ss')
       },
-      format(value){
+      format (value) {
 
-       if(value.hasOwnProperty('latitude')) {
-         return "Latitude: " + value.latitude + ", Longitude: " + value.longitude
-       }
-         var d = JSON.parse(value)
+        if (value.hasOwnProperty('latitude')) {
+          return 'Latitude: ' + value.latitude + ', Longitude: ' + value.longitude
+        }
+        var d = JSON.parse(value)
 
-        if(d.hasOwnProperty('accel')) {
-          return "Accel: " + parsing.toFloat(d.accel) + ", Duration: " + parsing.toFloat(d.duration)
-        }else if(d.hasOwnProperty('x')){
-          return "X: " + parsing.toFloat(d.x ) + ", Y: " + parsing.toFloat(d.y)
-        }else{
+        if (d.hasOwnProperty('accel')) {
+          return 'Accel: ' + parsing.toFloat(d.accel) + ', Duration: ' + parsing.toFloat(d.duration)
+        } else if (d.hasOwnProperty('x')) {
+          return 'X: ' + parsing.toFloat(d.x) + ', Y: ' + parsing.toFloat(d.y)
+        } else {
           return value
         }
       }

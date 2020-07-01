@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import store from '../store/index'
 import Dashboard from '../views/Dashboard.vue'
 import drawer from '../components/Drawer.vue'
-import singup from '../components/Singup_form.vue'
+import signup from '../components/Signup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
 import managerProducts from '../views/ManagerProducts'
@@ -15,8 +15,9 @@ import listUsers from "../components/listUsers";
 import userDetails from "../components/UserDetails";
 import proposals from "../components/Proposals";
 import propertyDetails from "../components/PropertyDetails";
-import notifications from "../components/Notifications"
 import materialNotification from '../components/materialNotification'
+import UserDetailsView from '../views/admin/UserDetailsView'
+import requestPassword from '../components/requestPassword'
 import googleMap from "../components/GoogleMap"
 
 Vue.component('user-details',userDetails)
@@ -25,9 +26,8 @@ Vue.component('drawer', drawer);
 Vue.component('listUsers', listUsers);
 Vue.component('proposals', proposals);
 Vue.component('propertyDetails', propertyDetails);
+Vue.component('requestPassword',requestPassword)
 Vue.component('googleMap', googleMap);
-
-Vue.component('notifications' , notifications)
 Vue.component('material-notification',materialNotification)
 
 Vue.use(VueRouter);
@@ -77,9 +77,14 @@ const routes = [
         component: Dashboard
     },
     {
-        path: '/singup',
-        name: 'Singup',
-        component: singup
+        path: '/user/:publicKey',
+        name: 'userDetails',
+        component: UserDetailsView
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: signup
     },
     {
         path: '/about',
@@ -102,12 +107,19 @@ router.beforeEach((to, from, next) => {
     }
 
 
-    console.log( " from: " + from.name + " to: " + to.name + " next: " + next.name)
-    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'Singup') && !store.state.user) next({name: 'welcome'})
+    console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
+    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'signup' && to.name !=='managerProducts' && to.name !=='userDetails' ) && !store.state.user) next({name: 'welcome'})
     else next()
 
 
 
 });
+
+
+router.onError(error => {
+    console.error(error)
+});
+
+
 
 export default router

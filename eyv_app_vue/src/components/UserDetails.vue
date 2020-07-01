@@ -72,6 +72,7 @@
 
 
                 </form>
+
                 <div class="text-center">
                     <v-dialog
                             v-model="dialogPassword"
@@ -79,7 +80,7 @@
                     >
                         <template v-slot:activator="{ on }">
                             <v-btn
-                                    color="red lighten-2"
+                                    color="red"
                                     dark
                                     v-on="on"
                             >
@@ -327,6 +328,8 @@
             if (error.response && error.response.status === 406) {
               let newError = new Error('It\'s no possible to make that change')
               this.$emit('errorEvent', newError)
+            }else{
+              this.$emit('errorEvent',error.response.data.error)
             }
 
           })
