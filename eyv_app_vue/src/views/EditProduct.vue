@@ -118,9 +118,9 @@
                                         </v-btn>
                                     </template>
 
-                                    <v-card>
-                                        <divide-product :product="product"/>
-                                    </v-card>
+
+                                        <divide-product @requestPasswordEvent="$emit('requestPasswordEvent')" :product="product"/>
+
                                 </v-dialog>
                             </v-row>
                         </v-container>

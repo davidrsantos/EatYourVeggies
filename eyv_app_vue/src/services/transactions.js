@@ -17,6 +17,8 @@
 'use strict'
 
 //const m = require('mithril')
+const Qs = require('javascript-stringify')
+
 const _ = require('lodash')
 const sjcl = require('sjcl')
 const { createHash } = require('crypto')
@@ -34,13 +36,10 @@ const FAMILY_NAME = 'supply_chain'
 const FAMILY_VERSION = '1.1'
 const NAMESPACE = '3400de'
 
-
-
 const context = new secp256k1.Secp256k1Context()
 let privateKey = null
 let signerPublicKey = null
 let batcherPublicKey = null
-
 
 /*const requestPassword = () => {
   let password = null
@@ -58,9 +57,6 @@ let batcherPublicKey = null
     .then(() => password)
 }*///todo we need to find out a way of ask the user is password
 
-
-
-
 const createTxn = payload => {
   const header = TransactionHeader.encode({
     signerPublicKey,
@@ -72,12 +68,23 @@ const createTxn = payload => {
     nonce: (Math.random() * 10 ** 18).toString(36),
     payloadSha512: createHash('sha512').update(payload).digest('hex'),
   }).finish()
+  console.log(payload)
 
   return Transaction.create({
     payload,
     header,
     headerSignature: context.sign(header, privateKey)
   })
+
+ /* return payload.map(pay => {
+   // console.log(new TextDecoder("utf-8").decode(pay))
+    console.log("ola")
+    return Transaction.create({
+      pay,
+      header,
+      headerSignature: context.sign(header, privateKey)
+    })
+  })*/
 }
 
 const encodeTxns = transactions => {
@@ -172,15 +179,9 @@ const submit = (payloads, wait = false) => {
   if (!_.isArray(payloads)) payloads = [payloads]
   return Promise.resolve()
     .then(() => {
-   if (privateKey) return
+      if (privateKey) return
 
-      throw ("requestPassword")
-
-      /*return requestPassword() //todo we need to find out a way of ask the user is password
-        .then(password => {
-          const encryptedKey = window.localStorage.getItem(STORAGE_KEY)
-          setPrivateKey(password, encryptedKey)
-        })*/
+      throw ('requestPassword')
     })
     .then(() => {
       if (batcherPublicKey) return
@@ -188,12 +189,51 @@ const submit = (payloads, wait = false) => {
     })
     .then(() => {
       const txns = payloads.map(payload => createTxn(payload))
-      let txnList = encodeTxns(txns)
-      return axios.post(`transactions${wait ? '?wait' : ''}`, Uint8Array.from(txnList), {
-        headers: { 'Content-Type': 'application/octet-stream', 'X-Requested-With': '' }
-      }).catch(function (error) {
+      console.log(txns[0])
+      let txnList = encodeTxns(txns[0])
+      return axios.post(`transactions${wait ? '?wait' : ''}`,
+        txnList, {
+          headers: { 'Content-Type': 'application/octet-stream', },
+          transformRequest: x => x
+        }).catch(function (error) {
         throw error
       })
+
+    })
+}
+
+const submitMulti = (payloads, wait = false) => {
+  if (!_.isArray(payloads)) payloads = [payloads]
+  return Promise.resolve()
+    .then(() => {
+      if (privateKey) return
+
+      throw ('requestPassword')
+    })
+    .then(() => {
+      if (batcherPublicKey) return
+      return setBatcherPubkey()
+    })
+    .then(() => {
+      try {
+        for (let i = 0; i < payloads.length - 1; i++) {
+
+          const txns = payloads.map(payload => createTxn(payload))
+
+          let txnList = encodeTxns(txns)
+          return axios.post(`transactions${wait ? '?wait' : ''}`,
+            txnList, {
+              headers: { 'Content-Type': 'application/octet-stream', },
+              transformRequest: x => x
+            }).catch(function (error) {
+            throw error
+          })
+
+        }
+
+      } catch (e) {
+        throw e
+      }
 
     })
 }
@@ -205,5 +245,6 @@ module.exports = {
   getPrivateKey,
   changePassword,
   setBatcherPubkey,
-  submit
+  submit,
+  submitMulti
 }
