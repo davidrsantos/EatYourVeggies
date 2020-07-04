@@ -78,14 +78,14 @@
       return {
         latitude: {
           minLength: minLength(1),
-          maxLength: maxLength(9),
+          maxLength: maxLength(10),
           decimal,
           between: between(-90, 90)
         },
         longitude:
           {
             minLength: minLength(1),
-            maxLength: maxLength(9),
+            maxLength: maxLength(10),
             decimal,
             between: between(-180, 180)
           }
@@ -114,7 +114,7 @@
 
         if (!this.$v.latitude.$dirty) return errors
         !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
-        !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
+        !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 10 characters long')
         !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
         !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
         if (errors.length !== 0) this.submitStatus = 'ERROR'
@@ -127,7 +127,7 @@
 
         if (!this.$v.longitude.$dirty) return errors
         !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
-        !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
+        !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 10 characters long')
         !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
         !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
         if (errors.length !== 0) this.submitStatus = 'ERROR'
@@ -147,7 +147,6 @@
             lat: this.currentPlace.geometry.location.lat(),
             lng: this.currentPlace.geometry.location.lng()
           }
-          console.log(marker)
           this.markers.push({ position: marker })
           this.markersPolyline.push({
             lat: this.currentPlace.geometry.location.lat(),
@@ -161,16 +160,16 @@
       insertLocalization () {
         if (this.latitude !== null && this.longitude !== null) {
           const marker = {
-            lat: parsing.toFloat(this.latitude),
-            lng: parsing.toFloat(this.longitude)
+            lat: parseFloat(this.latitude),
+            lng: parseFloat(this.longitude)
           }
-          console.log(marker)
+          this.center = marker
           this.markers.push({ position: marker })
           this.markersPolyline.push({
-            lat: parsing.toFloat(this.latitude),
-            lng: parsing.toFloat(this.longitude)
+            lat: parseFloat(this.latitude),
+            lng: parseFloat(this.longitude)
           })
-          this.center = marker
+
           this.updateProperty(this.record, {
             name: 'location',
             locationValue: {
@@ -179,8 +178,10 @@
             },
             dataType: payloads.updateProperties.enum.LOCATION
           })
+
           this.latitude = ''
           this.longitude = ''
+
         }
       },
       reportLocalization () {

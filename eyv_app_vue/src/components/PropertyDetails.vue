@@ -128,8 +128,8 @@
     },
     methods: {
       refreshList () {
-        this.polylines = null
-        this.locations = null
+        this.polylines = []
+        this.locations = []
         this.getPropertyValues()
       },
 
