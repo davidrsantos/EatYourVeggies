@@ -1,19 +1,47 @@
 <template>
     <v-container>
-        <v-toolbar
-                dense
-                width="500"
-                height="80"
-        >
-            <label>
-                <gmap-autocomplete placeholder="Search new location" style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
-                                   @place_changed="setPlace">
-                </gmap-autocomplete>
-            </label>
-            <v-spacer></v-spacer>
-            <v-btn color="green" @click="addMarker">Add</v-btn>
-
-        </v-toolbar>
+        <v-row>
+            <v-col align="center">
+                <v-toolbar
+                        dense
+                        width="500"
+                        height="80"
+                >
+                    <label>
+                        <gmap-autocomplete placeholder="Search new location"
+                                           style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
+                                           @place_changed="setPlace">
+                        </gmap-autocomplete>
+                    </label>
+                    <v-spacer></v-spacer>
+                    <v-btn color="green" @click="addMarker">Add</v-btn>
+                </v-toolbar>
+            </v-col>
+            <v-col align="center">
+                <v-toolbar dense width="600"
+                           height="100">
+                    <v-text-field :error-messages="LatErrors"
+                                  @blur="$v.latitude.$touch()"
+                                  @input="$v.latitude.$touch()"
+                                  label="Latitude"
+                                  v-model="latitude"
+                                  outlined>
+                    </v-text-field>
+                    <v-spacer></v-spacer>
+                    <v-text-field :error-messages="LngErrors"
+                                  @blur="$v.longitude.$touch()"
+                                  @input="$v.longitude.$touch()"
+                                  label="Longitude"
+                                  v-model="longitude"
+                                  outlined>
+                    </v-text-field>
+                    <v-spacer></v-spacer>
+                    <v-btn align="center" :disabled="submitStatus==='ERROR'" color="green" @click="insertLocalization">
+                        Add
+                    </v-btn>
+                </v-toolbar>
+            </v-col>
+        </v-row>
         <br>
         <gmap-map
                 :center="center"
@@ -38,47 +66,124 @@
 <script>
   import * as parsing from '../services/parsing'
   import GoogleMapsLoader from 'google-maps'
+  import { maxLength, minLength, between, decimal, required } from 'vuelidate/lib/validators'
+
   const payloads = require('../services/payloads')
   const transactions = require('../services/transactions')
 
   export default {
-    props: ['locations','polylinesLocations', 'recordId', 'centerr'],
-    name: "GoogleMap",
+    props: ['locations', 'polylinesLocations', 'recordId', 'centerr'],
+    name: 'GoogleMap',
+    validations () {
+      return {
+        latitude: {
+          minLength: minLength(1),
+          maxLength: maxLength(9),
+          decimal,
+          between: between(-90, 90)
+        },
+        longitude:
+          {
+            minLength: minLength(1),
+            maxLength: maxLength(9),
+            decimal,
+            between: between(-180, 180)
+          }
+      }
+    },
     data () {
       return {
+        submitStatus: null,
+        latitude: '',
+        longitude: '',
         localizations: this.locations,
         polylines: this.polylinesLocations,
         record: this.recordId,
-        center: { lat: this.centerr.lat, lng: this.centerr.lng},
+        center: { lat: this.centerr.lat, lng: this.centerr.lng },
         markers: [],
         markersPolyline: [],
         currentPlace: null,
-      };
+      }
     },
     mounted () {
-      this.addHistoryLocations();
+      this.addHistoryLocations()
     },
+    computed: {
+      LatErrors () {
+        const errors = []
 
+        if (!this.$v.latitude.$dirty) return errors
+        !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
+        !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
+        !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
+        !this.$v.latitude.between && errors.push('The latitude must be between -90 and 90.')
+        if (errors.length !== 0) this.submitStatus = 'ERROR'
+        else this.submitStatus = 'OK'
+
+        return errors
+      },
+      LngErrors () {
+        const errors = []
+
+        if (!this.$v.longitude.$dirty) return errors
+        !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
+        !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
+        !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
+        !this.$v.longitude.between && errors.push('The longitude must be between -180 and 180.')
+        if (errors.length !== 0) this.submitStatus = 'ERROR'
+        else this.submitStatus = 'OK'
+        return errors
+
+      }
+    },
     methods: {
       // receives a place object via the autocomplete component
       setPlace (place) {
-        this.currentPlace = place;
+        this.currentPlace = place
       },
       addMarker () {
         if (this.currentPlace) {
           const marker = {
             lat: this.currentPlace.geometry.location.lat(),
             lng: this.currentPlace.geometry.location.lng()
-          };
-          this.markers.push({ position: marker });
-          this.markersPolyline.push({lat:this.currentPlace.geometry.location.lat(),lng: this.currentPlace.geometry.location.lng()})
-          this.reportLocalization();
-          this.center = marker;
-          this.currentPlace = null;
+          }
+          console.log(marker)
+          this.markers.push({ position: marker })
+          this.markersPolyline.push({
+            lat: this.currentPlace.geometry.location.lat(),
+            lng: this.currentPlace.geometry.location.lng()
+          })
+          this.reportLocalization()
+          this.center = marker
+          this.currentPlace = null
         }
       },
-
-      reportLocalization() {
+      insertLocalization () {
+        if (this.latitude !== null && this.longitude !== null) {
+          const marker = {
+            lat: parsing.toFloat(this.latitude),
+            lng: parsing.toFloat(this.longitude)
+          }
+          console.log(marker)
+          this.markers.push({ position: marker })
+          this.markersPolyline.push({
+            lat: parsing.toFloat(this.latitude),
+            lng: parsing.toFloat(this.longitude)
+          })
+          this.center = marker
+          this.updateProperty(this.record, {
+            name: 'location',
+            locationValue: {
+              latitude: parsing.toInt(this.latitude),
+              longitude: parsing.toInt(this.longitude)
+            },
+            dataType: payloads.updateProperties.enum.LOCATION
+          })
+          this.latitude = ''
+          this.longitude = ''
+        }
+      },
+      reportLocalization () {
         this.updateProperty(this.record, {
           name: 'location',
           locationValue: {
@@ -130,12 +235,10 @@
             })
           })
 
-
-
       },
       addHistoryLocations () {
-        this.markers = this.localizations;
-        this.markersPolyline = this.polylines;
+        this.markers = this.localizations
+        this.markersPolyline = this.polylines
       }
     }
   }
