@@ -13,13 +13,13 @@
 
                             <form>
 
-                                <v-text-field
-                                        label="Batch"
-                                        outlined
-                                        readonly
-                                        v-model=product.recordId
+                                    <v-text-field
+                                            label="Batch"
+                                            outlined
+                                            readonly
+                                            v-model=product.recordId
 
-                                />
+                                    />
 
                                 <v-text-field
                                         :value="product.name"
@@ -106,12 +106,11 @@
                                 <v-btn @click="openTransferDialog" class="mr-2" color="green" dark>Transfer Ownership
                                 </v-btn>
 
-                                <v-dialog>
-                                    <template v-slot:activator="{ on, attrs }">
+                                <v-dialog v-model="dialog">
+                                    <template v-slot:activator="{ on}">
                                         <v-btn class="ml-2"
                                                color="green"
                                                dark
-                                               v-bind="attrs"
                                                v-on="on"
                                         >
                                             Generate Sub-Product
@@ -119,7 +118,7 @@
                                     </template>
 
 
-                                        <divide-product @requestPasswordEvent="$emit('requestPasswordEvent')" :product="product"/>
+                                        <divide-product @requestPasswordEvent="$emit('requestPasswordEvent')" :product="product" @close="dialog=false"/>
 
                                 </v-dialog>
                             </v-row>
@@ -533,6 +532,7 @@
       }
     },
     data: () => ({
+      dialog: false,
       submitStatus: null,
       recordId: '',
       product: {
