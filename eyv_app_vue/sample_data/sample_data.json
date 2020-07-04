@@ -112,13 +112,13 @@
   ],
   "agents": [
     {
-      "username": "idunbobin0",
-      "name": "Ileane",
-      "email": "idudliston0@spotify.com",
+      "username": "admin2",
+      "name": "Administrator",
+      "email": "admin@admin.admin",
       "nif": "100763801",
-      "password": "c7JSeF",
-      "role": "distributor",
-      "privateKey": "2b2691a2c62b121abc9ac3c521568add10571c319673ac85374d6156fceaff97",
+      "password": "123123123",
+      "role": "admin",
+      "privateKey": "1d21118c92c46978ceaa59ebaaa5b574495ded2fd6573c4bb4a24cc0b88991c0",
       "active": 1
     }
   ]

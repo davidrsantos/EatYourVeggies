@@ -28,7 +28,6 @@ const {
   TransactionHeader,
   TransactionList
 } = require('sawtooth-sdk/protobuf')
-//const modals = require('../components/modals') //TODO comentado porque a partida não precisamos disto aqui
 const api = require('../services/api')
 
 const STORAGE_KEY = 'fish_net.encryptedKey'
@@ -40,52 +39,6 @@ const context = new secp256k1.Secp256k1Context()
 let privateKey = null
 let signerPublicKey = null
 let batcherPublicKey = null
-
-/*const requestPassword = () => {
-  let password = null
-  return modals.show(modals.BasicModal, {
-    title: 'Enter Password',
-    acceptText: 'Submit',
-    body: m('.container', [
-      m('.mb-4', 'Please confirm your password to unlock your signing key.'),
-      m('input.form-control', {
-        type: 'password',
-        oninput: m.withAttr('value', value => { password = value })
-      })
-    ])
-  })
-    .then(() => password)
-}*///todo we need to find out a way of ask the user is password
-
-const createTxn = payload => {
-  const header = TransactionHeader.encode({
-    signerPublicKey,
-    batcherPublicKey,
-    familyName: FAMILY_NAME,
-    familyVersion: FAMILY_VERSION,
-    inputs: [NAMESPACE],
-    outputs: [NAMESPACE],
-    nonce: (Math.random() * 10 ** 18).toString(36),
-    payloadSha512: createHash('sha512').update(payload).digest('hex'),
-  }).finish()
-  console.log(payload)
-
-  return Transaction.create({
-    payload,
-    header,
-    headerSignature: context.sign(header, privateKey)
-  })
-
- /* return payload.map(pay => {
-   // console.log(new TextDecoder("utf-8").decode(pay))
-    console.log("ola")
-    return Transaction.create({
-      pay,
-      header,
-      headerSignature: context.sign(header, privateKey)
-    })
-  })*/
-}
 
 const encodeTxns = transactions => {
   return TransactionList.encode({ transactions }).finish()
@@ -171,11 +124,31 @@ const setBatcherPubkey = () => {
   })
 }
 
+const createTxn = payload => {
+  const header = TransactionHeader.encode({
+    signerPublicKey,
+    batcherPublicKey,
+    familyName: FAMILY_NAME,
+    familyVersion: FAMILY_VERSION,
+    inputs: [NAMESPACE],
+    outputs: [NAMESPACE],
+    nonce: (Math.random() * 10 ** 18).toString(36),
+    payloadSha512: createHash('sha512').update(payload).digest('hex'),
+  }).finish()
+  return Transaction.create({
+    payload,
+    header,
+    headerSignature: context.sign(header, privateKey)
+  })
+
+}
+
 /**
  * Wraps a Protobuf payload in a TransactionList and submits it to the API.
  * Prompts user for their password if their private key is not in memory.
  */
 const submit = (payloads, wait = false) => {
+  console.log(payloads)
   if (!_.isArray(payloads)) payloads = [payloads]
   return Promise.resolve()
     .then(() => {
@@ -189,8 +162,7 @@ const submit = (payloads, wait = false) => {
     })
     .then(() => {
       const txns = payloads.map(payload => createTxn(payload))
-      console.log(txns[0])
-      let txnList = encodeTxns(txns[0])
+      let txnList = encodeTxns(txns)
       return axios.post(`transactions${wait ? '?wait' : ''}`,
         txnList, {
           headers: { 'Content-Type': 'application/octet-stream', },

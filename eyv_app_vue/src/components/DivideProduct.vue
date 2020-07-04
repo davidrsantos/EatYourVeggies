@@ -77,7 +77,7 @@
       recordPayload: function () {
 
        let record1 =  payloads.createRecord({
-          recordId: "testexx2",
+          recordId: "testekkxk2",
           recordType: 'vegetable',
           properties: [
             {
@@ -131,7 +131,7 @@
           ],
         })
         let record2 =  payloads.createRecord({
-          recordId: "testexx1",
+          recordId: "testekkk1",
           recordType: 'vegetable',
           properties: [
             {
@@ -191,16 +191,10 @@
         records.push(record1)
         records.push(record2)
 
-
-        this.transitionSubmit(record1)
+       this.transitionSubmit(record1)
 
 
         this.plus++
-
-
-
-
-
 
 
     },
@@ -209,7 +203,7 @@
       this.$snotify.async('Adding product to the blockchain', 'Adding Product',
         () => {
           return new Promise((resolve, reject) => {
-            return transactions.submit([recordPayload], true)
+            return transactions.submit(recordPayload, true)
               .then((response) => {
                 console.log(response)
                 if (response.status && response.type === undefined) {

@@ -64,8 +64,8 @@
         },
 
         data: () => ({
-            password: null,
-            username: null,
+            password: '123123123', //todo meter a null
+            username: 'admin', //todo meter a null
             showPassword: false
         }),
 
