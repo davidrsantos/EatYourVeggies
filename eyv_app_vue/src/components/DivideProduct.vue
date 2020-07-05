@@ -27,7 +27,7 @@
                     </v-row>
                 </v-container>
             </v-card>
-almost            <v-container>
+            <v-container>
                 <v-header>Use the slider to choose the amount of products you want to generate</v-header>
 
                 <v-card-text>
@@ -230,7 +230,7 @@ almost            <v-container>
     data () {
       return {
         min: 1,
-        max: this.product.weight<1000? Math.floor(this.product.weight) : 1000 , //Protection 
+        max: this.product.weight < 1000 ? Math.floor(this.product.weight) : 1000, //Protection
         slider: 1,
         plus: 1,
 
@@ -423,17 +423,14 @@ almost            <v-container>
 
           let toSend = recordsPayload.slice(0, 140)
           recordsPayload = recordsPayload.slice(140)
-
-          console.log(toSend.length)
-          console.log(recordsPayload.length)
           this.transitionSubmit(toSend, ++transactionNumber)
         }
         this.transitionSubmit(recordsPayload, ++transactionNumber)
 
       },
 
-      transitionSubmit (recordsPayload,transactionNumber) {
-        this.$snotify.async('Transaction Number: '+ transactionNumber +' \n Adding product to the blockchain \n This may take a while...',  'Adding Products',
+      transitionSubmit (recordsPayload, transactionNumber) {
+        this.$snotify.async('Transaction Number: ' + transactionNumber + ' \n Adding product to the blockchain \n This may take a while...', 'Adding Products',
           () => {
             return new Promise((resolve, reject) => {
               return transactions.submit(recordsPayload, true)
@@ -450,127 +447,88 @@ almost            <v-container>
                         }
                       }
                     ), 2000)
+
                     this.$emit('close')
+
                   }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error.toString(),
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
+                })
+         //       .then(() => this.updateProperty())
+                .then(() => this.finalizeProductSubmit())
+                .catch(error => {
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
+                    reject({
+                        title: 'Error',
+                        body: '',
+                        icon: false,
+                        config: {
+                          timeout: 1
+                        }
+                      }
+                    )
+                  } else {
+                    console.log(error.toString())
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error.toString(),
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
                   }
                 })
             })
           })
       },
-
-
 
       finalizeProductSubmit () {
         let finalizePayload = payloads.finalizeRecord({
-          recordId: this.recordId
+          recordId: this.product.recordId
         })
-        this.$snotify.async('Finalize product in the blockchain', 'Finalize Product',
-          () => {
-            return new Promise((resolve, reject) => {
-              return transactions.submit([finalizePayload], true)
-                .then((response) => {
-                  console.log(response)
-                  if (response.status && response.type === undefined) {
-                    setTimeout(() => resolve({
-                        title: 'Success',
-                        body: 'Successfully finalize product',
-                        config: {
-                          showProgressBar: true,
-                          closeOnClick: true,
-                          timeout: 8000
-                        }
-                      }
-                    ), 2000)
-                   // this.getProduct()
-                  }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error.toString(),
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
-                  if (error === 'requestPassword') {
-                    this.$emit('requestPasswordEvent')
-                  }
-                })
-            })
+        return transactions.submit([finalizePayload], true)
+          .then((response) => {
+            console.log(response)
+            if (response.status && response.type === undefined) {
+              console.log('fazer finalize')
+              return response
+            }
+          }).catch(error => {
+            console.log(error)
+            if (error === 'requestPassword') {
+              this.$emit('requestPasswordEvent')
+            } else {
+              throw error
+            }
           })
       },
-/*
-      updateProperty (record, value) {
+
+      updateProperty () {
         let updatePayload = payloads.updateProperties({
-          recordId: record,
-          properties: [value]
+          recordId: this.product.recordId,
+          properties: {
+            name: 'finalizeJustification',
+            stringValue: 'Product Divide',
+            dataType: payloads.updateProperties.enum.STRING
+          }
         })
-        this.$snotify.async('Updating property in the blockchain', 'Updating Property',
-          () => {
-            return new Promise((resolve, reject) => {
-              return transactions.submit([updatePayload], true)
-                .then((response) => {
-                  console.log(response)
-                  if (response.status && response.type === undefined) {
-                    setTimeout(() => resolve({
-                        title: 'Success',
-                        body: 'Successfully updated property',
-                        config: {
-                          showProgressBar: true,
-                          closeOnClick: true,
-                          timeout: 8000
-                        }
-                      }
-                    ), 2000)
-                    if (value.name == 'finalizeJustification') {
-                      this.finalizeProductSubmit()
-                    }
-                    this.getProduct()
-                  }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error.toString(),
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
-                  if (error === 'requestPassword') {
-                    this.$emit('requestPasswordEvent')
-                  }
-                })
-            })
+        return transactions.submit([updatePayload], true)
+          .then((response) => {
+            if (response.status && response.type === undefined) {
+              console.log('fazer update do justification')
+              return response
+            }
+          }).catch(error => {
+            console.log(error)
+            if (error === 'requestPassword') {
+              this.$emit('requestPasswordEvent')
+            } else {
+              throw error
+            }
           })
 
       },
-      finalizeProduct () {
-        this.updateProperty(this.recordId, {
-          name: 'finalizeJustification',
-          stringValue: this.valueUpdate,
-          dataType: payloads.updateProperties.enum.STRING
-        })
-      },
-
-
-*/ //todo falta finalizar o produto com o codigo que está comentado
 
     }
 
