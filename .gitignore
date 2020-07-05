@@ -33,3 +33,4 @@ tests/sawtooth_sc_test/protobuf/
 *.sln
 *.sw?
 /package.json
+/server/images/

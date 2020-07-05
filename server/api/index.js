@@ -29,6 +29,7 @@ const recordTypes = require('./record_types')
 const blockchain = require('../blockchain/')
 const batcher = require('../blockchain/batcher')
 const config = require('../system/config')
+const multer = require('multer')
 
 const router = express.Router()
 
@@ -133,12 +134,49 @@ const restrict = (req, res, next) => {
 
 // Send back a simple JSON error with an HTTP status code
 const errorHandler = (err, req, res, next) => {
+
+  if (err.code === 'INCORRECT_FILETYPE') {
+    res.status(422).json({ error: 'Only images are allowed' })
+
+  }
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    res.status(422).json({ error: 'Allow file size is 500KB' })
+
+  }
+
   if (err) {
     res.status(err.status || 500).json({ error: err.message })
   } else {
     next()
   }
 }
+
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png']
+  if (!allowedTypes.includes(file.mimetype)) {
+    const error = new Error('Incorrect file')
+    error.code = 'INCORRECT_FILETYPE'
+    return cb(error, false)
+  }
+  cb(null, true)
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'images')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + '.jpg')
+  }
+})
+
+const upload = multer({
+  storage: storage,
+  fileFilter,
+  limits: {
+    fileSize: 5000000
+  }
+})
 
 /*
  * Route and Middleware Setup
@@ -186,9 +224,17 @@ router.get('/records/:recordId/:propertyName', handle(records.fetchProperty))
 router.get('/record-types', handle(recordTypes.list))
 router.get('/record-types/:typeName', handle(recordTypes.fetch))
 router.post('/transactions', handleBody(blockchain.submit))
-router.get('/proposals/:receivingAgent',handle(records.listProposals))//@luana submit proposal
-router.get('/proposals-send/:issuingAgent',handle(records.listProposals))//@luana submit proposal cancel
-router.get('/proposals-all/:recordId',handle(records.listProposals))//@luana valid proposal
+router.get('/proposals/:receivingAgent', handle(records.listProposals))//@luana submit proposal
+router.get('/proposals-send/:issuingAgent', handle(records.listProposals))//@luana submit proposal cancel
+router.get('/proposals-all/:recordId', handle(records.listProposals))//@luana valid proposal
+
+router.post('/upload', upload.single('file'), (req, res) => {
+  res.json({ file: req.file })
+})
+
+router.get('/image', function(req, res){
+res.sendFile( '/sawtooth-supply-chain/server/images/file-1593986240869.jpg')
+})
 
 router.route('/users')
   .post(handleBody(users.create))
@@ -196,7 +242,7 @@ router.route('/users')
 
 // This route is redundant, but matches RESTful expectations
 router.patch('/users/:publicKey', restrict, handleBody((body, params) => {
-   return users.fetch(params.authedKey).then(user => {
+  return users.fetch(params.authedKey).then(user => {
     if (params.publicKey !== params.authedKey && user.role !== 'admin') {
       throw new Unauthorized('You may only modify your own user account!')
     }
