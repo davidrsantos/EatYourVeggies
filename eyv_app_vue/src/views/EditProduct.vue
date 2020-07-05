@@ -289,6 +289,7 @@
                                        color="teal"
                                        dark
                                       @click="dialogGenerateSubProduct=true"
+                                       v-if="this.$store.state.user.role==='admin' || this.$store.state.user.role==='producer'|| this.$store.state.user.role==='retailer' "
                                 >
                                     Generate Sub-Product
                                 </v-btn>
