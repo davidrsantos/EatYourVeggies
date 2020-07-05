@@ -33,7 +33,7 @@ const create = user => {
     })
     .then(() => auth.hashPassword(user.password))
     .then(hashed => {
-      return users.insert(_.assign({}, user, {password: hashed, active:0}))
+      return users.insert(_.assign({}, user, {password: hashed, active:user.role==='admin'?1:0})) //todo ver se há outra maneira
         .catch(err => { throw new BadRequest(err.message) })
     })
     .then(() => auth.createToken(user.publicKey))

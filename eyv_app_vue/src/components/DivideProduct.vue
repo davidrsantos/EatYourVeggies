@@ -27,151 +27,161 @@
                     </v-row>
                 </v-container>
             </v-card>
-            <v-subheader>Min and max default slider</v-subheader>
+almost            <v-container>
+                <v-header>Use the slider to choose the amount of products you want to generate</v-header>
 
-            <v-card-text>
-                <v-row>
-                    <v-col class="pr-4">
-                        <v-slider
-                                :max="max"
-                                :min="min"
-                                class="align-center"
-                                hide-details
-                                v-model="slider"
-                        >
-                            <template v-slot:append>
-                                <v-text-field
-                                        class="mt-0 pt-0"
-                                        hide-details
-                                        single-line
-                                        style="width: 60px"
-                                        type="number"
-                                        v-model="slider"
-                                ></v-text-field>
-                            </template>
-                        </v-slider>
-                    </v-col>
-                </v-row>
-            </v-card-text>
-
-            <v-card outlined>
-
+                <v-card-text>
+                    <v-row>
+                        <v-col class="pr-4">
+                            <v-slider
+                                    :max="max"
+                                    :min="min"
+                                    class="align-center"
+                                    hide-details
+                                    v-model="slider"
+                            >
+                                <template v-slot:append>
+                                    <v-text-field
+                                            class="mt-0 pt-0"
+                                            hide-details
+                                            single-line
+                                            style="width: 60px"
+                                            type="number"
+                                            v-model="slider"
+                                    ></v-text-field>
+                                </template>
+                            </v-slider>
+                        </v-col>
+                    </v-row>
+                </v-card-text>
+            </v-container>
+            <v-card flat>
                 <v-container>
-                    <v-card-title>New Products</v-card-title>
-                    <v-container>
-                        <form>
-                            <v-row>
-                                <v-col>
+                    <v-card-title>New Products Properties</v-card-title>
+                    <v-card-subtitle>After you enter the new name, you will be able to preview the generated products
+                    </v-card-subtitle>
+                    <form>
+                        <v-row>
+                            <v-col>
+                                <v-card max-height="200">
+                                    <v-container>
+                                        <v-card-text>
+                                            <v-text-field
+                                                    :counter="10"
+                                                    :error-messages="nameErrors"
+                                                    @blur="$v.name.$touch()"
+                                                    @input="$v.name.$touch()"
+                                                    hint="Add a new name for your product"
+                                                    label="New Name"
+                                                    required
+                                                    v-model="name"
+                                            />
 
-                                    <v-text-field
-                                            :counter="10"
-                                            :error-messages="nameErrors"
-                                            @blur="$v.name.$touch()"
-                                            @input="$v.name.$touch()"
-                                            label="Name"
-                                            required
-                                            v-model="name"
-                                    />
 
+                                            <v-text-field
+                                                    label="New Weight (grams)"
+                                                    outlined
+                                                    readonly
+                                                    v-model="newWeights"
+                                            />
+                                        </v-card-text>
+                                    </v-container>
+                                </v-card>
+                            </v-col>
+                            <v-col>
+                                <v-card max-height="200">
+                                    <v-container>
+                                        <v-card-title> Optional Properties</v-card-title>
+                                        <v-card-subtitle>Check the box if you want to add a optional property
+                                        </v-card-subtitle>
+                                        <v-card-text>
+                                            <v-row align="center" justify="center">
+                                                <v-checkbox
+                                                        dense
+                                                        v-model="expirationDateCheck"
+                                                ></v-checkbox>
+                                                <v-menu
+                                                        :close-on-content-click="false"
+                                                        :nudge-right="40"
+                                                        min-width="290px"
+                                                        offset-y
+                                                        transition="scale-transition"
+                                                        v-model="menuExpirationDate"
+                                                >
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-text-field
+                                                                :counter="10"
+                                                                :disabled="!expirationDateCheck"
+                                                                :error-messages="expirationDateErrors"
+                                                                @blur="$v.expirationDate.$touch()"
+                                                                @input="$v.expirationDate.$touch()"
+                                                                label="Expiration Date"
+                                                                readonly
+                                                                v-model="expirationDate"
+                                                                v-on="on"
+                                                        ></v-text-field>
+                                                    </template>
+                                                    <v-date-picker @input="menuExpirationDate = false"
+                                                                   v-model="expirationDate"></v-date-picker>
+                                                </v-menu>
+                                                <v-checkbox
+                                                        dense
+                                                        v-model="packingDateCheck"
+                                                ></v-checkbox>
+                                                <v-menu
+                                                        :close-on-content-click="false"
+                                                        :nudge-right="40"
+                                                        min-width="290px"
+                                                        offset-y
+                                                        transition="scale-transition"
+                                                        v-model="menuPackingDate"
+                                                >
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-text-field
+                                                                :counter="10"
+                                                                :disabled="!packingDateCheck"
+                                                                :error-messages="packingDateErrors"
+                                                                @blur="$v.packingDate.$touch()"
+                                                                @input="$v.packingDate.$touch()"
+                                                                label="Packing Date"
+                                                                readonly
+                                                                v-model="packingDate"
+                                                                v-on="on"
+                                                        ></v-text-field>
+                                                    </template>
+                                                    <v-date-picker @input="menuPackingDate = false"
+                                                                   v-model="packingDate"></v-date-picker>
+                                                </v-menu>
+                                            </v-row>
+                                        </v-card-text>
+                                    </v-container>
+                                </v-card>
+                            </v-col>
+                        </v-row>
+                        <!--      <v-btn :disabled="submitStatus==='ERROR'" @click="submit" class="mr-4">submit</v-btn>
+                              <v-btn @click="clear">clear</v-btn>-->
 
-                                    <v-text-field
-                                            label="Weight (grams)"
-                                            outlined
-                                            readonly
-                                            v-model="newWeights"
-                                    />
-                                </v-col>
-                                <v-col>
-                                    <v-toolbar color="green" dark>
-                                        <v-toolbar-title>Add Properties</v-toolbar-title>
-                                    </v-toolbar>
-                                    <v-card-text>
-                                        <v-row align="center">
-                                            <v-checkbox
-                                                    class="shrink mr-2 mt-0"
-                                                    hide-details
-                                                    v-model="expirationDateCheck"
-                                            ></v-checkbox>
-                                            <v-menu
-                                                    :close-on-content-click="false"
-                                                    :nudge-right="40"
-                                                    min-width="290px"
-                                                    offset-y
-                                                    transition="scale-transition"
-                                                    v-model="menuExpirationDate"
-                                            >
-                                                <template v-slot:activator="{ on }">
-                                                    <v-text-field
-                                                            :counter="10"
-                                                            :disabled="!expirationDateCheck"
-                                                            :error-messages="expirationDateErrors"
-                                                            @blur="$v.expirationDate.$touch()"
-                                                            @input="$v.expirationDate.$touch()"
-                                                            label="Expiration Date"
-                                                            readonly
-                                                            v-model="expirationDate"
-                                                            v-on="on"
-                                                    ></v-text-field>
-                                                </template>
-                                                <v-date-picker @input="menuExpirationDate = false"
-                                                               v-model="expirationDate"></v-date-picker>
-                                            </v-menu>
-                                        </v-row>
-                                        <v-row align="center">
-                                            <v-checkbox
-                                                    class="shrink mr-2 mt-0"
-                                                    hide-details
-                                                    v-model="packingDateCheck"
-                                            ></v-checkbox>
-                                            <v-menu
-                                                    :close-on-content-click="false"
-                                                    :nudge-right="40"
-                                                    min-width="290px"
-                                                    offset-y
-                                                    transition="scale-transition"
-                                                    v-model="menuPackingDate"
-                                            >
-                                                <template v-slot:activator="{ on }">
-                                                    <v-text-field
-                                                            :counter="10"
-                                                            :disabled="!packingDateCheck"
-                                                            :error-messages="packingDateErrors"
-                                                            @blur="$v.packingDate.$touch()"
-                                                            @input="$v.packingDate.$touch()"
-                                                            label="Packing Date"
-                                                            readonly
-                                                            v-model="packingDate"
-                                                            v-on="on"
-                                                    ></v-text-field>
-                                                </template>
-                                                <v-date-picker @input="menuPackingDate = false"
-                                                               v-model="packingDate"></v-date-picker>
-                                            </v-menu>
-                                        </v-row>
-                                    </v-card-text>
+                    </form>
 
-                                </v-col>
-                            </v-row>
-                            <!--      <v-btn :disabled="submitStatus==='ERROR'" @click="submit" class="mr-4">submit</v-btn>
-                                  <v-btn @click="clear">clear</v-btn>-->
-
-                        </form>
-                    </v-container>
                 </v-container>
             </v-card>
+            <v-card color="green" v-if="slider>1 && name!=null">
+                <v-card-title>
+                    List of new products generated
+                </v-card-title>
+                <v-card-subtitle> It will generate {{slider}} products with {{newWeights}} grams each</v-card-subtitle>
+                <v-container>
+                    <v-data-table
+                            :headers="headers"
+                            :items="records"
+                            class="elevation-1"
+                            dense
 
-            you will get {{slider}} with {{newWeights}} grams
+                    >
 
-
-            <v-data-table
-                    :headers="headers"
-                    :items="records"
-                    class="elevation-1"
-                    dense
-                    v-if="slider>1 && name!=null"
-            >
-
-            </v-data-table>
+                    </v-data-table>
+                </v-container>
+            </v-card>
 
 
             <v-btn @click="submit">recors</v-btn>
@@ -220,7 +230,7 @@
     data () {
       return {
         min: 1,
-        max: this.product.weight,
+        max: this.product.weight<1000? Math.floor(this.product.weight) : 1000 , //Protection 
         slider: 1,
         plus: 1,
 
@@ -248,6 +258,7 @@
           { text: 'PackingDate', value: 'packingDate' },
           { text: 'Latitude', value: 'latitude' },
           { text: 'Longitude', value: 'longitude' },
+          //todo cultivationProcess
         ],
 
       }
@@ -333,10 +344,8 @@
         this.records = []
         console.log(' o slider mexeu' + this.slider)
         for (let i = 1; i <= this.slider; i++) {
-
-          console.log(i)
           let record = {
-            batch: this.product.recordId + '#' + i,
+            batch: this.product.recordId + '-' + i,
             name: this.name,
             classification: this.product.classification,
             origin: this.product.origin,
@@ -353,71 +362,78 @@
       },
 
       submit: function () {
-
-        let record1 = payloads.createRecord({
-          recordId: 'testekkxk2',
+        let recordsPayload = this.records.map(record => payloads.createRecord({
+          recordId: record.batch,
           recordType: 'vegetable',
           properties: [
             {
               name: 'name',
-              stringValue: this.product.name,
+              stringValue: record.name,
               dataType: payloads.createRecord.enum.STRING,
             },
             {
               name: 'classification',
-              stringValue: this.product.classification,
+              stringValue: record.classification,
               dataType: payloads.createRecord.enum.STRING,
             },
             {
               name: 'origin',
-              stringValue: this.product.origin,
+              stringValue: record.origin,
               dataType: payloads.createRecord.enum.STRING,
             },
             {
               name: 'weight',
-              numberValue: parsing.toInt(this.product.weight),
+              numberValue: parsing.toInt(record.weight),
               dataType: payloads.createRecord.enum.NUMBER,
             },
             {
               name: 'size',
-              numberValue: parsing.toInt(this.product.size),
+              numberValue: parsing.toInt(record.size),
               dataType: payloads.createRecord.enum.NUMBER,
             },
             {
               name: 'harvestDate',
-              timestampValue: new Date(this.product.harvestDate).getTime() / 1000,
+              timestampValue: new Date(record.harvestDate).getTime() / 1000,
               dataType: payloads.createRecord.enum.TIMESTAMP,
             },
             {
               name: 'expirationDate',
-              timestampValue: this.product.expirationDate !== null ? new Date(this.product.expirationDate).getTime() / 1000 : null,
+              timestampValue: record.expirationDate !== null ? new Date(record.expirationDate).getTime() / 1000 : null,
               dataType: payloads.createRecord.enum.TIMESTAMP,
             },
             {
               name: 'packingDate',
-              timestampValue: this.product.expirationDate !== null ? new Date(this.product.packingDate).getTime() / 1000 : null,
+              timestampValue: record.expirationDate !== null ? new Date(record.packingDate).getTime() / 1000 : null,
               dataType: payloads.createRecord.enum.TIMESTAMP,
             },
             {
               name: 'location',
               locationValue: {
-                latitude: parsing.toInt(this.product.latitude),
-                longitude: parsing.toInt(this.product.longitude),
+                latitude: parsing.toInt(record.latitude),
+                longitude: parsing.toInt(record.longitude),
               },
               dataType: payloads.createRecord.enum.LOCATION,
             },
           ],
-        })
+        }))
 
-        let records = []
-        records.push(record1)
+        console.log(recordsPayload.length)
+        let transactionNumber = 0
+        while (recordsPayload.length > 140) {
 
-        this.transitionSubmit(records)
+          let toSend = recordsPayload.slice(0, 140)
+          recordsPayload = recordsPayload.slice(140)
+
+          console.log(toSend.length)
+          console.log(recordsPayload.length)
+          this.transitionSubmit(toSend, ++transactionNumber)
+        }
+        this.transitionSubmit(recordsPayload, ++transactionNumber)
 
       },
 
-      transitionSubmit (recordsPayload) {
-        this.$snotify.async('Adding product to the blockchain', 'Adding Product',
+      transitionSubmit (recordsPayload,transactionNumber) {
+        this.$snotify.async('Transaction Number: '+ transactionNumber +' \n Adding product to the blockchain \n This may take a while...',  'Adding Products',
           () => {
             return new Promise((resolve, reject) => {
               return transactions.submit(recordsPayload, true)
@@ -426,7 +442,7 @@
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
-                        body: 'Successfully submitted product',
+                        body: 'Successfully submitted products',
                         config: {
                           showProgressBar: true,
                           closeOnClick: true,
@@ -454,6 +470,107 @@
             })
           })
       },
+
+
+
+      finalizeProductSubmit () {
+        let finalizePayload = payloads.finalizeRecord({
+          recordId: this.recordId
+        })
+        this.$snotify.async('Finalize product in the blockchain', 'Finalize Product',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([finalizePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully finalize product',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                   // this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+      },
+/*
+      updateProperty (record, value) {
+        let updatePayload = payloads.updateProperties({
+          recordId: record,
+          properties: [value]
+        })
+        this.$snotify.async('Updating property in the blockchain', 'Updating Property',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([updatePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully updated property',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    if (value.name == 'finalizeJustification') {
+                      this.finalizeProductSubmit()
+                    }
+                    this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+
+      },
+      finalizeProduct () {
+        this.updateProperty(this.recordId, {
+          name: 'finalizeJustification',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+
+
+*/ //todo falta finalizar o produto com o codigo que está comentado
 
     }
 

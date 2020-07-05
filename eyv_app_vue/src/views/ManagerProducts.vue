@@ -78,16 +78,29 @@
                          :page="page"
                          hide-default-footer
                          loading-text="Loading... Please wait"
+                         :search="search"
+                         sort-by="recordId"
+                         item-key="recordId"
                          v-else
         >
             <template v-slot:header>
-                <v-toolbar color="white" flat>
+                <v-toolbar>
                     <v-toolbar-title>My Products</v-toolbar-title>
                     <v-divider
                             class="mx-4"
                             inset
                             vertical
                     ></v-divider>
+                    <v-text-field
+                            prepend-inner-icon="mdi-magnify"
+                            clearable
+                            solo-inverted
+                            hide-details
+                            flat
+                            label="Search"
+                            single-line
+                            v-model="search"
+                    ></v-text-field>
                     <v-spacer></v-spacer>
 
                     <router-link :to="{name: 'addProduct'}"
@@ -134,7 +147,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                     class="ml-2"
-                                    color="primary"
+                                    color="green"
                                     dark
                                     text
                                     v-bind="attrs"
@@ -166,7 +179,7 @@
                     <v-btn
                             @click="formerPage"
                             class="mr-1"
-                            color="blue darken-3"
+                            color="green"
                             dark
                             fab
                     >
@@ -175,7 +188,7 @@
                     <v-btn
                             @click="nextPage"
                             class="ml-1"
-                            color="blue darken-3"
+                            color="green"
                             dark
                             fab
                     >
@@ -193,6 +206,7 @@
   export default {
     name: 'ManagerProducts',
     data: () => ({
+      search: '',
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 8,
