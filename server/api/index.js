@@ -188,6 +188,7 @@ router.get('/record-types/:typeName', handle(recordTypes.fetch))
 router.post('/transactions', handleBody(blockchain.submit))
 router.get('/proposals/:receivingAgent',handle(records.listProposals))//@luana submit proposal
 router.get('/proposals-send/:issuingAgent',handle(records.listProposals))//@luana submit proposal cancel
+router.get('/proposals-all/:recordId',handle(records.listProposals))//@luana valid proposal
 
 router.route('/users')
   .post(handleBody(users.create))

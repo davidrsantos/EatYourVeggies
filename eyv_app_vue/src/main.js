@@ -33,7 +33,7 @@ Vue.use(VueGoogleMaps, {
   }
 })
 
-const socket = io('http://localhost:8020')
+const socket = io('http://127.0.0.1:8020')
 Vue.use(VueSocketIOExt, socket)
 
 const app = new Vue({

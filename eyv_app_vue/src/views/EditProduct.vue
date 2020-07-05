@@ -1,6 +1,40 @@
 <template>
     <v-container>
-        <v-container>
+        <v-sheet class="px-2 pt-1 pb-40"
+                 color="lighten-4"
+                 v-if="loading"
+        >
+            <v-row no-gutters>
+                <v-col class="col-5">
+                    <v-skeleton-loader
+                            class="mx-auto my-2"
+                            type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
+                            width="400"
+
+                    ></v-skeleton-loader>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col class="col-5">
+                    <v-skeleton-loader
+                            class="mx-auto my-2"
+                            type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
+                            width="400"
+
+                    ></v-skeleton-loader>
+                </v-col>
+            </v-row>
+        </v-sheet>
+        <v-container v-else :loading="loading">
+            <v-container v-if="product.final">
+                <div class="text-center">
+                    <v-sheet elevation="30" color="red" dark>Finished Product</v-sheet>
+                </div>
+                <v-card>
+                    <v-card-title>Finalize Justification: </v-card-title>
+                    <v-card-text>{{product.finalizeJustification}}</v-card-text>
+                </v-card>
+            </v-container>
+            <v-spacer></v-spacer>
             <v-row no-gutters>
                 <v-col class="col-5">
                     <v-card class="mx-auto" max-width="700">
@@ -13,19 +47,19 @@
 
                             <form>
 
-                                    <v-text-field
-                                            label="Batch"
-                                            outlined
-                                            readonly
-                                            v-model=product.recordId
+                                <v-text-field
+                                        label="Batch"
+                                        outlined
+                                        readonly
+                                        v-model=product.recordId
 
-                                    />
+                                />
 
                                 <v-text-field
-                                        :value="product.name"
                                         label="Name"
                                         outlined
                                         readonly
+                                        :value="product.name"
 
                                 />
 
@@ -42,6 +76,12 @@
                                         label="Origin"
                                         outlined
                                         readonly
+
+                                /><v-text-field
+                                        label="Cultivation Process"
+                                        outlined
+                                        readonly
+                                        :value="product.cultivationProcess"
 
                                 />
                                 <v-text-field
@@ -101,9 +141,13 @@
                             </v-toolbar>
                         </v-card-title>
                         <v-container fluid
-                                     v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null">
+                                     v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null"  && product.final==false">
                             <v-row align="center" justify="center">
-                                <v-btn @click="openTransferDialog" class="mr-2" color="green" dark>Transfer Ownership
+                                <v-btn v-if="!product.proposals.length" dark color="green"
+                                       @click="openTransferDialog">Transfer Ownership
+                                </v-btn>
+                                <v-btn v-if="!product.proposals.length" dark color="green"
+                                       @click="openTransferDialog">Transfer Ownership
                                 </v-btn>
 
                                 <v-dialog v-model="dialog">
@@ -120,6 +164,18 @@
 
                                         <divide-product @requestPasswordEvent="$emit('requestPasswordEvent')" :product="product" @close="dialog=false"/>
 
+
+
+
+
+
+
+
+
+
+
+
+
                                 </v-dialog>
                             </v-row>
                         </v-container>
@@ -132,7 +188,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openDialog(product.temperature,'temperature','Temperature ºC')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'temperature')"
@@ -153,7 +209,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openDialog(product.humidity,'humidity','Humidity kg/m³')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'humidity')"
@@ -175,7 +231,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openDialog(product.humidity,'co2','CO2')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'co2')"
@@ -197,7 +253,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'shock')"
@@ -228,7 +284,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'tilt')"
@@ -258,7 +314,7 @@
                                     <v-spacer></v-spacer>
                                     <v-btn @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')"
                                            icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'">
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
                                     <v-btn @click="callRoutePropertyDetails(product.recordId,'location')"
@@ -484,7 +540,17 @@
   import { getPropertyValue } from '../utils/records'
   import * as api from '../services/api'
   import * as parsing from '../services/parsing'
-  import { email, maxLength, minLength, numeric, between, decimal, required, sameAs } from 'vuelidate/lib/validators'
+  import {
+    email,
+    maxLength,
+    minLength,
+    numeric,
+    between,
+    decimal,
+    required,
+    sameAs,
+    alphaNum
+  } from 'vuelidate/lib/validators'
   import { SnotifyPosition } from 'vue-snotify'
 
   const payloads = require('../services/payloads')
@@ -533,13 +599,18 @@
     },
     data: () => ({
       dialog: false,
+      loading: true,
       submitStatus: null,
-      recordId: '',
+      final: '',
+      proposals: '',
+      isOpen: false,
       product: {
+        final: '',
         batch: '',
         name: '',
         classification: '',
         origin: '',
+        cultivationProcess: '',
         size: '',
         weight: '',
         harvestDate: '',
@@ -554,6 +625,7 @@
         duration: '',
         tiltX: '',
         tiltY: '',
+        finalizeJustification: ''
       },
       //value for update properties
       latitude: '',
@@ -565,6 +637,7 @@
       duration: '',
       tiltX: '',
       tiltY: '',
+      justification: '',
       users: [],
       role: 'owner',
       publicKey: '',
@@ -624,10 +697,32 @@
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
-
+     /*  getProposals(){
+         axios.get(`/proposals-all/${this.recordId}`).then(response => {
+           this.proposals = response.data
+           this.proposals.forEach(update => {
+            if(update.status=='OPEN'){
+               return true;
+             }
+             return false;
+           })
+         }).catch(function (error) {
+             console.log(error)
+           })
+       },*/
       getProduct () {
+        this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
           this.product = response.data
+          this.loading = false
+          let final = getPropertyValue(response.data, 'final')
+          if (final !== null) {
+            this.product.final = final
+          }
+          let finalizeJustification = getPropertyValue(response.data, 'finalizeJustification')
+          if (finalizeJustification !== null) {
+            this.product.finalizeJustification = finalizeJustification
+          }
           let name = getPropertyValue(response.data, 'name')
           if (name !== null) {
             this.product.name = name
@@ -639,6 +734,10 @@
           let origin = getPropertyValue(response.data, 'origin')
           if (origin !== null) {
             this.product.origin = origin
+          }
+          let cultivationProcess = getPropertyValue(response.data, 'cultivationProcess')
+          if (cultivationProcess !== null) {
+            this.product.cultivationProcess = cultivationProcess
           }
           let size = getPropertyValue(response.data, 'size')
           if (size !== null) {
@@ -692,7 +791,10 @@
             this.product.acceleration = parsing.toFloat(shock.accel)
             this.product.duration = parsing.toFloat(shock.duration)
           }
-        }).catch(error => {this.$emit('errorEvent', error.response.data.error)})
+        }).catch(error => {
+          this.$emit('errorEvent', error.response.data.error)
+          this.loading = false
+        })
       },
       updateProperty (record, value) {
         let updatePayload = payloads.updateProperties({
@@ -709,6 +811,58 @@
                     setTimeout(() => resolve({
                         title: 'Success',
                         body: 'Successfully updated property',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    if (value.name == 'finalizeJustification') {
+                      this.finalizeProductSubmit()
+                    }
+                    this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+
+      },
+      finalizeProduct () {
+        this.updateProperty(this.recordId, {
+          name: 'finalizeJustification',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      finalizeProductSubmit () {
+        let finalizePayload = payloads.finalizeRecord({
+          recordId: this.recordId
+        })
+        this.$snotify.async('Finalize product in the blockchain', 'Finalize Product',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([finalizePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully finalize product',
                         config: {
                           showProgressBar: true,
                           closeOnClick: true,
@@ -735,7 +889,6 @@
                 })
             })
           })
-
       },
       cancel () {
         this.dialogTransfer = false
@@ -764,7 +917,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([transferPayload], true)
                 .then((response) => {
-                  console.log(response)
+                  console.log(response)this.getProduct();
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
 
@@ -903,8 +1056,10 @@
           this.reportTemperature()
         } else if (this.key == 'humidity') {
           this.reportHumidity()
-        } else {
+        } else if (this.key == 'co2') {
           this.reportCo2()
+        } else {
+          this.finalizeProduct()
         }
         this.key = ''
         this.dialogProperties = false
@@ -960,6 +1115,16 @@
           !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 9 characters long')
           !this.$v.valueUpdate.decimal && errors.push('The Humidity must be a decimal number.')
 
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+
+          return errors
+        }
+        if (this.key === 'finalize') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.minLength && errors.push('The Justification must be at most 1 characters long')
+          !this.$v.valueUpdate.maxLength && errors.push('The Justification should not be more that 50 characters long')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
 
@@ -1062,6 +1227,11 @@
               maxLength: maxLength(9),
               decimal
             }
+          case 'finalize':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
+            }
 
         }
 
@@ -1069,7 +1239,7 @@
     },
 
     beforeMount: function () {
-      this.getProduct()
+      this.getProduct(),
       this.getUsers()
     },
   }
