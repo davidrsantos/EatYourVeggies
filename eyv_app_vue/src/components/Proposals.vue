@@ -26,18 +26,18 @@
                 </template>
                 <template v-slot:item.actions="{ item }">
                     <div v-if="item.status ==='OPEN'">
-                    <v-btn small
-                            @click="acceptedProposal(item.recordId)"
-                            color="green darken-1"
-                    >
-                        Accepted Proposal
-                    </v-btn>
-                    <v-btn small
-                            @click="rejectedProposal(item.recordId)"
-                            color="red darken-1"
-                    >
-                        Refused Proposal
-                    </v-btn>
+                        <v-btn @click="acceptedProposal(item.recordId)"
+                               color="green darken-1"
+                               small
+                        >
+                            Accepted Proposal
+                        </v-btn>
+                        <v-btn @click="rejectedProposal(item.recordId)"
+                               color="red darken-1"
+                               small
+                        >
+                            Refused Proposal
+                        </v-btn>
                     </div>
                 </template>
             </v-data-table>
@@ -68,9 +68,9 @@
                 </template>
                 <template v-slot:item.actions="{ item }">
                     <div v-if="item.status ==='OPEN'">
-                        <v-btn small
-                               @click="cancelProposal(item.recordId, item.receivingAgent)"
+                        <v-btn @click="cancelProposal(item.recordId, item.receivingAgent)"
                                color="red darken-1"
+                               small
                         >
                             Cancel Proposal
                         </v-btn>
@@ -92,21 +92,21 @@
     name: 'proposals',
     data: () => ({
       loading: true,
-      role:"OWNER",
+      role: 'OWNER',
       proposals: [],
       proposalsSent: [],
       search: '',
       headers: [
-        { text: 'Data', value: 'timestamp'},
+        { text: 'Data', value: 'timestamp' },
         { text: 'RecordId', value: 'recordId', },
-        { text: 'Issuing User Public Key', value: 'issuingAgent'},
+        { text: 'Issuing User Public Key', value: 'issuingAgent' },
         { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false }
       ],
       headersProposalsSent: [
-        { text: 'Data', value: 'timestamp'},
+        { text: 'Data', value: 'timestamp' },
         { text: 'RecordId', value: 'recordId', },
-        { text: 'Receiving User Public Key', value: 'receivingAgent'},
+        { text: 'Receiving User Public Key', value: 'receivingAgent' },
         { text: 'Status', value: 'status' },
         { text: 'Actions', value: 'actions', sortable: false }
       ],
@@ -116,10 +116,10 @@
       this.getProposalsSend()
     },
     methods: {
-      refreshList() {
+      refreshList () {
         this.getProposals()
       },
-      refreshListProposalsSent(){
+      refreshListProposalsSent () {
         this.getProposalsSend()
       },
       getProposals () {
@@ -134,7 +134,7 @@
 
           })
       },
-      getProposalsSend() {
+      getProposalsSend () {
         this.loading = true
         axios.get(`/proposals-send/${this.$store.state.user.publicKey}`).then(response => {
           this.proposalsSent = response.data
@@ -146,7 +146,7 @@
 
           })
       },
-      answerProposal(record, role, publicKey, response){
+      answerProposal (record, role, publicKey, response) {
         let answerPayload = payloads.answerProposal({
           recordId: record,
           receivingAgent: publicKey,
@@ -170,32 +170,42 @@
                         }
                       }
                     ), 2000)
-                    if(response=== 2) {//2 == cancel no enum do proto
-                      this.refreshListProposalsSent();
-                    }else{
-                      this.refreshList();
+                    if (response === 2) {//2 == cancel no enum do proto
+                      this.refreshListProposalsSent()
+                    } else {
+                      this.refreshList()
                     }
                   }
                 }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error,
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
+                    reject({
+                        title: 'Error',
+                        body: '',
+                        icon: false,
+                        config: {
+                          timeout: 1
+                        }
+                      }
+                    )
+                  } else {
+                    console.log(error)
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error,
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
                   }
                 })
             })
           })
       },
 
-        roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
+      roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
         } else if (role = 'custodian') {
@@ -204,19 +214,19 @@
           return payloads.createProposal.enum.REPORTER
         }
       },
-      formatTimestamp (sec){
+      formatTimestamp (sec) {
         if (!sec) {
           sec = Date.now() / 1000
         }
         return moment.unix(sec).format('DD-MM-YYYY')
       },
-      acceptedProposal(recordId){
+      acceptedProposal (recordId) {
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.ACCEPT)
       },
-      rejectedProposal(recordId){
+      rejectedProposal (recordId) {
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)
       },
-      cancelProposal(recordId,receivingAgent){
+      cancelProposal (recordId, receivingAgent) {
         console.log('hello estou a carregar')
         this.answerProposal(recordId, this.roleToEnum(this.role), receivingAgent, payloads.answerProposal.enum.CANCEL)
       },

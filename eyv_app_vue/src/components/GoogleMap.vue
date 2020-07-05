@@ -4,39 +4,39 @@
             <v-col align="center">
                 <v-toolbar
                         dense
-                        width="500"
                         height="80"
+                        width="500"
                 >
                     <label>
-                        <gmap-autocomplete placeholder="Search new location"
-                                           style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;"
-                                           @place_changed="setPlace">
+                        <gmap-autocomplete @place_changed="setPlace"
+                                           placeholder="Search new location"
+                                           style="width:200%;  height: 50px; border: 1px solid #ccc; text-align: center; display: inline-block;">
                         </gmap-autocomplete>
                     </label>
                     <v-spacer></v-spacer>
-                    <v-btn color="green" @click="addMarker">Add</v-btn>
+                    <v-btn @click="addMarker" color="green">Add</v-btn>
                 </v-toolbar>
             </v-col>
             <v-col align="center">
-                <v-toolbar dense width="600"
-                           height="100">
+                <v-toolbar dense height="100"
+                           width="600">
                     <v-text-field :error-messages="LatErrors"
                                   @blur="$v.latitude.$touch()"
                                   @input="$v.latitude.$touch()"
                                   label="Latitude"
-                                  v-model="latitude"
-                                  outlined>
+                                  outlined
+                                  v-model="latitude">
                     </v-text-field>
                     <v-spacer></v-spacer>
                     <v-text-field :error-messages="LngErrors"
                                   @blur="$v.longitude.$touch()"
                                   @input="$v.longitude.$touch()"
                                   label="Longitude"
-                                  v-model="longitude"
-                                  outlined>
+                                  outlined
+                                  v-model="longitude">
                     </v-text-field>
                     <v-spacer></v-spacer>
-                    <v-btn align="center" :disabled="submitStatus==='ERROR'" color="green" @click="insertLocalization">
+                    <v-btn :disabled="submitStatus==='ERROR'" @click="insertLocalization" align="center" color="green">
                         Add
                     </v-btn>
                 </v-toolbar>
@@ -50,13 +50,13 @@
         >
             <gmap-marker
                     :key="index"
-                    v-for="(m, index) in markers"
                     :position="m.position"
                     @click="center=m.position"
+                    v-for="(m, index) in markers"
             ></gmap-marker>
             <gmap-polyline
-                    :path="this.polylinesLocations"
-                    :options="{ strokeColor:'#e70808'}">
+                    :options="{ strokeColor:'#e70808'}"
+                    :path="this.polylinesLocations">
             </gmap-polyline>
         </gmap-map>
 
@@ -219,18 +219,28 @@
                     this.$emit('refreshList')
                   }
                 }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error,
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
+                    reject({
+                        title: 'Error',
+                        body: '',
+                        icon: false,
+                        config: {
+                          timeout: 1
+                        }
+                      }
+                    )
+                  } else {
+                    console.log(error)
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error,
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
                   }
                 })
             })
