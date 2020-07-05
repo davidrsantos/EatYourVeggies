@@ -227,12 +227,10 @@
         this.showErrors = false
       },
       handleRequestPassword () {
-        console.log('chegou aaqui!')
         this.requestPassword = true
       },
 
       handleError (error) {
-        console.log('chegou aqui')
         console.error('An Error occurrence: ' + error)
         this.error = error
         this.showErrors = true
