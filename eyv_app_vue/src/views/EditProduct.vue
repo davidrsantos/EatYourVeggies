@@ -1,6 +1,31 @@
 <template>
-    <v-container>
-        <v-container>
+    <v-container >
+        <v-sheet class="px-2 pt-1 pb-40"
+                 color="lighten-4"
+                 v-if="loading"
+        >
+            <v-row no-gutters>
+                <v-col class="col-5">
+                <v-skeleton-loader
+                        class="mx-auto my-2"
+                        type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
+                        width="400"
+
+                ></v-skeleton-loader>
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col class="col-5">
+                <v-skeleton-loader
+                        class="mx-auto my-2"
+                        type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
+                        width="400"
+
+                ></v-skeleton-loader>
+                </v-col>
+            </v-row>
+        </v-sheet>
+
+        <v-container v-else :loading="loading">
         <v-row no-gutters>
             <v-col class="col-5">
                 <v-card class="mx-auto" max-width="700">
@@ -508,6 +533,7 @@
       }
     },
     data: () => ({
+      loading: true,
       submitStatus: null,
       recordId: '',
       product: {
@@ -601,8 +627,10 @@
       },
 
       getProduct () {
+        this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
           this.product = response.data
+          this.loading = false
           let name = getPropertyValue(response.data, 'name')
           if (name !== null) {
             this.product.name = name
@@ -667,7 +695,9 @@
             this.product.acceleration = parsing.toFloat(shock.accel)
             this.product.duration = parsing.toFloat(shock.duration)
           }
-        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
+        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)
+          this.loading = false
+        })
       },
       updateProperty (record, value) {
         let updatePayload = payloads.updateProperties({
