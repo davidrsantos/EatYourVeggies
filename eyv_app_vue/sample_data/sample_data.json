@@ -17,6 +17,11 @@
         {
           "name": "origin",
           "dataType": 4,
+          "stringValue": "brasil"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
           "stringValue": "biologica"
         },
         {
@@ -54,61 +59,8 @@
         "tilt",
         "shock"
       ]
-    },
-    {
-      "recordId": "xxx2",
-      "recordType": "vegetable",
-      "properties": [
-        {
-          "name": "name",
-          "dataType": 4,
-          "stringValue": "Shields"
-        },
-        {
-          "name": "classification",
-          "dataType": 4,
-          "stringValue": "legume"
-        },
-        {
-          "name": "origin",
-          "dataType": 4,
-          "stringValue": "biologica"
-        },
-        {
-          "name": "size",
-          "dataType": 3,
-          "numberValue": 3257000
-        },
-        {
-          "name": "weight",
-          "dataType": 3,
-          "numberValue": 247096000
-        },
-        {
-          "name": "harvestDate",
-          "dataType": 8,
-          "timestampValue": 1235544623
-        },
-        {
-          "name": "location",
-          "dataType": 7,
-          "locationValue": {
-            "latitude": 42456486,
-            "longitude": -67982434
-          }
-        }
-      ],
-      "ownerIndex": 0,
-      "custodianIndex": 2,
-      "reporterIndex": 1,
-      "reportableProperties": [
-        "temperature",
-        "humidity",
-        "location",
-        "tilt",
-        "shock"
-      ]
     }
+
   ],
   "agents": [
     {

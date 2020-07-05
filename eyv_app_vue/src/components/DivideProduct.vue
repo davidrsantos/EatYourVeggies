@@ -251,6 +251,7 @@
           { text: 'Name', value: 'name' },
           { text: 'Classification', value: 'classification' },
           { text: 'Origin', value: 'origin' },
+          { text: 'Cultivation Process', value: 'cultivationProcess' },
           { text: 'Size', value: 'size' },
           { text: 'Weight', value: 'weight' },
           { text: 'HarvestDate', value: 'harvestDate' },
@@ -349,6 +350,7 @@
             name: this.name,
             classification: this.product.classification,
             origin: this.product.origin,
+            cultivationProcess: this.product.cultivationProcess,
             size: this.product.size,
             weight: this.newWeights,
             harvestDate: this.product.weight,
@@ -379,6 +381,11 @@
             {
               name: 'origin',
               stringValue: record.origin,
+              dataType: payloads.createRecord.enum.STRING,
+            },
+            {
+              name: 'cultivationProcess',
+              stringValue: record.cultivationProcess,
               dataType: payloads.createRecord.enum.STRING,
             },
             {
@@ -434,6 +441,8 @@
           () => {
             return new Promise((resolve, reject) => {
               return transactions.submit(recordsPayload, true)
+                .then(() => this.justify())
+                .then(() => this.finalizeProductSubmit())
                 .then((response) => {
                   console.log(response)
                   if (response.status && response.type === undefined) {
@@ -448,12 +457,8 @@
                       }
                     ), 2000)
 
-                    this.$emit('close')
-
                   }
                 })
-         //       .then(() => this.updateProperty())
-                .then(() => this.finalizeProductSubmit())
                 .catch(error => {
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
@@ -467,10 +472,10 @@
                       }
                     )
                   } else {
-                    console.log(error.toString())
+                    console.log(error)
                     setTimeout(() => reject({
                       title: 'Error',
-                      body: error.toString(),
+                      body: error,
                       config: {
                         showProgressBar: true,
                         closeOnClick: true,
@@ -489,9 +494,10 @@
         })
         return transactions.submit([finalizePayload], true)
           .then((response) => {
-            console.log(response)
+            console.log('finalize' + response)
             if (response.status && response.type === undefined) {
               console.log('fazer finalize')
+              this.$emit('close')
               return response
             }
           }).catch(error => {
@@ -504,15 +510,13 @@
           })
       },
 
-      updateProperty () {
+      updateProperty (record, value) {
+        console.log(this.product.recordId)
         let updatePayload = payloads.updateProperties({
-          recordId: this.product.recordId,
-          properties: {
-            name: 'finalizeJustification',
-            stringValue: 'Product Divide',
-            dataType: payloads.updateProperties.enum.STRING
-          }
+          recordId: record,
+          properties: [value]
         })
+        console.log('fazer update do justification')
         return transactions.submit([updatePayload], true)
           .then((response) => {
             if (response.status && response.type === undefined) {
@@ -528,6 +532,13 @@
             }
           })
 
+      },
+      justify () {
+        this.updateProperty(this.product.recordId, {
+          name: 'finalizeJustification',
+          stringValue: 'Divide Product',
+          dataType: payloads.updateProperties.enum.STRING
+        })
       },
 
     }

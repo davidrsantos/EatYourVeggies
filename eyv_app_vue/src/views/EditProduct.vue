@@ -24,13 +24,13 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-container v-else :loading="loading">
+        <v-container :loading="loading" v-else>
             <v-container v-if="product.final">
                 <div class="text-center">
-                    <v-sheet elevation="30" color="red" dark>Finished Product</v-sheet>
+                    <v-sheet color="red" dark elevation="30">Finished Product</v-sheet>
                 </div>
                 <v-card>
-                    <v-card-title>Finalize Justification: </v-card-title>
+                    <v-card-title>Finalize Justification:</v-card-title>
                     <v-card-text>{{product.finalizeJustification}}</v-card-text>
                 </v-card>
             </v-container>
@@ -56,10 +56,10 @@
                                 />
 
                                 <v-text-field
+                                        :value="product.name"
                                         label="Name"
                                         outlined
                                         readonly
-                                        :value="product.name"
 
                                 />
 
@@ -77,11 +77,12 @@
                                         outlined
                                         readonly
 
-                                /><v-text-field
+                                />
+                                <v-text-field
+                                        :value="product.cultivationProcess"
                                         label="Cultivation Process"
                                         outlined
                                         readonly
-                                        :value="product.cultivationProcess"
 
                                 />
                                 <v-text-field
@@ -129,9 +130,8 @@
 
                 </v-col>
                 <v-spacer></v-spacer>
+
                 <v-col class="col-5">
-
-
                     <v-card>
                         <v-card-title>
                             <v-toolbar color="green" dark>
@@ -141,46 +141,26 @@
                             </v-toolbar>
                         </v-card-title>
                         <v-container fluid
-                                     v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null"  && product.final==false">
+                                     v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
+                        >
                             <v-row align="center" justify="center">
-                                <v-btn v-if="!product.proposals.length" dark color="green"
-                                       @click="openTransferDialog">Transfer Ownership
+                                <v-btn @click="openTransferDialog" class="ml-2" color="green" dark
+                                       v-if="!product.proposals.length">Transfer Ownership
                                 </v-btn>
-                                <v-btn v-if="!product.proposals.length" dark color="green"
-                                       @click="openTransferDialog">Transfer Ownership
+                                <v-btn class="ml-2"
+                                       color="green"
+                                       dark
+                                      @click="dialogGenerateSubProduct=true"
+                                >
+                                    Generate Sub-Product
                                 </v-btn>
-
-                                <v-dialog v-model="dialog">
-                                    <template v-slot:activator="{ on}">
-                                        <v-btn class="ml-2"
-                                               color="green"
-                                               dark
-                                               v-on="on"
-                                        >
-                                            Generate Sub-Product
-                                        </v-btn>
-                                    </template>
-
-
-                                        <divide-product @requestPasswordEvent="$emit('requestPasswordEvent')" :product="product" @close="dialog=false"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                </v-dialog>
+                                <v-btn @click="openDialog(justification,'finalize','a justification')"
+                                       class="ml-2" color="teal accent-4"
+                                       dark>
+                                    Finalize Product
+                                </v-btn>
                             </v-row>
                         </v-container>
-
-
                         <v-container>
                             <form>
                                 <v-toolbar color="green" dark dense>
@@ -342,7 +322,10 @@
                     </v-card>
                 </v-col>
 
+
             </v-row>
+
+
         </v-container>
         <v-dialog max-width="600" v-model="dialogTransfer">
 
@@ -532,6 +515,12 @@
             </v-card>
         </v-dialog>
 
+        <v-dialog  v-model="dialogGenerateSubProduct">
+            <divide-product :product="product"
+                            @close="closeDialogGenerateSubProduct"
+                            @requestPasswordEvent="$emit('requestPasswordEvent')"/>
+        </v-dialog>
+
     </v-container>
 
 </template>
@@ -557,6 +546,7 @@
   const transactions = require('../services/transactions')
 
   export default {
+    name:'EditProduct',
     validations () {
       return {
         valueUpdate: this.rules,
@@ -598,7 +588,7 @@
       }
     },
     data: () => ({
-      dialog: false,
+      dialogGenerateSubProduct: false,
       loading: true,
       submitStatus: null,
       final: '',
@@ -697,19 +687,7 @@
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
-     /*  getProposals(){
-         axios.get(`/proposals-all/${this.recordId}`).then(response => {
-           this.proposals = response.data
-           this.proposals.forEach(update => {
-            if(update.status=='OPEN'){
-               return true;
-             }
-             return false;
-           })
-         }).catch(function (error) {
-             console.log(error)
-           })
-       },*/
+
       getProduct () {
         this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
@@ -827,7 +805,7 @@
                   console.log(error.toString())
                   setTimeout(() => reject({
                     title: 'Error',
-                    body: error.toString(),
+                    body: error,
                     config: {
                       showProgressBar: true,
                       closeOnClick: true,
@@ -876,7 +854,7 @@
                   console.log(error.toString())
                   setTimeout(() => reject({
                     title: 'Error',
-                    body: error.toString(),
+                    body: error,
                     config: {
                       showProgressBar: true,
                       closeOnClick: true,
@@ -917,7 +895,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([transferPayload], true)
                 .then((response) => {
-                  console.log(response)this.getProduct();
+                  console.log(response)
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
 
@@ -930,6 +908,7 @@
                         }
                       }
                     ), 2000)
+                    this.getProduct()
                     let proposal = {
                       toPublicKey: publicKey,
                       product: recordId,
@@ -941,7 +920,7 @@
                   console.log(error.toString())
                   setTimeout(() => reject({
                     title: 'Error',
-                    body: error.toString(),
+                    body: error,
                     config: {
                       showProgressBar: true,
                       closeOnClick: true,
@@ -1059,7 +1038,7 @@
         } else if (this.key == 'co2') {
           this.reportCo2()
         } else {
-          this.finalizeProduct()
+          this.justify()
         }
         this.key = ''
         this.dialogProperties = false
@@ -1079,6 +1058,11 @@
         this.reportLocalization()
         this.dialogLocalization = false
       },
+      closeDialogGenerateSubProduct(){
+        this.dialogGenerateSubProduct = false
+        this.getProduct()
+      }
+      ,
 
     },
     computed: {
@@ -1240,8 +1224,8 @@
 
     beforeMount: function () {
       this.getProduct(),
-      this.getUsers()
-    },
+        this.getUsers()
+    }
   }
 
 </script>
