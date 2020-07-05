@@ -60,7 +60,7 @@
 
                                         <v-card-actions>
 
-                                            <div v-show="item.button">
+                                            <div v-if="item.button">
                                                 <v-btn @click="item.button.action()" color="blue lighten-4">
                                                     {{item.button.text}}
                                                 </v-btn>
