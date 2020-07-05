@@ -4,7 +4,7 @@
                     v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
         <proposals @requestPasswordEvent="$emit('requestPasswordEvent')" v-show="this.$store.state.user!=null"></proposals>
 
-        there you go! list of vegetables:
+        there you go!
 
 
         <li :key="item.recordId" v-for="item in items">

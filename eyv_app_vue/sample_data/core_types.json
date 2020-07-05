@@ -18,6 +18,11 @@
         "required": true
       },
       {
+        "name": "cultivationProcess",
+        "dataType": 4,
+        "required": true
+      },
+      {
         "name": "size",
         "dataType": 3,
         "required": true,
@@ -67,6 +72,10 @@
       },
       {
         "name": "shock",
+        "dataType": 4
+      },
+      {
+        "name": "finalizeJustification",
         "dataType": 4
       }
     ]

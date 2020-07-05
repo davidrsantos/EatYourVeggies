@@ -43,6 +43,15 @@
                 />
                 <v-text-field
                         :counter="10"
+                        :error-messages="cultivationProcessErrors"
+                        @blur="$v.cultivationProcess.$touch()"
+                        @input="$v.cultivationProcess.$touch()"
+                        label="Cultivation Process"
+                        required
+                        v-model="cultivationProcess"
+                />
+                <v-text-field
+                        :counter="10"
                         :error-messages="sizeErrors"
                         @blur="$v.size.$touch()"
                         @input="$v.size.$touch()"
@@ -209,6 +218,11 @@
         maxLength: maxLength(50),
         minLength: minLength(2)
       },
+      cultivationProcess: {
+        required,
+        maxLength: maxLength(50),
+        minLength: minLength(2)
+      },
       weight: {
         required,
         decimal,
@@ -255,6 +269,7 @@
       name: '',
       classification: '',
       origin: '',
+      cultivationProcess: '',
       weight: '',
       size: '',
       harvestDate: '',
@@ -311,6 +326,17 @@
         !this.$v.origin.maxLength && errors.push('The origin should not be more that 50 characters long')
         !this.$v.origin.minLength && errors.push('The origin must be at most 1 characters long')
         !this.$v.origin.required && errors.push('Origin is required.')
+
+        if (errors.length !== 0) this.submitStatus = 'ERROR'
+        else this.submitStatus = 'OK'
+        return errors
+      },
+      cultivationProcessErrors () {
+        const errors = []
+        if (!this.$v.cultivationProcess.$dirty) return errors
+        !this.$v.cultivationProcess.maxLength && errors.push('The Cultivation Process should not be more that 50 characters long')
+        !this.$v.cultivationProcess.minLength && errors.push('The Cultivation Process must be at most 1 characters long')
+        !this.$v.cultivationProcess.required && errors.push('Cultivation Process is required.')
 
         if (errors.length !== 0) this.submitStatus = 'ERROR'
         else this.submitStatus = 'OK'
@@ -417,6 +443,11 @@
               dataType: payloads.createRecord.enum.STRING,
             },
             {
+              name: 'cultivationProcess',
+              stringValue: this.cultivationProcess,
+              dataType: payloads.createRecord.enum.STRING,
+            },
+            {
               name: 'weight',
               numberValue: parsing.toInt(this.weight),
               dataType: payloads.createRecord.enum.NUMBER,
@@ -508,6 +539,7 @@
         this.name = null
         this.classification = null
         this.origin = null
+        this.cultivationProcess = null
         this.weight = null
         this.size = null
         this.harvestDate = null
