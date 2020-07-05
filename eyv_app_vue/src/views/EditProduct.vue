@@ -46,7 +46,6 @@
                         <v-container>
 
                             <form>
-
                                 <v-text-field
                                         label="Batch"
                                         outlined
@@ -54,73 +53,212 @@
                                         v-model=product.recordId
 
                                 />
-
-                                <v-text-field
-                                        :value="product.name"
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Name</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.name,'name','Name')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'name')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.name"
                                         label="Name"
                                         outlined
                                         readonly
 
-                                />
-
-                                <v-text-field
-                                        :value="product.classification"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Classification</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.classification,'classification','Classification')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'classification')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.classification"
                                         label="Classification"
                                         outlined
                                         readonly
 
-                                />
-
-                                <v-text-field
-                                        :value="product.origin"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Origin</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.origin,'origin','Origin')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'origin')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.origin"
                                         label="Origin"
                                         outlined
                                         readonly
 
-                                />
-                                <v-text-field
-                                        :value="product.cultivationProcess"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Cultivation Process</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.cultivationProcess,'cultivationProcess','Cultivation Process')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'cultivationProcess')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.cultivationProcess"
                                         label="Cultivation Process"
                                         outlined
                                         readonly
 
-                                />
-                                <v-text-field
-                                        :value="product.size"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Size (cm)</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.size,'size','Size (cm)')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'size')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.size"
                                         label="Size (cm)"
                                         outlined
                                         readonly
 
-                                />
-                                <v-text-field
-                                        :value="product.weight"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Weight (grams)</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.weight,'weight','Weight (grams)')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'weight')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.weight"
                                         label="Weight (grams)"
                                         outlined
                                         readonly
 
-                                />
-                                <v-text-field
-                                        :value="product.harvestDate"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Harvest Date</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.harvestDate,'harvestDate','Harvest Date')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'harvestDate')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.harvestDate"
                                         label="Harvest Date"
                                         outlined
                                         readonly
-
-                                />
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Expiration Date</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.expirationDate,'expirationDate','Expiration Date')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'expirationDate')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
                                 <v-text-field
                                         :value="product.expirationDate==null?'N/A':product.expirationDate"
                                         label="Expiration Date"
                                         outlined
                                         readonly
 
-                                />
-
-                                <v-text-field
-                                        :value="product.packingDate==null?'N/A':product.packingDate"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Packing Date</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'"
+                                           @click="openDialog(product.packingDate,'packingDate','Packing Date')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'packingDate')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            :value="product.packingDate==null?'N/A':product.packingDate"
                                         label="Packing Date"
                                         outlined
                                         readonly
 
-                                />
+                                    />
+                                </v-container>
                             </form>
 
                         </v-container>
@@ -366,8 +504,28 @@
                 <v-container>
 
                     <v-card-title class="headline">Insert {{dialogLabel}}:</v-card-title>
-
-                    <v-text-field :error-messages="keyErrors"
+                    <v-menu v-if="key=='harvestDate'||key=='packingDate'||key=='expirationDate'"
+                            :close-on-content-click="false"
+                            :nudge-right="40"
+                            min-width="290px"
+                            offset-y
+                            transition="scale-transition"
+                            v-model="menuDate"
+                    >
+                        <template v-slot:activator="{ on }">
+                            <v-text-field
+                                    :error-messages="keyErrors"
+                                    @blur="$v.valueUpdate.$touch()"
+                                    @input="$v.valueUpdate.$touch()"
+                                    readonly
+                                    v-model="valueUpdate"
+                                    v-on="on"
+                            ></v-text-field>
+                        </template>
+                        <v-date-picker @input="menuDate= false" v-model="valueUpdate"></v-date-picker>
+                    </v-menu>
+                    <v-text-field v-else
+                                  :error-messages="keyErrors"
                                   @blur="$v.valueUpdate.$touch()"
                                   @input="$v.valueUpdate.$touch()"
                                   class="ml-4 mr-4"
@@ -538,7 +696,8 @@
     decimal,
     required,
     sameAs,
-    alphaNum
+    alphaNum,
+    minValue
   } from 'vuelidate/lib/validators'
   import { SnotifyPosition } from 'vue-snotify'
 
@@ -594,6 +753,7 @@
       final: '',
       proposals: '',
       isOpen: false,
+      menuDate: false,
       product: {
         final: '',
         batch: '',
@@ -687,7 +847,6 @@
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
-
       getProduct () {
         this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
@@ -775,50 +934,58 @@
         })
       },
       updateProperty (record, value) {
-        let updatePayload = payloads.updateProperties({
-          recordId: record,
-          properties: [value]
-        })
-        this.$snotify.async('Updating property in the blockchain', 'Updating Property',
-          () => {
-            return new Promise((resolve, reject) => {
-              return transactions.submit([updatePayload], true)
-                .then((response) => {
-                  console.log(response)
-                  if (response.status && response.type === undefined) {
-                    setTimeout(() => resolve({
-                        title: 'Success',
-                        body: 'Successfully updated property',
-                        config: {
-                          showProgressBar: true,
-                          closeOnClick: true,
-                          timeout: 8000
-                        }
-                      }
-                    ), 2000)
-                    if (value.name == 'finalizeJustification') {
-                      this.finalizeProductSubmit()
-                    }
-                    this.getProduct()
-                  }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error,
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
-                  if (error === 'requestPassword') {
-                    this.$emit('requestPasswordEvent')
-                  }
-                })
-            })
-          })
 
+        if(this.key=='expirationDate' && new Date(this.valueUpdate).getTime() < new Date(this.product.harvestDate).getTime()) {
+          this.$emit('errorEvent', 'The expiration date cannot be less than the harvest date')
+        } else if(this.key=='packingDate' && this.valueUpdate < this.product.harvestDate) {
+          this.$emit('errorEvent', 'The packing date cannot be less than the harvest date')
+        } else if (this.key=='packingDate' && this.product.expirationDate !== null && this.valueUpdate < this.product.expirationDate) {
+          this.$emit('errorEvent', 'The packing date cannot be less than the expiration date')
+        } else {
+          let updatePayload = payloads.updateProperties({
+            recordId: record,
+            properties: [value]
+          })
+          this.$snotify.async('Updating property in the blockchain', 'Updating Property',
+            () => {
+              return new Promise((resolve, reject) => {
+                return transactions.submit([updatePayload], true)
+                  .then((response) => {
+                    console.log(response)
+                    if (response.status && response.type === undefined) {
+                      setTimeout(() => resolve({
+                          title: 'Success',
+                          body: 'Successfully updated property',
+                          config: {
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            timeout: 8000
+                          }
+                        }
+                      ), 2000)
+                      if (value.name == 'finalizeJustification') {
+                        this.finalizeProductSubmit()
+                      }
+                      this.getProduct()
+                    }
+                  }).catch(error => {
+                    console.log(error.toString())
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error,
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
+                    if (error === 'requestPassword') {
+                      this.$emit('requestPasswordEvent')
+                    }
+                  })
+              })
+            })
+        }
       },
       finalizeProduct () {
         this.updateProperty(this.recordId, {
@@ -884,7 +1051,6 @@
         this.dialogLocalization = false
       },
       submitProposal (recordId, role, publicKey) {
-
         let transferPayload = payloads.createProposal({
           recordId: recordId,
           receivingAgent: publicKey,
@@ -896,6 +1062,7 @@
               return transactions.submit([transferPayload], true)
                 .then((response) => {
                   console.log(response)
+                  this.getProduct()
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
 
@@ -908,7 +1075,6 @@
                         }
                       }
                     ), 2000)
-                    this.getProduct()
                     let proposal = {
                       toPublicKey: publicKey,
                       product: recordId,
@@ -933,6 +1099,69 @@
                 })
             })
           })
+      },
+      reportName () {
+        this.updateProperty(this.recordId, {
+          name: 'name',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      reportClassification () {
+        this.updateProperty(this.recordId, {
+          name: 'classification',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      reportOrigin () {
+        this.updateProperty(this.recordId, {
+          name: 'origin',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      reportCultivationProcess () {
+        this.updateProperty(this.recordId, {
+          name: 'cultivationProcess',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      reportSize () {
+        this.updateProperty(this.recordId, {
+          name: 'size',
+          numberValue: parsing.toInt(this.valueUpdate),
+          dataType: payloads.updateProperties.enum.NUMBER
+        })
+      },
+      reportWeight () {
+        this.updateProperty(this.recordId, {
+          name: 'weight',
+          numberValue: parsing.toInt(this.valueUpdate),
+          dataType: payloads.updateProperties.enum.NUMBER
+        })
+      },
+      reportHarvestDate () {
+        this.updateProperty(this.recordId, {
+          name: 'harvestDate',
+          timestampValue: new Date(this.valueUpdate).getTime() / 1000,
+          dataType: payloads.updateProperties.enum.TIMESTAMP
+        })
+      },
+      reportExpirationDate () {
+        this.updateProperty(this.recordId, {
+          name: 'expirationDate',
+          timestampValue: new Date(this.valueUpdate).getTime() / 1000,
+          dataType: payloads.updateProperties.enum.TIMESTAMP
+        })
+      },
+      reportPackingDate () {
+        this.updateProperty(this.recordId, {
+          name: 'packingDate',
+          timestampValue: new Date(this.valueUpdate).getTime() / 1000,
+          dataType: payloads.updateProperties.enum.TIMESTAMP
+        })
       },
       reportShock () {
         this.updateProperty(this.recordId, {
@@ -1037,7 +1266,26 @@
           this.reportHumidity()
         } else if (this.key == 'co2') {
           this.reportCo2()
-        } else {
+        }else if (this.key == 'name') {
+          this.reportName()
+        }else if (this.key == 'classification') {
+          this.reportClassification()
+        }else if (this.key == 'origin') {
+          this.reportOrigin()
+        }else if (this.key == 'cultivationProcess') {
+          this.reportCultivationProcess()
+        }else if (this.key == 'size') {
+          this.reportSize()
+        }else if (this.key == 'weight') {
+          this.reportWeight()
+        }else if (this.key == 'harvestDate') {
+          this.reportHarvestDate()
+        }else if (this.key == 'expirationDate') {
+          this.reportExpirationDate()
+        }else if (this.key == 'packingDate') {
+          this.reportPackingDate()
+        }
+        else {
           this.justify()
         }
         this.key = ''
@@ -1068,6 +1316,93 @@
     computed: {
       keyErrors () {
         const errors = []
+
+        if (this.key === 'name') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The name should not be more that 50 characters long')
+          !this.$v.valueUpdate.minLength && errors.push('The name must be at most 1 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'classification') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The classification should not be more that 50 characters long')
+          !this.$v.valueUpdate.minLength && errors.push('The classification must be at most 1 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'origin') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The origin should not be more that 50 characters long')
+          !this.$v.valueUpdate.minLength && errors.push('The origin must be at most 1 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'cultivationProcess') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The Cultivation Process should not be more that 50 characters long')
+          !this.$v.valueUpdate.minLength && errors.push('The Cultivation Process must be at most 1 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'weight') {
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.minLength && errors.push('The weight must be at most 1 characters long')
+          !this.$v.valueUpdate.maxLength && errors.push('The weight should not be more that 10 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The weight must be a decimal number.')
+          !this.$v.valueUpdate.minValue && errors.push('The weight must be greater than zero')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'size') {
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.minLength && errors.push('The size must be at most 1 characters long')
+          !this.$v.valueUpdate.maxLength && errors.push('The size should not be more that 10 characters long')
+          !this.$v.valueUpdate.decimal && errors.push('The size must be a decimal number.')
+          !this.$v.valueUpdate.minValue && errors.push('The size must be greater than zero')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'harvestDate') {
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The harvest data must be 1 to 11 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'expirationDate') {
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The expiration date should not be more that 11 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
+        if (this.key === 'packingDate') {
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.maxLength && errors.push('The packingDate should not be more that 11 characters long')
+
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+          return errors
+        }
         if (this.key === 'temperature') {
 
           if (!this.$v.valueUpdate.$dirty) return errors
@@ -1193,6 +1528,55 @@
       },
       rules () {
         switch (this.key) {
+          case 'name':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
+            }
+          case 'classification':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
+            }
+          case 'origin':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
+            }
+          case 'cultivationProcess':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
+            }
+          case 'size':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(10),
+              decimal,
+              minValue: minValue(0.1)
+            }
+          case 'weight':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(10),
+              decimal,
+              minValue: minValue(0.1)
+            }
+          case 'harvestDate':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(11),
+            }
+          case 'expirationDate':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(11),
+            }
+          case 'packingDate':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(11),
+            }
           case 'temperature':
             return {
               minLength: minLength(1),
