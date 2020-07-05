@@ -8,7 +8,7 @@
                 <google-map :centerr="centerr" :locations="this.locations" :polylines-locations="this.polylines"
                             :record-id="this.recordId" v-on:refreshList="refreshList" @requestPasswordEvent="$emit('requestPasswordEvent')"/>
             </v-container>
-            <v-container v-else>
+            <v-container v-else-if="this.name=='temperature' || this.name=='humidity'|| this.name=='co2' || this.name=='shock' || this.name=='tilt'">
                 <v-card
                         class="pa-5"
                         max-height="800"
@@ -211,7 +211,11 @@
         return moment.unix(sec).format('DD-MM-YYYY, HH:mm:ss')
       },
       format (value) {
-
+        if(this.name=='name'||this.name=='classification'||this.name=='origin'||this.name=='cultivationProcess'||this.name=='size'||this.name=='weight'){
+          return value
+        }else if(this.name=='harvestDate'||this.name=='packingDate'||this.name=='expirationDate'){
+          return this.formatTimestamp(value)
+        }
         if (value.hasOwnProperty('latitude')) {
           return 'Latitude: ' + value.latitude + ', Longitude: ' + value.longitude
         }
