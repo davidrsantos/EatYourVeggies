@@ -1,293 +1,325 @@
 <template>
-    <v-container >
+    <v-container>
         <v-sheet class="px-2 pt-1 pb-40"
                  color="lighten-4"
                  v-if="loading"
         >
             <v-row no-gutters>
                 <v-col class="col-5">
-                <v-skeleton-loader
-                        class="mx-auto my-2"
-                        type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
-                        width="400"
+                    <v-skeleton-loader
+                            class="mx-auto my-2"
+                            type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
+                            width="400"
 
-                ></v-skeleton-loader>
+                    ></v-skeleton-loader>
                 </v-col>
                 <v-spacer></v-spacer>
                 <v-col class="col-5">
-                <v-skeleton-loader
-                        class="mx-auto my-2"
-                        type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
-                        width="400"
+                    <v-skeleton-loader
+                            class="mx-auto my-2"
+                            type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
+                            width="400"
 
-                ></v-skeleton-loader>
+                    ></v-skeleton-loader>
                 </v-col>
             </v-row>
         </v-sheet>
-
         <v-container v-else :loading="loading">
-        <v-row no-gutters>
-            <v-col class="col-5">
-                <v-card class="mx-auto" max-width="700">
+            <v-container v-if="product.final">
+                <div class="text-center">
+                    <v-sheet elevation="30" color="red" dark>Finished Product</v-sheet>
+                </div>
+                <v-card>
+                    <v-card-title>Finalize Justification: </v-card-title>
+                    <v-card-text>{{product.finalizeJustification}}</v-card-text>
+                </v-card>
+            </v-container>
+            <v-spacer></v-spacer>
+            <v-row no-gutters>
+                <v-col class="col-5">
+                    <v-card class="mx-auto" max-width="700">
+                        <v-toolbar color="green" dark>
+                            <v-spacer></v-spacer>
+                            <v-toolbar-title>Product Information</v-toolbar-title>
+                            <v-spacer></v-spacer>
+                        </v-toolbar>
+                        <v-container>
+
+                            <form>
+
+                                <v-text-field
+                                        label="Batch"
+                                        outlined
+                                        readonly
+                                        v-model=product.recordId
+
+                                />
+
+                                <v-text-field
+                                        label="Name"
+                                        outlined
+                                        readonly
+                                        :value="product.name"
+
+                                />
+
+                                <v-text-field
+                                        label="Classification"
+                                        outlined
+                                        readonly
+                                        :value="product.classification"
+
+                                />
+
+                                <v-text-field
+                                        label="Origin"
+                                        outlined
+                                        readonly
+                                        :value="product.origin"
+
+                                />
+                                <v-text-field
+                                        label="Cultivation Process"
+                                        outlined
+                                        readonly
+                                        :value="product.cultivationProcess"
+
+                                />
+                                <v-text-field
+                                        label="Size (cm)"
+                                        outlined
+                                        readonly
+                                        :value="product.size"
+
+                                />
+                                <v-text-field
+                                        label="Weight (grams)"
+                                        outlined
+                                        readonly
+                                        :value="product.weight"
+
+                                />
+                                <v-text-field
+                                        label="Harvest Date"
+                                        outlined
+                                        readonly
+                                        :value="product.harvestDate"
+
+                                />
+                                <v-text-field
+                                        label="Expiration Date"
+                                        outlined
+                                        readonly
+                                        :value="product.expirationDate==null?'N/A':product.expirationDate"
+
+                                />
+
+                                <v-text-field
+                                        label="Packing Date"
+                                        outlined
+                                        readonly
+                                        :value="product.packingDate==null?'N/A':product.packingDate"
+
+                                />
+                            </form>
+
+                        </v-container>
+
+                    </v-card>
+
+                </v-col>
+                <v-spacer></v-spacer>
+                <v-col class="col-5">
                     <v-toolbar color="green" dark>
                         <v-spacer></v-spacer>
-                        <v-toolbar-title>Product Information</v-toolbar-title>
+                        <v-toolbar-title>Product Properties</v-toolbar-title>
                         <v-spacer></v-spacer>
                     </v-toolbar>
-                    <v-container>
 
-                        <form>
+                    <v-card v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final==false">
+                        <v-list
+                                rounded>
+                            <v-list-item
+                                    class="px-2"
+                            >
+                                <v-list-item-content>
+                                    <v-list-item-title>
+                                        <v-btn dark color="green"
+                                               @click="openTransferDialog">Transfer Ownership
+                                        </v-btn>
+                                        <v-btn dark color="red"
+                                               @click="openDialog(justification,'finalize','a justification')">Finalize
+                                            Product
+                                        </v-btn>
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list>
 
-                            <v-text-field
-                                    label="Batch"
-                                    outlined
-                                    readonly
-                                    v-model=product.recordId
-
-                            />
-
-                            <v-text-field
-                                    label="Name"
-                                    outlined
-                                    readonly
-                                    :value="product.name"
-
-                            />
-
-                            <v-text-field
-                                    label="Classification"
-                                    outlined
-                                    readonly
-                                    :value="product.classification"
-
-                            />
-
-                            <v-text-field
-                                    label="Origin"
-                                    outlined
-                                    readonly
-                                    :value="product.origin"
-
-                            />
-                            <v-text-field
-                                    label="Size (cm)"
-                                    outlined
-                                    readonly
-                                    :value="product.size"
-
-                            />
-                            <v-text-field
-                                    label="Weight (grams)"
-                                    outlined
-                                    readonly
-                                    :value="product.weight"
-
-                            />
-                            <v-text-field
-                                    label="Harvest Date"
-                                    outlined
-                                    readonly
-                                    :value="product.harvestDate"
-
-                            />
-                            <v-text-field
-                                    label="Expiration Date"
-                                    outlined
-                                    readonly
-                                    :value="product.expirationDate==null?'N/A':product.expirationDate"
-
-                            />
-
-                            <v-text-field
-                                    label="Packing Date"
-                                    outlined
-                                    readonly
-                                    :value="product.packingDate==null?'N/A':product.packingDate"
-
-                            />
-                        </form>
-
-                    </v-container>
-
-                </v-card>
-
-            </v-col>
-            <v-spacer></v-spacer>
-            <v-col class="col-5">
-                <v-toolbar color="green" dark>
-                    <v-spacer></v-spacer>
-                    <v-toolbar-title>Product Properties</v-toolbar-title>
-                    <v-spacer></v-spacer>
-                </v-toolbar>
-
-                <v-card v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null">
-                    <v-list
-                            rounded>
-                        <v-list-item
-                                class="px-2"
-                        >
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <v-btn dark color="green" @click="openTransferDialog">Transfer Ownership
+                    </v-card>
+                    <v-card>
+                        <v-container>
+                            <form>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Temperature ºC</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openDialog(product.temperature,'temperature','Temperature ºC')">
+                                        <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                </v-list-item-title>
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list>
-
-                </v-card>
-
-                <v-card>
-                    <v-container>
-                        <form>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>Temperature ºC</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openDialog(product.temperature,'temperature','Temperature ºC')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'temperature')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                            <v-container>
-                            <v-text-field
-                                    outlined
-                                    readonly
-                                    v-model="product.temperature==null?'N/A':product.temperature"
-                            />
-                            </v-container>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openDialog(product.humidity,'humidity','Humidity kg/m³')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'humidity')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'temperature')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
                                 <v-container>
-                            <v-text-field
-                                    outlined
-                                    readonly
-
-                                    v-model="product.humidity==null?'N/A':product.humidity"
-                            />
+                                    <v-text-field
+                                            outlined
+                                            readonly
+                                            v-model="product.temperature==null?'N/A':product.temperature"
+                                    />
                                 </v-container>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>CO2</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openDialog(product.humidity,'co2','CO2')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'co2')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                            <v-container>
-                            <v-text-field
-                                    outlined
-                                    readonly
-                                    v-model="product.co2==null?'N/A':product.co2"
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openDialog(product.humidity,'humidity','Humidity kg/m³')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'humidity')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            outlined
+                                            readonly
 
-                            />
-                            </v-container>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>Shock</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'shock')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                            <v-container>
-                            <v-text-field
-                                    label="Acceleration"
-                                    outlined
-                                    readonly
-                                    v-model="product.acceleration==null?'N/A':product.acceleration"
+                                            v-model="product.humidity==null?'N/A':product.humidity"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>CO2</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openDialog(product.humidity,'co2','CO2')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'co2')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            outlined
+                                            readonly
+                                            v-model="product.co2==null?'N/A':product.co2"
 
-                            />
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Shock</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'shock')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            label="Acceleration"
+                                            outlined
+                                            readonly
+                                            v-model="product.acceleration==null?'N/A':product.acceleration"
 
-                            <v-text-field
-                                    label="Duration"
-                                    outlined
-                                    readonly
-                                    v-model="product.duration==null?'N/A':product.duration"
+                                    />
 
-                            />
-                            </v-container>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>Tilt</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'tilt')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                            <v-container>
-                            <v-text-field
-                                    label="X"
-                                    outlined
-                                    readonly
-                                    v-model="product.tiltX==null?'N/A':product.tiltX"
+                                    <v-text-field
+                                            label="Duration"
+                                            outlined
+                                            readonly
+                                            v-model="product.duration==null?'N/A':product.duration"
 
-                            />
-                            <v-text-field
-                                    label="Y"
-                                    outlined
-                                    readonly
-                                    v-model="product.tiltY==null?'N/A':product.tiltY"
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Tilt</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'tilt')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            label="X"
+                                            outlined
+                                            readonly
+                                            v-model="product.tiltX==null?'N/A':product.tiltX"
 
-                            />
-                            </v-container>
-                            <v-toolbar dense color="green" dark>
-                                <v-toolbar-title>Localization</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                                <v-btn icon  v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-pencil'"
-                                       @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
-                                    <v-icon>mdi-pencil</v-icon>
-                                </v-btn>
-                                <v-btn icon v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                       @click="callRoutePropertyDetails(product.recordId,'location')">
-                                    <v-icon>mdi-folder-clock</v-icon>
-                                </v-btn>
-                            </v-toolbar>
-                            <v-container>
-                            <v-text-field
-                                    label="Latitude"
-                                    outlined
-                                    readonly
-                                    v-model="product.latitude"
-                            />
-                            <v-text-field
-                                    label="Longitude"
-                                    outlined
-                                    readonly
-                                    v-model="product.longitude"
-                            />
-                            </v-container>
-                        </form>
-                    </v-container>
-                </v-card>
-            </v-col>
+                                    />
+                                    <v-text-field
+                                            label="Y"
+                                            outlined
+                                            readonly
+                                            v-model="product.tiltY==null?'N/A':product.tiltY"
 
-        </v-row>
+                                    />
+                                </v-container>
+                                <v-toolbar dense color="green" dark>
+                                    <v-toolbar-title>Localization</v-toolbar-title>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
+                                           @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
+                                        <v-icon>mdi-pencil</v-icon>
+                                    </v-btn>
+                                    <v-btn icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
+                                           @click="callRoutePropertyDetails(product.recordId,'location')">
+                                        <v-icon>mdi-folder-clock</v-icon>
+                                    </v-btn>
+                                </v-toolbar>
+                                <v-container>
+                                    <v-text-field
+                                            label="Latitude"
+                                            outlined
+                                            readonly
+                                            v-model="product.latitude"
+                                    />
+                                    <v-text-field
+                                            label="Longitude"
+                                            outlined
+                                            readonly
+                                            v-model="product.longitude"
+                                    />
+                                </v-container>
+                            </form>
+                        </v-container>
+                    </v-card>
+                </v-col>
+
+            </v-row>
         </v-container>
         <v-dialog v-model="dialogTransfer" max-width="600">
 
@@ -485,7 +517,17 @@
   import { getPropertyValue } from '../utils/records'
   import * as api from '../services/api'
   import * as parsing from '../services/parsing'
-  import { email, maxLength, minLength, numeric, between, decimal, required, sameAs } from 'vuelidate/lib/validators'
+  import {
+    email,
+    maxLength,
+    minLength,
+    numeric,
+    between,
+    decimal,
+    required,
+    sameAs,
+    alphaNum
+  } from 'vuelidate/lib/validators'
   import { SnotifyPosition } from 'vue-snotify'
 
   const payloads = require('../services/payloads')
@@ -535,12 +577,14 @@
     data: () => ({
       loading: true,
       submitStatus: null,
-      recordId: '',
+      final: '',
       product: {
+        final: '',
         batch: '',
         name: '',
         classification: '',
         origin: '',
+        cultivationProcess: '',
         size: '',
         weight: '',
         harvestDate: '',
@@ -555,6 +599,7 @@
         duration: '',
         tiltX: '',
         tiltY: '',
+        finalizeJustification: ''
       },
       //value for update properties
       latitude: '',
@@ -566,6 +611,7 @@
       duration: '',
       tiltX: '',
       tiltY: '',
+      justification: '',
       users: [],
       role: 'owner',
       publicKey: '',
@@ -588,38 +634,38 @@
       }
     },
     methods: {
-      callRoutePropertyDetails(recordId,name){
-        this.$router.push('/propertyDetails/'+recordId+'/property/'+name)
+      callRoutePropertyDetails (recordId, name) {
+        this.$router.push('/propertyDetails/' + recordId + '/property/' + name)
       },
 
       handleErrors (error) {
         this.$emit('errorEvent', error)
       },
-      filterUserRole(users){
+      filterUserRole (users) {
         let role = this.$store.state.user.role
 
-        if(role =='admin'){
-           this.users=users
-        }else if(role =='distributor'){
-          this.users = users.filter(function(user){
+        if (role == 'admin') {
+          this.users = users
+        } else if (role == 'distributor') {
+          this.users = users.filter(function (user) {
             return user.role == 'retailer'
-          });
-        }else if(role=='retailer'){
-          this.users = users.filter(function(user){
+          })
+        } else if (role == 'retailer') {
+          this.users = users.filter(function (user) {
             return user.role == 'customer'
-          });
-        }else if(role=='producer'){
-          this.users = users.filter(function(user){
+          })
+        } else if (role == 'producer') {
+          this.users = users.filter(function (user) {
 
             return user.role == 'distributor'
-          });
+          })
         }
 
-  },
-      getUsers() {
+      },
+      getUsers () {
         axios.get('/agents').then(response => {
-             this.filterUserRole(response.data)
-        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)})
+          this.filterUserRole(response.data)
+        }).catch(error => {this.$emit('errorEvent', error.response.data.error)})
       },
 
       getPropertyValue (item, prop) {
@@ -631,6 +677,15 @@
         axios.get(`/records/${this.recordId}`).then(response => {
           this.product = response.data
           this.loading = false
+
+          let final = getPropertyValue(response.data, 'final')
+          if (final !== null) {
+            this.product.final = final
+          }
+          let finalizeJustification = getPropertyValue(response.data, 'finalizeJustification')
+          if (finalizeJustification !== null) {
+            this.product.finalizeJustification = finalizeJustification
+          }
           let name = getPropertyValue(response.data, 'name')
           if (name !== null) {
             this.product.name = name
@@ -643,6 +698,10 @@
           if (origin !== null) {
             this.product.origin = origin
           }
+          let cultivationProcess = getPropertyValue(response.data, 'cultivationProcess')
+          if (cultivationProcess !== null) {
+            this.product.cultivationProcess = cultivationProcess
+          }
           let size = getPropertyValue(response.data, 'size')
           if (size !== null) {
             this.product.size = parsing.toFloat(size)
@@ -653,30 +712,30 @@
           }
           let harvestDate = getPropertyValue(response.data, 'harvestDate')
           if (harvestDate !== null) {
-            var date = new Date(harvestDate * 1000);
+            var date = new Date(harvestDate * 1000)
             this.product.harvestDate = date.toISOString().substr(0, 10)
           }
           let expirationDate = getPropertyValue(response.data, 'expirationDate')
           if (expirationDate !== null) {
-            var date1 = new Date(expirationDate * 1000);
-            this.product.expirationDate =  date1.toISOString().substr(0, 10)
+            var date1 = new Date(expirationDate * 1000)
+            this.product.expirationDate = date1.toISOString().substr(0, 10)
           }
           let packingDate = getPropertyValue(response.data, 'packingDate')
           if (packingDate !== null) {
-            var date2 = new Date(packingDate * 1000);
-            this.product.packingDate =  date2.toISOString().substr(0, 10)
+            var date2 = new Date(packingDate * 1000)
+            this.product.packingDate = date2.toISOString().substr(0, 10)
           }
           let temperature = getPropertyValue(response.data, 'temperature')
           if (temperature !== null) {
-            this.product.temperature =  parsing.toFloat(temperature)
+            this.product.temperature = parsing.toFloat(temperature)
           }
           let humidity = getPropertyValue(response.data, 'humidity')
           if (humidity !== null) {
-            this.product.humidity =  parsing.toFloat(humidity)
+            this.product.humidity = parsing.toFloat(humidity)
           }
           let co2 = getPropertyValue(response.data, 'co2')
           if (co2 !== null) {
-            this.product.co2 =  parsing.toFloat(co2)
+            this.product.co2 = parsing.toFloat(co2)
           }
           let location = getPropertyValue(response.data, 'location')
           if (location !== null) {
@@ -685,7 +744,7 @@
           }
           let tilt = getPropertyValue(response.data, 'tilt')
           if (tilt !== null) {
-            tilt=JSON.parse(tilt)
+            tilt = JSON.parse(tilt)
             this.product.tiltX = parsing.toFloat(tilt.x)
             this.product.tiltY = parsing.toFloat(tilt.y)
           }
@@ -695,7 +754,8 @@
             this.product.acceleration = parsing.toFloat(shock.accel)
             this.product.duration = parsing.toFloat(shock.duration)
           }
-        }).catch(error=>{this.$emit('errorEvent', error.response.data.error)
+        }).catch(error => {
+          this.$emit('errorEvent', error.response.data.error)
           this.loading = false
         })
       },
@@ -714,6 +774,58 @@
                     setTimeout(() => resolve({
                         title: 'Success',
                         body: 'Successfully updated property',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }
+                    ), 2000)
+                    if (value.name == 'finalizeJustification') {
+                      this.finalizeProductSubmit()
+                    }
+                    this.getProduct()
+                  }
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
+            })
+          })
+
+      },
+      finalizeProduct () {
+        this.updateProperty(this.recordId, {
+          name: 'finalizeJustification',
+          stringValue: this.valueUpdate,
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
+      finalizeProductSubmit () {
+        let finalizePayload = payloads.finalizeRecord({
+          recordId: this.recordId
+        })
+        this.$snotify.async('Finalize product in the blockchain', 'Finalize Product',
+          () => {
+            return new Promise((resolve, reject) => {
+              return transactions.submit([finalizePayload], true)
+                .then((response) => {
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
+                        title: 'Success',
+                        body: 'Successfully finalize product',
                         config: {
                           showProgressBar: true,
                           closeOnClick: true,
@@ -740,7 +852,6 @@
                 })
             })
           })
-
       },
       cancel () {
         this.dialogTransfer = false
@@ -769,37 +880,41 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([transferPayload], true)
                 .then((response) => {
-                console.log(response)
-                if (response.status && response.type === undefined) {
-                  setTimeout(() => resolve({
+                  console.log(response)
+                  if (response.status && response.type === undefined) {
+                    setTimeout(() => resolve({
 
-                      title: 'Success',
-                      body: 'Successfully submitted proposal',
-                      config: {
-                        showProgressBar: true,
-                        closeOnClick: true,
-                        timeout: 8000
+                        title: 'Success',
+                        body: 'Successfully submitted proposal',
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
                       }
+                    ), 2000)
+                    let proposal = {
+                      toPublicKey: publicKey,
+                      product: recordId,
+                      fromPublicKey: this.$store.state.user.publicKey
                     }
-                  ),2000)
-                  let proposal = { toPublicKey : publicKey , product: recordId, fromPublicKey: this.$store.state.user.publicKey}
-                  this.$socket.client.emit('newProposal', proposal)
-                }
-              }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() =>  reject({
-                  title: 'Error',
-                  body: error.toString(),
-                  config: {
-                    showProgressBar: true,
-                    closeOnClick: true,
-                    timeout: 8000
+                    this.$socket.client.emit('newProposal', proposal)
                   }
-                }),2000)
-                if (error === 'requestPassword') {
-                  this.$emit('requestPasswordEvent')
-                }
-              })
+                }).catch(error => {
+                  console.log(error.toString())
+                  setTimeout(() => reject({
+                    title: 'Error',
+                    body: error.toString(),
+                    config: {
+                      showProgressBar: true,
+                      closeOnClick: true,
+                      timeout: 8000
+                    }
+                  }), 2000)
+                  if (error === 'requestPassword') {
+                    this.$emit('requestPasswordEvent')
+                  }
+                })
             })
           })
       },
@@ -904,8 +1019,10 @@
           this.reportTemperature()
         } else if (this.key == 'humidity') {
           this.reportHumidity()
-        } else {
+        } else if (this.key == 'co2') {
           this.reportCo2()
+        } else {
+          this.finalizeProduct()
         }
         this.key = ''
         this.dialogProperties = false
@@ -961,6 +1078,16 @@
           !this.$v.valueUpdate.maxLength && errors.push('The Humidity should not be more that 9 characters long')
           !this.$v.valueUpdate.decimal && errors.push('The Humidity must be a decimal number.')
 
+          if (errors.length !== 0) this.submitStatus = 'ERROR'
+          else this.submitStatus = 'OK'
+
+          return errors
+        }
+        if (this.key === 'finalize') {
+
+          if (!this.$v.valueUpdate.$dirty) return errors
+          !this.$v.valueUpdate.minLength && errors.push('The Justification must be at most 1 characters long')
+          !this.$v.valueUpdate.maxLength && errors.push('The Justification should not be more that 50 characters long')
           if (errors.length !== 0) this.submitStatus = 'ERROR'
           else this.submitStatus = 'OK'
 
@@ -1062,6 +1189,11 @@
               minLength: minLength(1),
               maxLength: maxLength(9),
               decimal
+            }
+          case 'finalize':
+            return {
+              minLength: minLength(1),
+              maxLength: maxLength(50),
             }
 
         }
