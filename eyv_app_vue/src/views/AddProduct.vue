@@ -514,7 +514,7 @@
                     console.log(error.toString())
                     setTimeout(() => reject({
                       title: 'Error',
-                      body: error.toString(),
+                      body: error,
                       config: {
                         showProgressBar: true,
                         closeOnClick: true,

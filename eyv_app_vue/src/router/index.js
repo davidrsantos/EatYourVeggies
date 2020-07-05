@@ -19,6 +19,7 @@ import materialNotification from '../components/materialNotification'
 import UserDetailsView from '../views/admin/UserDetailsView'
 import requestPassword from '../components/requestPassword'
 import googleMap from "../components/GoogleMap"
+import DivideProduct from '../components/DivideProduct'
 
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
@@ -29,6 +30,7 @@ Vue.component('propertyDetails', propertyDetails);
 Vue.component('requestPassword',requestPassword)
 Vue.component('googleMap', googleMap);
 Vue.component('material-notification',materialNotification)
+Vue.component('divide-product', DivideProduct)
 
 Vue.use(VueRouter);
 

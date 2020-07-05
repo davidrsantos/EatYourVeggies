@@ -1,35 +1,6 @@
 <template>
     <div>
-        <!-- <v-data-table
-                 :headers="headers"
-                 :items="products"
-                 :loading="loading"
-                 class="elevation-1"
-                 loading-text="Loading... Please wait"
-                 sort-by="name"
-         >
-             <template v-slot:item.actions="{ item }">
-                 <v-btn :to="'/editProduct/'+item.recordId" class="mr-2" small>
-                     <v-icon>mdi-pencil</v-icon>
-                 </v-btn>
-             </template>
-             <template v-slot:top>
-                 <v-toolbar color="white" flat>
-                     <v-toolbar-title>My Products</v-toolbar-title>
-                     <v-divider
-                             class="mx-4"
-                             inset
-                             vertical
-                     ></v-divider>
-                     <v-spacer></v-spacer>
 
-                     <router-link :to="{name: 'addProduct'}" v-if="$store.state.user.role!=='customer'">
-                         <button class="mb-2" color="green" id="myButton">Add Product</button>
-                     </router-link>
-
-                 </v-toolbar>
-             </template>
-         </v-data-table>-->
         <v-sheet class="px-3 pt-3 pb-3"
                  color="white"
                  v-if="loading"
@@ -78,16 +49,29 @@
                          :page="page"
                          hide-default-footer
                          loading-text="Loading... Please wait"
+                         :search="search"
+                         sort-by="recordId"
+                         item-key="recordId"
                          v-else
         >
             <template v-slot:header>
-                <v-toolbar color="white" flat>
+                <v-toolbar>
                     <v-toolbar-title>My Products</v-toolbar-title>
                     <v-divider
                             class="mx-4"
                             inset
                             vertical
                     ></v-divider>
+                    <v-text-field
+                            prepend-inner-icon="mdi-magnify"
+                            clearable
+                            solo-inverted
+                            hide-details
+                            flat
+                            label="Search"
+                            single-line
+                            v-model="search"
+                    ></v-text-field>
                     <v-spacer></v-spacer>
 
                     <router-link :to="{name: 'addProduct'}"
@@ -102,7 +86,7 @@
             <template v-slot:default="props">
                 <v-row>
                     <v-col
-                            :key="item.name"
+                            :key="item.recordId"
                             cols="12"
                             lg="3"
                             md="4"
@@ -134,7 +118,7 @@
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn
                                     class="ml-2"
-                                    color="primary"
+                                    color="green"
                                     dark
                                     text
                                     v-bind="attrs"
@@ -166,7 +150,7 @@
                     <v-btn
                             @click="formerPage"
                             class="mr-1"
-                            color="blue darken-3"
+                            color="green"
                             dark
                             fab
                     >
@@ -175,7 +159,7 @@
                     <v-btn
                             @click="nextPage"
                             class="ml-1"
-                            color="blue darken-3"
+                            color="green"
                             dark
                             fab
                     >
@@ -193,6 +177,7 @@
   export default {
     name: 'ManagerProducts',
     data: () => ({
+      search: '',
       itemsPerPageArray: [4, 8, 12],
       page: 1,
       itemsPerPage: 8,

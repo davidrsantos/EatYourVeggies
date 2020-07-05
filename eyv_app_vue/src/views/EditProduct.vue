@@ -24,10 +24,10 @@
                 </v-col>
             </v-row>
         </v-sheet>
-        <v-container v-else :loading="loading">
+        <v-container :loading="loading" v-else>
             <v-container v-if="product.final">
                 <div class="text-center">
-                    <v-sheet elevation="30" color="red" dark>Finished Product</v-sheet>
+                    <v-sheet color="red" dark elevation="30">Finished Product</v-sheet>
                 </div>
                 <v-card>
                     <v-card-title>Finalize Justification:</v-card-title>
@@ -69,10 +69,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Name"
-                                            outlined
-                                            readonly
                                             :value="product.name"
+                                        label="Name"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -92,10 +92,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Classification"
-                                            outlined
-                                            readonly
                                             :value="product.classification"
+                                        label="Classification"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -115,10 +115,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Origin"
-                                            outlined
-                                            readonly
                                             :value="product.origin"
+                                        label="Origin"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -138,10 +138,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Cultivation Process"
-                                            outlined
-                                            readonly
                                             :value="product.cultivationProcess"
+                                        label="Cultivation Process"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -161,10 +161,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Size (cm)"
-                                            outlined
-                                            readonly
                                             :value="product.size"
+                                        label="Size (cm)"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -184,10 +184,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Weight (grams)"
-                                            outlined
-                                            readonly
                                             :value="product.weight"
+                                        label="Weight (grams)"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -207,10 +207,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Harvest Date"
-                                            outlined
-                                            readonly
                                             :value="product.harvestDate"
+                                        label="Harvest Date"
+                                        outlined
+                                        readonly
                                     />
                                 </v-container>
                                 <v-toolbar dense color="green" dark>
@@ -228,11 +228,11 @@
                                     </v-btn>
                                 </v-toolbar>
                                 <v-container>
-                                    <v-text-field
-                                            label="Expiration Date"
-                                            outlined
-                                            readonly
-                                            :value="product.expirationDate==null?'N/A':product.expirationDate"
+                                <v-text-field
+                                        :value="product.expirationDate==null?'N/A':product.expirationDate"
+                                        label="Expiration Date"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -252,10 +252,10 @@
                                 </v-toolbar>
                                 <v-container>
                                     <v-text-field
-                                            label="Packing Date"
-                                            outlined
-                                            readonly
                                             :value="product.packingDate==null?'N/A':product.packingDate"
+                                        label="Packing Date"
+                                        outlined
+                                        readonly
 
                                     />
                                 </v-container>
@@ -263,52 +263,55 @@
 
                         </v-container>
 
+
                     </v-card>
 
                 </v-col>
                 <v-spacer></v-spacer>
+
                 <v-col class="col-5">
-                    <v-toolbar color="green" dark>
-                        <v-spacer></v-spacer>
-                        <v-toolbar-title>Product Properties</v-toolbar-title>
-                        <v-spacer></v-spacer>
-                    </v-toolbar>
-
-                    <v-card v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final==false">
-                        <v-list
-                                rounded>
-                            <v-list-item
-                                    class="px-2"
-                            >
-                                <v-list-item-content>
-                                    <v-list-item-title>
-                                        <v-btn v-if="!product.proposals.length" dark color="green"
-                                               @click="openTransferDialog">Transfer Ownership
-                                        </v-btn>
-                                        <v-btn dark color="red"
-                                               @click="openDialog(justification,'finalize','a justification')">Finalize
-                                            Product
-                                        </v-btn>
-                                    </v-list-item-title>
-                                </v-list-item-content>
-                            </v-list-item>
-                        </v-list>
-
-                    </v-card>
                     <v-card>
+                        <v-card-title>
+                            <v-toolbar color="green" dark>
+                                <v-spacer></v-spacer>
+                                <v-toolbar-title>Product Properties</v-toolbar-title>
+                                <v-spacer></v-spacer>
+                            </v-toolbar>
+                        </v-card-title>
+                        <v-container fluid
+                                     v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
+                        >
+                            <v-row align="center" justify="center">
+                                <v-btn @click="openTransferDialog" class="ml-2" color="green" dark
+                                       v-if="!product.proposals.length">Transfer Ownership
+                                </v-btn>
+                                <v-btn class="ml-2"
+                                       color="green"
+                                       dark
+                                      @click="dialogGenerateSubProduct=true"
+                                >
+                                    Generate Sub-Product
+                                </v-btn>
+                                <v-btn @click="openDialog(justification,'finalize','a justification')"
+                                       class="ml-2" color="teal accent-4"
+                                       dark>
+                                    Finalize Product
+                                </v-btn>
+                            </v-row>
+                        </v-container>
                         <v-container>
                             <form>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>Temperature ºC</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openDialog(product.temperature,'temperature','Temperature ºC')">
+                                    <v-btn @click="openDialog(product.temperature,'temperature','Temperature ºC')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'temperature')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'temperature')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -319,17 +322,17 @@
                                             v-model="product.temperature==null?'N/A':product.temperature"
                                     />
                                 </v-container>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openDialog(product.humidity,'humidity','Humidity kg/m³')">
+                                    <v-btn @click="openDialog(product.humidity,'humidity','Humidity kg/m³')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'humidity')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'humidity')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -341,17 +344,17 @@
                                             v-model="product.humidity==null?'N/A':product.humidity"
                                     />
                                 </v-container>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>CO2</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openDialog(product.humidity,'co2','CO2')">
+                                    <v-btn @click="openDialog(product.humidity,'co2','CO2')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'co2')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'co2')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -363,17 +366,17 @@
 
                                     />
                                 </v-container>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>Shock</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')">
+                                    <v-btn @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'shock')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'shock')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -394,17 +397,17 @@
 
                                     />
                                 </v-container>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>Tilt</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')">
+                                    <v-btn @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'tilt')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'tilt')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -424,17 +427,17 @@
 
                                     />
                                 </v-container>
-                                <v-toolbar dense color="green" dark>
+                                <v-toolbar color="green" dark dense>
                                     <v-toolbar-title>Localization</v-toolbar-title>
                                     <v-spacer></v-spacer>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'"
-                                           @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')">
+                                    <v-btn @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
                                         <v-icon>mdi-pencil</v-icon>
                                     </v-btn>
-                                    <v-btn icon
-                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'"
-                                           @click="callRoutePropertyDetails(product.recordId,'location')">
+                                    <v-btn @click="callRoutePropertyDetails(product.recordId,'location')"
+                                           icon
+                                           v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
                                         <v-icon>mdi-folder-clock</v-icon>
                                     </v-btn>
                                 </v-toolbar>
@@ -457,9 +460,12 @@
                     </v-card>
                 </v-col>
 
+
             </v-row>
+
+
         </v-container>
-        <v-dialog v-model="dialogTransfer" max-width="600">
+        <v-dialog max-width="600" v-model="dialogTransfer">
 
             <v-card fluid>
                 <v-container>
@@ -555,16 +561,16 @@
                                   @blur="$v.tiltX.$touch()"
                                   @input="$v.tiltX.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="tiltX"
                                   label="X"
+                                  v-model="tiltX"
 
                     />
                     <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.tiltY.$touch()"
                                   @input="$v.tiltY.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="tiltY"
                                   label="Y"
+                                  v-model="tiltY"
 
                     />
 
@@ -597,16 +603,16 @@
                                   @blur="$v.acceleration.$touch()"
                                   @input="$v.acceleration.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="acceleration"
                                   label="Acceleration"
+                                  v-model="acceleration"
 
                     />
                     <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.duration.$touch()"
                                   @input="$v.duration.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="duration"
                                   label="Duration"
+                                  v-model="duration"
 
                     />
                     <v-card-actions>
@@ -638,16 +644,16 @@
                                   @blur="$v.latitude.$touch()"
                                   @input="$v.latitude.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="latitude"
                                   label="X"
+                                  v-model="latitude"
 
                     />
                     <v-text-field :error-messages="doublePropsErrors2"
                                   @blur="$v.longitude.$touch()"
                                   @input="$v.longitude.$touch()"
                                   class="ml-4 mr-4"
-                                  v-model="longitude"
                                   label="Y"
+                                  v-model="longitude"
 
                     />
                     <v-card-actions>
@@ -665,6 +671,12 @@
                     </v-card-actions>
                 </v-container>
             </v-card>
+        </v-dialog>
+
+        <v-dialog  v-model="dialogGenerateSubProduct">
+            <divide-product :product="product"
+                            @close="closeDialogGenerateSubProduct"
+                            @requestPasswordEvent="$emit('requestPasswordEvent')"/>
         </v-dialog>
 
     </v-container>
@@ -693,6 +705,7 @@
   const transactions = require('../services/transactions')
 
   export default {
+    name:'EditProduct',
     validations () {
       return {
         valueUpdate: this.rules,
@@ -734,6 +747,7 @@
       }
     },
     data: () => ({
+      dialogGenerateSubProduct: false,
       loading: true,
       submitStatus: null,
       final: '',
@@ -833,19 +847,6 @@
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
-      /*  getProposals(){
-          axios.get(`/proposals-all/${this.recordId}`).then(response => {
-            this.proposals = response.data
-            this.proposals.forEach(update => {
-             if(update.status=='OPEN'){
-                return true;
-              }
-              return false;
-            })
-          }).catch(function (error) {
-              console.log(error)
-            })
-        },*/
       getProduct () {
         this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
@@ -971,7 +972,7 @@
                     console.log(error.toString())
                     setTimeout(() => reject({
                       title: 'Error',
-                      body: error.toString(),
+                      body: error,
                       config: {
                         showProgressBar: true,
                         closeOnClick: true,
@@ -1020,7 +1021,7 @@
                   console.log(error.toString())
                   setTimeout(() => reject({
                     title: 'Error',
-                    body: error.toString(),
+                    body: error,
                     config: {
                       showProgressBar: true,
                       closeOnClick: true,
@@ -1085,7 +1086,7 @@
                   console.log(error.toString())
                   setTimeout(() => reject({
                     title: 'Error',
-                    body: error.toString(),
+                    body: error,
                     config: {
                       showProgressBar: true,
                       closeOnClick: true,
@@ -1285,7 +1286,7 @@
           this.reportPackingDate()
         }
         else {
-          this.finalizeProduct()
+          this.justify()
         }
         this.key = ''
         this.dialogProperties = false
@@ -1305,6 +1306,11 @@
         this.reportLocalization()
         this.dialogLocalization = false
       },
+      closeDialogGenerateSubProduct(){
+        this.dialogGenerateSubProduct = false
+        this.getProduct()
+      }
+      ,
 
     },
     computed: {
@@ -1603,7 +1609,7 @@
     beforeMount: function () {
       this.getProduct(),
         this.getUsers()
-    },
+    }
   }
 
 </script>
