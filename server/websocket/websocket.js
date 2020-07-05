@@ -33,7 +33,9 @@ function start (io) {
 
 
       let userInfo = loggedUsers.userInfoByPublicKey(proposal.toPublicKey)
-      socket.to(userInfo.socketID).emit('newProposal',proposal)
+      if(userInfo){
+        socket.to(userInfo.socketID).emit('newProposal',proposal)
+      }
     })
   })
 }

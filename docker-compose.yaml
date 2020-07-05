@@ -123,6 +123,7 @@ services:
     depends_on:
       - validator
       - rethink
+      - server
     environment:
       - VALIDATOR_URL=tcp://validator:4004
       - DB_HOST=rethink

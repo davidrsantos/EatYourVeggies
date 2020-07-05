@@ -144,7 +144,7 @@
                             >
                                 <v-list-item-content>
                                     <v-list-item-title>
-                                        <v-btn dark color="green"
+                                        <v-btn v-if="!product.proposals.length" dark color="green"
                                                @click="openTransferDialog">Transfer Ownership
                                         </v-btn>
                                         <v-btn dark color="red"
@@ -578,6 +578,8 @@
       loading: true,
       submitStatus: null,
       final: '',
+      proposals: '',
+      isOpen: false,
       product: {
         final: '',
         batch: '',
@@ -671,13 +673,24 @@
       getPropertyValue (item, prop) {
         return getPropertyValue(item, prop)
       },
-
+     /*  getProposals(){
+         axios.get(`/proposals-all/${this.recordId}`).then(response => {
+           this.proposals = response.data
+           this.proposals.forEach(update => {
+            if(update.status=='OPEN'){
+               return true;
+             }
+             return false;
+           })
+         }).catch(function (error) {
+             console.log(error)
+           })
+       },*/
       getProduct () {
         this.loading = true
         axios.get(`/records/${this.recordId}`).then(response => {
           this.product = response.data
           this.loading = false
-
           let final = getPropertyValue(response.data, 'final')
           if (final !== null) {
             this.product.final = final
@@ -869,54 +882,54 @@
         this.dialogLocalization = false
       },
       submitProposal (recordId, role, publicKey) {
-
-        let transferPayload = payloads.createProposal({
-          recordId: recordId,
-          receivingAgent: publicKey,
-          role: this.roleToEnum(role)
-        })
-        this.$snotify.async('Working on your proposal...', 'Sending Proposal',
-          () => {
-            return new Promise((resolve, reject) => {
-              return transactions.submit([transferPayload], true)
-                .then((response) => {
-                  console.log(response)
-                  if (response.status && response.type === undefined) {
-                    setTimeout(() => resolve({
-
-                        title: 'Success',
-                        body: 'Successfully submitted proposal',
-                        config: {
-                          showProgressBar: true,
-                          closeOnClick: true,
-                          timeout: 8000
-                        }
-                      }
-                    ), 2000)
-                    let proposal = {
-                      toPublicKey: publicKey,
-                      product: recordId,
-                      fromPublicKey: this.$store.state.user.publicKey
-                    }
-                    this.$socket.client.emit('newProposal', proposal)
-                  }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error.toString(),
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
-                  if (error === 'requestPassword') {
-                    this.$emit('requestPasswordEvent')
-                  }
-                })
-            })
+          let transferPayload = payloads.createProposal({
+            recordId: recordId,
+            receivingAgent: publicKey,
+            role: this.roleToEnum(role)
           })
+          this.$snotify.async('Working on your proposal...', 'Sending Proposal',
+            () => {
+              return new Promise((resolve, reject) => {
+                return transactions.submit([transferPayload], true)
+                  .then((response) => {
+                    console.log(response)
+                    this.getProduct();
+                    if (response.status && response.type === undefined) {
+                      setTimeout(() => resolve({
+
+                          title: 'Success',
+                          body: 'Successfully submitted proposal',
+                          config: {
+                            showProgressBar: true,
+                            closeOnClick: true,
+                            timeout: 8000
+                          }
+                        }
+                      ), 2000)
+                      let proposal = {
+                        toPublicKey: publicKey,
+                        product: recordId,
+                        fromPublicKey: this.$store.state.user.publicKey
+                      }
+                      this.$socket.client.emit('newProposal', proposal)
+                    }
+                  }).catch(error => {
+                    console.log(error.toString())
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error.toString(),
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
+                    if (error === 'requestPassword') {
+                      this.$emit('requestPasswordEvent')
+                    }
+                  })
+              })
+            })
       },
       reportShock () {
         this.updateProperty(this.recordId, {
@@ -1202,7 +1215,7 @@
     },
 
     beforeMount: function () {
-      this.getProduct()
+      this.getProduct(),
       this.getUsers()
     },
   }
