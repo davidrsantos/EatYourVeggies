@@ -42,7 +42,7 @@
         drawer: true,
         items: [],
         itemsForCustomer: [
-
+          { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Products', icon: 'mdi-corn', link: '/products' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
         ],
@@ -61,7 +61,6 @@
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
           { title: 'My Products', icon: 'mdi-corn', link: '/products' },
-          { title: 'Transform Product', icon: 'mdi-account-group-outline', link: '/products/new' }
         ],
 
         mini: true,

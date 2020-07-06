@@ -1,15 +1,18 @@
 <template>
-    <div>
+    <v-container>
         <list-users @errorEvent="handleErrors"
                     v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
         <proposals @requestPasswordEvent="$emit('requestPasswordEvent')" v-show="this.$store.state.user!=null"></proposals>
 
-    </div>
+
+    </v-container>
 </template>
 
 <script>
+  import ManagerProducts from './ManagerProducts'
   export default {
     name: 'Home',
+    components: { ManagerProducts },
     data: () => ({
       items: [],
       timer: '',
