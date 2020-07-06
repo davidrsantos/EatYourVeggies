@@ -116,7 +116,7 @@
         <v-dialog v-model="requestPassword" width="unset">
             <v-card>
             <v-card-title class="red darken-1">Your session expired!</v-card-title>
-                <v-card-subtitle class="red darken-1">Sorry {{this.$store.state.user.name}} for security reasons you need to input your password again</v-card-subtitle>
+                <v-card-subtitle class="red darken-1" v-if="this.$store.state.user">Sorry {{this.$store.state.user.name}} for security reasons you need to input your password again</v-card-subtitle>
             <request-password @close="requestPassword=false"/>
             </v-card>
         </v-dialog>

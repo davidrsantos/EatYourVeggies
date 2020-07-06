@@ -221,6 +221,7 @@ const _loadRecordSimple = (block, authedKey) => (record) => {
       return r.expr({
         'recordId': recordId,
         'owner': getOwnerId(record),
+        'final': getFinal(record),
         'name': getCurrentValue(propertyValues).do(
           value => r.branch(
             value,

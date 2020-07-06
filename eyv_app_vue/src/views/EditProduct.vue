@@ -35,8 +35,9 @@
                 </v-card>
             </v-container>
             <v-spacer></v-spacer>
-            <v-row no-gutters>
-                <v-col class="col-5">
+            <v-container>
+            <v-row>
+                <v-col>
                     <v-card class="mx-auto" max-width="700">
                         <v-toolbar color="green" dark>
                             <v-spacer></v-spacer>
@@ -267,17 +268,23 @@
                     </v-card>
 
                 </v-col>
-                <v-spacer></v-spacer>
 
-                <v-col class="col-5">
-                    <v-card>
-                        <v-card-title>
+
+                <v-col >
+                    <v-card class="mx-auto" max-width="700">
+
                             <v-toolbar color="green" dark>
                                 <v-spacer></v-spacer>
                                 <v-toolbar-title>Product Properties</v-toolbar-title>
                                 <v-spacer></v-spacer>
                             </v-toolbar>
-                        </v-card-title>
+
+
+                        <v-img contain
+                               :src="'http://localhost:8021/image/' + product.recordId "
+                               height="250"
+                        ></v-img>
+
                         <v-container fluid
                                      v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
                         >
@@ -463,7 +470,7 @@
 
 
             </v-row>
-
+            </v-container>
 
         </v-container>
         <v-dialog max-width="600" v-model="dialogTransfer">
