@@ -806,9 +806,9 @@ impl SupplyChainTransactionHandler {
             }
         };
 
-        if owner.agent_id != signer || custodian.agent_id != signer {
+        if owner.agent_id != signer{
             return Err(ApplyError::InvalidTransaction(format!(
-                "Must be owner and custodian to finalize record"
+                "Must be owner to finalize record. Owner: {} Signer: {}",owner.agent_id,signer
             )));
         }
         if final_record.get_field_final() {
