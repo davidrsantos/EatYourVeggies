@@ -1,6 +1,5 @@
 <template>
     <div>
-        <v-card><file-upload></file-upload></v-card>
         <list-users @errorEvent="handleErrors"
                     v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
         <proposals @requestPasswordEvent="$emit('requestPasswordEvent')" v-show="this.$store.state.user!=null"></proposals>

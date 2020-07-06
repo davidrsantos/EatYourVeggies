@@ -20,9 +20,7 @@ import UserDetailsView from '../views/admin/UserDetailsView'
 import requestPassword from '../components/requestPassword'
 import googleMap from "../components/GoogleMap"
 import DivideProduct from '../components/DivideProduct'
-import FileUpload from '../components/FileUpload'
 
-Vue.component('file-upload',FileUpload),
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
