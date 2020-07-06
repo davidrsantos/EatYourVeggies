@@ -166,7 +166,7 @@ const storage = multer.diskStorage({
     cb(null, 'images')
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname + '.jpg')
+    cb(null, req.params.recordId + '.jpg')
   }
 })
 
@@ -228,12 +228,21 @@ router.get('/proposals/:receivingAgent', handle(records.listProposals))//@luana 
 router.get('/proposals-send/:issuingAgent', handle(records.listProposals))//@luana submit proposal cancel
 router.get('/proposals-all/:recordId', handle(records.listProposals))//@luana valid proposal
 
-router.post('/upload', upload.single('file'), (req, res) => {
+router.post('/upload/:recordId', upload.single('file'), (req, res) => {
   res.json({ file: req.file })
 })
-
-router.get('/image', function(req, res){
-res.sendFile( '/sawtooth-supply-chain/server/images/file-1593986240869.jpg')
+router.get('/image/:recordId', function (req, res) {
+  let recordId = req.params.recordId
+  let reocordParent = recordId.split('-')
+  res.sendFile('/sawtooth-supply-chain/server/images/' + reocordParent[0] + '.jpg', {}, function (err) {
+    if (err) {
+      res.sendFile('/sawtooth-supply-chain/server/images/default.jpg', {}, function (err) {
+        if (err) {
+          next(err)
+        }
+      })
+    }
+  })
 })
 
 router.route('/users')

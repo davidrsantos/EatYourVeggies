@@ -47,11 +47,11 @@
                          :items-per-page.sync="itemsPerPage"
                          :loading="loading"
                          :page="page"
-                         hide-default-footer
-                         loading-text="Loading... Please wait"
                          :search="search"
-                         sort-by="recordId"
+                         hide-default-footer
                          item-key="recordId"
+                         loading-text="Loading... Please wait"
+                         sort-by="recordId"
                          v-else
         >
             <template v-slot:header>
@@ -63,13 +63,13 @@
                             vertical
                     ></v-divider>
                     <v-text-field
-                            prepend-inner-icon="mdi-magnify"
                             clearable
-                            solo-inverted
-                            hide-details
                             flat
+                            hide-details
                             label="Search"
+                            prepend-inner-icon="mdi-magnify"
                             single-line
+                            solo-inverted
                             v-model="search"
                     ></v-text-field>
                     <v-spacer></v-spacer>
@@ -98,8 +98,8 @@
 
                             <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
                             <v-img
+                                    :src="'http://localhost:8021/image/' + item.recordId "
                                     height="250"
-                                    src="icon.png"
                             ></v-img>
 
                             <v-card-text>Batch : {{ item.recordId }}</v-card-text>

@@ -5,6 +5,14 @@
         </v-toolbar>
         <v-container>
             <form>
+                <v-file-input :rules="rules"
+                              accept="image/png, image/jpeg, image/bmp"
+                              label="Picture"
+                              placeholder="Pick picture for your product"
+                              prepend-icon="mdi-camera"
+                              show-size
+                              v-model="file"
+                />
                 <v-text-field
                         :counter="10"
                         :error-messages="batchErrors"
@@ -177,7 +185,8 @@
                         required
                         v-model="longitude"
                 />
-                <v-btn :disabled="submitStatus==='ERROR'" @click="submit" class="mr-4">submit</v-btn>
+
+                <v-btn :disabled="submitStatus==='ERROR' || file.size>2000000 " @click="submit" class="mr-4">submit</v-btn>
                 <v-btn @click="clear">clear</v-btn>
             </form>
         </v-container>
@@ -264,6 +273,11 @@
     },
 
     data: () => ({
+      rules: [
+        value => !value || value.size < 2000000 || 'Picture size should be less than 2 MB!',
+      ],
+      file: '',
+
       submitStatus: 'ERROR',
       batch: '',
       name: '',
@@ -496,7 +510,12 @@
               return new Promise((resolve, reject) => {
                 return transactions.submit([recordPayload], true)
                   .then((response) => {
-                    console.log(response)
+                    const formData = new FormData()
+                    formData.append('file', this.file)
+                    console.log(formData)
+                    axios.post('upload/' + this.batch, formData).catch(err => {
+                      throw err
+                    })
                     if (response.status && response.type === undefined) {
                       setTimeout(() => resolve({
                           title: 'Success',
@@ -557,6 +576,7 @@
         this.longitude = null
         this.expirationDate = null
         this.packingDate = null
+        this.file = null
       },
     },
   }
