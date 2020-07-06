@@ -819,7 +819,7 @@
     },
     methods: {
       callRoutePropertyDetails (recordId, name) {
-        this.$router.push('/propertyDetails/' + recordId + '/property/' + name)
+        this.$router.push('/products/' + recordId + '/property/' + name)
       },
 
       handleErrors (error) {

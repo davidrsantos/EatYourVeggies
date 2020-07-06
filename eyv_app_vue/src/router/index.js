@@ -49,22 +49,22 @@ const routes = [
 
     },
     {
-        path: '/addProduct',
+        path: '/products/new',
         name: 'addProduct',
         component: addProduct
     },
     {
-        path: '/managerProducts',
+        path: '/products',
         name: 'managerProducts',
         component: managerProducts
     },
     {
-        path: '/propertyDetails/:recordId/property/:name',
+        path: '/products/:recordId/property/:name',
         name: 'propertyDetails',
         component: propertyDetails, props: true
     },
     {
-        path: '/editProduct/:recordId',
+        path: '/products/:recordId',
         name: 'editProduct',
         component: editProduct
     },
@@ -88,11 +88,7 @@ const routes = [
         name: 'signup',
         component: signup
     },
-    {
-        path: '/about',
-        name: 'About',
-        // se for preciso
-    }
+
 ];
 
 const router = new VueRouter({
@@ -106,6 +102,10 @@ router.beforeEach((to, from, next) => {
     if (from.name == to.name) {
         next(false);
         return;
+    }
+
+    if(to.name === 'welcome' && store.state.user){
+        next('dashboard')
     }
 
 

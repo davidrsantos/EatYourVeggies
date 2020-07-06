@@ -94,7 +94,7 @@
                             v-for="item in props.items"
                     >
                         <v-card :loading="loading"
-                                :to="'/editProduct/'+item.recordId" class="mx-auto my-12" max-width="374">
+                                :to="'/products/'+item.recordId" class="mx-auto my-12" max-width="374">
 
                             <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
                             <v-img
