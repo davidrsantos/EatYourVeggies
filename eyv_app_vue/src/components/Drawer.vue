@@ -42,26 +42,25 @@
         drawer: true,
         items: [],
         itemsForCustomer: [
-
-          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
+          { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
+          { title: 'My Products', icon: 'mdi-corn', link: '/products' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
         ],
         itemsForDistributor: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
-          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
+          { title: 'My Products', icon: 'mdi-corn', link: '/products' },
         ],
         itemsForProducer: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
-          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
-          { title: 'Add Product', icon: 'mdi-account-group-outline', link: '/addProduct' }
+          { title: 'My Products', icon: 'mdi-corn', link: '/products' },
+          { title: 'Add Product', icon: 'mdi-account-group-outline', link: '/products/new' }
         ],
         itemsForRetailer: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
-          { title: 'My Products', icon: 'mdi-corn', link: '/managerProducts' },
-          { title: 'Transform Product', icon: 'mdi-account-group-outline', link: '/addProduct' }
+          { title: 'My Products', icon: 'mdi-corn', link: '/products' },
         ],
 
         mini: true,

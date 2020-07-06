@@ -42,7 +42,7 @@
                 </template>
             </v-data-table>
         </v-card>
-        <v-card>
+        <v-card v-show="$store.state.user.role!=='customer'">
             <v-card-title>
                 Proposals Sent
                 <v-spacer></v-spacer>
@@ -157,6 +157,13 @@
           () => {
             return new Promise((resolve, reject) => {
               return transactions.submit([answerPayload], true)
+                .then(() => {
+                  if (response === payloads.answerProposal.enum.ACCEPT) {
+                    return this.justify(record)
+                  }
+
+                })
+                .then(() => {if (response === payloads.answerProposal.enum.ACCEPT) { return this.finalizeProductSubmit(record)}})
                 .then((res) => {
                   console.log(res)
                   if (res.status && res.type === undefined) {
@@ -205,6 +212,57 @@
           })
       },
 
+      finalizeProductSubmit (record) {
+        let finalizePayload = payloads.finalizeRecord({
+          recordId: record
+        })
+        return transactions.submit([finalizePayload], true)
+          .then((response) => {
+            console.log('finalize' + response)
+            if (response.status && response.type === undefined) {
+              console.log('fazer finalize')
+              this.$emit('close')
+              return response
+            }
+          }).catch(error => {
+            console.log(error)
+            if (error === 'requestPassword') {
+              this.$emit('requestPasswordEvent')
+            } else {
+              throw error
+            }
+          })
+      },
+
+      updateProperty (record, value) {
+        let updatePayload = payloads.updateProperties({
+          recordId: record,
+          properties: [value]
+        })
+        console.log('fazer update do justification')
+        return transactions.submit([updatePayload], true)
+          .then((response) => {
+            if (response.status && response.type === undefined) {
+              console.log('fazer update do justification')
+              return response
+            }
+          }).catch(error => {
+            console.log(error)
+            if (error === 'requestPassword') {
+              this.$emit('requestPasswordEvent')
+            } else {
+              throw error
+            }
+          })
+
+      },
+      justify (record) {
+        this.updateProperty(record, {
+          name: 'finalizeJustification',
+          stringValue: 'Transfer to Customer',
+          dataType: payloads.updateProperties.enum.STRING
+        })
+      },
       roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER

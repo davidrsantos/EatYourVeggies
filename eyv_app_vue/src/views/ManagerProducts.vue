@@ -1,6 +1,5 @@
 <template>
-    <div>
-
+    <v-container>
         <v-sheet class="px-3 pt-3 pb-3"
                  color="white"
                  v-if="loading"
@@ -94,18 +93,19 @@
                             v-for="item in props.items"
                     >
                         <v-card :loading="loading"
-                                :to="'/editProduct/'+item.recordId" class="mx-auto my-12" max-width="374">
+                                :to="'/products/'+item.recordId" class="mx-auto my-12" max-width="374">
 
                             <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
                             <v-img
                                     :src="'http://localhost:8021/image/' + item.recordId "
                                     height="250">
 
-                            <v-row align="end" justify="end" class="lightbox white--text pa-2 fill-height">
-                               <v-chip v-if="item.final"   large class="ma-2"
-                                       color="red"
-                                       text-color="white">  Finalized   </v-chip>
-                            </v-row>
+                                <v-row align="end" class="lightbox white--text pa-2 fill-height" justify="end">
+                                    <v-chip class="ma-2" color="red" large
+                                            text-color="white"
+                                            v-if="item.final"> Finalized
+                                    </v-chip>
+                                </v-row>
                             </v-img>
 
                             <v-card-text>Batch : {{ item.recordId }}</v-card-text>
@@ -174,7 +174,7 @@
                 </v-row>
             </template>
         </v-data-iterator>
-    </div>
+    </v-container>
 </template>
 
 <script>

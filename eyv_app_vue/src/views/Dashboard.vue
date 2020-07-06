@@ -1,29 +1,18 @@
 <template>
-    <div>
+    <v-container>
         <list-users @errorEvent="handleErrors"
                     v-show="this.$store.state.user!=null && this.$store.state.user.role ==='admin'"></list-users>
         <proposals @requestPasswordEvent="$emit('requestPasswordEvent')" v-show="this.$store.state.user!=null"></proposals>
 
-        there you go!
 
-
-        <li :key="item.recordId" v-for="item in items">
-            {{item.recordId}}
-
-        </li>
-        and some agents to see:
-        <li :key="agent.publicKey" v-for="agent in agents">
-            {{agent.name}}
-
-        </li>
-
-
-    </div>
+    </v-container>
 </template>
 
 <script>
+  import ManagerProducts from './ManagerProducts'
   export default {
     name: 'Home',
+    components: { ManagerProducts },
     data: () => ({
       items: [],
       timer: '',

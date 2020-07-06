@@ -527,7 +527,7 @@
                           }
                         }
                       ), 2000)
-                      this.$router.push({ path: `/editProduct/${this.batch}` })
+                      this.$router.push({ path: `/products/${this.batch}` })
                     }
                   }).catch(error => {
                     if (error === 'requestPassword') {
