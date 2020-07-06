@@ -115,8 +115,9 @@
         <vue-snotify></vue-snotify>
         <v-dialog v-model="requestPassword" width="unset">
             <v-card>
-            <v-card-title class="red darken-1">Your session expired</v-card-title>
-            <login_form/>
+            <v-card-title class="red darken-1">Your session expired!</v-card-title>
+                <v-card-subtitle class="red darken-1">Sorry {{this.$store.state.user.name}} for security reasons you need to input your password again</v-card-subtitle>
+            <request-password @close="requestPassword=false"/>
             </v-card>
         </v-dialog>
 
@@ -133,7 +134,6 @@
   const { setBatcherPubkey } = require('./services/transactions')
 
   export default {
-    components: { Login_form },
     sockets: {
       connect () {
         console.log('socket connected (socket ID = ' + this.$socket.client.id + ')')
@@ -217,11 +217,6 @@
         if (index > -1) {
           this.notifications.splice(index, 1)
         }
-      },
-      teste () {
-        let user = { name: 'ola' }
-        this.$socket.client.emit('newUser', user)
-
       },
       closeDialog () {
         this.showErrors = false

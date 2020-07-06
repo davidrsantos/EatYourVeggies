@@ -511,18 +511,28 @@
                       this.$router.push({ path: `/editProduct/${this.batch}` })
                     }
                   }).catch(error => {
-                    console.log(error.toString())
-                    setTimeout(() => reject({
-                      title: 'Error',
-                      body: error,
-                      config: {
-                        showProgressBar: true,
-                        closeOnClick: true,
-                        timeout: 8000
-                      }
-                    }), 2000)
                     if (error === 'requestPassword') {
                       this.$emit('requestPasswordEvent')
+                      reject({
+                          title: 'Error',
+                          body: '',
+                          icon: false,
+                          config: {
+                            timeout: 1
+                          }
+                        }
+                      )
+                    } else {
+                      console.log(error)
+                      setTimeout(() => reject({
+                        title: 'Error',
+                        body: error,
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }), 2000)
                     }
                   })
               })

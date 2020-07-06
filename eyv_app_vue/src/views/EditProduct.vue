@@ -282,18 +282,19 @@
                                      v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
                         >
                             <v-row align="center" justify="center">
-                                <v-btn @click="openTransferDialog" class="ml-2" color="green" dark
+                                <v-btn @click="openTransferDialog" class="ml-2" color="teal" dark
                                        v-if="!product.proposals.length">Transfer Ownership
                                 </v-btn>
                                 <v-btn class="ml-2"
-                                       color="green"
+                                       color="teal"
                                        dark
                                       @click="dialogGenerateSubProduct=true"
+                                       v-if="this.$store.state.user.role==='admin' || this.$store.state.user.role==='producer'|| this.$store.state.user.role==='retailer' "
                                 >
                                     Generate Sub-Product
                                 </v-btn>
                                 <v-btn @click="openDialog(justification,'finalize','a justification')"
-                                       class="ml-2" color="teal accent-4"
+                                       class="ml-2" color="red accent-4"
                                        dark>
                                     Finalize Product
                                 </v-btn>
@@ -965,22 +966,33 @@
                       ), 2000)
                       if (value.name == 'finalizeJustification') {
                         this.finalizeProductSubmit()
+                      }else {
+                        this.getProduct()
                       }
-                      this.getProduct()
                     }
-                  }).catch(error => {
-                    console.log(error.toString())
-                    setTimeout(() => reject({
-                      title: 'Error',
-                      body: error,
-                      config: {
-                        showProgressBar: true,
-                        closeOnClick: true,
-                        timeout: 8000
-                      }
-                    }), 2000)
+                  }) .catch(error => {
                     if (error === 'requestPassword') {
                       this.$emit('requestPasswordEvent')
+                      reject({
+                          title: 'Error',
+                          body: '',
+                          icon: false,
+                          config: {
+                            timeout: 1
+                          }
+                        }
+                      )
+                    } else {
+                      console.log(error)
+                      setTimeout(() => reject({
+                        title: 'Error',
+                        body: error,
+                        config: {
+                          showProgressBar: true,
+                          closeOnClick: true,
+                          timeout: 8000
+                        }
+                      }), 2000)
                     }
                   })
               })
@@ -1017,19 +1029,29 @@
                     ), 2000)
                     this.getProduct()
                   }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error,
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
+                }) .catch(error => {
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
+                    reject({
+                        title: 'Error',
+                        body: '',
+                        icon: false,
+                        config: {
+                          timeout: 1
+                        }
+                      }
+                    )
+                  } else {
+                    console.log(error)
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error,
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
                   }
                 })
             })
@@ -1082,19 +1104,29 @@
                     }
                     this.$socket.client.emit('newProposal', proposal)
                   }
-                }).catch(error => {
-                  console.log(error.toString())
-                  setTimeout(() => reject({
-                    title: 'Error',
-                    body: error,
-                    config: {
-                      showProgressBar: true,
-                      closeOnClick: true,
-                      timeout: 8000
-                    }
-                  }), 2000)
+                }) .catch(error => {
                   if (error === 'requestPassword') {
                     this.$emit('requestPasswordEvent')
+                    reject({
+                        title: 'Error',
+                        body: '',
+                        icon: false,
+                        config: {
+                          timeout: 1
+                        }
+                      }
+                    )
+                  } else {
+                    console.log(error)
+                    setTimeout(() => reject({
+                      title: 'Error',
+                      body: error,
+                      config: {
+                        showProgressBar: true,
+                        closeOnClick: true,
+                        timeout: 8000
+                      }
+                    }), 2000)
                   }
                 })
             })
@@ -1286,7 +1318,7 @@
           this.reportPackingDate()
         }
         else {
-          this.justify()
+          this.finalizeProduct()
         }
         this.key = ''
         this.dialogProperties = false
