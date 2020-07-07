@@ -157,13 +157,16 @@
           () => {
             return new Promise((resolve, reject) => {
               return transactions.submit([answerPayload], true)
-                .then(() => {
+                .then((res) => {
                   if (response === payloads.answerProposal.enum.ACCEPT) {
                     return this.justify(record)
                   }
-
+                  return res
                 })
-                .then(() => {if (response === payloads.answerProposal.enum.ACCEPT) { return this.finalizeProductSubmit(record)}})
+                .then((res) => {
+                  if (response === payloads.answerProposal.enum.ACCEPT) { return this.finalizeProductSubmit(record)}
+                  return res
+                })
                 .then((res) => {
                   console.log(res)
                   if (res.status && res.type === undefined) {

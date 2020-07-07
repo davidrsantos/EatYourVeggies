@@ -59,7 +59,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.name,'name','Name')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
+                                               v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'name')"
@@ -82,7 +83,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.classification,'classification','Classification')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'classification')"
@@ -105,8 +107,10 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.origin,'origin','Origin')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >
                                             <v-icon>mdi-pencil</v-icon>
+
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'origin')"
                                                icon
@@ -128,7 +132,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.cultivationProcess,'cultivationProcess','Cultivation Process')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >
                                             <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'cultivationProcess')"
@@ -151,8 +156,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.size,'size','Size (cm)')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'size')"
                                                icon
@@ -174,8 +179,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.weight,'weight','Weight (grams)')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'weight')"
                                                icon
@@ -197,8 +202,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.harvestDate,'harvestDate','Harvest Date')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'harvestDate')"
                                                icon
@@ -219,8 +224,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.expirationDate,'expirationDate','Expiration Date')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'expirationDate')"
                                                icon
@@ -242,8 +247,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.packingDate,'packingDate','Packing Date')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'packingDate')"
                                                icon
@@ -286,8 +291,9 @@
                             ></v-img>
 
                             <v-container fluid
-                                         v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
-                            >
+                                         v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >
+
                                 <v-row align="center" justify="center">
                                     <v-btn @click="openTransferDialog" class="ml-2" color="green darken-3" dark
                                            v-if="!product.proposals.length">Transfer Ownership
@@ -314,8 +320,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.temperature,'temperature','Temperature ºC')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                 v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" >                                            <v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'temperature')"
                                                icon
@@ -335,8 +341,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.humidity,'humidity','Humidity kg/m³')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                  v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" ><v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'humidity')"
                                                icon
@@ -357,8 +363,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openDialog(product.humidity,'co2','CO2')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                  v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" ><v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'co2')"
                                                icon
@@ -379,8 +385,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                  v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" ><v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'shock')"
                                                icon
@@ -410,8 +416,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                  v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" ><v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'tilt')"
                                                icon
@@ -440,8 +446,8 @@
                                         <v-spacer></v-spacer>
                                         <v-btn @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')"
                                                icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
+                                                  v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey" ><v-icon>mdi-pencil</v-icon>
                                         </v-btn>
                                         <v-btn @click="callRoutePropertyDetails(product.recordId,'location')"
                                                icon
