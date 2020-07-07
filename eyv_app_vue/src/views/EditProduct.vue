@@ -289,12 +289,12 @@
                                          v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
                             >
                                 <v-row align="center" justify="center">
-                                    <v-btn @click="openTransferDialog" class="ml-2" color="teal" dark
+                                    <v-btn @click="openTransferDialog" class="ml-2" color="green darken-3" dark
                                            v-if="!product.proposals.length">Transfer Ownership
                                     </v-btn>
                                     <v-btn @click="dialogGenerateSubProduct=true"
                                            class="ml-2"
-                                           color="teal"
+                                           color="green darken-3"
                                            dark
                                            v-if="this.$store.state.user.role==='admin' || this.$store.state.user.role==='producer'|| this.$store.state.user.role==='retailer' "
                                     >

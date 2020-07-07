@@ -1,193 +1,232 @@
 <template>
-    <v-card class="mx-auto" max-width="800">
-        <v-toolbar color="green" dark extended flat>
+    <v-card class="mx-auto mt-5" max-width="1000">
+        <v-toolbar color="green" dark flat>
             <v-toolbar-title>Register Product</v-toolbar-title>
         </v-toolbar>
         <v-container>
             <form>
-                <v-file-input :rules="rules"
-                              accept="image/png, image/jpeg, image/bmp"
-                              label="Picture"
-                              placeholder="Pick picture for your product"
-                              prepend-icon="mdi-camera"
-                              show-size
-                              v-model="file"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="batchErrors"
-                        @blur="$v.batch.$touch()"
-                        @input="$v.batch.$touch()"
-                        label="Batch"
-                        required
-                        v-model="batch"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="nameErrors"
-                        @blur="$v.name.$touch()"
-                        @input="$v.name.$touch()"
-                        label="Name"
-                        required
-                        v-model="name"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="classificationErrors"
-                        @blur="$v.classification.$touch()"
-                        @input="$v.classification.$touch()"
-                        label="Classification"
-                        required
-                        v-model="classification"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="originErrors"
-                        @blur="$v.origin.$touch()"
-                        @input="$v.origin.$touch()"
-                        label="Origin"
-                        required
-                        v-model="origin"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="cultivationProcessErrors"
-                        @blur="$v.cultivationProcess.$touch()"
-                        @input="$v.cultivationProcess.$touch()"
-                        label="Cultivation Process"
-                        required
-                        v-model="cultivationProcess"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="sizeErrors"
-                        @blur="$v.size.$touch()"
-                        @input="$v.size.$touch()"
-                        label="Size (cm)"
-                        required
-                        v-model="size"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="weightErrors"
-                        @blur="$v.weight.$touch()"
-                        @input="$v.weight.$touch()"
-                        label="Weight (grams)"
-                        required
-                        v-model="weight"
-                />
+                <v-container fluid>
+                    <v-row>
+                        <v-col>
+                            <v-card>
+                                <v-container>
+                                    <v-card-text>
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="batchErrors"
+                                                @blur="$v.batch.$touch()"
+                                                @input="$v.batch.$touch()"
+                                                label="Batch"
+                                                required
+                                                v-model="batch"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="nameErrors"
+                                                @blur="$v.name.$touch()"
+                                                @input="$v.name.$touch()"
+                                                label="Name"
+                                                required
+                                                v-model="name"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="classificationErrors"
+                                                @blur="$v.classification.$touch()"
+                                                @input="$v.classification.$touch()"
+                                                label="Classification"
+                                                required
+                                                v-model="classification"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="originErrors"
+                                                @blur="$v.origin.$touch()"
+                                                @input="$v.origin.$touch()"
+                                                label="Origin"
+                                                required
+                                                v-model="origin"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="cultivationProcessErrors"
+                                                @blur="$v.cultivationProcess.$touch()"
+                                                @input="$v.cultivationProcess.$touch()"
+                                                label="Cultivation Process"
+                                                required
+                                                v-model="cultivationProcess"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="sizeErrors"
+                                                @blur="$v.size.$touch()"
+                                                @input="$v.size.$touch()"
+                                                label="Size (cm)"
+                                                required
+                                                v-model="size"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="weightErrors"
+                                                @blur="$v.weight.$touch()"
+                                                @input="$v.weight.$touch()"
+                                                label="Weight (grams)"
+                                                required
+                                                v-model="weight"
+                                        />
+                                        <v-menu
+                                                :close-on-content-click="false"
+                                                :nudge-right="40"
+                                                min-width="290px"
+                                                offset-y
+                                                transition="scale-transition"
+                                                v-model="menuHarvestDate"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-text-field
+                                                        :error-messages="harvestDateErrors"
+                                                        @blur="$v.harvestDate.$touch()"
+                                                        @input="$v.harvestDate.$touch()"
+                                                        label="Harvest Date"
+                                                        readonly
+                                                        required
+                                                        v-model="harvestDate"
+                                                        v-on="on"
+                                                ></v-text-field>
+                                            </template>
+                                            <v-date-picker @input="menuHarvestDate= false"
+                                                           v-model="harvestDate"></v-date-picker>
+                                        </v-menu>
+                                    </v-card-text>
+                                </v-container>
+                            </v-card>
 
-                <v-menu
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        min-width="290px"
-                        offset-y
-                        transition="scale-transition"
-                        v-model="menuHarvestDate"
-                >
-                    <template v-slot:activator="{ on }">
-                        <v-text-field
-                                :error-messages="harvestDateErrors"
-                                @blur="$v.harvestDate.$touch()"
-                                @input="$v.harvestDate.$touch()"
-                                label="Harvest Date"
-                                readonly
-                                required
-                                v-model="harvestDate"
-                                v-on="on"
-                        ></v-text-field>
-                    </template>
-                    <v-date-picker @input="menuHarvestDate= false" v-model="harvestDate"></v-date-picker>
-                </v-menu>
-                <v-toolbar color="green" dark>
-                    <v-toolbar-title>Add Properties</v-toolbar-title>
-                </v-toolbar>
-                <v-card-text>
-                    <v-row align="center">
-                        <v-checkbox
-                                class="shrink mr-2 mt-0"
-                                hide-details
-                                v-model="expirationDateCheck"
-                        ></v-checkbox>
-                        <v-menu
-                                :close-on-content-click="false"
-                                :nudge-right="40"
-                                min-width="290px"
-                                offset-y
-                                transition="scale-transition"
-                                v-model="menuExpirationDate"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                        :counter="10"
-                                        :disabled="!expirationDateCheck"
-                                        :error-messages="expirationDateErrors"
-                                        @blur="$v.expirationDate.$touch()"
-                                        @input="$v.expirationDate.$touch()"
-                                        label="Expiration Date"
-                                        readonly
-                                        v-model="expirationDate"
-                                        v-on="on"
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker @input="menuExpirationDate = false" v-model="expirationDate"></v-date-picker>
-                        </v-menu>
-                    </v-row>
-                    <v-row align="center">
-                        <v-checkbox
-                                class="shrink mr-2 mt-0"
-                                hide-details
-                                v-model="packingDateCheck"
-                        ></v-checkbox>
-                        <v-menu
-                                :close-on-content-click="false"
-                                :nudge-right="40"
-                                min-width="290px"
-                                offset-y
-                                transition="scale-transition"
-                                v-model="menuPackingDate"
-                        >
-                            <template v-slot:activator="{ on }">
-                                <v-text-field
-                                        :counter="10"
-                                        :disabled="!packingDateCheck"
-                                        :error-messages="packingDateErrors"
-                                        @blur="$v.packingDate.$touch()"
-                                        @input="$v.packingDate.$touch()"
-                                        label="Packing Date"
-                                        readonly
-                                        v-model="packingDate"
-                                        v-on="on"
-                                ></v-text-field>
-                            </template>
-                            <v-date-picker @input="menuPackingDate = false" v-model="packingDate"></v-date-picker>
-                        </v-menu>
-                    </v-row>
-                </v-card-text>
-                <v-toolbar color="green" dark>
-                    <v-toolbar-title>Localization</v-toolbar-title>
-                </v-toolbar>
-                <v-text-field
-                        :counter="10"
-                        :error-messages="latitudeErrors"
-                        @blur="$v.latitude.$touch()"
-                        @input="$v.latitude.$touch()"
-                        label="Latitude"
-                        required
-                        v-model="latitude"
-                />
-                <v-text-field
-                        :counter="10"
-                        :error-messages="longitudeErrors"
-                        @blur="$v.longitude.$touch()"
-                        @input="$v.longitude.$touch()"
-                        label="Longitude"
-                        required
-                        v-model="longitude"
-                />
+                        </v-col>
+                        <v-col>
+                            <v-card>
+                                <v-container>
+                                    <v-card-title> Optional Properties</v-card-title>
+                                    <v-card-subtitle>Check the box if you want to add a optional property
+                                    </v-card-subtitle>
+                                    <v-card-text>
+                                        <v-row align="center" justify="center">
+                                            <v-checkbox
+                                                    dense
+                                                    v-model="expirationDateCheck"
+                                            ></v-checkbox>
+                                            <v-menu
+                                                    :close-on-content-click="false"
+                                                    :nudge-right="40"
+                                                    min-width="290px"
+                                                    offset-y
+                                                    transition="scale-transition"
+                                                    v-model="menuExpirationDate"
+                                            >
+                                                <template v-slot:activator="{ on }">
+                                                    <v-text-field
+                                                            :counter="10"
+                                                            :disabled="!expirationDateCheck"
+                                                            :error-messages="expirationDateErrors"
+                                                            @blur="$v.expirationDate.$touch()"
+                                                            @input="$v.expirationDate.$touch()"
+                                                            label="Expiration Date"
+                                                            readonly
+                                                            v-model="expirationDate"
+                                                            v-on="on"
+                                                    ></v-text-field>
+                                                </template>
+                                                <v-date-picker @input="menuExpirationDate = false"
+                                                               v-model="expirationDate"></v-date-picker>
+                                            </v-menu>
+                                        </v-row>
+                                        <v-row align="center" justify="center">
+                                            <v-checkbox
+                                                    dense
+                                                    v-model="packingDateCheck"
+                                            ></v-checkbox>
+                                            <v-menu
+                                                    :close-on-content-click="false"
+                                                    :nudge-right="40"
+                                                    min-width="290px"
+                                                    offset-y
+                                                    transition="scale-transition"
+                                                    v-model="menuPackingDate"
+                                            >
+                                                <template v-slot:activator="{ on }">
+                                                    <v-text-field
+                                                            :counter="10"
+                                                            :disabled="!packingDateCheck"
+                                                            :error-messages="packingDateErrors"
+                                                            @blur="$v.packingDate.$touch()"
+                                                            @input="$v.packingDate.$touch()"
+                                                            label="Packing Date"
+                                                            readonly
+                                                            v-model="packingDate"
+                                                            v-on="on"
+                                                    ></v-text-field>
+                                                </template>
+                                                <v-date-picker @input="menuPackingDate = false"
+                                                               v-model="packingDate"></v-date-picker>
+                                            </v-menu>
+                                        </v-row>
+                                    </v-card-text>
+                                </v-container>
+                            </v-card>
+                            <v-card class="mt-5">
+                                <v-container>
+                                    <v-card-title>Localization</v-card-title>
+                                    <v-card-text>
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="latitudeErrors"
+                                                @blur="$v.latitude.$touch()"
+                                                @input="$v.latitude.$touch()"
+                                                label="Latitude"
+                                                required
+                                                v-model="latitude"
+                                        />
+                                        <v-text-field
+                                                :counter="10"
+                                                :error-messages="longitudeErrors"
+                                                @blur="$v.longitude.$touch()"
+                                                @input="$v.longitude.$touch()"
+                                                label="Longitude"
+                                                required
+                                                v-model="longitude"
+                                        />
+                                    </v-card-text>
+                                </v-container>
+                            </v-card>
 
-                <v-btn :disabled="submitStatus==='ERROR' || file.size>2000000 " @click="submit" class="mr-4">submit</v-btn>
-                <v-btn @click="clear">clear</v-btn>
+
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col>
+                            <v-card >
+                                <v-container>
+                                    <v-file-input :rules="rules"
+                                                  accept="image/png, image/jpeg, image/bmp"
+                                                  label="Picture"
+                                                  placeholder="Pick picture for your product"
+                                                  prepend-icon="mdi-camera"
+                                                  show-size
+                                                  v-model="file"
+                                    />
+
+                                </v-container>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <v-row justify="center">
+
+
+                    <v-btn :disabled="submitStatus==='ERROR' || file.size>2000000 " @click="submit" class="mr-4">submit
+                    </v-btn>
+                    <v-btn @click="clear">clear</v-btn>
+                </v-row>
             </form>
         </v-container>
     </v-card>
@@ -258,6 +297,7 @@
         maxLength: maxLength(11),
       },
       latitude: {
+        required,
         minLength: minLength(1),
         maxLength: maxLength(9),
         decimal,
@@ -265,6 +305,7 @@
       },
       longitude:
         {
+          required,
           minLength: minLength(1),
           maxLength: maxLength(9),
           decimal,
@@ -395,6 +436,7 @@
       latitudeErrors () {
         const errors = []
         if (!this.$v.latitude.$dirty) return errors
+        !this.$v.latitude.required && errors.push('Latitude is required.')
         !this.$v.latitude.minLength && errors.push('The latitude must be at most 1 characters long')
         !this.$v.latitude.maxLength && errors.push('The latitude should not be more that 9 characters long')
         !this.$v.latitude.decimal && errors.push('The latitude must be a decimal number.')
@@ -406,6 +448,8 @@
       },
       longitudeErrors () {
         const errors = []
+        if (!this.$v.longitude.$dirty) return errors
+        !this.$v.longitude.required && errors.push('Longitude is required.')
         !this.$v.longitude.minLength && errors.push('The longitude must be at most 1 characters long')
         !this.$v.longitude.maxLength && errors.push('The longitude should not be more that 9 characters long')
         !this.$v.longitude.decimal && errors.push('The longitude must be a decimal number.')
