@@ -7,18 +7,19 @@ import router from './router'
 import store from './store/index'
 import vuetify from './plugins/vuetify'
 import vuelidate from 'vuelidate'
-import VueSocketio from 'vue-socket.io'
 import Snotify, { SnotifyPosition } from 'vue-snotify'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueSocketIOExt from 'vue-socket.io-extended'
 import io from 'socket.io-client'
-
+import VueScrollTo from 'vue-scrollto'
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 
 Vue.use(vuelidate)
+
+Vue.use(VueScrollTo)
 
 Vue.use(Snotify, {
   toast: {

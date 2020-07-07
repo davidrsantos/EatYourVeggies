@@ -290,6 +290,9 @@ const fetchRecordQuery = (recordId, authedKey) => block => {
 }
 
 const listRecordsQuery = (authedKey, filterQuery) => block => {
+  if(filterQuery.final){
+    filterQuery.final = JSON.parse(filterQuery.final)
+  }
   return getTable('records', block)
     .filter(filterQuery)
     .map(_loadRecordSimple(block, authedKey))

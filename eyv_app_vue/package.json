@@ -25,6 +25,7 @@
     "vue": "^2.6.11",
     "vue-chartjs": "^3.5.0",
     "vue-router": "^3.1.5",
+    "vue-scrollto": "^2.18.1",
     "vue-snotify": "^3.2.1",
     "vue-socket.io": "^3.0.7",
     "vue-socket.io-extended": "^4.0.3",

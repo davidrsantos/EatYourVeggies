@@ -8,9 +8,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         token: "",
-        user: null
+        user: null,
+        viewer:null,
     },
     mutations: {
+        setViewer:(state,value)=>{
+            state.viewer = value
+            sessionStorage.setItem('viewer', value);
+        },
         clearUserAndToken: (state) => {
             state.user = null;
             state.token = "";

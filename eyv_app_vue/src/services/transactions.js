@@ -168,7 +168,7 @@ const submit = (payloads, wait = false) => {
           headers: { 'Content-Type': 'application/octet-stream', },
           transformRequest: x => x
         }).catch(function (error) {
-        throw error
+        throw error.response.data.error
       })
 
     })
