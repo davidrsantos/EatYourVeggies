@@ -23,6 +23,7 @@ const protos = require('./blockchain/protos')
 const api = require('./api')
 const config = require('./system/config')
 const websocket = require('./websocket/websocket')
+const { createAdmin } = require('./api/users')
 
 const PORT = config.PORT
 const app = express()
@@ -40,6 +41,8 @@ Promise.all([
     server.listen(PORT, () => {
       console.log(`Supply Chain Server listening on port ${PORT}`)
     })
+
+      createAdmin().catch(()=>{console.log("Not the first time")})
     websocket.start(io)
   })
   .catch(err => console.error(err.message))

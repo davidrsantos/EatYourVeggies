@@ -43,10 +43,10 @@ services:
       - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
     command: |
       bash -c "
-        cd fish_client/ && npm run build && cd - &&
         if [ ! -f /root/.sawtooth/keys/root.priv ]; then
           sawtooth keygen &&
           cd server/ &&
+          npm install
           npm run init &&
           npm run make-veggie &&
           npm run seed

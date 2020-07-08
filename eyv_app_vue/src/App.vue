@@ -88,7 +88,7 @@
                 <v-btn light to="/login"  dark color="green darken-3" large class="ma-2">Login</v-btn>
                 <v-btn light to="/signup"  dark large color="green darken-3" class="ma-2">SignUp</v-btn>
             </template>
-
+<v-btn @click="$socket.client.emit('teste')">teste</v-btn>
         </v-app-bar>
 
 

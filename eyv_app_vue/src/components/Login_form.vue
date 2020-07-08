@@ -96,7 +96,8 @@
                     password: api.hashPassword(this.password) //Ver onde vou por esta função quando o ficheiro api desaparecer
                 };
                 axios.post("authorization", credentials).then(res => {
-                    transactions.setPrivateKey(this.password, res.data.encryptedKey);
+                  console.log(res.data)
+                  transactions.setPrivateKey(this.password, res.data.encryptedKey);
                     this.$store.commit("setToken", res.data.authorization);
                     let pubKey = window.atob(this.$store.state.token.split('.')[1]) //Vai buscar o valor do meio do token e depois decodes porque estava encoded em base-64
                     axios.get(`agents/${pubKey}`)

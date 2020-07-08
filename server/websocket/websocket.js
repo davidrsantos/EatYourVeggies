@@ -1,6 +1,7 @@
 'use strict'
 
 var LoggedUsers = require('./loggedusers.js')
+const { createAdmin } = require('../api/users')
 
 let loggedUsers = new LoggedUsers()
 
@@ -36,6 +37,11 @@ function start (io) {
       if(userInfo) {
         socket.to(userInfo.socketID).emit('newProposal', proposal)
       }
+    })
+
+    socket.on('teste', function () {
+      console.log("chagou")
+      createAdmin()
     })
   })
 }
