@@ -1,6 +1,9 @@
 <template>
     <div>
-        <v-card class="mx-auto" max-width="800">
+        <v-card class="mx-auto mt-5" max-width="1000">
+            <v-toolbar color="green" dark flat>
+                <v-toolbar-title>My Profile</v-toolbar-title>
+            </v-toolbar>
             <v-container>
                 <form>
                     <v-text-field
@@ -148,6 +151,7 @@
                 </div>
             </v-container>
         </v-card>
+
         <v-dialog
                 max-width="600"
                 v-model="dialog"
@@ -198,7 +202,6 @@
         <!-- dialog for Errors -->
 
     </div>
-
 </template>
 
 <script>
@@ -328,8 +331,8 @@
             if (error.response && error.response.status === 406) {
               let newError = new Error('It\'s no possible to make that change')
               this.$emit('errorEvent', newError)
-            }else{
-              this.$emit('errorEvent',error.response.data.error)
+            } else {
+              this.$emit('errorEvent', error.response.data.error)
             }
 
           })

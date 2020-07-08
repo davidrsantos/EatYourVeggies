@@ -39,10 +39,6 @@ function start (io) {
       }
     })
 
-    socket.on('teste', function () {
-      console.log("chagou")
-      createAdmin()
-    })
   })
 }
 

@@ -1,7 +1,9 @@
 <template>
-    <v-container>
-        <user-details :user-prop="user" myself="true"></user-details>
-    </v-container>
+
+        <v-container>
+            <user-details :user-prop="user" myself="true"></user-details>
+        </v-container>
+
 </template>
 
 <script>
