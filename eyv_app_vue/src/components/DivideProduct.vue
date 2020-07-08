@@ -184,7 +184,7 @@
             </v-card>
 
 
-            <v-btn @click="submit">recors</v-btn>
+            <v-btn @click="submit">Submit</v-btn>
         </v-container>
     </v-card>
 </template>

@@ -119,9 +119,9 @@
                 <request-password @close="requestPassword=false"/>
             </v-card>
         </v-dialog>
-        <v-footer app color="primary" inset>
+        <v-footer app color="primary" >
 
-            <span class="white--text">&copy;Instituto Politécnico de Leiria - 2020 - Projeto Informático  </span>
+            <span class="white--text">&copy Politécnico de Leiria - 2020 - Projeto Informático  </span>
         </v-footer>
     </v-app>
 

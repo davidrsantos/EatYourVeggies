@@ -113,7 +113,7 @@
                             <v-card :loading="loading"
                                     :to="'/products/'+item.recordId"
 
-                                    color="blue-grey lighten-5"
+                                    color="light-green  lighten-5"
                                     >
 
                                 <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
