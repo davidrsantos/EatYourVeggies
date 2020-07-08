@@ -192,7 +192,6 @@ router.use(authHandler)
 
 router.get('/agents', handle(agents.list))
 router.get('/agents/:publicKey', handle(agents.fetch))
-//todo router.get('/agents/:publicKey/name', handle(agents.fetchName))
 
 router.post('/authorization', handleBody(auth.authorize))
 
@@ -224,9 +223,9 @@ router.get('/records/:recordId/:propertyName', handle(records.fetchProperty))
 router.get('/record-types', handle(recordTypes.list))
 router.get('/record-types/:typeName', handle(recordTypes.fetch))
 router.post('/transactions', handleBody(blockchain.submit))
-router.get('/proposals/:receivingAgent', handle(records.listProposals))//@luana submit proposal
-router.get('/proposals-send/:issuingAgent', handle(records.listProposals))//@luana submit proposal cancel
-router.get('/proposals-all/:recordId', handle(records.listProposals))//@luana valid proposal
+router.get('/proposals/:receivingAgent', handle(records.listProposals))
+router.get('/proposals-send/:issuingAgent', handle(records.listProposals))
+router.get('/proposals-all/:recordId', handle(records.listProposals))
 
 router.post('/upload/:recordId', upload.single('file'), (req, res) => {
   res.json({ file: req.file })
@@ -255,7 +254,7 @@ router.patch('/users/:publicKey', restrict, handleBody((body, params) => {
     if (params.publicKey !== params.authedKey && user.role !== 'admin') {
       throw new Unauthorized('You may only modify your own user account!')
     }
-    params.authedKey = params.publicKey //porque quando é o admin a fazer o update elas são diferentes
+    params.authedKey = params.publicKey
     return users.update(body, params)
   })
 

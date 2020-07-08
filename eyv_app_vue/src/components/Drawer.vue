@@ -55,7 +55,7 @@
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },
           { title: 'My Profile', icon: 'mdi-account', link: '/myProfile' },
           { title: 'My Products', icon: 'mdi-corn', link: '/products' },
-          { title: 'Add Product', icon: 'plus-circle', link: '/products/new' }
+          { title: 'Add Product', icon: 'mdi-plus-circle', link: '/products/new' }
         ],
         itemsForRetailer: [
           { title: 'Dashboard', icon: 'mdi-home-city', link: '/dashboard' },

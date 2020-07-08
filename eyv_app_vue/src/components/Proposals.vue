@@ -129,7 +129,7 @@
           this.loading = false
         })
           .catch(function (error) {
-            console.log(error)
+            console.error(error)
             this.loading = false
 
           })
@@ -141,7 +141,7 @@
           this.loading = false
         })
           .catch(function (error) {
-            console.log(error)
+            console.error(error)
             this.loading = false
 
           })
@@ -168,7 +168,6 @@
                   return res
                 })
                 .then((res) => {
-                  console.log(res)
                   if (res.status && res.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
@@ -199,7 +198,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -221,14 +220,12 @@
         })
         return transactions.submit([finalizePayload], true)
           .then((response) => {
-            console.log('finalize' + response)
             if (response.status && response.type === undefined) {
-              console.log('fazer finalize')
               this.$emit('close')
               return response
             }
           }).catch(error => {
-            console.log(error)
+            console.error(error)
             if (error === 'requestPassword') {
               this.$emit('requestPasswordEvent')
             } else {
@@ -242,15 +239,15 @@
           recordId: record,
           properties: [value]
         })
-        console.log('fazer update do justification')
+
         return transactions.submit([updatePayload], true)
           .then((response) => {
             if (response.status && response.type === undefined) {
-              console.log('fazer update do justification')
+
               return response
             }
           }).catch(error => {
-            console.log(error)
+            console.error(error)
             if (error === 'requestPassword') {
               this.$emit('requestPasswordEvent')
             } else {
@@ -266,7 +263,7 @@
           dataType: payloads.updateProperties.enum.STRING
         })
       },
-      roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
+      roleToEnum (role) {//todo for the future
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
         } else if (role = 'custodian') {
@@ -288,7 +285,6 @@
         this.answerProposal(recordId, this.roleToEnum(this.role), this.$store.state.user.publicKey, payloads.answerProposal.enum.REJECT)
       },
       cancelProposal (recordId, receivingAgent) {
-        console.log('hello estou a carregar')
         this.answerProposal(recordId, this.roleToEnum(this.role), receivingAgent, payloads.answerProposal.enum.CANCEL)
       },
     }

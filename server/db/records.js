@@ -34,10 +34,10 @@ const getReporters = getAttribute('reporters')
 const getAuthorization = getAttribute('authorized')
 const getReportedValues = getAttribute('reportedValues')
 const getStatus = getAttribute('status')
-const getIssuingAgent = getAttribute('issuingAgent')//@luana submit proposal
-const getReceivingAgent = getAttribute('receivingAgent')//@luana submit proposal
-const getRole = getAttribute('role')//@luana submit proposal
-const getTimestamp= getAttribute('timestamp')//@luana submit proposal
+const getIssuingAgent = getAttribute('issuingAgent')
+const getReceivingAgent = getAttribute('receivingAgent')
+const getRole = getAttribute('role')
+const getTimestamp= getAttribute('timestamp')
 const getAssociatedAgentId = role => record => record(role).nth(-1)('agentId')
 const getOwnerId = getAssociatedAgentId('owners')
 const getCustodianId = getAssociatedAgentId('custodians')
@@ -72,7 +72,7 @@ const getProposals = recordId => receivingAgent => block => {
     .coerceTo('array')
 }
 
-const getProposalsByAgent = filterQuery => block => { //@luana submit proposal
+const getProposalsByAgent = filterQuery => block => {
   return getTable('proposals', block)
     .filter(filterQuery)
     .map(proposal => r.expr({
@@ -131,7 +131,7 @@ const getValue = dataType => value => {
     r.eq(dataType, 'LOCATION'), value('locationValue'),
     r.eq(dataType, 'ENUM'), value('enumValue'),
     r.eq(dataType, 'STRUCT'), value('structValue'),
-      r.eq(dataType, 'TIMESTAMP'), value('timestampValue'),//@luana add for record properties
+      r.eq(dataType, 'TIMESTAMP'), value('timestampValue'),
     value('bytesValue') // if dataType is unknown, use bytesValue
   )
 }
@@ -323,12 +323,12 @@ const listRecordsByOwner = (authedKey, filterQuery) => {
 }
 
 const listProposalsByAgent = filterQuery =>
-  db.queryWithCurrentBlock(getProposalsByAgent(filterQuery))//@luana submit proposal
+  db.queryWithCurrentBlock(getProposalsByAgent(filterQuery))
 
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
   listRecordsByOwner,
-  listProposalsByAgent//@luana submit proposal
+  listProposalsByAgent
 }

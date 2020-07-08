@@ -1,8 +1,8 @@
 {
 
-  "JWT_SECRET": "shhhhh",
-  "PRIVATE_KEY": "1111111111111111111111111111111111111111111111111111111111111111",
-  "MAPS_API_KEY": "https://developers.google.com/maps/documentation/javascript/get-api-key",
+  "JWT_SECRET": "shhhhh", //todo
+  "PRIVATE_KEY": "1111111111111111111111111111111111111111111111111111111111111111", //todo
+  "MAPS_API_KEY": "https://developers.google.com/maps/documentation/javascript/get-api-key", //todo
 
   "PORT": 3000,
   "RETRY_WAIT": 5000,

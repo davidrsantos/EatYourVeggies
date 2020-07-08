@@ -64,8 +64,8 @@
         },
 
         data: () => ({
-            password: '123123123', //todo meter a null
-            username: 'admin', //todo meter a null
+            password: '',
+            username: '',
             showPassword: false
         }),
 
@@ -93,10 +93,9 @@
             login() {
                 const credentials = {
                     username: this.username,
-                    password: api.hashPassword(this.password) //Ver onde vou por esta função quando o ficheiro api desaparecer
+                    password: api.hashPassword(this.password)
                 };
                 axios.post("authorization", credentials).then(res => {
-                  console.log(res.data)
                   transactions.setPrivateKey(this.password, res.data.encryptedKey);
                     this.$store.commit("setToken", res.data.authorization);
                     let pubKey = window.atob(this.$store.state.token.split('.')[1]) //Vai buscar o valor do meio do token e depois decodes porque estava encoded em base-64
@@ -110,7 +109,7 @@
                         this.$emit('errorEvent', error)
                     })
                 }).catch(error => {
-                  console.log(error.toString())
+                  console.error(error)
                   this.$emit('errorEvent', error.response.data.error)
                 });
             },

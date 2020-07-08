@@ -124,7 +124,7 @@
     },
 
     data: () => ({
-    /*  name: null,
+      name: null,
       email: null,
       password: null,
       repeatPassword: null,
@@ -133,16 +133,15 @@
       nif: null,
       role: null,
       typeofUser: [
-        { name: 'Administrador', value: 'admin' },
         { name: 'Producer', value: 'producer' },
         { name: 'Distributor', value: 'distributor' },
         { name: 'Retailer', value: 'retailer' },
         { name: 'Customer', value: 'customer' },
       ]
-*/
+
 
       //------------------------------------------- using this just in dev----------------------------------------//
-
+/*
       email: "bob@email.com",
       password: '123123123',
       repeatPassword: '123123123',
@@ -152,12 +151,13 @@
       role: {value: 'producer'},
       name: 'Mr.Bob',
       typeofUser: [
-     /*   { name: 'Administrador', value: 'admin' },*/
+
         { name: 'Producer', value: 'producer' },
         { name: 'Distributor', value: 'distributor' },
         { name: 'Retailer', value: 'retailer' },
         { name: 'Customer', value: 'customer' },
       ]
+  */
       //------------------------------------------- using this just in dev----------------------------------------//
 
 
@@ -241,7 +241,6 @@
           .then(() => axios.post('users', user)
             .then(res => {
               this.$router.push('welcome')
-              console.log(res)
               res.data.user.name = this.name
               this.$socket.client.emit('newUser', res.data.user)
               this.$emit('registEvent', 'Wait a little bit the administrator is validating your registration....')
@@ -255,7 +254,7 @@
       },
 
       submit () {
-        //todo fala proteger o btn de submit, agora aceita qualquer password etc..
+
         this.userSubmitter()
       },
       clear () {

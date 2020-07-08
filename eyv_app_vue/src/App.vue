@@ -149,7 +149,6 @@
           },
           {
             text: 'Later', action: (toast) => {
-              console.log('Clicked: Later')
               vm.$snotify.remove(toast.id)
             }
           },
@@ -171,7 +170,7 @@
           { text: 'Details', action: () => this.$router.push({ path: '/dashboard' }) },
           {
             text: 'Later', action: (toast) => {
-              console.log('Clicked: Later')
+
               vm.$snotify.remove(toast.id)
             }
           },

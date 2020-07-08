@@ -259,7 +259,7 @@
     methods: {
 
       handleErrors (error) {
-        console.log(error)
+        console.error(error)
         this.$emit('errorEvent', error)
       },
 

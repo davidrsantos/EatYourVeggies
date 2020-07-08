@@ -183,8 +183,9 @@
                 </v-container>
             </v-card>
 
-
-            <v-btn @click="submit">Submit</v-btn>
+<v-row justify="center">
+            <v-btn @click="submit" color="green" dark x-large>Generate</v-btn>
+</v-row>
         </v-container>
     </v-card>
 </template>
@@ -259,18 +260,10 @@
           { text: 'PackingDate', value: 'packingDate' },
           { text: 'Latitude', value: 'latitude' },
           { text: 'Longitude', value: 'longitude' },
-          //todo cultivationProcess
+
         ],
 
       }
-    },
-
-    created: function () {
-
-    },
-    beforeMount: function () {
-      // this.getProduct()
-      // this.getUsers()
     },
     watch: {
       slider: function () {
@@ -343,7 +336,6 @@
 
       table () {
         this.records = []
-        console.log(' o slider mexeu' + this.slider)
         for (let i = 1; i <= this.slider; i++) {
           let record = {
             batch: this.product.recordId + '-' + i,
@@ -423,8 +415,6 @@
             },
           ],
         }))
-
-        console.log(recordsPayload.length)
         let transactionNumber = 0
         while (recordsPayload.length > 140) {
 
@@ -444,7 +434,6 @@
                 .then(() => this.justify())
                 .then(() => this.finalizeProductSubmit())
                 .then((response) => {
-                  console.log(response)
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
@@ -472,7 +461,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -494,14 +483,14 @@
         })
         return transactions.submit([finalizePayload], true)
           .then((response) => {
-            console.log('finalize' + response)
+
             if (response.status && response.type === undefined) {
-              console.log('fazer finalize')
+
               this.$emit('close')
               return response
             }
           }).catch(error => {
-            console.log(error)
+            console.error(error)
             if (error === 'requestPassword') {
               this.$emit('requestPasswordEvent')
             } else {
@@ -511,20 +500,17 @@
       },
 
       updateProperty (record, value) {
-        console.log(this.product.recordId)
         let updatePayload = payloads.updateProperties({
           recordId: record,
           properties: [value]
         })
-        console.log('fazer update do justification')
         return transactions.submit([updatePayload], true)
           .then((response) => {
             if (response.status && response.type === undefined) {
-              console.log('fazer update do justification')
               return response
             }
           }).catch(error => {
-            console.log(error)
+            console.error(error)
             if (error === 'requestPassword') {
               this.$emit('requestPasswordEvent')
             } else {

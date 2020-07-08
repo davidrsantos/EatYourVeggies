@@ -40,10 +40,10 @@
             this.getUser()
           })
           .catch(error => {
-            console.log(error)
+            console.error(error)
             this.isLoading = false
             if (error.response && error.response.data.errors) {
-              console.log(error.response)
+              console.error(error)
               this.handleErrors(error.response.data.errors)
             } else {
               this.errors = ['Problem connecting server or unknown error']
@@ -63,17 +63,15 @@
       },
 
       getUser () {
-        console.log(this.$route.params.publicKey)
         axios.get(`agents/${this.$route.params.publicKey}`)
           .then(res => {
-            console.log(res.data)
             this.user = res.data
           }).catch(error => {
           this.$emit('errorEvent', error)
         })
       },
       handleErrors (error) {
-        console.log(error)
+        console.error(error)
         this.$emit('errorEvent', error)
       },
     },

@@ -23,23 +23,8 @@
       handleErrors (error) {
         this.$emit('errorEvent', error)
       },
-      getItems () {
-        /* axios.get('/records?recordType=vegetable').then(response => {
-             this.items = response.data;
-         })
-             .catch(function (error) {
-                 console.log(error);
-             });
-         axios.get('/agents').then(response => {
-             this.agents = response.data;
-         })
-             .catch(function (error) {
-                 console.log(error);
-             });*/
-      }
     },
     created () {
-      this.getItems()
       this.timer = setInterval(this.getItems, 300000)
     },
 

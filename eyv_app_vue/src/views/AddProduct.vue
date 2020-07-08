@@ -556,7 +556,6 @@
                   .then((response) => {
                     const formData = new FormData()
                     formData.append('file', this.file)
-                    console.log(formData)
                     axios.post('upload/' + this.batch, formData).catch(err => {
                       throw err
                     })
@@ -586,7 +585,7 @@
                         }
                       )
                     } else {
-                      console.log(error)
+                      console.error(error)
                       setTimeout(() => reject({
                         title: 'Error',
                         body: error,

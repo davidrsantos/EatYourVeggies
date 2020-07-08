@@ -3,25 +3,25 @@
         <v-sheet class="px-2 pt-1 pb-40"
                  color="lighten-4"
                  v-if="loading"
+
         >
+
+            <v-row> <v-skeleton-loader
+                    class="mx-auto my-2"
+                    type="image,actions"
+                    width="1000"
+
+            ></v-skeleton-loader></v-row>
             <v-row no-gutters>
-                <v-col class="col-5">
+
                     <v-skeleton-loader
                             class="mx-auto my-2"
-                            type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
-                            width="400"
+                            type="list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
+                            width="700"
 
                     ></v-skeleton-loader>
-                </v-col>
-                <v-spacer></v-spacer>
-                <v-col class="col-5">
-                    <v-skeleton-loader
-                            class="mx-auto my-2"
-                            type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
-                            width="400"
 
-                    ></v-skeleton-loader>
-                </v-col>
+
             </v-row>
         </v-sheet>
 
@@ -976,7 +976,7 @@
               return new Promise((resolve, reject) => {
                 return transactions.submit([updatePayload], true)
                   .then((response) => {
-                    console.log(response)
+
                     if (response.status && response.type === undefined) {
                       setTimeout(() => resolve({
                           title: 'Success',
@@ -1007,7 +1007,7 @@
                         }
                       )
                     } else {
-                      console.log(error)
+                      console.error(error)
                       setTimeout(() => reject({
                         title: 'Error',
                         body: error,
@@ -1039,7 +1039,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([finalizePayload], true)
                 .then((response) => {
-                  console.log(response)
+
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
@@ -1066,7 +1066,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -1107,7 +1107,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([transferPayload], true)
                 .then((response) => {
-                  console.log(response)
+
                   this.getProduct()
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
@@ -1141,7 +1141,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -1322,7 +1322,7 @@
         this.dialogTransfer = true
       }
       ,
-      roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
+      roleToEnum (role) {//todo for the future
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
         } else if (role = 'custodian') {

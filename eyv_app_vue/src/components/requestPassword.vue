@@ -53,7 +53,7 @@
     },
 
     data: () => ({
-      password: '123123123', //todo meter a null
+      password: '',
       showPassword: false
     }),
 
@@ -81,7 +81,7 @@
       login () {
         const credentials = {
           username: this.$store.state.user.username,
-          password: api.hashPassword(this.password) //Ver onde vou por esta função quando o ficheiro api desaparecer
+          password: api.hashPassword(this.password)
         }
         axios.post('authorization', credentials).then(res => {
           transactions.setPrivateKey(this.password, res.data.encryptedKey)
@@ -95,7 +95,7 @@
             this.$emit('errorEvent', error)
           })
         }).catch(error => {
-          console.log(error.toString())
+          console.error(error)
           this.$emit('errorEvent', error.response.data.error)
         })
       },

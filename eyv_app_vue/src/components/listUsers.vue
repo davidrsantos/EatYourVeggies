@@ -81,7 +81,7 @@
     },
     methods: {
       handleErrors (error) {
-        console.log(error)
+        console.error(error)
         this.$emit('errorEvent', error)
       },
 
@@ -95,7 +95,7 @@
           this.loading = false
         })
           .catch(function (error) {
-            console.log(error)
+            console.error(error)
             this.loading = false
 
           })
@@ -122,10 +122,10 @@
             this.getUsers()
           })
           .catch(error => {
-            console.log(error)
+            console.error(error)
             this.isLoading = false
             if (error.response && error.response.data.errors) {
-              console.log(error.response)
+              console.error(error.response)
               this.handleErrors(error.response.data.errors)
             } else {
               this.errors = ['Problem connecting server or unknown error']

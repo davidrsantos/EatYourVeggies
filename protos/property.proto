@@ -147,7 +147,7 @@ message PropertyValue {
   string enum_value = 15;
   repeated PropertyValue struct_values = 16;
   Location location_value = 17;
-  uint64 timestamp_value = 18;//@luana add for record properties
+  uint64 timestamp_value = 18;
 }
 
 
@@ -169,7 +169,7 @@ message PropertyPage {
     uint32 enum_value = 15;
     repeated PropertyValue struct_values = 16;
     Location location_value = 17;
-    uint64 timestamp_value = 18;//@luana add for record properties
+    uint64 timestamp_value = 18;
   }
 
   // The name of the page's associated Property and the record_id of

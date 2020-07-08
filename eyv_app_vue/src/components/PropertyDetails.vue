@@ -139,7 +139,7 @@
             this.configureTypeProperty(res.data)
             this.loading = false
           }).catch(function (error) {
-          console.log(error)
+          console.error(error)
           this.loading = false
           this.loaded = false
         })
