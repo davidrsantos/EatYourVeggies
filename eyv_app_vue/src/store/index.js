@@ -9,7 +9,7 @@ export default new Vuex.Store({
     state: {
         token: "",
         user: null,
-        viewer:null,
+        viewer:false,
     },
     mutations: {
         setViewer:(state,value)=>{

@@ -114,23 +114,24 @@
                                     :to="'/products/'+item.recordId"
 
                                     color="light-green  lighten-5"
-                                    >
+                            >
 
                                 <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
                                 <v-divider></v-divider>
                                 <v-img
-eager
                                         :src="'http://localhost:8021/image/' + item.recordId "
+                                        eager
                                         max-height="150"
 
                                 >
                                     <template v-slot:placeholder>
                                         <v-row
-                                                class="fill-height ma-0"
                                                 align="center"
+                                                class="fill-height ma-0"
                                                 justify="center"
                                         >
-                                            <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                                            <v-progress-circular color="grey lighten-5"
+                                                                 indeterminate></v-progress-circular>
                                         </v-row>
                                     </template>
 
@@ -255,31 +256,32 @@ eager
           axios.get('/records?final=false').then(response => {
             this.products = response.data
             this.loading = false
-            console.log(this.products)
           }).catch(error => {
               this.$emit('errorEvent', error.response.data.error)
               this.loading = false
             }
           )
-        } else if (this.$store.state.user.role === 'admin') {
+        }
+        if (this.$store.state.user && this.$store.state.user.role === 'admin') {
           axios.get('/records').then(response => {
             this.products = response.data
             this.loading = false
-            console.log(this.products)
           }).catch(error => {
               this.$emit('errorEvent', error.response.data.error)
               this.loading = false
             }
           )
         } else {
-          axios.get('/records?owner=' + this.$store.state.user.publicKey).then(response => {
-            this.products = response.data
-            this.loading = false
-            console.log(this.products)
-          }).catch(error => {
-            this.$emit('errorEvent', error.response.data.error)
-            this.loading = false
-          })
+          if (this.$store.state.user) {
+            axios.get('/records?owner=' + this.$store.state.user.publicKey).then(response => {
+              this.products = response.data
+              this.loading = false
+              console.log(this.products)
+            }).catch(error => {
+              this.$emit('errorEvent', error.response.data.error)
+              this.loading = false
+            })
+          }
         }
       },
 
