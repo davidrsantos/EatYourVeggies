@@ -7,28 +7,28 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        token: "",
+        token: '',
         user: null,
-        viewer:false,
+        viewer: false
     },
     mutations: {
-        setViewer:(state,value)=>{
-            state.viewer = value
+        setViewer: (state, value) => {
+            state.viewer = value;
             sessionStorage.setItem('viewer', value);
         },
-        clearUserAndToken: (state) => {
+        clearUserAndToken: state => {
             state.user = null;
-            state.token = "";
+            state.token = '';
             sessionStorage.removeItem('user');
             sessionStorage.removeItem('token');
             axios.defaults.headers.common.Authorization = undefined;
         },
-        clearUser: (state) => {
+        clearUser: state => {
             state.user = null;
             sessionStorage.removeItem('user');
         },
-        clearToken: (state) => {
-            state.token = "";
+        clearToken: state => {
+            state.token = '';
             sessionStorage.removeItem('token');
             axios.defaults.headers.common.Authorization = undefined;
         },
@@ -41,8 +41,8 @@ export default new Vuex.Store({
             sessionStorage.setItem('token', token);
             axios.defaults.headers.common.Authorization = token;
         },
-        loadTokenAndUserFromSession: (state) => {
-            state.token = "";
+        loadTokenAndUserFromSession: state => {
+            state.token = '';
             state.user = null;
             let token = sessionStorage.getItem('token');
             let user = sessionStorage.getItem('user');
