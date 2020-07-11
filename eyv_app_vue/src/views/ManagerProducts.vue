@@ -261,7 +261,7 @@ export default {
         },
         getProducts() {
             this.loading = true;
-            if (this.$store.state.viewer) {
+            if (this.$store.state.viewer && !this.$store.state.user) {
                 axios
                     .get('/records?final=false')
                     .then(response => {

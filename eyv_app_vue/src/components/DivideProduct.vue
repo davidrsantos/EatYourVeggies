@@ -69,7 +69,7 @@
                                     <v-container>
                                         <v-card-text>
                                             <v-text-field
-                                                :counter="10"
+                                                :counter="50"
                                                 :error-messages="nameErrors"
                                                 @blur="$v.name.$touch()"
                                                 @input="$v.name.$touch()"
