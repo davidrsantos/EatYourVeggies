@@ -66,7 +66,6 @@ const authorize = ({ username, password }) => {
       if (user.active === 0 && user.role !== 'admin') {
         throw new Unauthorized('Please contact your network administrator to access')
       }
-
       return bcrypt.compare(password, user.password)
         .then(passValid => {
           if (!passValid) throw new Error("Verify your username or password")

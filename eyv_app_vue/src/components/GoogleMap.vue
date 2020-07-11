@@ -204,7 +204,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([updatePayload], true)
                 .then((response) => {
-                  console.log(response)
+
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
@@ -231,7 +231,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,

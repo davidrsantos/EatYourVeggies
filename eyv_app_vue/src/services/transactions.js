@@ -16,9 +16,6 @@
  */
 'use strict'
 
-//const m = require('mithril')
-const Qs = require('javascript-stringify')
-
 const _ = require('lodash')
 const sjcl = require('sjcl')
 const { createHash } = require('crypto')
@@ -148,7 +145,6 @@ const createTxn = payload => {
  * Prompts user for their password if their private key is not in memory.
  */
 const submit = (payloads, wait = false) => {
-  console.log(payloads)
   if (!_.isArray(payloads)) payloads = [payloads]
   return Promise.resolve()
     .then(() => {
@@ -168,7 +164,7 @@ const submit = (payloads, wait = false) => {
           headers: { 'Content-Type': 'application/octet-stream', },
           transformRequest: x => x
         }).catch(function (error) {
-        throw error
+        throw error.response.data.error
       })
 
     })

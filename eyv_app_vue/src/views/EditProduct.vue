@@ -3,476 +3,493 @@
         <v-sheet class="px-2 pt-1 pb-40"
                  color="lighten-4"
                  v-if="loading"
+
         >
+
+            <v-row> <v-skeleton-loader
+                    class="mx-auto my-2"
+                    type="image,actions"
+                    width="1000"
+
+            ></v-skeleton-loader></v-row>
             <v-row no-gutters>
-                <v-col class="col-5">
+
                     <v-skeleton-loader
                             class="mx-auto my-2"
-                            type="image,divider,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
-                            width="400"
+                            type="list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item,list-item"
+                            width="700"
 
                     ></v-skeleton-loader>
-                </v-col>
-                <v-spacer></v-spacer>
-                <v-col class="col-5">
-                    <v-skeleton-loader
-                            class="mx-auto my-2"
-                            type="image, divider,actions,divider,date-picker-options,list-item,date-picker-options,list-item,date-picker-options,list-item-two-line,date-picker-options,list-item-two-line"
-                            width="400"
 
-                    ></v-skeleton-loader>
-                </v-col>
+
             </v-row>
         </v-sheet>
+
+
         <v-container :loading="loading" v-else>
-            <v-container v-if="product.final">
-                <div class="text-center">
-                    <v-sheet color="red" dark elevation="30">Finished Product</v-sheet>
-                </div>
-                <v-card>
-                    <v-card-title>Finalize Justification:</v-card-title>
-                    <v-card-text>{{product.finalizeJustification}}</v-card-text>
-                </v-card>
-            </v-container>
-            <v-spacer></v-spacer>
-            <v-container>
-                <v-row>
-                    <v-col>
-                        <v-card class="mx-auto" max-width="700">
-                            <v-toolbar color="green" dark>
-                                <v-spacer></v-spacer>
-                                <v-toolbar-title>Product Information</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                            </v-toolbar>
-                            <v-container>
 
-                                <form>
-                                    <v-text-field
-                                            label="Batch"
-                                            outlined
-                                            readonly
-                                            v-model=product.recordId
+            <v-card class="mx-auto mt-5" max-width="1000">
+                <v-toolbar color="green" dark flat>
+                    <v-toolbar-title class="mr-2">Product Batch:</v-toolbar-title>
 
-                                    />
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Name</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.name,'name','Name')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'name')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.name"
-                                                label="Name"
-                                                outlined
-                                                readonly
+                    <v-toolbar-title class="font-weight-bold">{{product.recordId}}</v-toolbar-title>
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Classification</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.classification,'classification','Classification')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'classification')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.classification"
-                                                label="Classification"
-                                                outlined
-                                                readonly
+                </v-toolbar>
+                <v-container>
+                    <v-card v-if="product.final">
+                        <v-sheet class="text-center" color="red" dark>Finished Product</v-sheet>
+                        <v-card-text>
+                            <v-text-field
+                                    :value="product.finalizeJustification"
+                                    label="Finalize Justification"
+                                    outlined
+                                    readonly
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Origin</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.origin,'origin','Origin')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'origin')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.origin"
-                                                label="Origin"
-                                                outlined
-                                                readonly
+                            />
+                        </v-card-text>
+                    </v-card>
+                    <v-row>
+                        <v-img :src="'http://localhost:8021/image/' + product.recordId "
+                               contain
+                               height="250"
+                               class="ma-4"
+                        ></v-img>
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Cultivation Process</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.cultivationProcess,'cultivationProcess','Cultivation Process')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'cultivationProcess')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.cultivationProcess"
-                                                label="Cultivation Process"
-                                                outlined
-                                                readonly
+                        <v-container fluid
+                                     v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Size (cm)</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.size,'size','Size (cm)')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'size')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.size"
-                                                label="Size (cm)"
-                                                outlined
-                                                readonly
+                            <v-row align="center" justify="center">
+                                <v-btn @click="openTransferDialog" class="ml-2" color="green darken-3"
+                                       dark
+                                       v-if="!product.proposals.length">Transfer Ownership
+                                </v-btn>
+                                <v-btn @click="dialogGenerateSubProduct=true"
+                                       class="ml-2"
+                                       color="green darken-3"
+                                       dark
+                                       v-if="this.$store.state.user.role==='admin' || this.$store.state.user.role==='producer'|| this.$store.state.user.role==='retailer' "
+                                >
+                                    Generate Sub-Product
+                                </v-btn>
+                                <v-btn @click="openDialog(justification,'finalize','a justification')"
+                                       class="ml-2" color="red accent-4"
+                                       dark>
+                                    Finalize Product
+                                </v-btn>
+                            </v-row>
+                        </v-container>
+                    </v-row>
+                    <v-row>
+                        <v-col>
+                            <v-card>
+                                <v-container>
+                                    <v-card-title>Product Information</v-card-title>
+                                    <v-card-text>
+                                        <v-row>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Name</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.name,'name','Name')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'name')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.name"
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Weight (grams)</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.weight,'weight','Weight (grams)')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'weight')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.weight"
-                                                label="Weight (grams)"
-                                                outlined
-                                                readonly
+                                                        outlined
+                                                        readonly
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Harvest Date</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.harvestDate,'harvestDate','Harvest Date')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'harvestDate')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.harvestDate"
-                                                label="Harvest Date"
-                                                outlined
-                                                readonly
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Expiration Date</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.expirationDate,'expirationDate','Expiration Date')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'expirationDate')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.expirationDate==null?'N/A':product.expirationDate"
-                                                label="Expiration Date"
-                                                outlined
-                                                readonly
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Classification</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.classification,'classification','Classification')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'classification')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.classification"
+                                                        outlined
+                                                        readonly
 
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Packing Date</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.packingDate,'packingDate','Packing Date')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true||product.proposals.length?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'packingDate')"
-                                               icon
-                                               v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                :value="product.packingDate==null?'N/A':product.packingDate"
-                                                label="Packing Date"
-                                                outlined
-                                                readonly
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Origin</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.origin,'origin','Origin')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
 
-                                        />
-                                    </v-container>
-                                </form>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'origin')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.origin"
+                                                        outlined
+                                                        readonly
 
-                            </v-container>
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Cultivation Process</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.cultivationProcess,'cultivationProcess','Cultivation Process')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'cultivationProcess')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.cultivationProcess"
+                                                        outlined
+                                                        readonly
 
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Size (cm)</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.size,'size','Size (cm)')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'size')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.size"
 
-                        </v-card>
+                                                        outlined
+                                                        readonly
 
-                    </v-col>
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Weight (grams)</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.weight,'weight','Weight (grams)')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'weight')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.weight"
+                                                        outlined
+                                                        readonly
 
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Harvest Date</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.harvestDate,'harvestDate','Harvest Date')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'harvestDate')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.harvestDate"
+                                                        outlined
+                                                        readonly
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Expiration Date</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.expirationDate,'expirationDate','Expiration Date')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'expirationDate')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.expirationDate==null?'N/A':product.expirationDate"
+                                                        outlined
+                                                        readonly
 
-                    <v-col>
-                        <v-card class="mx-auto" max-width="700">
+                                                />
+                                            </v-container>
+                                            <v-toolbar color="green" dark dense>
+                                                <v-toolbar-title>Packing Date</v-toolbar-title>
+                                                <v-spacer></v-spacer>
+                                                <v-btn @click="openDialog(product.packingDate,'packingDate','Packing Date')"
+                                                       icon
+                                                       v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                    <v-icon>mdi-pencil</v-icon>
+                                                </v-btn>
+                                                <v-btn @click="callRoutePropertyDetails(product.recordId,'packingDate')"
+                                                       icon
+                                                       v-if="this.$store.state.user.role!=='admin'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                    <v-icon>mdi-history</v-icon>
+                                                </v-btn>
+                                            </v-toolbar>
+                                            <v-container>
+                                                <v-text-field
+                                                        :value="product.packingDate==null?'N/A':product.packingDate"
+                                                        outlined
+                                                        readonly
 
-                            <v-toolbar color="green" dark>
-                                <v-spacer></v-spacer>
-                                <v-toolbar-title>Product Properties</v-toolbar-title>
-                                <v-spacer></v-spacer>
-                            </v-toolbar>
+                                                />
+                                            </v-container>
+                                        </v-row>
+                                    </v-card-text>
 
-
-                            <v-img :src="'http://localhost:8021/image/' + product.recordId "
-                                   contain
-                                   height="250"
-                            ></v-img>
-
-                            <v-container fluid
-                                         v-if="this.$store.state.user.role!=='customer' && this.$store.state.user.role!==null && product.final===false"
-                            >
-                                <v-row align="center" justify="center">
-                                    <v-btn @click="openTransferDialog" class="ml-2" color="teal" dark
-                                           v-if="!product.proposals.length">Transfer Ownership
-                                    </v-btn>
-                                    <v-btn @click="dialogGenerateSubProduct=true"
-                                           class="ml-2"
-                                           color="teal"
-                                           dark
-                                           v-if="this.$store.state.user.role==='admin' || this.$store.state.user.role==='producer'|| this.$store.state.user.role==='retailer' "
-                                    >
-                                        Generate Sub-Product
-                                    </v-btn>
-                                    <v-btn @click="openDialog(justification,'finalize','a justification')"
-                                           class="ml-2" color="red accent-4"
-                                           dark>
-                                        Finalize Product
-                                    </v-btn>
-                                </v-row>
-                            </v-container>
-                            <v-container>
-                                <form>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Temperature ºC</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.temperature,'temperature','Temperature ºC')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'temperature')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                outlined
-                                                readonly
-                                                v-model="product.temperature==null?'N/A':product.temperature"
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.humidity,'humidity','Humidity kg/m³')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'humidity')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                outlined
-                                                readonly
-
-                                                v-model="product.humidity==null?'N/A':product.humidity"
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>CO2</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openDialog(product.humidity,'co2','CO2')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'co2')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                outlined
-                                                readonly
-                                                v-model="product.co2==null?'N/A':product.co2"
-
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Shock</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'shock')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                label="Acceleration"
-                                                outlined
-                                                readonly
-                                                v-model="product.acceleration==null?'N/A':product.acceleration"
-
-                                        />
-
-                                        <v-text-field
-                                                label="Duration"
-                                                outlined
-                                                readonly
-                                                v-model="product.duration==null?'N/A':product.duration"
-
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Tilt</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'tilt')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                label="X"
-                                                outlined
-                                                readonly
-                                                v-model="product.tiltX==null?'N/A':product.tiltX"
-
-                                        />
-                                        <v-text-field
-                                                label="Y"
-                                                outlined
-                                                readonly
-                                                v-model="product.tiltY==null?'N/A':product.tiltY"
-
-                                        />
-                                    </v-container>
-                                    <v-toolbar color="green" dark dense>
-                                        <v-toolbar-title>Localization</v-toolbar-title>
-                                        <v-spacer></v-spacer>
-                                        <v-btn @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null||product.final==true?'':'mdi-pencil'">
-                                            <v-icon>mdi-pencil</v-icon>
-                                        </v-btn>
-                                        <v-btn @click="callRoutePropertyDetails(product.recordId,'location')"
-                                               icon
-                                               v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-folder-clock'">
-                                            <v-icon>mdi-folder-clock</v-icon>
-                                        </v-btn>
-                                    </v-toolbar>
-                                    <v-container>
-                                        <v-text-field
-                                                label="Latitude"
-                                                outlined
-                                                readonly
-                                                v-model="product.latitude"
-                                        />
-                                        <v-text-field
-                                                label="Longitude"
-                                                outlined
-                                                readonly
-                                                v-model="product.longitude"
-                                        />
-                                    </v-container>
-                                </form>
-                            </v-container>
-                        </v-card>
-                    </v-col>
+                                </v-container>
 
 
-                </v-row>
-            </v-container>
+                            </v-card>
+
+                        </v-col>
+                        <v-col cols="6">
+
+                            <v-card>
+                                <v-container>
+                                    <v-card-title>Product Properties</v-card-title>
+                                    <v-card-text>
+
+
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>Temperature ºC</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openDialog(product.temperature,'temperature','Temperature ºC')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'temperature')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.temperature==null?'N/A':product.temperature"
+                                            />
+                                        </v-container>
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>Humidity kg/m³</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openDialog(product.humidity,'humidity','Humidity kg/m³')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'humidity')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    outlined
+                                                    readonly
+
+                                                    v-model="product.humidity==null?'N/A':product.humidity"
+                                            />
+                                        </v-container>
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>CO2</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openDialog(product.humidity,'co2','CO2')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'co2')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.co2==null?'N/A':product.co2"
+
+                                            />
+                                        </v-container>
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>Shock</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openShockDialog(product.acceleration,product.duration,'acceleration','duration')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'shock')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    label="Acceleration"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.acceleration==null?'N/A':product.acceleration"
+
+                                            />
+
+                                            <v-text-field
+                                                    label="Duration"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.duration==null?'N/A':product.duration"
+
+                                            />
+                                        </v-container>
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>Tilt</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openTiltDialog(product.tiltX,product.tiltY,'tiltX','tiltY')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'tilt')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    label="X"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.tiltX==null?'N/A':product.tiltX"
+
+                                            />
+                                            <v-text-field
+                                                    label="Y"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.tiltY==null?'N/A':product.tiltY"
+
+                                            />
+                                        </v-container>
+                                        <v-toolbar color="green" dark dense>
+                                            <v-toolbar-title>Localization</v-toolbar-title>
+                                            <v-spacer></v-spacer>
+                                            <v-btn @click="openLocalizationDialog(product.latitude,product.longitude,'latitude','longitude')"
+                                                   icon
+                                                   v-if="this.$store.state.user && this.$store.state.user.role!=='customer' && !product.final
+                                                && !product.proposals.length && product.owner===this.$store.state.user.publicKey">
+                                                <v-icon>mdi-pencil</v-icon>
+                                            </v-btn>
+                                            <v-btn @click="callRoutePropertyDetails(product.recordId,'location')"
+                                                   icon
+                                                   v-if="this.$store.state.user.role=='customer'||this.$store.state.user.role==null?'':'mdi-history'">
+                                                <v-icon>mdi-history</v-icon>
+                                            </v-btn>
+                                        </v-toolbar>
+                                        <v-container>
+                                            <v-text-field
+                                                    label="Latitude"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.latitude"
+                                            />
+                                            <v-text-field
+                                                    label="Longitude"
+                                                    outlined
+                                                    readonly
+                                                    v-model="product.longitude"
+                                            />
+                                        </v-container>
+
+
+                                    </v-card-text>
+                                </v-container>
+                            </v-card>
+                        </v-col>
+
+
+                    </v-row>
+                </v-container>
+
+            </v-card>
 
         </v-container>
+
+
+        <!--Dialogs-->
         <v-dialog max-width="600" v-model="dialogTransfer">
 
             <v-card fluid>
@@ -959,7 +976,7 @@
               return new Promise((resolve, reject) => {
                 return transactions.submit([updatePayload], true)
                   .then((response) => {
-                    console.log(response)
+
                     if (response.status && response.type === undefined) {
                       setTimeout(() => resolve({
                           title: 'Success',
@@ -990,7 +1007,7 @@
                         }
                       )
                     } else {
-                      console.log(error)
+                      console.error(error)
                       setTimeout(() => reject({
                         title: 'Error',
                         body: error,
@@ -1022,7 +1039,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([finalizePayload], true)
                 .then((response) => {
-                  console.log(response)
+
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
                         title: 'Success',
@@ -1049,7 +1066,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -1090,7 +1107,7 @@
             return new Promise((resolve, reject) => {
               return transactions.submit([transferPayload], true)
                 .then((response) => {
-                  console.log(response)
+
                   this.getProduct()
                   if (response.status && response.type === undefined) {
                     setTimeout(() => resolve({
@@ -1124,7 +1141,7 @@
                       }
                     )
                   } else {
-                    console.log(error)
+                    console.error(error)
                     setTimeout(() => reject({
                       title: 'Error',
                       body: error,
@@ -1305,7 +1322,7 @@
         this.dialogTransfer = true
       }
       ,
-      roleToEnum (role) {//todo perguntar as proffs se querem manter o custodiam e o reporter
+      roleToEnum (role) {//todo for the future
         if (role = 'owner') {
           return payloads.createProposal.enum.OWNER
         } else if (role = 'custodian') {

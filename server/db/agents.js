@@ -105,7 +105,7 @@ const fetchQuery = (publicKey, auth) => block => {
             })
 }
 
-//vai buscar o user atraves da pubKey
+
 const fetchUser = publicKey => {
     return r.table('users')
         .filter(hasPublicKey(publicKey))

@@ -28,7 +28,7 @@
                     <v-btn @click="submit" class="mr-4 ml-4">submit</v-btn>
                     <v-btn @click="clear">clear</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-8" light to="/singup">SignUp</v-btn>
+                    <v-btn class="mr-8" light to="/signup">SignUp</v-btn>
                 </v-row>
             </form>
 
@@ -64,8 +64,8 @@
         },
 
         data: () => ({
-            password: '123123123', //todo meter a null
-            username: 'admin', //todo meter a null
+            password: '',
+            username: '',
             showPassword: false
         }),
 
@@ -93,22 +93,23 @@
             login() {
                 const credentials = {
                     username: this.username,
-                    password: api.hashPassword(this.password) //Ver onde vou por esta função quando o ficheiro api desaparecer
+                    password: api.hashPassword(this.password)
                 };
                 axios.post("authorization", credentials).then(res => {
-                    transactions.setPrivateKey(this.password, res.data.encryptedKey);
+                  transactions.setPrivateKey(this.password, res.data.encryptedKey);
                     this.$store.commit("setToken", res.data.authorization);
                     let pubKey = window.atob(this.$store.state.token.split('.')[1]) //Vai buscar o valor do meio do token e depois decodes porque estava encoded em base-64
                     axios.get(`agents/${pubKey}`)
                         .then(res => {
                             this.$store.commit('setUser', res.data)
+                          this.$store.commit('setViewer',false)
                           this.$socket.client.emit('user_enter', res.data);
                             this.$router.push("dashboard")
                         }).catch(error => {
                         this.$emit('errorEvent', error)
                     })
                 }).catch(error => {
-                  console.log(error.toString())
+                  console.error(error)
                   this.$emit('errorEvent', error.response.data.error)
                 });
             },

@@ -86,13 +86,6 @@ const request = (method, endpoint, data) => {
     })
 }
 
-/**
- * Method specific versions of request
- */
-const get = _.partial(request, 'GET')
-const post = _.partial(request, 'POST')
-//const patch = _.partial(request, 'PATCH')
-
 
 
 /**
@@ -116,7 +109,6 @@ module.exports = {
     clearAuth,
     getPublicKey,
     request,
-    get,
-    post,
+
     postBinary
 }

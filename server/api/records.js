@@ -19,7 +19,7 @@
 const _ = require('lodash')
 const db = require('../db/records')
 
-const FILTER_KEYS = ['recordId', 'recordType', 'owner', 'receivingAgent', 'issuingAgent']//@luana add 2 keys for answer proposals
+const FILTER_KEYS = ['recordId', 'recordType', 'owner', 'receivingAgent', 'issuingAgent','final']
 
 const fetchProperty = ({recordId, propertyName}) => {
   return db.fetchProperty(recordId, propertyName)
@@ -37,12 +37,12 @@ const listRecords = params => {
 }
 
 const listProposals = params =>
-  db.listProposalsByAgent(_.pick(params, FILTER_KEYS))//@luana submit proposal
+  db.listProposalsByAgent(_.pick(params, FILTER_KEYS))
 
 module.exports = {
   fetchProperty,
   fetchRecord,
   listRecords,
-  listProposals//@luana submit proposal
+  listProposals
 
 }

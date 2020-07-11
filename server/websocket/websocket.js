@@ -1,6 +1,7 @@
 'use strict'
 
 var LoggedUsers = require('./loggedusers.js')
+const { createAdmin } = require('../api/users')
 
 let loggedUsers = new LoggedUsers()
 
@@ -12,7 +13,7 @@ function start (io) {
         socket.join('role_' + user.role)
         loggedUsers.addUserInfo(user, socket.id)
         let userInfo = loggedUsers.userInfoByPublicKey(user.publicKey)
-        console.log('Entrou  user : ' + userInfo.user.name)
+        console.log('User enter : ' + userInfo.user.name)
         socket.to(userInfo.socketID).emit('newUser')
       }
     })
@@ -24,8 +25,6 @@ function start (io) {
     })
 
     socket.on('newUser', function (user) {
-
-      console.log('vou dizer ao admin!!')
       socket.to('role_admin').emit('newUser',user)
     })
 
@@ -37,6 +36,7 @@ function start (io) {
         socket.to(userInfo.socketID).emit('newProposal', proposal)
       }
     })
+
   })
 }
 

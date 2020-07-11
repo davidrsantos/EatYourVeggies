@@ -27,7 +27,7 @@ const USER_SCHEMA = { // Onde define as propriedades do user para posteriormente
   publicKey: String,
   '?encryptedKey': String,
     nif: String.of(9,null), //9 é o tamanho exato do campo e o null é para não meter restrições na string
-    role: ['admin', 'producer','distributor','retailer','customer'], //são o tipo de roles possiveis de um user da blockchin ser
+    role: ['admin', 'producer','distributor','retailer','customer'],
   active: [0,1],
   '*': null
 }

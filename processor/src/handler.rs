@@ -1550,7 +1550,6 @@ impl SupplyChainTransactionHandler {
             property::PropertySchema_DataType::LOCATION => {
                 reported_value.set_location_value(value.get_location_value().clone())
             }
-            //@luana add TIMESTAMP for rescord properties
             property::PropertySchema_DataType::TIMESTAMP => {
                 reported_value.set_timestamp_value(value.get_timestamp_value())
             }

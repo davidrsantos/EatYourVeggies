@@ -1,36 +1,84 @@
 <template>
+    <span>
+    <v-container class="home-hero" fill-height fluid style="max-height: 100vh;">
+        <v-layout align-center column justify-center pa-5>
+            <div class="display-4 font-weight-black white--text text-xs-center">
+                Welcome to Eat Your Veggies
+            </div>
+            <div class="display-1 font-weight-bold white--text text-xs-center">
+                Check the available products in our platform
 
-    <v-card  height="85vh" width="100%" class="mt-4 mb-4"
-    >
-
-        <v-img align="center" class="white--text  align-center " height="100%" src="@/assets/background.jpg">
-
-            <v-card-title class="display-4 py-3 justify-center flex  font-weight-black">Welcome to Eat Your Veggies
-            </v-card-title>
-
-            <v-btn light to="/login" x-large>Login</v-btn>
-
-                <v-btn  light to="/signup" x-large>SignUp</v-btn>
-
-            <v-row class="justify-center">
-                <v-btn @click="role" light  x-large>View available products
-                </v-btn>
-
-            </v-row>
+            </div>
+ <div class="arrow" v-scroll-to="'#managerProducts'">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                      </div>
 
 
-        </v-img>
-    </v-card>
 
+        </v-layout>
+    </v-container>
+        <manager-products class="mb-12 " id="managerProducts"></manager-products>
+    </span>
 </template>
 <script>
   export default {
-    methods: {
-      role(){
-        console.log('click')
-        this.$store.commit('setUser', {role:'viewer'})
-        this.$router.push('managerProducts')
-      }
-    }
+    name: 'welcome',
+    beforeCreate () {
+      this.$store.commit('setViewer', true)
+    },
   }
 </script>
+<style>
+    .home-hero {
+        background: url("../assets/background.jpg");
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+
+    .arrow {
+        position: relative;
+        top: 15%;
+
+
+        transform: translate(-50%, -50%);
+    }
+
+    .arrow span {
+        display: block;
+        width: 50px;
+        height: 50px;
+        border-bottom: 5px solid #4cba11;
+        border-right: 5px solid #4cba11;
+        transform: rotate(45deg);
+        margin: -10px;
+        animation: animate 2s infinite;
+    }
+
+    .arrow span:nth-child(2) {
+        animation-delay: -0.2s;
+    }
+
+    .arrow span:nth-child(3) {
+        animation-delay: -0.4s;
+    }
+
+
+    @keyframes animate {
+        0% {
+            opacity: 0;
+            transform: rotate(45deg) translate(-20px, -20px);
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+    }
+
+
+</style>

@@ -6,7 +6,6 @@ import drawer from '../components/Drawer.vue'
 import signup from '../components/Signup_form.vue'
 import login from '../components/Login_form'
 import addProduct from '../views/AddProduct'
-import managerProducts from '../views/ManagerProducts'
 import editProduct from '../views/EditProduct'
 import welcome from '../views/welcome.vue'
 import profile from '../views/profile'
@@ -20,7 +19,9 @@ import UserDetailsView from '../views/admin/UserDetailsView'
 import requestPassword from '../components/requestPassword'
 import googleMap from "../components/GoogleMap"
 import DivideProduct from '../components/DivideProduct'
+import ManagerProducts from '../views/ManagerProducts'
 
+Vue.component('manager-products', ManagerProducts),
 Vue.component('user-details',userDetails)
 Vue.component('errorDialog', errorDialog)
 Vue.component('drawer', drawer);
@@ -55,8 +56,8 @@ const routes = [
     },
     {
         path: '/products',
-        name: 'managerProducts',
-        component: managerProducts
+        name: 'ManagerProducts',
+        component: ManagerProducts
     },
     {
         path: '/products/:recordId/property/:name',
@@ -97,9 +98,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-
-
-    if (from.name == to.name) {
+    if (from.name === to.name) {
         next(false);
         return;
     }
@@ -109,8 +108,8 @@ router.beforeEach((to, from, next) => {
     }
 
 
-    console.log("to: " + to.name + " from: " + from.name + " next: " + next.name)
-    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'signup' && to.name !=='managerProducts' && to.name !=='userDetails' ) && !store.state.user) next({name: 'welcome'})
+
+    if ((to.name !== 'welcome' && to.name !== 'login' && to.name !== 'signup' && to.name !=='ManagerProducts' && to.name !=='userDetails' ) && !store.state.user) next({name: 'welcome'})
     else next()
 
 

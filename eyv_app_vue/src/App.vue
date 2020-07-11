@@ -2,15 +2,15 @@
 
     <v-app id="inspire">
 
-        <v-app-bar app clipped-left color="#66BB6A" dark elevate-on-scroll>
-            <v-app-bar-nav-icon class="ml-10 mr-5" to="/">
+        <v-app-bar app clipped-left color="primary" dark elevate-on-scroll>
+            <v-app-bar-nav-icon class="ml-10 mr-5" to="/dashboard">
                 <v-avatar size="90px">
                     <img src="icon.png"/>
                 </v-avatar>
             </v-app-bar-nav-icon>
 
 
-            <v-toolbar-title link="/dashboard">Eat Your Veggies</v-toolbar-title>
+            <v-toolbar-title>Eat Your Veggies</v-toolbar-title>
 
             <v-spacer></v-spacer>
 
@@ -84,25 +84,22 @@
                 </v-toolbar-title>
                 <v-btn @click="logout" class="ma-4">Logout</v-btn>
             </template>
-
-
+            <template v-else>
+                <v-btn light to="/login"  dark color="green darken-3" large class="ma-2">Login</v-btn>
+                <v-btn light to="/signup"  dark large color="green darken-3" class="ma-2">SignUp</v-btn>
+            </template>
         </v-app-bar>
 
-        <v-footer absolute app color="#66BB6A">
 
-            <span class="white--text">&copy;Instituto Politécnico de Leiria - 2020 - Projeto Informático  </span>
-        </v-footer>
-
-        <v-content app
+        <v-content app transition="slide-x-transition"
         >
-            <v-container>
-                <router-view @errorEvent="handleError" @registEvent="handleRegist"
-                             @requestPasswordEvent="handleRequestPassword"/>
 
+            <router-view @errorEvent="handleError" @registEvent="handleRegist"
+                         @requestPasswordEvent="handleRequestPassword"/>
 
-            </v-container>
 
         </v-content>
+
         <v-navigation-drawer app clipped expand-on-hover mini-variant
                              permanent
                              v-if="this.$store.state.token && (this.$store.state.user!=null)"
@@ -115,12 +112,17 @@
         <vue-snotify></vue-snotify>
         <v-dialog v-model="requestPassword" width="unset">
             <v-card>
-            <v-card-title class="red darken-1">Your session expired!</v-card-title>
-                <v-card-subtitle class="red darken-1" v-if="this.$store.state.user">Sorry {{this.$store.state.user.name}} for security reasons you need to input your password again</v-card-subtitle>
-            <request-password @close="requestPassword=false"/>
+                <v-card-title class="red darken-1">Your session expired!</v-card-title>
+                <v-card-subtitle class="red darken-1" v-if="this.$store.state.user">Sorry
+                    {{this.$store.state.user.name}} for security reasons you need to input your password again
+                </v-card-subtitle>
+                <request-password @close="requestPassword=false"/>
             </v-card>
         </v-dialog>
+        <v-footer app color="primary" >
 
+            <span class="white--text">&copy Politécnico de Leiria - 2020 - Projeto Informático  </span>
+        </v-footer>
     </v-app>
 
 </template>
@@ -147,7 +149,6 @@
           },
           {
             text: 'Later', action: (toast) => {
-              console.log('Clicked: Later')
               vm.$snotify.remove(toast.id)
             }
           },
@@ -166,10 +167,10 @@
       },
       newProposal (proposal) {
         let buttons = [
-          { text: 'Details', action: () =>     this.$router.push({path :'/dashboard'}) },
+          { text: 'Details', action: () => this.$router.push({ path: '/dashboard' }) },
           {
             text: 'Later', action: (toast) => {
-              console.log('Clicked: Later')
+
               vm.$snotify.remove(toast.id)
             }
           },
