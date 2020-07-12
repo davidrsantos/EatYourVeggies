@@ -29,6 +29,7 @@ const recordTypes = require('./record_types')
 const blockchain = require('../blockchain/')
 const batcher = require('../blockchain/batcher')
 const config = require('../system/config')
+var cors = require('cors')
 const multer = require('multer')
 
 const router = express.Router()
@@ -182,6 +183,10 @@ const upload = multer({
  * Route and Middleware Setup
  */
 
+
+router.use(cors())
+
+
 router.use(bodyParser.json({ type: 'application/json' }))
 router.use(bodyParser.raw({ type: 'application/octet-stream' }))
 
@@ -230,14 +235,14 @@ router.get('/proposals-all/:recordId', handle(records.listProposals))
 router.post('/upload/:recordId', upload.single('file'), (req, res) => {
   res.json({ file: req.file })
 })
-router.get('/image/:recordId', function (req, res) {
+router.get('/image/:recordId', function (req, res, next) {
   let recordId = req.params.recordId
   let reocordParent = recordId.split('-')
   res.sendFile('/sawtooth-supply-chain/server/images/' + reocordParent[0] + '.jpg', {}, function (err) {
     if (err) {
       res.sendFile('/sawtooth-supply-chain/server/images/default.jpg', {}, function (err) {
         if (err) {
-          next(err)
+          next(err)//
         }
       })
     }

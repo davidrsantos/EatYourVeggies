@@ -5,7 +5,7 @@
   "scripts": {
     "generate-proto-files": "node scripts/generate_proto_json.js > src/generated_protos.json",
     "serve": "npm run generate-proto-files && vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "npm run generate-proto-files && vue-cli-service build"
   },
   "dependencies": {
     "@mdi/font": "^3.6.95",

@@ -116,7 +116,7 @@
                                 <v-divider></v-divider>
                                 <v-img
                                     :src="
-                                        'http://localhost:8021/image/' +
+                                        'http://localhost:8020/image/' +
                                             item.recordId
                                     "
                                     eager
