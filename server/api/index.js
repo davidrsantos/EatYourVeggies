@@ -29,6 +29,7 @@ const recordTypes = require('./record_types')
 const blockchain = require('../blockchain/')
 const batcher = require('../blockchain/batcher')
 const config = require('../system/config')
+var cors = require('cors')
 const multer = require('multer')
 
 const router = express.Router()
@@ -181,6 +182,10 @@ const upload = multer({
 /*
  * Route and Middleware Setup
  */
+
+
+router.use(cors())
+
 
 router.use(bodyParser.json({ type: 'application/json' }))
 router.use(bodyParser.raw({ type: 'application/octet-stream' }))

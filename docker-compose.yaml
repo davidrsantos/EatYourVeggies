@@ -13,7 +13,7 @@
 # limitations under the License.
 # ------------------------------------------------------------------------------
 
-version: '2.1'
+version: '2.2'
 
 services:
 
@@ -200,3 +200,16 @@ services:
       sawtooth-rest-api -vv
         --connect tcp://validator:4004
         --bind rest-api:8008
+
+
+  eyv-client:
+    container_name: evy
+    build:
+      context: ./eyv_app_vue
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    environment:
+      - API_URL=http://localhost:8020/
+    depends_on:
+      - server
