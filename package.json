@@ -1,0 +1,9 @@
+{
+  "name": "EYV-Sawtooth-Supply-Chain",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "js-schema": "^1.0.1",
+    "lodash": "latest"
+  }
+}
