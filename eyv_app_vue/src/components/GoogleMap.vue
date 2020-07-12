@@ -16,13 +16,16 @@
                 </v-toolbar>
             </v-col>
             <v-col align="center">
-                <v-toolbar dense height="100" width="600">
+                <v-toolbar dense height="80" width="600">
+                    <v-container>
+                    <v-row align="center" justify="center">
+
                     <v-text-field
                         :error-messages="LatErrors"
                         @blur="$v.latitude.$touch()"
                         @input="$v.latitude.$touch()"
                         label="Latitude"
-                        outlined
+
                         v-model="latitude"
                     >
                     </v-text-field>
@@ -32,7 +35,6 @@
                         @blur="$v.longitude.$touch()"
                         @input="$v.longitude.$touch()"
                         label="Longitude"
-                        outlined
                         v-model="longitude"
                     >
                     </v-text-field>
@@ -40,12 +42,14 @@
                     <v-btn
                         :disabled="submitStatus === 'ERROR'"
                         @click="insertLocalization"
-                        align="center"
                         color="green"
                     >
                         Add
                     </v-btn>
+                    </v-row>
+                    </v-container>
                 </v-toolbar>
+
             </v-col>
         </v-row>
         <br />

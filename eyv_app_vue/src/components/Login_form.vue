@@ -3,7 +3,7 @@
         <v-container>
             <form>
                 <v-text-field
-                    :counter="10"
+                    :counter="50"
                     :error-messages="usernameErrors"
                     @blur="$v.username.$touch()"
                     @input="$v.username.$touch()"
@@ -51,7 +51,7 @@ export default {
 
         username: {
             required,
-            maxLength: maxLength(10)
+            maxLength: maxLength(50)
         }
     },
 
