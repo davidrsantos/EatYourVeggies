@@ -235,14 +235,14 @@ router.get('/proposals-all/:recordId', handle(records.listProposals))
 router.post('/upload/:recordId', upload.single('file'), (req, res) => {
   res.json({ file: req.file })
 })
-router.get('/image/:recordId', function (req, res) {
+router.get('/image/:recordId', function (req, res, next) {
   let recordId = req.params.recordId
   let reocordParent = recordId.split('-')
   res.sendFile('/sawtooth-supply-chain/server/images/' + reocordParent[0] + '.jpg', {}, function (err) {
     if (err) {
       res.sendFile('/sawtooth-supply-chain/server/images/default.jpg', {}, function (err) {
         if (err) {
-          next(err)
+          next(err)//
         }
       })
     }

@@ -19,7 +19,6 @@ processor/src/messages/
 tests/sawtooth_sc_test/protobuf/
 
 /server/config.json
-**/generated_protos.json
 
 /docs/build/
 /docs/source/_autogen/
@@ -32,5 +31,4 @@ tests/sawtooth_sc_test/protobuf/
 *.njsproj
 *.sln
 *.sw?
-/package.json
-/server/images/
+

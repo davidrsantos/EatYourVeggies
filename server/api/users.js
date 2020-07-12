@@ -112,7 +112,7 @@ const createAdmin = () => {
             authorization: token,
             encryptedKey: user.encryptedKey || null,
             user: user
-          })).catch((e) => console.log(e))
+          })).catch((e) => {})
       })
 
       return Promise.all(userRequests)
