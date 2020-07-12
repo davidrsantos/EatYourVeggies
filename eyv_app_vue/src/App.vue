@@ -253,6 +253,7 @@ export default {
         setBatcherPubkey();
         if (this.$store.state.user) {
             this.$socket.client.emit('user_enter', this.$store.state.user);
+          this.$store.commit('setViewer', false);
             this.$router.push('dashboard');
         }
     },

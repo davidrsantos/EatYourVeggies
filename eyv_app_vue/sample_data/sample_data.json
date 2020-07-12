@@ -1,28 +1,28 @@
 {
   "records": [
     {
-      "recordId": "xxx1",
+      "recordId": "5f078bef0b5efa5f137a977f",
       "recordType": "vegetable",
       "properties": [
         {
           "name": "name",
           "dataType": 4,
-          "stringValue": "Yang"
+          "stringValue": "Batata"
         },
         {
           "name": "classification",
           "dataType": 4,
-          "stringValue": "legume"
+          "stringValue": "Horticula"
         },
         {
           "name": "origin",
           "dataType": 4,
-          "stringValue": "brasil"
+          "stringValue": "Portugal"
         },
         {
           "name": "cultivationProcess",
           "dataType": 4,
-          "stringValue": "biologica"
+          "stringValue": "Biologica"
         },
         {
           "name": "size",
@@ -49,29 +49,5858 @@
         }
       ],
       "ownerIndex": 0,
-      "custodianIndex": 2,
-      "reporterIndex": 1,
       "reportableProperties": [
         "temperature",
-        "humidity",
-        "co2",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef1b68b6bc2bc25c32",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef49cc47ee284cac2c",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befbc3890a275fd8668",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befc546701193e0331c",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef44205107e8a10a94",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befe408b6aee31b50f9",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef1d56a5173d9ed7bf",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef4133a3d5f6d78c94",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 13,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef85a932a5bd7be732",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef156424d51828e9fd",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befdda877656196f1ec",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befa7b605f91cbbc62b",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef29a219aabb76f689",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef541110327e0d5338",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef13c018a5d7e7c2a5",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef0037d932c23fada7",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef214b1aa12d449af8",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef0e78b5960ea72204",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befb43e7eecda1c89c5",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befbb5a1d6c836549cc",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef123226ffa2f21d97",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef0f59d0cbb74b94ce",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 8,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befb214952b2022842b",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 5,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef7ebca9ede0221894",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 8,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef85fd9598eb5691d6",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef920486abdd9e6f85",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef586df87a1e24ffb4",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befaff7d12f5a13bca5",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef746236fe7c58b349",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef68dabc689179098f",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beffeef60c25315a3d9",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 5,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befa454f4e7c5a4ac68",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 8,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befbe6b1653a1107000",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 9,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beffaa194bf5e123b43",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef9491348552a33506",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befa76e9e5870391dce",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 13,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befcf897ddd2921d6d4",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 9,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef64837e38e5fbb6d2",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef940ddad77090fd15",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befc0706eb542f73d60",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befa2d72c4e6f2ca282",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef1afa2e1f8fae855f",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef9fb677f11112ce59",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befdd1ad3f995e2fc58",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef7ed3be7f26c06dbc",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef4487c1c42de4ba78",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befb995b49d5643027f",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befaef8a1f1c1bd8192",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beff7fe069d1dca27c6",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 13,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beff5ff2c2ddffe6e51",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef6461705fe8fc4415",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef75f9756d25d94087",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef510922484da7f5be",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef70932f3afa74b93e",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beff015c8a4bc476461",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef2a361a4f41c926d3",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef7b81dd66a5122a7c",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef7db0df3890b6f494",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 15,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befddd1415212066433",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef8ae5d8a3ea7b343c",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef55a9deb9c811e4aa",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef3fd26efb703ee86e",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef84ee4d36775c4c73",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 13,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef5d41fb29d4372585",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 9,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef39bf616db3392e88",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 0,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef416db04a22110dea",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef9cae118fbf0447a2",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befc849044162f43630",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef8005de9cc44b6a11",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befce1b41329b9cf777",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 5,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef0ae67c126a9c0d70",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 13,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef984c9a336f7fb8bf",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 5,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef9eb0113852b26839",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef882eac3fb92d3d3c",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 0,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef580949c3db0745b6",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befc4e125973bd9a9f6",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befa8a1d544057495bb",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befb877cda42551ed19",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef84e246b1fc9a8f5a",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 15,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befd58677702b68d643",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 1,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef7fd1a6fe11799217",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef8a53aed416f61b02",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befeb8b6576a67890f6",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 15,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befd4ac8052bfff78ac",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befb0d824e72790071e",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 9,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef8211b9896c97b02a",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 14,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078beffc9a8fe48ff2b7bb",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 0,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befcc178e6ac4d5dd5a",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 9,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef51dc93d6e2582181",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cebola"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef5cc87326453ce16a",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Pepino"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 0,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef25107f87fe743e63",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 6,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef4169e9a7ec882956",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 2,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befcf8f5162ac6603ac",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Batata"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 11,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078befe337727c4a33dc34",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef22a683c5b00304a3",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Arroz"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 3,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef9dd3535b2a626110",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 4,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef83f5bbb5eaaed8d2",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 10,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef1c2a1eec61e696cc",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Cenoura"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 7,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
+        "location",
+        "tilt",
+        "shock"
+      ]
+    },
+    {
+      "recordId": "5f078bef8b388466809788eb",
+      "recordType": "vegetable",
+      "properties": [
+        {
+          "name": "name",
+          "dataType": 4,
+          "stringValue": "Alface"
+        },
+        {
+          "name": "classification",
+          "dataType": 4,
+          "stringValue": "Horticula"
+        },
+        {
+          "name": "origin",
+          "dataType": 4,
+          "stringValue": "Portugal"
+        },
+        {
+          "name": "cultivationProcess",
+          "dataType": 4,
+          "stringValue": "Biologica"
+        },
+        {
+          "name": "size",
+          "dataType": 3,
+          "numberValue": 3257000
+        },
+        {
+          "name": "weight",
+          "dataType": 3,
+          "numberValue": 247096000
+        },
+        {
+          "name": "harvestDate",
+          "dataType": 8,
+          "timestampValue": 1235544623
+        },
+        {
+          "name": "location",
+          "dataType": 7,
+          "locationValue": {
+            "latitude": 42456486,
+            "longitude": -67982434
+          }
+        }
+      ],
+      "ownerIndex": 12,
+      "reportableProperties": [
+        "temperature",
+        "humidade",
         "location",
         "tilt",
         "shock"
       ]
     }
-
   ],
   "agents": [
     {
-      "username": "admin",
-      "name": "Administrator",
-      "email": "admin@admin.admin",
-      "nif": "100763801",
-      "password": "123123123",
-      "role": "admin",
-      "privateKey": "1d21118c92c46978ceaa59ebaaa5b574495ded2fd6573c4bb4a24cc0b88991c0",
+      "username": "bmaster0",
+      "name": "Brodie",
+      "email": "bboyn0@shutterfly.com",
+      "nif": "384872928",
+      "password": "jyRK5jJ6u",
+      "role": "producer",
+      "privateKey": "f5677e4761058bae20860de8e2ad6dacd318a9528aadf68194206fbcb9408eaa",
+      "active": 0
+    },
+    {
+      "username": "phaylett1",
+      "name": "Penn",
+      "email": "ploveitt1@yale.edu",
+      "nif": "732260927",
+      "password": "DLvBIJjoC",
+      "role": "customer",
+      "privateKey": "5ff4ab6d1d149cb7c8272551585715acf8b7ea62b7bd46772ddf976f77338ba9",
       "active": 1
+    },
+    {
+      "username": "tbeeze2",
+      "name": "Tarra",
+      "email": "tfranschini2@friendfeed.com",
+      "nif": "489828499",
+      "password": "ndolpMXoC",
+      "role": "customer",
+      "privateKey": "111f109a803bc7a1fd3fedd745716ed59f68147694ee1d70cbae2fecae729186",
+      "active": 0
+    },
+    {
+      "username": "drickertsen3",
+      "name": "Dido",
+      "email": "dtarry3@nyu.edu",
+      "nif": "804037616",
+      "password": "p6SvKhap89",
+      "role": "distributor",
+      "privateKey": "6e2126c17ff1d4155c9cf89118d1e306b855041fdb880c284d3c4abfd9f7f3c0",
+      "active": 1
+    },
+    {
+      "username": "rcurrell4",
+      "name": "Rowland",
+      "email": "rhavard4@elpais.com",
+      "nif": "602002780",
+      "password": "OQ1al2P2",
+      "role": "distributor",
+      "privateKey": "b8a34f0f5e10babeb93f0e0e1978f478257db5d50a05986714dd50d421235ba5",
+      "active": 0
+    },
+    {
+      "username": "splane5",
+      "name": "Suzie",
+      "email": "sheistermann5@jimdo.com",
+      "nif": "271271987",
+      "password": "x5PFmEU2",
+      "role": "producer",
+      "privateKey": "bb382e3ac3cab9d382c43808f05b04a6957c24cd2bb2ca7cceda277fa7778231",
+      "active": 0
+    },
+    {
+      "username": "nbellward6",
+      "name": "Noni",
+      "email": "nnalder6@howstuffworks.com",
+      "nif": "953413007",
+      "password": "DuYApb5",
+      "role": "customer",
+      "privateKey": "0f3143611eea67e8af5c5081bd0a15db8e844a96639cc3909e02961ab5b36371",
+      "active": 1
+    },
+    {
+      "username": "lmoyles7",
+      "name": "Lorne",
+      "email": "ltidbold7@wordpress.org",
+      "nif": "299359058",
+      "password": "pBdzYDYR1Qkm",
+      "role": "producer",
+      "privateKey": "37bce295a866e04dd6488c7e73d1bbf61b2a86708b7922cc9303820e7d900037",
+      "active": 0
+    },
+    {
+      "username": "ktrelease8",
+      "name": "Kathye",
+      "email": "kmorant8@npr.org",
+      "nif": "688684352",
+      "password": "92V2V6R",
+      "role": "distributor",
+      "privateKey": "dbb211d0b962d02d6a88e191c18acc8024e14d3ec178a852dc581e5744c8b3b2",
+      "active": 0
+    },
+    {
+      "username": "ncurner9",
+      "name": "Nikki",
+      "email": "nmaryska9@typepad.com",
+      "nif": "717716879",
+      "password": "LSCMM0o5z",
+      "role": "retailer",
+      "privateKey": "85d67033af8f5097875efac906c56c706be064821b4293e5fdc20a7b06239c13",
+      "active": 1
+    },
+    {
+      "username": "crolya",
+      "name": "Chrissie",
+      "email": "cdicksa@home.pl",
+      "nif": "545211904",
+      "password": "TNuaeB0twlc0",
+      "role": "retailer",
+      "privateKey": "e0cd954c028e4c9928941c02a4808fc8dc0fc277d33616db2ab18cc47231dd50",
+      "active": 0
+    },
+    {
+      "username": "acausbyb",
+      "name": "Alf",
+      "email": "ajellymanb@vk.com",
+      "nif": "007648487",
+      "password": "9HoNiuIj6XK",
+      "role": "customer",
+      "privateKey": "18da700b1aceaff08dbc90474b77b8938836085830897ab696f9608e1020f655",
+      "active": 0
+    },
+    {
+      "username": "jdorrityc",
+      "name": "Jillie",
+      "email": "jrolfc@amazon.co.jp",
+      "nif": "303685938",
+      "password": "OQDVlnTT4QV",
+      "role": "producer",
+      "privateKey": "b869207d6ef586992795ea59b62ec23a63099557981f9b4bd0cd82ae033a7260",
+      "active": 1
+    },
+    {
+      "username": "ledgsond",
+      "name": "Lek",
+      "email": "lnowickd@intel.com",
+      "nif": "367221349",
+      "password": "SJI41FX",
+      "role": "retailer",
+      "privateKey": "61dc61f66ebb2af813b122b4c8d1330c2e84168f3efa93edfbbcebb665af5b7b",
+      "active": 0
+    },
+    {
+      "username": "bkerriche",
+      "name": "Babbie",
+      "email": "bcadwelle@gizmodo.com",
+      "nif": "881376526",
+      "password": "svuqIDCjE",
+      "role": "producer",
+      "privateKey": "5945f0aedfd9ef92d43d748886f1948999fb79a986ddbb755d7d7c40b96f3504",
+      "active": 1
+    },
+    {
+      "username": "aheminsleyf",
+      "name": "Aurilia",
+      "email": "anorvillf@reference.com",
+      "nif": "420943397",
+      "password": "VDxUzXVvliT",
+      "role": "distributor",
+      "privateKey": "78a7ef728a2dd5fab12150c1ae25ba56a9f24d2e5b07ce1cf425f9383c2fcb02",
+      "active": 1
+    },
+    {
+      "username": "gswayneg",
+      "name": "Gregorio",
+      "email": "gginnig@jugem.jp",
+      "nif": "493929127",
+      "password": "ine05s",
+      "role": "retailer",
+      "privateKey": "ed7f181f395ff777430795ccc2f032f98db130b93f5bbec1f06beb3daa10355f",
+      "active": 0
+    },
+    {
+      "username": "cclaptonh",
+      "name": "Colene",
+      "email": "cwadduph@nba.com",
+      "nif": "918229717",
+      "password": "sDAQX5l9H",
+      "role": "retailer",
+      "privateKey": "5db705f2b37d08ba1c256719fa6a220ba4efadd7e3c42d458e2318009500fd00",
+      "active": 0
+    },
+    {
+      "username": "kbockingsi",
+      "name": "Kinnie",
+      "email": "kengleyi@unblog.fr",
+      "nif": "226173246",
+      "password": "OH18IRKmsofs",
+      "role": "producer",
+      "privateKey": "18237fa1269288438795b3b5ccd44a91b89300bc28e1658cc9f9d09edaa5be7b",
+      "active": 1
+    },
+    {
+      "username": "cwinscombj",
+      "name": "Cooper",
+      "email": "ctruswellj@plala.or.jp",
+      "nif": "090512221",
+      "password": "p4Kc5vsubG",
+      "role": "customer",
+      "privateKey": "ddb9d113120da4d7d33923289fede6ddecb6e7bff72258b4338d62c452b6b882",
+      "active": 0
     }
   ]
 }
