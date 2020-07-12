@@ -56,7 +56,7 @@ const createAdmin = () => {
     }]
 
   let createTxn = null
- return protos.compile()
+  return protos.compile()
     .then(awaitServerPubkey)
     .then(batcherPublicKey => {
       const txnCreators = {}
@@ -78,9 +78,8 @@ const createAdmin = () => {
           createAgent: protos.CreateAgentAction.create({ name: agent.name })
         }))
       })
-
       return submitTxns(agentAdditions)
-    })
+    }).catch(reason => console.log("Admin was here"))
 
     // Create Users
     .then(() => {
@@ -132,7 +131,7 @@ const create = user => {
     .then(hashed => {
       return users.insert(_.assign({}, user, {
         password: hashed,
-        active:  0
+        active: 0
       }))
         .catch(err => { throw new BadRequest(err.message) })
     })

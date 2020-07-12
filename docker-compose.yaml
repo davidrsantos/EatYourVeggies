@@ -29,7 +29,6 @@ services:
         - no_proxy
     volumes:
       - .:/sawtooth-supply-chain
-      - /sawtooth-supply-chain/fish_client/node_modules
       - /sawtooth-supply-chain/server/node_modules
     depends_on:
       - rethink
@@ -105,7 +104,7 @@ services:
       - 'http_proxy=${http_proxy}'
       - 'https_proxy=${https_proxy}'
       - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
-    entrypoint: nodemon -L index.js
+    entrypoint: node index.js
 
   ledger-sync:
     image: supply-ledger-sync
@@ -131,18 +130,6 @@ services:
       - 'https_proxy=${https_proxy}'
       - 'no_proxy=rest-api,server,eth0,validator,${no_proxy}'
 
-  #  fish-client:
-  #    image: supply-fish-client
-  #    container_name: supply-fish-client
-  #    build: ./fish_client
-  #    volumes:
-  #      - ./fish_client/public/:/usr/local/apache2/htdocs/
-  #    expose:
-  #      - 80
-  #    ports:
-  #      - '8022:80'
-  #    depends_on:
-  #      - server
 
   rethink:
     image: rethinkdb
@@ -203,12 +190,12 @@ services:
 
 
   eyv-client:
-    container_name: evy
+    container_name: evy-client
     build:
       context: ./eyv_app_vue
       dockerfile: Dockerfile
     ports:
-      - '80:80'
+      - '8080:80'
     environment:
       - API_URL=http://localhost:8020/
     depends_on:

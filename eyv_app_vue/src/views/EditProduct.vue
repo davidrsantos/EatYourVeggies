@@ -49,7 +49,7 @@
                     <v-row>
                         <v-img
                                 :src="
-                                'http://localhost:8021/image/' +
+                                'http://localhost:8020/image/' +
                                     product.recordId
                             "
                                 class="ma-4"
