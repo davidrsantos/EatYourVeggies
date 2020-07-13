@@ -69,7 +69,7 @@ And with the administrator account you can activate the new user that you create
 ### The blockchain already has users and products
 but all of the users are desactivated e need to activate them
 
-####Destroy the EYV
+#### Destroy the EYV
 
 
 In bash you can shutdown these components with the key combination: `ctrl-C`.
