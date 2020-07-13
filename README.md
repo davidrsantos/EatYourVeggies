@@ -57,7 +57,7 @@ available through HTTP endpoints, including:
 - RethinkDB's admin panel will be available at **http://localhost:8023**
 - Sawtooth's blockchain REST API will be available at **http://localhost:8024**
 
-##Create User
+## Create User
 You can sign up with a user of your choice.
 But then you need to login with 
 ```
@@ -66,10 +66,10 @@ But then you need to login with
 ```
 And with the administrator account you can activate the new user that you create.
 
-### The blockchain already has users and products
+## The blockchain already has users and products
 but all of the users are desactivated e need to activate them
 
-#### Destroy the EYV
+### Destroy the EYV
 
 
 In bash you can shutdown these components with the key combination: `ctrl-C`.
