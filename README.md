@@ -39,7 +39,7 @@ specific to your OS to install and run whatever components are required to use
 `docker` and `docker-compose` from your command line. This is only dependency
 required to run Eat Your Veggies Supply Chain components.
 
-### Start Up
+## Start Up
 
 Once Docker is installed and you've cloned this repo, navigate to the root
 project directory and run:
@@ -57,7 +57,7 @@ available through HTTP endpoints, including:
 - RethinkDB's admin panel will be available at **http://localhost:8023**
 - Sawtooth's blockchain REST API will be available at **http://localhost:8024**
 
-###Create User
+##Create User
 You can sign up with a user of your choice.
 But then you need to login with 
 ```
@@ -66,7 +66,7 @@ But then you need to login with
 ```
 And with the administrator account you can activate the new user that you create.
 
-#### The blockchain already has users and products
+### The blockchain already has users and products
 but all of the users are desactivated e need to activate them
 
 ####Destroy the EYV
@@ -81,7 +81,7 @@ docker-compose down
 ```
 
 
-### Restarting Components
+## Restarting Components
 
 The default Docker containers use the `volumes` command to link directly to the
 source code on your host machine. As a result any changes you make will
