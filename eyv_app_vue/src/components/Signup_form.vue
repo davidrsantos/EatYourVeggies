@@ -187,9 +187,7 @@ export default {
                 this.$v.repeatPassword !== this.$v.password
             )
                 errors.push('Please make use the same password');
-            if (!this.$v.repeatPassword.required) {
-                errors.push('Password is required.');
-            }
+
 
             return errors;
         },

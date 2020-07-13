@@ -205,7 +205,9 @@ export default {
             let buttons = [
                 {
                     text: 'Details',
-                    action: () => this.$router.push({ path: '/dashboard' })
+                    action: () => {
+                      this.$router.push({ path: '/dashboard' })
+                      vm.$snotify.remove(toast.id)}
                 },
                 {
                     text: 'Later',

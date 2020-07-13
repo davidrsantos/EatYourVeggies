@@ -172,7 +172,7 @@ export default {
                             .then(res => {
                                 if (
                                     response ===
-                                    payloads.answerProposal.enum.ACCEPT
+                                    payloads.answerProposal.enum.ACCEPT && this.$store.state.user.role === 'custumer'
                                 ) {
                                     return this.justify(record);
                                 }
@@ -181,7 +181,7 @@ export default {
                             .then(res => {
                                 if (
                                     response ===
-                                    payloads.answerProposal.enum.ACCEPT
+                                    payloads.answerProposal.enum.ACCEPT && this.$store.state.user.role === 'custumer'
                                 ) {
                                     return this.finalizeProductSubmit(record);
                                 }
