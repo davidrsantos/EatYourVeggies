@@ -57,7 +57,7 @@ available through HTTP endpoints, including:
 - RethinkDB's admin panel will be available at **http://localhost:8023**
 - Sawtooth's blockchain REST API will be available at **http://localhost:8024**
 
-## Create User
+#### Create User
 You can sign up with a user of your choice.
 But then you need to login with 
 ```
